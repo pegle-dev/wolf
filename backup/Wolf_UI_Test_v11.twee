@@ -1,0 +1,1111 @@
+:: StoryTitle
+Wolf_UI_Test_v11
+
+
+:: StoryData
+{
+  "ifid": "9a365ce3-b9ef-49cc-8e82-d85e7db7e3d8",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start",
+  "tag-colors": {
+    "widget": "purple"
+  },
+  "zoom": 1
+}
+
+
+:: Hanbei01 {"position":"275,425","size":"100,100"}
+<<page>>남자는 사당 안에 비스듬히 서 있었다.
+
+헝클어진 머리카락.
+
+처진 눈썹 위로는 주름이 가득하다.
+<div class="choice-box">[[계속->Hanbei01_선택]]</div><</page>>
+
+
+:: Hanbei01_무시 {"position":"400,575","size":"100,100"}
+<<talk "hanbei" "한베">>…허어.
+<div class="choice-box">[[계속->Hanbei01_무시_늑대반응]]</div><</talk>>
+
+
+:: Hanbei01_무시_늑대반응 {"position":"400,700","size":"100,100"}
+<<talk "wolf" "늑대">>…
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+
+
+:: Hanbei01_선택 {"position":"275,575","size":"100,100"}
+<<page>><div class="narration">너덜너덜한 갑옷을 보면서
+그가 얼마나 오랫동안 세상을 떠돌아다녔는지
+늑대는 잠깐 짐작해 본다.
+
+다가가자 죽지 못하는 무사가 인사를 해왔다.</div>
+<div class="choice-box"><<link "인사한다." "Hanbei01_인사">>
+  <<set $hanbeiLove += 1>>
+  <<set $hanbeiProgress = 1>>
+<</link>>
+
+<<link "무시한다." "Hanbei01_무시">>
+  <<set $isolation += 1>>
+  <<set $hanbeiProgress = 1>>
+<</link>></div><</page>>
+
+
+:: Hanbei01_인사 {"position":"275,700","size":"100,100"}
+<<talk "hanbei" "한베">>자네는 의외로 친절하군.
+<div class="choice-box">[[계속->Hanbei01_인사_늑대반응]]</div><</talk>>
+
+
+:: Hanbei01_인사_늑대반응 {"position":"275,825","size":"100,100"}
+<<page>><div class="narration">그는 너털웃음을 짓는다.
+아니, 짓고 있을 것이다.
+마스크 때문에 보이진 않지만.
+
+늑대는 대답을 할까 하다가
+고개만 살짝 끄덕이고 돌아섰다.</div>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</page>>
+
+
+:: Hanbei02 {"position":"625,425","size":"100,100"}
+<<page>>사당을 지나가려 하자 한베가 말을 걸었다.
+<div class="choice-box">[[계속->Hanbei02_대사]]</div><</page>>
+
+
+:: Hanbei02_대련 {"position":"625,575","size":"100,100"}
+<<talk "wolf" "늑대">>…그 허수아비에게 한 수 배워보지.
+<div class="choice-box">[[계속->Hanbei02_대련_반응]]</div><</talk>>
+
+
+:: Hanbei02_대련_반응 {"position":"625,700","size":"100,100"}
+<<talk "hanbei" "한베">>하하하!
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+
+
+:: Hanbei02_대사 {"position":"500,550","size":"100,100"}
+<<talk "hanbei" "한베">>어이~ 대련 한 판 하고 가지 그래?
+
+밖에는 위험한 적들이 많다고.<br>
+살아있는 훈련용 허수아비를 그냥 지나치는 건 아깝지 않은가.
+<div class="choice-box"><<link "함께 대련한다." "Hanbei02_대련">>
+  <<set $hanbeiLove += 1>>
+  <<set $hanbeiProgress = 2>>
+<</link>>
+
+<<link "그냥 지나친다." "Hanbei02_무시">>
+  <<set $isolation += 1>>
+  <<set $hanbeiProgress = 2>>
+<</link>></div><</talk>>
+
+
+:: Hanbei02_무시 {"position":"750,575","size":"100,100"}
+<<talk "hanbei" "한베">>흠. 그야말로 고독한 늑대로구만.
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+
+
+:: Hanbei03 {"position":"775,425","size":"100,100"}
+<<page "hanbei">>
+<div class="narration">한베가 지친 표정으로 벽에 기대어 앉아 있다.</div>
+<div class="choice-box"><<link "잠시 곁에 있는다." "Hanbei03_함께">>
+  <<set $hanbeiLove += 2>>
+  <<set $isolation = Math.max(0, $isolation - 1)>>
+  <<set $hanbeiProgress = 3>>
+<</link>>
+
+<<link "망설이다 지나간다." "Hanbei03_지나감">>
+  <<set $isolation += 1>>
+  <<set $hanbeiProgress = 3>>
+<</link>></div><</page>>
+
+
+:: Hanbei03_지나감 {"position":"1000,575","size":"100,100"}
+<<page>><div class="narration">한베는 늑대 쪽을 바라보지 않았다.
+
+한 번도.</div>
+<div class="choice-box">[[밤 정찰을 떠난다->NightPatrol_Random]]
+[[자리를 뜬다->Temple_Return]]</div><</page>>
+
+
+:: Hanbei03_함께 {"position":"875,575","size":"100,100"}
+<<talk "hanbei" "한베">>자네도 혹시 그런 기분을 느껴본 적 있는가.
+
+이 모든 게 결코 끝나지 않을 것 같은… 절망을.
+<div class="choice-box">[[계속->Hanbei03_함께_늑대1]]</div><</talk>>
+
+
+:: Hanbei03_함께_늑대1 {"position":"875,675","size":"100,100"}
+<<talk "wolf" "늑대">>…있다.
+<div class="choice-box">[[계속->Hanbei03_함께_한베1]]</div><</talk>>
+
+
+:: Hanbei03_함께_늑대2 {"position":"875,875","size":"100,100"}
+<<talk "wolf" "늑대">>그래도 그 후엔 날을 갈면 계속 쓸 수 있는 무기인 게,  
+불사인 게 다행이라고 생각했다.
+<div class="choice-box">[[계속->Hanbei03_함께_한베2]]</div><</talk>>
+
+
+:: Hanbei03_함께_한베1 {"position":"875,775","size":"100,100"}
+<<talk "hanbei" "한베">>…그런가.
+<div class="choice-box">[[계속->Hanbei03_함께_늑대2]]</div><</talk>>
+
+
+:: Hanbei03_함께_한베2 {"position":"875,975","size":"100,100"}
+<<talk "hanbei" "한베">>……그런가.
+<div class="choice-box">[[계속->Hanbei03_함께_한베2_묘사]]</div><</talk>>
+
+
+:: Hanbei03_함께_한베2_권유 {"position":"875,1225","size":"100,100"}
+<<talk "hanbei" "한베">>대련 한 판 하고 가겠나?
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+
+
+:: Hanbei03_함께_한베2_묘사 {"position":"875,1100","size":"100,100"}
+<<page>>한베가 자신의 두 손을 내려다보다가
+조용히 고개를 저었다.
+
+그 후, 조금 밝아진 얼굴로 말했다.
+<div class="choice-box">[[계속->Hanbei03_함께_한베2_권유]]</div><</page>>
+
+
+:: Hanbei_Loop {"position":"825,250","size":"100,100"}
+<<page>>황폐한 절의 마른 흙 위로 바람이 지나간다.
+
+불사자의 몸을 가진 사내가 검을 짚고 너를 바라본다.
+<div class="choice-box">[[계속->Hanbei_Loop_Talk]]</div><</page>>
+
+
+:: Hanbei_Loop_Talk {"position":"950,275","size":"100,100"}
+<<talk "hanbei" "한베">>어이, 늑대.
+
+오늘도 날은 잘 드는가?
+<div class="choice-box"><<if $hasSake>>
+<<link "함께 마시겠나...?" "Hanbei_Sake">>
+  <<set $hanbeiLove += 3>>
+  <<set $hasSake = false>>
+<</link>>
+<</if>>
+
+<<link "대련한다." "Hanbei_Training">>
+  <<set $hanbeiLove += 1>>
+<</link>>
+
+<<link "그냥 돌아간다." "Temple_Return">>
+<</link>></div><</talk>>
+
+
+:: Hanbei_Sake {"position":"650,1075","size":"100,100"}
+<<talk "wolf" "늑대">>…함께 마시겠나.
+<div class="choice-box">[[계속->Hanbei_Sake_반응]]</div><</talk>>
+
+
+:: Hanbei_Sake_반응 {"position":"650,1200","size":"100,100"}
+<<talk "hanbei" "한베">>허어.
+
+자네가 그런 말을 할 줄은 몰랐군.
+
+<div class="narration">한베는 잠시 술병을 바라보다가,
+조용히 받아들었다.</div>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+
+
+:: Hanbei_Training {"position":"500,975","size":"100,100"}
+<<page>>검과 검이 부딪친다.
+
+죽지 못하는 무사는 몇 번이고 쓰러지고,
+몇 번이고 다시 일어났다.
+<div class="choice-box">[[계속->Hanbei_Training_반응]]</div><</page>>
+
+
+:: Hanbei_Training_반응 {"position":"500,1100","size":"100,100"}
+<<talk "hanbei" "한베">>좋아. 그 감각이다.
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+
+
+:: Intro {"position":"650,125","size":"100,100"}
+<<page>><div class="narration">황폐한 절이다.
+
+낡은 불상과 무너진 처마 사이로,
+차가운 바람이 지나간다.
+
+멀리 누군가가 보인다.</div>
+<div class="choice-box">[[다가간다->Hanbei01]]</div><</page>>
+
+
+:: NightPatrol_Random {"position":"1200,650","size":"100,100"}
+<<set _event = random(1, 6)>>
+
+<<page>><<if _event == 1>>
+
+<div class="narration">어둠이 내려앉은 심야다.
+
+하지만 늑대는 아시나 병사들의 공격을 피해
+한참 지붕 위를 내달리고 있다.
+
+아슬아슬하게 불화살이 뺨을 스친다.
+
+휴식은 멀었다.</div>
+
+<<set $danger += 1>>
+
+<<elseif _event == 2>>
+
+<div class="narration">밤길 끝에서, 이름 모를 노파가 늑대를 불러 세웠다.
+
+그녀는 늑대가 누구인지도 묻지 않고,
+작은 부적 하나를 손에 쥐여주었다.
+
+혼자가 아닌 밤도 있다.</div>
+
+<<set $isolation = Math.max(0, $isolation - 1)>>
+
+<<elseif _event == 3>>
+
+<div class="narration">어둠 속에서 발소리가 따라붙었다.
+
+늑대는 뒤돌아보지 않았다.
+
+뒤돌아보면,
+무언가가 시작될 것 같았다.</div>
+
+<<set $danger += 1>>
+
+<<elseif _event == 4>>
+
+<div class="narration">낡은 처마 밑에서 술병 하나를 주웠다.
+
+아직 조금 남아 있다.</div>
+
+<<set $hasSake = true>>
+
+<<elseif _event == 5>>
+
+<div class="narration">멀리서 종소리가 들렸다.
+
+누군가 죽었거나,
+누군가 살아남았거나.
+
+그 둘의 차이는
+이 밤엔 그리 크지 않았다.</div>
+
+<<else>>
+
+<div class="narration">칼집 안쪽에서,
+검이 아주 작게 떨렸다.
+
+늑대는 그것을 모른 척했다.</div>
+
+<<set $shura += 1>>
+
+<</if>>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_AfterNight]]</div><</page>>
+
+
+:: NightRest {"position":"500,850","size":"100,100"}
+<<page "wolf">>
+<div class="narration">늑대는 잠시 눈을 감았다.
+
+휴식이라 부르기엔 짧고,
+잠이라 부르기엔 얕았다.
+
+그래도 검을 쥔 손의 떨림은
+조금 가라앉았다.</div>
+
+<<set $danger = Math.max(0, $danger - 1)>>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple]]</div><</page>>
+
+
+:: PassageFooter {"position":"400,75","size":"100,100"}
+
+
+
+:: Start {"position":"650,0","size":"100,100"}
+<div class="title-screen">
+
+  <div class="game-title">WOLF</div>
+  <div class="game-subtitle-en">- SIDEWAYS -</div>
+
+  <div class="game-tagline">검을 거두고, 말로 받아내며, 그들과의 거리를 깎자.</div>
+
+  <div class="title-menu">
+    [[처음부터->Intro]]</div></div>
+
+
+:: StoryInit {"position":"200,75","size":"100,100"}
+<<set $danger = 0>>
+<<set $isolation = 0>>
+<<set $shura = 0>>
+
+<<set $hanbeiLove = 0>>
+<<set $hanbeiProgress = 0>>
+
+<<set $sceneCount = 0>>
+<<set $hasSake = false>>
+
+
+:: Temple {"position":"650,250","size":"100,100"}
+<<page>><div class="narration">황폐한 절로 돌아왔다.
+
+<<if $hanbeiProgress == 0>>
+사당 근처에 아직 그 남자가 서 있다.
+<<elseif $hanbeiProgress == 1>>
+사당 근처에 한베가 서 있다.
+<<elseif $hanbeiProgress == 2>>
+한베가 벽에 기대어 앉아 있다.
+<<else>>
+사당 근처에 한베가 있다.
+<</if>></div>
+<div class="choice-box"><<if $hanbeiProgress == 0>>
+[[다가간다->Hanbei01]]
+<<elseif $hanbeiProgress == 1>>
+[[한베에게 다가간다->Hanbei02]]
+<<elseif $hanbeiProgress == 2>>
+[[한베에게 다가간다->Hanbei03]]
+<<else>>
+[[한베와 이야기한다->Hanbei_Loop]]
+<</if>></div><</page>>
+
+
+:: Temple_AfterNight {"position":"925,400","size":"100,100"}
+<<page>>새벽이 가까워진다.
+
+황폐한 절은 여전히 조용하다.
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple]]</div><</page>>
+
+
+:: Temple_Return {"position":"675,925","size":"100,100"}
+<<set $sceneCount += 1>>
+
+<<page>><<if $sceneCount % 3 == 0>>
+
+<div class="narration">밤이 깊어간다…
+
+늑대는 잠시 걸음을 멈췄다.
+
+오늘 밤, 무엇을 할까.</div>
+<div class="choice-box">[[밤 정찰을 떠난다->NightPatrol_Random]]
+
+[[잠시 쉰다->NightRest]]</div>
+
+<<else>>
+
+<div class="narration">밤이 깊어간다.</div>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple]]</div>
+
+<</if>><</page>>
+
+
+:: UI_Widgets [widget] {"position":"300,75","size":"100,100"}
+<<widget "page" container>>
+<div class="page-stage"><div class="page-box"><div class="page-text">_contents</div></div></div>
+<</widget>>
+
+<<widget "talk" container>>
+<div class="stage talk-stage">
+  <<if $args.length > 0 and $args[0] != "">>
+  <div class="portrait-box talk-portrait-box"><img class="portrait" @src="'assets/portraits/' + $args[0] + '.png'"></div>
+  <</if>>
+
+  <<if $args.length > 1 and $args[1] != "">>
+  <div class="talk-nameplate"><<print $args[1]>></div>
+  <</if>>
+
+  <div class="textbox-panel"><div class="dialogue">_contents</div></div></div>
+<</widget>>
+
+
+:: StoryScript [script]
+UIBar.stow();
+
+Config.passages.transitionOut = 0;
+Config.history.controls = false;
+
+$(document).on('keydown', function (event) {
+  if (event.key === '[') {
+    event.preventDefault();
+    document.body.classList.toggle('dev-mode');
+  }
+
+  if (event.key === ']') {
+    event.preventDefault();
+    document.body.classList.toggle('hide-temp-ui');
+  }
+});
+
+function wolfEscapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function wolfFormatValue(value) {
+  if (value === undefined) return 'undefined';
+  if (value === null) return 'null';
+  if (typeof value === 'boolean') return value ? 'true' : 'false';
+  if (typeof value === 'number') return String(value);
+  if (typeof value === 'string') return value;
+
+  try {
+    var json = JSON.stringify(value);
+    if (json.length > 32) {
+      return json.slice(0, 29) + '...';
+    }
+    return json;
+  } catch (error) {
+    return String(value);
+  }
+}
+
+function wolfEnsureOuterUI() {
+  if ($('.outer-dev-ui').length) return;
+
+  $('body').append(
+    '<div class="outer-dev-ui">' +
+      '<a href="#" class="outer-back-button" data-game-back aria-label="앞 화면으로 돌아가기" title="앞 화면으로 돌아가기">◀</a>' +
+      '<div class="outer-vars-panel" aria-label="임시 변수창">' +
+        '<div class="outer-vars-title">VARS</div>' +
+        '<div class="outer-passage-name"></div>' +
+        '<div class="outer-vars-list"></div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function wolfUpdateOuterUI() {
+  wolfEnsureOuterUI();
+
+  var canGoBack = State.length > 1 && State.passage !== 'Start';
+  $('.outer-back-button')
+    .toggleClass('is-disabled', !canGoBack)
+    .attr('aria-disabled', canGoBack ? 'false' : 'true');
+
+  $('.outer-passage-name').text(State.passage || '');
+
+  var vars = State.variables || {};
+  var keys = Object.keys(vars).sort();
+
+  if (!keys.length) {
+    $('.outer-vars-list').html('<div class="outer-var-empty">변수 없음</div>');
+    return;
+  }
+
+  var html = keys.map(function (key) {
+    return '<div class="outer-var-row">' +
+      '<span class="outer-var-key">$' + wolfEscapeHtml(key) + '</span>' +
+      '<span class="outer-var-value">' + wolfEscapeHtml(wolfFormatValue(vars[key])) + '</span>' +
+    '</div>';
+  }).join('');
+
+  $('.outer-vars-list').html(html);
+}
+
+$(document).on(':passagerender :passageend', function () {
+  wolfUpdateOuterUI();
+});
+
+$(document).ready(function () {
+  wolfUpdateOuterUI();
+});
+
+$(document).on('click', '[data-game-back]', function (event) {
+  event.preventDefault();
+
+  if ($(this).hasClass('is-disabled')) return;
+
+  if (State.length > 1) {
+    Engine.backward();
+  }
+});
+
+:: StoryStylesheet [stylesheet]
+@font-face {
+  font-family: 'NeoDunggeunmo Pro';
+  src: url('assets/Font/NeoDunggeunmoPro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --game-w: 960px;
+  --game-h: 720px;
+
+  --white: #e8e8e8;
+  --text: #d8d8d8;
+  --muted: #a8a8a8;
+
+  --line: #777;
+  --line-soft: #383838;
+  --line-dark: #242424;
+
+  --panel: #050505;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: var(--text);
+  font-family: 'NeoDunggeunmo Pro', monospace;
+  font-size: 22px;
+  line-height: 1.34;
+  overflow: hidden;
+}
+
+/* =========================
+   SugarCube / Twine UI
+   평소에는 숨김. [ 키로 표시.
+========================= */
+#ui-bar {
+  transform: translateX(-100%);
+  transition: transform 0.18s ease;
+  z-index: 10000;
+
+  background: #000 !important;
+  color: var(--text) !important;
+  border-right: 1px solid var(--line) !important;
+  box-shadow: none !important;
+  font-family: 'NeoDunggeunmo Pro', monospace !important;
+}
+
+body.dev-mode #ui-bar {
+  transform: translateX(0);
+}
+
+#ui-bar-body {
+  background: #000 !important;
+  color: var(--text) !important;
+}
+
+#story-title,
+#story-author {
+  color: var(--white) !important;
+  font-family: 'NeoDunggeunmo Pro', monospace !important;
+  letter-spacing: 0.04em;
+}
+
+#story-title {
+  font-size: 22px !important;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 12px;
+}
+
+#menu ul,
+#ui-bar ul {
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+#ui-bar a,
+#ui-bar button,
+#menu-core button,
+#menu-core a,
+#menu-story button,
+#menu-story a {
+  color: var(--white) !important;
+  background: #000 !important;
+  border: 1px solid var(--line-soft) !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  font-family: 'NeoDunggeunmo Pro', monospace !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+#ui-bar a:hover,
+#ui-bar button:hover,
+#menu-core button:hover,
+#menu-core a:hover,
+#menu-story button:hover,
+#menu-story a:hover {
+  color: #000 !important;
+  background: var(--white) !important;
+  border-color: var(--white) !important;
+}
+
+#ui-bar-history [id|="history"],
+#ui-bar-toggle {
+  color: var(--white) !important;
+  background: #000 !important;
+  border: 1px solid var(--line-soft) !important;
+}
+
+#story {
+  margin-left: 0 !important;
+  width: 100vw;
+  height: 100vh;
+}
+
+#passages {
+  width: 100vw;
+  height: 100vh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #000;
+}
+
+.passage {
+  width: var(--game-w);
+  height: var(--game-h);
+  margin: 0 !important;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  color: var(--text);
+  border: 1px solid var(--line-dark);
+}
+
+#passages > .passage:not(:last-child) {
+  display: none !important;
+}
+
+.stage,
+.page-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #000;
+}
+
+/* =========================
+   TEMP OUTER UI
+   게임창 바깥 임시 UI. 나중에 빼거나 body에 hide-temp-ui 클래스를 주면 숨겨짐.
+========================= */
+.outer-dev-ui {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  font-family: 'NeoDunggeunmo Pro', monospace;
+}
+
+body.hide-temp-ui .outer-dev-ui {
+  display: none;
+}
+
+.outer-back-button {
+  position: fixed;
+  left: calc(50vw - 532px);
+  top: calc(50vh - 346px);
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  pointer-events: auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #6f6f6f;
+  background: #000;
+  border: 1px solid #333;
+  text-decoration: none;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.outer-back-button:hover {
+  color: #fff;
+  border-color: #777;
+  background: #050505;
+}
+
+.outer-back-button.is-disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.outer-vars-panel {
+  position: fixed;
+  left: calc(50vw + 502px);
+  top: calc(50vh - 348px);
+  width: 210px;
+  max-height: 690px;
+  box-sizing: border-box;
+  padding: 12px 12px 14px 12px;
+  pointer-events: auto;
+
+  background: #000;
+  color: #aaa;
+  border: 1px solid #333;
+  box-shadow: 0 0 0 1px #000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.outer-vars-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.outer-vars-title {
+  color: #ddd;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.outer-passage-name {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.2;
+  word-break: break-all;
+  margin-bottom: 12px;
+}
+
+.outer-var-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid #181818;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.outer-var-key {
+  color: #9a9a9a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outer-var-value {
+  color: #e0e0e0;
+  text-align: right;
+  max-width: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outer-var-empty {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 1240px) {
+  .outer-back-button {
+    left: 14px;
+    top: 14px;
+  }
+
+  .outer-vars-panel {
+    left: auto;
+    right: 14px;
+    top: 54px;
+    max-height: calc(100vh - 70px);
+    opacity: 0.88;
+  }
+}
+
+/* =========================
+   PAGE: 나레이션/행동
+========================= */
+
+.page-box {
+  position: absolute;
+  left: 150px;
+  top: 136px;
+  width: 660px;
+  max-height: 520px;
+  box-sizing: border-box;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-box::-webkit-scrollbar {
+  display: none;
+}
+
+.page-box,
+.page-text,
+.page-text .narration,
+.narration {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.34;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+}
+
+.page-text > br:first-child,
+.narration > br:first-child {
+  display: none;
+}
+
+.narration strong {
+  color: var(--white);
+  font-weight: normal;
+}
+
+/* page 선택지: 나레이션 끝에서 세 줄 띄우고, 구분선 아래 표시 */
+.page-stage .choice-box {
+  margin-top: 66px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: transparent;
+}
+
+.choice-box br {
+  display: none;
+}
+
+.page-stage .choice-box a {
+  display: block;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  line-height: 1.32;
+}
+
+.page-stage .choice-box a::before {
+  content: "▶ ";
+  color: #777;
+}
+
+.page-stage .choice-box a:hover,
+.page-stage .choice-box a:hover::before {
+  color: #fff;
+  background: transparent;
+}
+
+/* =========================
+   TALK: 포트레이트 + 대화창
+========================= */
+
+.portrait-box {
+  background: transparent;
+  border: none;
+  line-height: 0;
+}
+
+.portrait {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/*
+  page와 talk의 시작 높이를 맞춤.
+  포트레이트는 대화창 바로 왼쪽에 붙고, 대화창 바닥 기준으로 정렬.
+*/
+.talk-portrait-box {
+  position: absolute;
+  left: 62px;
+  top: 166px;
+  width: 250px;
+  height: 360px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.talk-portrait-box .portrait {
+  width: 250px;
+  max-width: 250px;
+  max-height: 360px;
+  height: auto;
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.talk-nameplate {
+  position: absolute;
+  left: 356px;
+  top: 150px;
+  min-width: 128px;
+  height: 34px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  z-index: 4;
+  background: #000;
+  border: 1px solid var(--line);
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.textbox-panel {
+  position: absolute;
+  left: 322px;
+  top: 166px;
+  width: 590px;
+  height: 360px;
+  box-sizing: border-box;
+  padding: 30px 34px 22px 34px;
+  background: rgba(2, 2, 2, 0.98);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 0 2px #1a1a1a;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.dialogue {
+  height: 100%;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dialogue::-webkit-scrollbar {
+  display: none;
+}
+
+.dialogue > br:first-child {
+  display: none;
+}
+
+.talk-stage .narration {
+  color: var(--muted);
+  font-size: 21px;
+  line-height: 1.48;
+  margin: 0 0 10px 0;
+}
+
+/* talk 선택지: 구분선 아래 한 줄 띄우고, 선택지 사이도 한 줄 간격 */
+.talk-stage .choice-box {
+  margin-top: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: transparent;
+}
+
+.talk-stage .choice-box a {
+  display: block;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 21px;
+  line-height: 1.34;
+}
+
+.talk-stage .choice-box a::before {
+  content: "▶ ";
+  color: #777;
+}
+
+.talk-stage .choice-box a:hover,
+.talk-stage .choice-box a:hover::before {
+  color: #fff;
+  background: transparent;
+}
+
+.passage a {
+  color: var(--white);
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title-screen {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 86px;
+  background: #000;
+  color: var(--text);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-title {
+  font-size: 64px;
+  color: #fff;
+  letter-spacing: 0.18em;
+  margin-bottom: 4px;
+}
+
+.game-subtitle-en {
+  font-size: 24px;
+  color: #888;
+  letter-spacing: 0.22em;
+  margin-bottom: 30px;
+}
+
+.game-tagline {
+  font-size: 20px;
+  color: #aaa;
+  letter-spacing: 0.04em;
+  margin-bottom: 48px;
+}
+
+.title-menu {
+  font-size: 22px;
+}
+
+.title-menu a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #666;
+}
+
+.title-menu a::before {
+  content: "▶ ";
+  color: #aaa;
+}
+
+.title-menu a:hover {
+  color: #000;
+  background: #fff;
+}
+
+.title-menu a:hover::before {
+  color: #000;
+}
