@@ -15,169 +15,1118 @@ Wolf
 }
 
 
-:: Hanbei01 {"position":"275,425","size":"100,100"}
-<<page>>남자는 사당 안에 비스듬히 서 있었다.
+:: Genichiro {"position":"2050,1475","size":"100,100"}
+<<page>>
+대장군이 있다.
+여전히 무서운 표정이다.
 
-헝클어진 머리카락.
-
-처진 눈썹 위로는 주름이 가득하다.
-<div class="choice-box">[[계속->Hanbei01_선택]]</div><</page>>
-
-
-:: Hanbei01_무시 {"position":"400,575","size":"100,100"}
-<<talk "hanbei" "한베">>…허어.
-<div class="choice-box">[[계속->Hanbei01_무시_늑대반응]]</div><</talk>>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div>
+<</page>>
 
 
-:: Hanbei01_무시_늑대반응 {"position":"400,700","size":"100,100"}
-<<talk "wolf" "늑대">>…
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+:: Genichiro01 {"position":"2050,1600","size":"100,100"}
 
 
-:: Hanbei01_선택 {"position":"275,575","size":"100,100"}
-<<page>><div class="narration">너덜너덜한 갑옷을 보면서
-그가 얼마나 오랫동안 세상을 떠돌아다녔는지
-늑대는 잠깐 짐작해 본다.
 
-다가가자 죽지 못하는 무사가 인사를 해왔다.</div>
-<div class="choice-box"><<link "인사한다." "Hanbei01_인사">>
-  <<set $hanbeiLove += 1>>
-  <<set $hanbeiProgress = 1>>
-<</link>>
+:: Hanbei01 {"position":"1075,625","size":"100,100"}
+<<page>>
+<div class="narration">
 
-<<link "무시한다." "Hanbei01_무시">>
-  <<set $isolation += 1>>
-  <<set $hanbeiProgress = 1>>
-<</link>></div><</page>>
+훈련장.
 
+황폐한 절에서 조금 떨어진 공터.
 
-:: Hanbei01_인사 {"position":"275,700","size":"100,100"}
-<<talk "hanbei" "한베">>자네는 의외로 친절하군.
-<div class="choice-box">[[계속->Hanbei01_인사_늑대반응]]</div><</talk>>
+흙바닥에는 이미 수없이 많은 발자국이 남아 있었다.
 
+그리고.
 
-:: Hanbei01_인사_늑대반응 {"position":"275,825","size":"100,100"}
-<<page>><div class="narration">그는 너털웃음을 짓는다.
-아니, 짓고 있을 것이다.
-마스크 때문에 보이진 않지만.
+예상했던 사람이 있었다.
 
-늑대는 대답을 할까 하다가
-고개만 살짝 끄덕이고 돌아섰다.</div>
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</page>>
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_2]]
+</div>
+<</page>>
 
 
-:: Hanbei02 {"position":"625,425","size":"100,100"}
-<<page>>사당을 지나가려 하자 한베가 말을 걸었다.
-<div class="choice-box">[[계속->Hanbei02_대사]]</div><</page>>
+:: Hanbei01_2 {"position":"950,750","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+오.
+
+왔나?
+<</talk>>
+
+<div class="narration">
+
+그는 검을 어깨에 걸친 채 손을 흔들었다.
+
+마치 오래된 친구를 맞이하는 것처럼.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_3]]
+</div>
+<</page>>
 
 
-:: Hanbei02_대련 {"position":"625,575","size":"100,100"}
-<<talk "wolf" "늑대">>…그 허수아비에게 한 수 배워보지.
-<div class="choice-box">[[계속->Hanbei02_대련_반응]]</div><</talk>>
+:: Hanbei01_3 {"position":"950,875","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<<talk "hanbei" "한베">>
+뭐야.
+
+그 얼굴.
+
+오늘도 날 베러 온 거 맞구만.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_4]]
+</div>
+<</page>>
 
 
-:: Hanbei02_대련_반응 {"position":"625,700","size":"100,100"}
-<<talk "hanbei" "한베">>하하하!
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+:: Hanbei01_4 {"position":"950,1000","size":"100,100"}
+<<page>>
+<div class="narration">
+
+한베는 하하 웃으며 검을 뽑았다.
+
+익숙한 소리.
+
+익숙한 자세.
+
+익숙한 거리.
+
+</div>
+
+<<talk "hanbei" "한베">>
+좋아.
+
+그럼 어디 한번 해보자고.
+<</talk>>
+
+<div class="choice-box">
+[[대련하러 왔다->Hanbei01_Spar]]
+[[그냥 왔다->Hanbei01_Just]]
+[[돌아간다->Temple_Return]]
+</div>
+<</page>>
 
 
-:: Hanbei02_대사 {"position":"500,550","size":"100,100"}
-<<talk "hanbei" "한베">>어이~ 대련 한 판 하고 가지 그래?
+:: Hanbei01_End {"position":"800,1650","size":"100,100"}
+<<page>>
+<div class="narration">
 
-밖에는 위험한 적들이 많다고.<br>
-살아있는 훈련용 허수아비를 그냥 지나치는 건 아깝지 않은가.
-<div class="choice-box"><<link "함께 대련한다." "Hanbei02_대련">>
-  <<set $hanbeiLove += 1>>
-  <<set $hanbeiProgress = 2>>
-<</link>>
+짧은 대련이 끝났다.
 
-<<link "그냥 지나친다." "Hanbei02_무시">>
-  <<set $isolation += 1>>
-  <<set $hanbeiProgress = 2>>
-<</link>></div><</talk>>
+</div>
 
+<<talk "hanbei" "한베">>
+음.
 
-:: Hanbei02_무시 {"position":"750,575","size":"100,100"}
-<<talk "hanbei" "한베">>흠. 그야말로 고독한 늑대로구만.
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+조금 빨라졌네.
+<</talk>>
 
+<<talk "wolf" "늑대">>
+...
+<</talk>>
 
-:: Hanbei03 {"position":"775,425","size":"100,100"}
-<<page "hanbei">>
-<div class="narration">한베가 지친 표정으로 벽에 기대어 앉아 있다.</div>
-<div class="choice-box"><<link "잠시 곁에 있는다." "Hanbei03_함께">>
-  <<set $hanbeiLove += 2>>
-  <<set $isolation = Math.max(0, $isolation - 1)>>
-  <<set $hanbeiProgress = 3>>
-<</link>>
-
-<<link "망설이다 지나간다." "Hanbei03_지나감">>
-  <<set $isolation += 1>>
-  <<set $hanbeiProgress = 3>>
-<</link>></div><</page>>
+<div class="choice-box">
+[[계속->Hanbei01_End_2]]
+</div>
+<</page>>
 
 
-:: Hanbei03_지나감 {"position":"1000,575","size":"100,100"}
-<<page>><div class="narration">한베는 늑대 쪽을 바라보지 않았다.
+:: Hanbei01_End_2 {"position":"800,1775","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+칭찬이라구.
+<</talk>>
 
-한 번도.</div>
-<div class="choice-box">[[밤 정찰을 떠난다->NightPatrol_Random]]
-[[자리를 뜬다->Temple_Return]]</div><</page>>
+<<talk "wolf" "늑대">>
+...
+<</talk>>
 
+<<talk "hanbei" "한베">>
+정말 반응이 없구만.
+<</talk>>
 
-:: Hanbei03_함께 {"position":"875,575","size":"100,100"}
-<<talk "hanbei" "한베">>자네도 혹시 그런 기분을 느껴본 적 있는가.
+<div class="narration">
 
-이 모든 게 결코 끝나지 않을 것 같은… 절망을.
-<div class="choice-box">[[계속->Hanbei03_함께_늑대1]]</div><</talk>>
+한베는 검을 거두었다.
 
+</div>
 
-:: Hanbei03_함께_늑대1 {"position":"875,675","size":"100,100"}
-<<talk "wolf" "늑대">>…있다.
-<div class="choice-box">[[계속->Hanbei03_함께_한베1]]</div><</talk>>
-
-
-:: Hanbei03_함께_늑대2 {"position":"875,875","size":"100,100"}
-<<talk "wolf" "늑대">>그래도 그 후엔 날을 갈면 계속 쓸 수 있는 무기인 게,  
-불사인 게 다행이라고 생각했다.
-<div class="choice-box">[[계속->Hanbei03_함께_한베2]]</div><</talk>>
-
-
-:: Hanbei03_함께_한베1 {"position":"875,775","size":"100,100"}
-<<talk "hanbei" "한베">>…그런가.
-<div class="choice-box">[[계속->Hanbei03_함께_늑대2]]</div><</talk>>
+<div class="choice-box">
+[[계속->Hanbei01_End_3]]
+</div>
+<</page>>
 
 
-:: Hanbei03_함께_한베2 {"position":"875,975","size":"100,100"}
-<<talk "hanbei" "한베">>……그런가.
-<div class="choice-box">[[계속->Hanbei03_함께_한베2_묘사]]</div><</talk>>
+:: Hanbei01_End_3 {"position":"800,1900","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+다음에도 오게.
+
+아직, 뒷 마무리가 허술해.
+
+인살할 기회를 자꾸 놓치지 않나.
+
+그리고, 어차피 난 여기 있으니까 말이네.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_End_4]]
+</div>
+<</page>>
 
 
-:: Hanbei03_함께_한베2_권유 {"position":"875,1225","size":"100,100"}
-<<talk "hanbei" "한베">>대련 한 판 하고 가겠나?
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+:: Hanbei01_End_4 {"position":"800,2025","size":"100,100"}
+<<page>>
+<div class="narration">
+
+늑대는 잠시 그를 바라보았다.
+
+늘 그 자리에 있는 사람.
+
+늘 같은 자리에 있는 사람.
+
+이상하게도.
+
+그 사실이 당연하게 느껴졌다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_End_5]]
+</div>
+<</page>>
 
 
-:: Hanbei03_함께_한베2_묘사 {"position":"875,1100","size":"100,100"}
-<<page>>한베가 자신의 두 손을 내려다보다가
-조용히 고개를 저었다.
+:: Hanbei01_End_5 {"position":"800,2150","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+무슨 일인가.
 
-그 후, 조금 밝아진 얼굴로 말했다.
-<div class="choice-box">[[계속->Hanbei03_함께_한베2_권유]]</div><</page>>
+그 얼굴.
+
+설마 걱정이라도 해주는 건가?
+<</talk>>
+
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_End_6]]
+</div>
+<</page>>
 
 
-:: Hanbei_Loop {"position":"825,250","size":"100,100"}
-<<page>>황폐한 절의 마른 흙 위로 바람이 지나간다.
+:: Hanbei01_End_6 {"position":"800,2275","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+하하하!
+
+됐다네.
+
+자네의 그런 표정이면 충분하니.
+<</talk>>
+
+<div class="choice-box">
+[[돌아간다->Temple_Return][$hanbeiProgress = 1, $hanbe += 1]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just {"position":"950,1150","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<<talk "hanbei" "한베">>
+...
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_Just_2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_2 {"position":"950,1275","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그냥...?
+<</talk>>
+
+<<talk "wolf" "늑대">>
+그렇다.
+<</talk>>
+
+<div class="narration">
+
+잠시 침묵.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_Just_3]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_3 {"position":"950,1400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+하하하!
+
+그것도 좋네.
+
+매번 검만 휘두르는 것도 질리거든.
+<</talk>>
+
+<div class="narration">
+
+한베는 검을 바닥에 내려놓았다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_Just_4]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_4 {"position":"950,1525","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그럼 잠깐 쉬었다 가게나.
+
+어차피 난 여기 있으니까.
+<</talk>>
+
+<div class="narration">
+
+그는 웃으며 말했다.
+
+그런데.
+
+그 말은 이상하게도.
+
+조금 외롭게 들렸다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_End]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar {"position":"800,1150","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+한수 부탁하지.
+<</talk>>
+
+<<talk "hanbei" "한베">>
+그래.
+
+그게 제일 당신답다.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_Spar_2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_2 {"position":"800,1275","size":"100,100"}
+<<page>>
+<div class="narration">
+
+한베는 검을 한 바퀴 돌렸다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+솔직히 말하면.
+
+난 자네가 말 거는 것보다 이게 편하더군.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_Spar_3]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_3 {"position":"800,1400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+하하하!
+
+그런 눈 하지 마.
+
+나도 안다.
+
+네가 말 없는 거.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_Spar_4]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_4 {"position":"800,1525","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+근데 검은 거짓말을 하지 않지 않나?
+<</talk>>
+
+<div class="narration">
+
+잠시 바람이 분다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+그 점은 좋더군.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_End]]
+</div>
+<</page>>
+
+
+:: Hanbei02 {"position":"1200,625","size":"100,100"}
+<<page>>
+<div class="narration">
+
+훈련장.
+
+검이 부딪친다.
+
+몇 번이고.
+
+몇 번이고.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_2 {"position":"1200,750","size":"100,100"}
+<<page>>
+<div class="narration">
+
+한베는 늘 그랬듯 쓰러졌다.
+
+그리고.
+
+늘 그랬듯 다시 일어났다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+음.
+
+이번 건 좀 괜찮았는데.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_3 {"position":"1200,875","size":"100,100"}
+<<page>>
+\
+
+<div class="narration">
+
+그는 옷에 묻은 흙을 털었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+하마터면 넘어갈 뻔했네.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<<talk "hanbei" "한베">>
+왜 그러는가?
+
+그런 얼굴 하고.
+<</talk>>
+
+<div class="choice-box">
+[[다시 자세를 잡는다->Hanbei02_Fight][$hanbeiLove += 1]]
+[[괜찮나 본다->Hanbei02_Worry][$hanbeiLove +=  2]]
+[[아무 말도 하지 않는다->Hanbei02_Silent][$isolation += 1]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End {"position":"1100,1375","size":"100,100"}
+<<page>>
+<div class="narration">
+
+바람이 분다.
+
+훈련장에 떨어진 낙엽이 굴러간다.
+
+한베는 검을 어깨에 걸쳤다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+있지.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_End_2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_2 {"position":"1100,1500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+사람들은 불사면 좋겠다고 하더군.
+<</talk>>
+
+<div class="narration">
+
+그는 웃었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+뭐.
+
+하루 이틀쯤은 좋을지도 모르겠다만.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_End_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_3 {"position":"1100,1625","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+근데 이렇게 오래 되면 질리더군.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<<talk "hanbei" "한베">>
+하하하!
+
+농담이야.
+<</talk>>
+
+<div class="narration">
+
+그렇게 말했지만.
+
+정말 농담이었는지는 알 수 없었다.
+
+</div>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight {"position":"1100,1000","size":"100,100"}
+<<page>>
+<div class="narration">
+
+늑대는 다시 검을 들었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+오.
+
+좋아.
+
+그렇게 나와야지.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_Fight_2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_2 {"position":"1100,1125","size":"100,100"}
+<<page>>
+<div class="narration">
+
+한베도 검을 들었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+근데 잠깐만.
+<</talk>>
+
+<div class="narration">
+
+그가 어깨를 돌린다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+으.
+
+아프네.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_Fight_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_3 {"position":"1100,1250","size":"100,100"}
+<<page>>
+<div class="narration">
+
+잠시 침묵.
+
+</div>
+
+<<talk "hanbei" "한베">>
+하하하.
+
+그런 얼굴 하지 마.
+
+죽지 않으니.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_End]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Silent {"position":"1350,1000","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<<talk "hanbei" "한베">>
+...
+
+뭐냐.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_Silent_2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Silent_2 {"position":"1350,1125","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아무 말도 안 하는 건 원래 그렇지만.
+
+오늘은 더 심하네.
+<</talk>>
+
+<div class="narration">
+
+그는 웃으며 일어섰다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+됐어.
+
+안 죽는다니까.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_Silent_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Silent_3 {"position":"1350,1250","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+걱정할 필요 없어.
+<</talk>>
+
+<div class="narration">
+
+그 말은.
+
+마치 걱정해주기를 바라는 것처럼 들렸다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_End]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry {"position":"1225,1000","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<div class="narration">
+
+늑대는 한베의 팔을 바라보았다.
+
+옷이 조금 찢어져 있었다.
+
+상처도 있다.
+
+이미 아물기 시작하고 있었지만.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Worry_2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_2 {"position":"1225,1125","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아.
+
+이거?
+<</talk>>
+
+<div class="narration">
+
+그는 웃었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+괜찮아.
+
+익숙하거든.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_Worry_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_3 {"position":"1225,1250","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+베이는 것도.
+
+부러지는 것도.
+
+죽는 것도.
+<</talk>>
+
+<div class="narration">
+
+그는 아무렇지도 않게 말했다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+근데.
+
+아프긴 하다.
+<</talk>>
+
+<div class="narration">
+
+그 말이 이상하게 남았다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_End]]
+</div>
+<</page>>
+
+
+:: Hanbei03 {"position":"1375,625","size":"100,100"}
+<<page>>
+<div class="narration">
+
+훈련장.
+
+익숙한 길.
+
+익숙한 공터.
+
+그리고.
+
+익숙한 사람.
+
+</div>
+
+<<talk "hanbei" "한베">>
+오.
+
+왔나?
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_2 {"position":"1375,750","size":"100,100"}
+<<page>>
+<div class="narration">
+
+한베는 언제나처럼 검을 들고 있었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+좋아.
+
+오늘은 몇 번이나 날 날려버릴 생각인가?
+<</talk>>
+
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_3 {"position":"1375,875","size":"100,100"}
+<<page>>
+<div class="narration">
+
+늑대는 검집에 손을 얹은 채 가만히 서 있었다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+...?
+
+왜 그러나?
+
+설마 다쳤나?
+<</talk>>
+
+<<talk "wolf" "늑대">>
+아니다.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_4]]
+</div>
+<</page>>
+
+
+:: Hanbei03_4 {"position":"1500,1000","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그럼.
+
+오늘은 안 베나?
+<</talk>>
+
+<div class="narration">
+
+잠시 침묵.
+
+</div>
+
+<<talk "wolf" "늑대">>
+그냥 왔다.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_5]]
+</div>
+<</page>>
+
+
+:: Hanbei03_5 {"position":"1500,1125","size":"100,100"}
+<<page>>
+<div class="narration">
+
+바람이 분다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+...
+
+뭐?
+<</talk>>
+
+<<talk "wolf" "늑대">>
+그냥.
+<</talk>>
+
+<div class="narration">
+
+잠시.
+
+정말 잠시.
+
+한베가 말을 잃는다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_6]]
+</div>
+<</page>>
+
+
+:: Hanbei03_6 {"position":"1500,1250","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+하하하하하!
+
+그게 뭔가!
+
+그냥?
+
+진짜 그냥 왔단 말인가?
+<</talk>>
+
+<<talk "wolf" "늑대">>
+그렇다.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_7]]
+</div>
+<</page>>
+
+
+:: Hanbei03_7 {"position":"1500,1375","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+이야.
+
+살다 보니 별일이 다 있군.
+
+난 또 오늘도 맞으러 온 줄 알았는데.
+<</talk>>
+
+<div class="narration">
+
+한베는 검을 거두었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_8]]
+</div>
+<</page>>
+
+
+:: Hanbei03_8 {"position":"1500,1500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+좋아.
+
+그럼 오늘은 쉬자.
+
+앉게.
+
+가끔은 이런 날도 있어야 하지 않겠나.
+<</talk>>
+
+<div class="choice-box">
+[[대련하자고 한다->Hanbei03_Fight][$hanbe += 1]]
+[[그냥 앉아 있는다->Hanbei03_Sit][$hanbe += 2]]
+[[떠난다->Hanbei03_Leave]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Fight {"position":"1250,1625","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+한 수 더 부탁하지.
+<</talk>>
+
+<<talk "hanbei" "한베">>
+하하.
+
+역시 그럴 줄 알았네.
+
+좋아.
+
+그럼 조금만 봐주게.
+
+솔직히 어제 것도 아직 아프거든.
+<</talk>>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Leave {"position":"1500,1625","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+가보겠다.
+<</talk>>
+
+<<talk "hanbei" "한베">>
+어이.
+
+뭔가 그건.
+
+앉으라니까 가버리는 건 또 처음이군.
+
+하하하.
+
+다음엔 좀 더 있다 가게.
+<</talk>>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit {"position":"1375,1625","size":"100,100"}
+<<page>>
+<div class="narration">
+
+늑대는 말없이 그의 곁에 앉았다.
+
+</div>
+
+<<talk "hanbei" "한베">>
+...
+
+이거 좀 신기하군.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+뭐가?
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_Sit_2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit_2 {"position":"1375,1750","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+자네와 이렇게 있는 거 말일세.
+
+생각보다 나쁘지 않더군.
+<</talk>>
+
+<div class="narration">
+
+잠시 침묵.
+
+바람 소리만 들린다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_Sit_3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit_3 {"position":"1375,1875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아.
+
+오해는 하지 말게.
+
+대련 안 해서 좋다는 말이야.
+<</talk>>
+
+<div class="narration">
+
+그는 웃었다.
+
+하지만.
+
+그 웃음은 평소보다 조금 조용했다.
+
+</div>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
+</div>
+<</page>>
+
+
+:: Hanbei_Loop {"position":"1300,350","size":"100,100"}
+<<page>>
+황폐한 절의 마른 흙 위로 바람이 지나간다.
 
 불사자의 몸을 가진 사내가 검을 짚고 너를 바라본다.
-<div class="choice-box">[[계속->Hanbei_Loop_Talk]]</div><</page>>
+<div class="choice-box">[[계속->Hanbei_Loop_Talk]]</div>
+<</page>>
 
 
-:: Hanbei_Loop_Talk {"position":"950,275","size":"100,100"}
-<<talk "hanbei" "한베">>어이, 늑대.
+:: Hanbei_Loop_Talk {"position":"1175,350","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+어이, 늑대.
 
 오늘도 날은 잘 드는가?
-<div class="choice-box"><<if $hasSake>>
+<</talk>>
+
+<div class="choice-box">
+<<if $hasSake>>
 <<link "함께 마시겠나...?" "Hanbei_Sake">>
   <<set $hanbeiLove += 3>>
   <<set $hasSake = false>>
@@ -189,51 +1138,158 @@ Wolf
 <</link>>
 
 <<link "그냥 돌아간다." "Temple_Return">>
-<</link>></div><</talk>>
+<</link>>
+</div>
+<</page>>
 
 
-:: Hanbei_Sake {"position":"650,1075","size":"100,100"}
-<<talk "wolf" "늑대">>…함께 마시겠나.
-<div class="choice-box">[[계속->Hanbei_Sake_반응]]</div><</talk>>
+:: Hanbei_Sake {"position":"1675,1475","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…함께 마시겠나.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei_Sake_반응]]
+</div>
+<</page>>
 
 
-:: Hanbei_Sake_반응 {"position":"650,1200","size":"100,100"}
-<<talk "hanbei" "한베">>허어.
+:: Hanbei_Sake_반응 {"position":"1625,1600","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+허어.
 
 자네가 그런 말을 할 줄은 몰랐군.
+<</talk>>
 
-<div class="narration">한베는 잠시 술병을 바라보다가,
-조용히 받아들었다.</div>
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+<div class="narration">
+한베는 잠시 술병을 바라보다가,
+조용히 받아들었다.
+</div>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return]]
+</div>
+<</page>>
 
 
-:: Hanbei_Training {"position":"500,975","size":"100,100"}
-<<page>>검과 검이 부딪친다.
+:: Hanbei_Training {"position":"1650,1225","size":"100,100"}
+<<page>>
+검과 검이 부딪친다.
 
 죽지 못하는 무사는 몇 번이고 쓰러지고,
 몇 번이고 다시 일어났다.
-<div class="choice-box">[[계속->Hanbei_Training_반응]]</div><</page>>
+<div class="choice-box">[[계속->Hanbei_Training_반응]]</div>
+<</page>>
 
 
-:: Hanbei_Training_반응 {"position":"500,1100","size":"100,100"}
-<<talk "hanbei" "한베">>좋아. 그 감각이다.
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div><</talk>>
+:: Hanbei_Training_반응 {"position":"1650,1375","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+좋아. 그 감각이다.
+<</talk>>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return]]
+</div>
+<</page>>
 
 
-:: Intro {"position":"650,125","size":"100,100"}
-<<page>><div class="narration">황폐한 절이다.
+:: Intro_01 {"position":"1500,125","size":"100,100"}
+<<page>>
+<div class="narration">
+그야말로 전란의 시대였다.
 
-낡은 불상과 무너진 처마 사이로,
-차가운 바람이 지나간다.
+늑대가 처음으로 ‘생’을 느낀 것은,
+어릴 적 양부의 검날을 붙잡았을 때였다.
 
-멀리 누군가가 보인다.</div>
-<div class="choice-box">[[다가간다->Hanbei01]]</div><</page>>
+손바닥을 찢고 흐르던 뜨거운 피.
+
+그 순간 깨달았다.
+
+그 전까지의 자신은 살아 있는 것이 아니라,
+그저 숨 쉬는 망령에 불과했다는 것을.
+</div>
+
+<div class="choice-box">
+[[계속한다->Intro_02]]
+</div>
+<</page>>
 
 
-:: NightPatrol_Random {"position":"1200,650","size":"100,100"}
+:: Intro_02 {"position":"1500,225","size":"100,100"}
+<<page>>
+<div class="narration">
+
+주군을 모시게 된 뒤에는,
+비로소 ‘인’이라는 것을 알게 되었다.
+
+소년의 담담한 눈을 바라볼 때면,
+도구로만 살아왔던 자신도
+조금은 인간다워진 것 같았다.
+
+하지만 결국 도구는 도구.
+
+늑대는 ‘임무’라는 이름 아래
+수많은 목숨을 베어 왔다.
+
+누군가의 검이 되고,
+누군가의 그림자가 되고,
+누군가의 죽음이 되어 왔다.
+
+</div>
+
+<div class="choice-box">
+[[계속한다->Intro_03]]
+</div>
+<</page>>
+
+
+:: Intro_03 {"position":"1500,325","size":"100,100"}
+<<page>>
+<div class="narration">
+하지만 언젠가.
+
+언젠가는.
+
+이곳, 시공의 샛길로 빠진 아시나에서
+새로운 길을 찾아낼 수 있을까.
+
+누군가의 곁에 남을 수 있을까.
+
+누구의 손을 붙잡을 수 있을까.
+
+아직은 알 수 없다.
+<div class="narration final-intro">
+
+사람으로서의 그는 아직,
+길을 잃은 들개에 불과하니까.
+
+</div>
+
+<div class="choice-box">
+[[계속한다->Temple]]
+</div>
+<</page>>
+
+
+:: Kuro {"position":"2250,575","size":"100,100"}
+<<page>>
+주군이 책을 읽고 있다.
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div>
+<</page>>
+
+
+:: Kuro01 {"position":"2225,675","size":"100,100"}
+
+
+
+:: NightPatrol_Random {"position":"2000,925","size":"100,100"}
+<<page>>
 <<set _event = random(1, 6)>>
 
-<<page>><<if _event == 1>>
+<<if _event == 1>>
 
 <div class="narration">어둠이 내려앉은 심야다.
 
@@ -296,28 +1352,35 @@ Wolf
 <<set $shura += 1>>
 
 <</if>>
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_AfterNight]]</div><</page>>
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_AfterNight]]</div>
+<</page>>
 
 
-:: NightRest {"position":"500,850","size":"100,100"}
-<<page "wolf">>
-<div class="narration">늑대는 잠시 눈을 감았다.
+:: NightRest {"position":"1800,975","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 잠시 눈을 감았다.
 
 휴식이라 부르기엔 짧고,
 잠이라 부르기엔 얕았다.
 
 그래도 검을 쥔 손의 떨림은
-조금 가라앉았다.</div>
+조금 가라앉았다.
+</div>
 
 <<set $danger = Math.max(0, $danger - 1)>>
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple]]</div><</page>>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple]]
+</div>
+<</page>>
 
 
 :: PassageFooter {"position":"400,75","size":"100,100"}
 
 
 
-:: Start {"position":"650,0","size":"100,100"}
+:: Start {"position":"1500,25","size":"100,100"}
 <div class="title-screen">
 
   <div class="game-title">WOLF</div>
@@ -326,93 +1389,278 @@ Wolf
   <div class="game-tagline">검을 거두고, 말로 받아내며, 그들과의 거리를 깎자.</div>
 
   <div class="title-menu">
-    [[처음부터->Intro]]</div></div>
+    [[처음부터->Intro_01]]</div></div>
 
 
 :: StoryInit {"position":"200,75","size":"100,100"}
-<<set $danger = 0>>
-<<set $isolation = 0>>
-<<set $shura = 0>>
+/* 진행도 */
+<<set $hanbeiProgress to 0>>
+<<set $kuroProgress to 0>>
+<<set $genichiroProgress to 0>>
+<<set $sculptorProgress to 0>>
+<<set $isshinProgress to 0>>
 
-<<set $hanbeiLove = 0>>
-<<set $hanbeiProgress = 0>>
+/* 호감도 */
+<<set $hanbeiLove to 0>>
+<<set $kuroLove to 0>>
+<<set $genichiroLove to 0>>
+<<set $sculptorLove to 0>>
+<<set $isshinLove to 0>>
 
-<<set $sceneCount = 0>>
-<<set $hasSake = false>>
+/* 공통 수치 */
+<<set $isolation to 0>>
+<<set $danger to 0>>
+<<set $shura to 0>>
+<<set $sceneCount to 0>>
+
+/* 아이템/이벤트 플래그 */
+<<set $hasSake to false>>
+<<set $hanbeiMaskInterest to false>>
+<<set $hanbeiDeepTalk to false>>
+
+/* 엔딩 완료 플래그 */
+<<set $completedHanbei to false>>
+<<set $completedKuro to false>>
+<<set $completedGenichiro to false>>
+<<set $completedSculptor to false>>
+<<set $completedIsshin to false>>
+
+/* 해금 플래그 */
+<<set $secondRoutesUnlocked to false>>
+<<set $shuraUnlocked to false>>
 
 
-:: Temple {"position":"650,250","size":"100,100"}
-<<page>><div class="narration">황폐한 절로 돌아왔다.
+:: Temple {"position":"1525,450","size":"100,100"}
+<<page>>
+<div class="narration"><<if $isolation <= -1>>
+황폐한 절이다.
 
-<<if $hanbeiProgress == 0>>
-사당 근처에 아직 그 남자가 서 있다.
-<<elseif $hanbeiProgress == 1>>
-사당 근처에 한베가 서 있다.
-<<elseif $hanbeiProgress == 2>>
-한베가 벽에 기대어 앉아 있다.
+적적하지만 어쩐지 편안한 곳이다.
+갈 곳 없는 이, 잠시 쉬어가는 이,
+고뇌를 깎는 이들이 모여있다.
+<<elseif $isolation == 0>>
+황폐한 절이다.
+
+사실.
+그렇게 황폐하지만은 않다.
+<<elseif $isolation <= 2>>
+황폐한 절이다.
+
+낡은 불상과 무너진 처마 사이로,
+차가운 바람이 지나간다.
+<<elseif $isolation <= 4>>
+황폐한 절이다.
+
+눈을 감고 있으면 많은 소리가 들린다.
+한때나마 사람들의 기원이 모여있던 곳이기에 그런지도.
+아니, 그 기원은 지금까지도 내려져 오고 있는지도 모른다.
+기억해주는 이만 있다면.
+<<elseif $isolation <= 6>>
+황폐한 절이다.
+
+이제는 아무 소리도 들리지 않는다.
+<<elseif $isolation <= 8>>
+황폐한 절이다.
+
+지옥을 앞에 둔 망령들이 모여있다.
 <<else>>
-사당 근처에 한베가 있다.
+황폐한 절이다.
+
+…
 <</if>></div>
-<div class="choice-box"><<if $hanbeiProgress == 0>>
-[[다가간다->Hanbei01]]
+
+<div class="choice-box">
+<div class="narration">늑대는 어디로 향하나?</div>
+<<if $hanbeiProgress == 0>>
+[[죽지 않는 무사에게 다가간다->Hanbei01]]
 <<elseif $hanbeiProgress == 1>>
-[[한베에게 다가간다->Hanbei02]]
+[[한베에게 간다->Hanbei02]]
 <<elseif $hanbeiProgress == 2>>
-[[한베에게 다가간다->Hanbei03]]
+[[한베에게 간다->Hanbei03]]
 <<else>>
 [[한베와 이야기한다->Hanbei_Loop]]
-<</if>></div><</page>>
+<</if>>
+
+<<if $kuroProgress == 0>>
+[[주군에게로 간다->Kuro01]]
+<<else>>
+[[쿠로님에게로 간다->Kuro]]
+<</if>>
+
+<<if $genichiroProgress == 0>>
+[[아시나 성의 대장군에게 간다->Genichiro01]]
+<<else>>
+[[겐이치로 공에게 간다->Genichiro]]
+<</if>>
+</div>
+<</page>>
 
 
-:: Temple_AfterNight {"position":"925,400","size":"100,100"}
-<<page>>새벽이 가까워진다.
-
-황폐한 절은 여전히 조용하다.
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple]]</div><</page>>
+:: Temple_AfterNight {"position":"1825,625","size":"100,100"}
+<<page>>
+새벽이 가까워진다.
 
 
-:: Temple_Return {"position":"675,925","size":"100,100"}
+<div class="choice-box">[[돌아간다->Temple]]</div>
+<</page>>
+
+
+:: Temple_Return {"position":"2025,1200","size":"100,100"}
+<<page>>
+<<if $completedHanbei && $completedKuro && $completedGenichiro>>
+  <<set $secondRoutesUnlocked to true>>
+<</if>>
+
+<<if $completedSculptor && $completedIsshin>>
+  <<set $shuraUnlocked to true>>
+<</if>>
 <<set $sceneCount += 1>>
 
-<<page>><<if $sceneCount % 3 == 0>>
 
-<div class="narration">밤이 깊어간다…
+<<if $sceneCount % 3 == 0>>
+
+<div class="narration">
+밤이 깊어간다…
 
 늑대는 잠시 걸음을 멈췄다.
 
-오늘 밤, 무엇을 할까.</div>
-<div class="choice-box">[[밤 정찰을 떠난다->NightPatrol_Random]]
+오늘 밤, 무엇을 할까.
+</div>
 
-[[잠시 쉰다->NightRest]]</div>
+<div class="choice-box">
+[[밤 정찰을 떠난다->NightPatrol_Random]]
+[[잠시 쉰다->NightRest]]
+</div>
 
 <<else>>
 
 <div class="narration">밤이 깊어간다.</div>
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple]]</div>
 
-<</if>><</page>>
+<div class="choice-box">
+[[돌아간다->Temple]]
+</div>
+
+<</if>>
+<</page>>
 
 
-:: UI_Widgets [widget] {"position":"300,75","size":"100,100"}
-<<widget "page" container>>
-<div class="page-stage"><div class="page-box"><div class="page-text">_contents</div></div></div>
-<</widget>>
+:: Temple_Return_Bad {"position":"2150,1200","size":"100,100"}
+<<page>>
+<<set $sceneCount += 1>>
+<<set $danger += 1>>
+<<set $isolation += 1>>
 
-<<widget "talk" container>>
-<div class="stage talk-stage">
-  <<if $args.length > 0 and $args[0] != "">>
-  <div class="portrait-box talk-portrait-box"><img class="portrait" @src="'assets/portraits/' + $args[0] + '.png'"></div>
-  <</if>>
 
-  <<if $args.length > 1 and $args[1] != "">>
-  <div class="talk-nameplate"><<print $args[1]>></div>
-  <</if>>
 
-  <div class="textbox-panel"><div class="dialogue">_contents</div></div></div>
-<</widget>>
+<div class="narration">
+밤이 깊어간다.
+
+늑대는 돌아왔다.
+
+돌아왔다는 사실만이,
+간신히 확실했다.
+</div>
+
+<div class="choice-box">
+[[돌아간다->Temple]]
+</div>
+<</page>>
+
+
+:: Temple_Return_Shura {"position":"2275,1200","size":"100,100"}
+<<set $shura += 1>>
+
+<div class="narration">
+
+손에 묻은 피가 마르지 않는다.
+
+</div>
+
+<<goto "Temple">>
+
+
+:: UI_Widgets {"position":"300,75","size":"100,100"}
+/* disabled: page/talk are now defined safely in StoryScript via Macro.add */
 
 
 :: StoryScript [script]
+/* Wolf UI macros: JS로 직접 정의해서 widget/_contents 꼬임을 피한다. */
+(function () {
+  'use strict';
+
+  function wikiInto(element, source) {
+    jQuery(element).wiki(source || '');
+  }
+
+  function makeEl(tag, className, text) {
+    var el = document.createElement(tag);
+    if (className) {
+      el.className = className;
+    }
+    if (text !== undefined && text !== null && text !== '') {
+      el.textContent = String(text);
+    }
+    return el;
+  }
+
+  if (Macro.has('page')) {
+    Macro.delete('page');
+  }
+  if (Macro.has('talk')) {
+    Macro.delete('talk');
+  }
+
+  Macro.add('page', {
+    tags : null,
+    handler : function () {
+      var stage = makeEl('div', 'stage page-stage');
+      var box = makeEl('div', 'page-box');
+      var text = makeEl('div', 'page-text');
+
+      stage.appendChild(box);
+      box.appendChild(text);
+      wikiInto(text, this.payload[0].contents);
+      this.output.appendChild(stage);
+    }
+  });
+
+  Macro.add('talk', {
+    tags : null,
+    handler : function () {
+      var portrait = this.args.length > 0 ? String(this.args[0] || '') : '';
+      var speaker = this.args.length > 1 ? String(this.args[1] || '') : '';
+
+      var row = makeEl('div', 'talk-row ' + (portrait ? 'has-portrait' : 'no-portrait'));
+
+      if (portrait) {
+        var portraitBox = makeEl('div', 'talk-portrait-box');
+        var img = document.createElement('img');
+        img.className = 'portrait';
+        img.src = 'assets/portraits/' + portrait + '.png';
+        portraitBox.appendChild(img);
+        row.appendChild(portraitBox);
+      }
+      else {
+        row.appendChild(makeEl('div', 'talk-portrait-box is-empty'));
+      }
+
+      var panelWrap = makeEl('div', 'talk-panel-wrap');
+      if (speaker) {
+        panelWrap.appendChild(makeEl('div', 'talk-nameplate', speaker));
+      }
+
+      var panel = makeEl('div', 'textbox-panel');
+      var dialogue = makeEl('div', 'dialogue');
+      panel.appendChild(dialogue);
+      panelWrap.appendChild(panel);
+      row.appendChild(panelWrap);
+
+      wikiInto(dialogue, this.payload[0].contents);
+      this.output.appendChild(row);
+    }
+  });
+}());
+
 UIBar.stow();
 
 Config.passages.transitionOut = 0;
@@ -557,13 +1805,14 @@ body {
 
 /* =========================
    SugarCube / Twine UI
-   평소에는 숨김. [ 키로 표시.
+   [ 키: 왼쪽 기본 UI 표시
+   ] 키: 바깥 임시 UI 숨김
 ========================= */
+
 #ui-bar {
   transform: translateX(-100%);
   transition: transform 0.18s ease;
   z-index: 10000;
-
   background: #000 !important;
   color: var(--text) !important;
   border-right: 1px solid var(--line) !important;
@@ -633,6 +1882,10 @@ body.dev-mode #ui-bar {
   border: 1px solid var(--line-soft) !important;
 }
 
+/* =========================
+   SugarCube 기본 화면
+========================= */
+
 #story {
   margin-left: 0 !important;
   width: 100vw;
@@ -675,10 +1928,14 @@ body.dev-mode #ui-bar {
   background: #000;
 }
 
+.passage a {
+  color: var(--white);
+}
+
 /* =========================
-   TEMP OUTER UI
-   게임창 바깥 임시 UI. 나중에 빼거나 body에 hide-temp-ui 클래스를 주면 숨겨짐.
+   바깥 임시 UI / 변수창
 ========================= */
+
 .outer-dev-ui {
   position: fixed;
   inset: 0;
@@ -699,11 +1956,9 @@ body.hide-temp-ui .outer-dev-ui {
   height: 28px;
   box-sizing: border-box;
   pointer-events: auto;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   color: #6f6f6f;
   background: #000;
   border: 1px solid #333;
@@ -732,7 +1987,6 @@ body.hide-temp-ui .outer-dev-ui {
   box-sizing: border-box;
   padding: 12px 12px 14px 12px;
   pointer-events: auto;
-
   background: #000;
   color: #aaa;
   border: 1px solid #333;
@@ -815,14 +2069,15 @@ body.hide-temp-ui .outer-dev-ui {
 
 /* =========================
    PAGE: 나레이션/행동
+   talk도 page 안에서 자연스럽게 배치됨.
 ========================= */
 
 .page-box {
   position: absolute;
-  left: 150px;
-  top: 136px;
-  width: 660px;
-  max-height: 520px;
+  left: 90px;
+  top: 78px;
+  width: 780px;
+  max-height: 585px;
   box-sizing: border-box;
   padding: 0;
   background: transparent;
@@ -832,27 +2087,30 @@ body.hide-temp-ui .outer-dev-ui {
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  text-align: left;
 }
 
 .page-box::-webkit-scrollbar {
   display: none;
 }
 
-.page-box,
 .page-text,
 .page-text .narration,
 .narration {
   color: var(--muted);
   font-size: 22px;
-  line-height: 1.34;
+  line-height: 1.42;
   letter-spacing: 0.03em;
   margin: 0;
   padding: 0;
   text-indent: 0;
+  text-align: left;
 }
 
 .page-text > br:first-child,
-.narration > br:first-child {
+.narration > br:first-child,
+.page-text > p:first-child:empty,
+.narration > p:first-child:empty {
   display: none;
 }
 
@@ -861,94 +2119,67 @@ body.hide-temp-ui .outer-dev-ui {
   font-weight: normal;
 }
 
-/* page 선택지: 나레이션 끝에서 세 줄 띄우고, 구분선 아래 표시 */
-.page-stage .choice-box {
-  margin-top: 66px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  background: transparent;
-}
-
-.choice-box br {
-  display: none;
-}
-
-.page-stage .choice-box a {
-  display: block;
-  width: fit-content;
-  margin: 0;
-  padding: 0;
-  color: var(--white);
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  line-height: 1.32;
-}
-
-.page-stage .choice-box a::before {
-  content: "▶ ";
-  color: #777;
-}
-
-.page-stage .choice-box a:hover,
-.page-stage .choice-box a:hover::before {
-  color: #fff;
-  background: transparent;
-}
-
 /* =========================
-   TALK: 포트레이트 + 대화창
+   TALK: page 안에 들어가는 안전한 대화 블록
+   기존처럼 <<page>> 안에 <<talk>>를 여러 개 써도 깨지지 않음.
 ========================= */
 
-.portrait-box {
-  background: transparent;
-  border: none;
-  line-height: 0;
+.talk-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  column-gap: 14px;
+  align-items: end;
+  width: 100%;
+  margin: 12px 0 18px 0;
+  box-sizing: border-box;
+}
+
+.talk-row.no-portrait {
+  grid-template-columns: 0 1fr;
+  column-gap: 0;
+}
+
+.talk-portrait-box {
+  width: 220px;
+  height: 260px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.talk-portrait-box.is-empty {
+  display: none;
 }
 
 .portrait {
   display: block;
+  width: 220px;
+  max-width: 220px;
+  max-height: 260px;
+  height: auto;
+  object-fit: contain;
+  object-position: right bottom;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
 
-/*
-  page와 talk의 시작 높이를 맞춤.
-  포트레이트는 대화창 바로 왼쪽에 붙고, 대화창 바닥 기준으로 정렬.
-*/
-.talk-portrait-box {
-  position: absolute;
-  left: 62px;
-  top: 166px;
-  width: 250px;
-  height: 360px;
-  z-index: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.talk-portrait-box .portrait {
-  width: 250px;
-  max-width: 250px;
-  max-height: 360px;
-  height: auto;
-  object-fit: contain;
-  object-position: right bottom;
+.talk-panel-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 178px;
+  box-sizing: border-box;
 }
 
 .talk-nameplate {
   position: absolute;
-  left: 356px;
-  top: 150px;
-  min-width: 128px;
+  left: 28px;
+  top: -22px;
+  min-width: 118px;
   height: 34px;
   padding: 0 18px;
   box-sizing: border-box;
-  z-index: 4;
+  z-index: 2;
   background: #000;
   border: 1px solid var(--line);
   color: var(--white);
@@ -961,24 +2192,19 @@ body.hide-temp-ui .outer-dev-ui {
 }
 
 .textbox-panel {
-  position: absolute;
-  left: 322px;
-  top: 166px;
-  width: 590px;
-  height: 360px;
+  width: 100%;
+  min-height: 178px;
   box-sizing: border-box;
-  padding: 30px 34px 22px 34px;
+  padding: 38px 32px 24px 32px;
   background: rgba(2, 2, 2, 0.98);
   border: 1px solid var(--line);
   box-shadow:
     0 0 0 1px #000,
     0 0 0 2px #1a1a1a;
   overflow: hidden;
-  z-index: 2;
 }
 
 .dialogue {
-  height: 100%;
   color: var(--muted);
   font-size: 22px;
   line-height: 1.55;
@@ -986,39 +2212,41 @@ body.hide-temp-ui .outer-dev-ui {
   margin: 0;
   padding: 0;
   text-indent: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.dialogue::-webkit-scrollbar {
-  display: none;
+  text-align: left;
 }
 
 .dialogue > br:first-child {
   display: none;
 }
 
-.talk-stage .narration {
-  color: var(--muted);
-  font-size: 21px;
-  line-height: 1.48;
-  margin: 0 0 10px 0;
-}
+/* =========================
+   선택지
+========================= */
 
-/* talk 선택지: 구분선 아래 한 줄 띄우고, 선택지 사이도 한 줄 간격 */
-.talk-stage .choice-box {
-  margin-top: 16px;
-  padding-top: 20px;
+.choice-box {
+  margin-top: 34px;
+  padding-top: 14px;
   border-top: 1px solid var(--line-soft);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  align-items: flex-start;
+  gap: 12px;
   background: transparent;
+  text-align: left;
 }
 
-.talk-stage .choice-box a {
+.choice-box br {
+  display: none;
+}
+
+.choice-box .narration {
+  margin: 0 0 10px 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  line-height: 1.34 !important;
+}
+
+.choice-box a {
   display: block;
   width: fit-content;
   margin: 0;
@@ -1027,24 +2255,20 @@ body.hide-temp-ui .outer-dev-ui {
   text-decoration: none;
   background: transparent;
   border: none;
+  line-height: 1.34;
   text-align: left;
   font-size: 21px;
-  line-height: 1.34;
 }
 
-.talk-stage .choice-box a::before {
+.choice-box a::before {
   content: "▶ ";
   color: #777;
 }
 
-.talk-stage .choice-box a:hover,
-.talk-stage .choice-box a:hover::before {
+.choice-box a:hover,
+.choice-box a:hover::before {
   color: #fff;
   background: transparent;
-}
-
-.passage a {
-  color: var(--white);
 }
 
 /* =========================
@@ -1088,6 +2312,7 @@ body.hide-temp-ui .outer-dev-ui {
 
 .title-menu {
   font-size: 22px;
+  text-align: left;
 }
 
 .title-menu a {
@@ -1108,4 +2333,11 @@ body.hide-temp-ui .outer-dev-ui {
 
 .title-menu a:hover::before {
   color: #000;
+}
+
+.final-intro {
+  color: #d0d0d0;
+  font-style: italic;
+  text-align: left;
+  box-sizing: border-box;
 }
