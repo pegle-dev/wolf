@@ -78,6 +78,14 @@ Wolf
 ...
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_3_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 뭐야.
 
@@ -134,12 +142,8 @@ Wolf
 조금 빨라졌네.
 <</talk>>
 
-<<talk "wolf" "늑대">>
-...
-<</talk>>
-
 <div class="choice-box">
-[[계속->Hanbei01_End_2]]
+[[계속->Hanbei01_End_ui2]]
 </div>
 <</page>>
 
@@ -150,14 +154,38 @@ Wolf
 칭찬이라구.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_End_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_End_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_End_2_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei01_End_2_ui3 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 정말 반응이 없구만.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_End_2_ui4]]
+</div>
+<</page>>
+
+
+:: Hanbei01_End_2_ui4 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 한베는 검을 거두었다.
@@ -220,6 +248,14 @@ Wolf
 설마 걱정이라도 해주는 건가?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_End_5_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_End_5_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
@@ -246,18 +282,26 @@ Wolf
 <</page>>
 
 
+:: Hanbei01_End_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+...
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_End_2]]
+</div>
+<</page>>
+
+
 :: Hanbei01_Just {"position":"950,1150","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
 
-<<talk "hanbei" "한베">>
-...
-<</talk>>
-
 <div class="choice-box">
-[[계속->Hanbei01_Just_2]]
+[[계속->Hanbei01_Just_ui2]]
 </div>
 <</page>>
 
@@ -268,10 +312,26 @@ Wolf
 그냥...?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_Just_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 그렇다.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_Just_2_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_2_ui3 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 잠시 침묵.
@@ -332,20 +392,26 @@ Wolf
 <</page>>
 
 
+:: Hanbei01_Just_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+...
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_Just_2]]
+</div>
+<</page>>
+
+
 :: Hanbei01_Spar {"position":"800,1150","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
 한수 부탁하지.
 <</talk>>
 
-<<talk "hanbei" "한베">>
-그래.
-
-그게 제일 당신답다.
-<</talk>>
-
 <div class="choice-box">
-[[계속->Hanbei01_Spar_2]]
+[[계속->Hanbei01_Spar_ui2]]
 </div>
 <</page>>
 
@@ -364,6 +430,14 @@ Wolf
 난 자네가 말 거는 것보다 이게 편하더군.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_Spar_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
@@ -398,6 +472,14 @@ Wolf
 근데 검은 거짓말을 하지 않지 않나?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei01_Spar_4_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_4_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 잠시 바람이 분다.
@@ -410,6 +492,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei01_End]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래.
+
+그게 제일 당신답다.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei01_Spar_2]]
 </div>
 <</page>>
 
@@ -460,8 +556,6 @@ Wolf
 
 :: Hanbei02_3 {"position":"1200,875","size":"100,100"}
 <<page>>
-\
-
 <div class="narration">
 
 그는 옷에 묻은 흙을 털었다.
@@ -472,10 +566,26 @@ Wolf
 하마터면 넘어갈 뻔했네.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_3_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_3_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_3_ui3 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 왜 그러는가?
 
@@ -518,6 +628,14 @@ Wolf
 사람들은 불사면 좋겠다고 하더군.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_End_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그는 웃었다.
@@ -542,16 +660,40 @@ Wolf
 근데 이렇게 오래 되면 질리더군.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_End_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_3_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_End_3_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_3_ui3 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 하하하!
 
 농담이야.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_End_3_ui4]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_3_ui4 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그렇게 말했지만.
@@ -600,6 +742,14 @@ Wolf
 근데 잠깐만.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_Fight_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그가 어깨를 돌린다.
@@ -646,14 +796,8 @@ Wolf
 ...
 <</talk>>
 
-<<talk "hanbei" "한베">>
-...
-
-뭐냐.
-<</talk>>
-
 <div class="choice-box">
-[[계속->Hanbei02_Silent_2]]
+[[계속->Hanbei02_Silent_ui2]]
 </div>
 <</page>>
 
@@ -666,6 +810,14 @@ Wolf
 오늘은 더 심하네.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_Silent_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Silent_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그는 웃으며 일어섰다.
@@ -704,6 +856,20 @@ Wolf
 <</page>>
 
 
+:: Hanbei02_Silent_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+...
+
+뭐냐.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_Silent_2]]
+</div>
+<</page>>
+
+
 :: Hanbei02_Worry {"position":"1225,1000","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
@@ -736,6 +902,14 @@ Wolf
 이거?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_Worry_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그는 웃었다.
@@ -764,6 +938,14 @@ Wolf
 죽는 것도.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_Worry_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_3_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그는 아무렇지도 않게 말했다.
@@ -776,6 +958,14 @@ Wolf
 아프긴 하다.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei02_Worry_3_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_3_ui3 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 그 말이 이상하게 남았다.
@@ -830,6 +1020,14 @@ Wolf
 오늘은 몇 번이나 날 날려버릴 생각인가?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_2_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 ...
 <</talk>>
@@ -856,6 +1054,14 @@ Wolf
 설마 다쳤나?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_3_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 아니다.
 <</talk>>
@@ -874,6 +1080,14 @@ Wolf
 오늘은 안 베나?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_4_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_4_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 잠시 침묵.
@@ -904,10 +1118,26 @@ Wolf
 뭐?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_5_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_5_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 그냥.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_5_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_5_ui3 {"position":"0,0","size":"100,100"}
+<<page>>
 <div class="narration">
 
 잠시.
@@ -936,6 +1166,14 @@ Wolf
 진짜 그냥 왔단 말인가?
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_6_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_6_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 그렇다.
 <</talk>>
@@ -994,6 +1232,14 @@ Wolf
 한 수 더 부탁하지.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_Fight_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Fight_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 하하.
 
@@ -1018,6 +1264,14 @@ Wolf
 가보겠다.
 <</talk>>
 
+<div class="choice-box">
+[[계속->Hanbei03_Leave_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Leave_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 어이.
 
@@ -1050,12 +1304,8 @@ Wolf
 이거 좀 신기하군.
 <</talk>>
 
-<<talk "wolf" "늑대">>
-뭐가?
-<</talk>>
-
 <div class="choice-box">
-[[계속->Hanbei03_Sit_2]]
+[[계속->Hanbei03_Sit_ui2]]
 </div>
 <</page>>
 
@@ -1104,6 +1354,18 @@ Wolf
 
 <div class="choice-box">
 [[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit_ui2 {"position":"0,0","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+뭐가?
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei03_Sit_2]]
 </div>
 <</page>>
 
@@ -1597,6 +1859,24 @@ Wolf
     return el;
   }
 
+  function markLayout(stage, text) {
+    var hasTalk = text.querySelector('.talk-row') !== null;
+    var hasChoice = text.querySelector('.choice-box') !== null;
+
+    stage.classList.add(hasTalk ? 'has-talk' : 'no-talk');
+    if (hasChoice) {
+      stage.classList.add('has-choice');
+    }
+
+    Array.prototype.forEach.call(text.querySelectorAll('.narration'), function (el) {
+      el.classList.add(hasTalk ? 'narration-over-talk' : 'narration-full');
+    });
+
+    Array.prototype.forEach.call(text.querySelectorAll('.choice-box'), function (el) {
+      el.classList.add(hasTalk ? 'after-talk' : 'narration-choice');
+    });
+  }
+
   if (Macro.has('page')) {
     Macro.delete('page');
   }
@@ -1613,7 +1893,10 @@ Wolf
 
       stage.appendChild(box);
       box.appendChild(text);
+
       wikiInto(text, this.payload[0].contents);
+      markLayout(stage, text);
+
       this.output.appendChild(stage);
     }
   });
@@ -1654,6 +1937,7 @@ Wolf
     }
   });
 }());
+
 
 UIBar.stow();
 
@@ -2334,4 +2618,560 @@ body.hide-temp-ui .outer-dev-ui {
   font-style: italic;
   text-align: left;
   box-sizing: border-box;
+}
+
+/* =========================
+   Wolf UI layout pass 260614:
+   5. 대화창 위치 고정
+   6. 나레이션 화면 템플릿 정리
+   7. 선택지 위치 정리
+========================= */
+
+/* page는 항상 960x720 전체를 기준 좌표로 쓴다. */
+.stage,
+.page-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 배경 이미지를 나중에 깔 때 이 변수만 바꾸면 됨.
+   예: .page-stage { background-image: var(--bg-temple); } */
+:root {
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-dim: rgba(0, 0, 0, 0.28);
+}
+
+/* 지금은 기존 검은 배경 유지. 배경을 켤 때 아래 background-image 주석을 해제하면 됨. */
+.page-stage {
+  background-color: #000;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-image: var(--bg-temple); */
+}
+
+/* 배경을 켰을 때 텍스트 가독성을 위한 어두운 레이어 */
+.page-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 배경 켠 뒤 필요하면 이 줄을 사용:
+.page-stage::before { background: var(--bg-dim); }
+*/
+
+.page-box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  box-sizing: border-box;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.page-text {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================
+   6. 나레이션 화면
+========================= */
+
+/* 대화가 없는 화면: 전체 나레이션 템플릿 */
+.page-stage.no-talk .page-text {
+  left: 90px;
+  top: 78px;
+  width: 780px;
+  height: 560px;
+  inset: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-stage.no-talk .page-text::-webkit-scrollbar {
+  display: none;
+}
+
+.narration-full,
+.page-stage.no-talk .narration,
+.page-stage.no-talk .page-text {
+  color: var(--muted);
+  font-size: 23px;
+  line-height: 1.62;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+/* 대화가 있는 화면: 위쪽 짧은 나레이션 */
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  position: absolute;
+  left: 90px;
+  top: 64px;
+  width: 780px;
+  max-height: 250px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.62;
+  letter-spacing: 0.04em;
+  text-align: left;
+  z-index: 2;
+}
+
+/* =========================
+   5. 대화창 위치 고정
+========================= */
+
+.page-stage.has-talk .talk-row {
+  position: absolute;
+  left: 58px;
+  bottom: 48px;
+  width: 842px;
+  height: 310px;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  column-gap: 24px;
+  align-items: end;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+/* 선택지가 있는 대화 화면은 대화창을 살짝 위로 올린다. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 92px;
+}
+
+.page-stage.has-talk .talk-row.no-portrait {
+  grid-template-columns: 0 1fr;
+  column-gap: 0;
+  left: 300px;
+  width: 600px;
+}
+
+.talk-portrait-box {
+  width: 240px;
+  height: 310px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: visible;
+}
+
+.portrait {
+  width: 240px;
+  max-width: 240px;
+  max-height: 310px;
+  height: auto;
+  object-fit: contain;
+  object-position: right bottom;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.talk-panel-wrap {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  min-height: 210px;
+  box-sizing: border-box;
+}
+
+.textbox-panel {
+  width: 100%;
+  height: 210px;
+  min-height: 210px;
+  max-height: 210px;
+  box-sizing: border-box;
+  padding: 52px 42px 32px 42px;
+  background: rgba(0, 0, 0, 0.96);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 0 2px #1a1a1a;
+  overflow: hidden;
+}
+
+.talk-nameplate {
+  position: absolute;
+  left: 32px;
+  top: -28px;
+  min-width: 128px;
+  height: 36px;
+  padding: 0 20px;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.98);
+  border: 1px solid var(--line);
+  color: var(--white);
+  font-size: 21px;
+  line-height: 1;
+}
+
+.dialogue {
+  color: var(--muted);
+  font-size: 23px;
+  line-height: 1.58;
+  letter-spacing: 0.035em;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* =========================
+   7. 선택지 위치 정리
+========================= */
+
+.choice-box {
+  box-sizing: border-box;
+  background: transparent;
+  text-align: left;
+  z-index: 5;
+}
+
+.page-stage.no-talk .choice-box,
+.choice-box.narration-choice {
+  margin-top: 34px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.page-stage.has-talk .choice-box,
+.choice-box.after-talk {
+  position: absolute;
+  left: 322px;
+  bottom: 34px;
+  width: 578px;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.choice-box br {
+  display: none;
+}
+
+.choice-box a {
+  display: block;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  line-height: 1.34;
+  text-align: left;
+  font-size: 21px;
+}
+
+.choice-box a::before {
+  content: "▶ ";
+  color: #777;
+}
+
+.choice-box a:hover,
+.choice-box a:hover::before {
+  color: #fff;
+  background: transparent;
+}
+
+/* =========================
+   Wolf UI tuning pass 260614-2:
+   - 전체 화면 축소
+   - 대화창 행간 조정
+   - 대화 위 나레이션 왼쪽 패딩
+========================= */
+
+:root {
+  /* 0.86 추천. 더 작게 보고 싶으면 0.80으로 변경. */
+  --ui-scale: 0.86;
+}
+
+/* 게임 전체를 같은 비율로 축소해서 작은 브라우저에서도 한 화면에 잘 보이게 함. */
+.passage {
+  transform: scale(var(--ui-scale));
+  transform-origin: center center;
+}
+
+/* 대화창 본문 행간: 기존보다 조금 촘촘하게. */
+.dialogue {
+  line-height: 1.38;
+}
+
+/* 대화창 위에 짧게 뜨는 나레이션이 너무 왼쪽에 붙지 않도록 여백 추가. */
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  padding-left: 36px;
+  box-sizing: border-box;
+}
+
+
+
+/* =========================
+   Wolf UI tuning pass 260614-3:
+   - 대화 위 나레이션 / 선택지 기준선 통일
+   - 대화 + 선택지 화면의 겹침 방지
+========================= */
+
+:root {
+  --wolf-narration-left: 90px;
+  --wolf-narration-width: 780px;
+
+  --wolf-talk-left: 58px;
+  --wolf-talk-width: 842px;
+  --wolf-panel-left: 322px;
+  --wolf-panel-width: 578px;
+  --wolf-dialogue-text-left: 364px;
+  --wolf-dialogue-text-width: 536px;
+}
+
+/* 대화 화면 상단 나레이션은 대화 본문 시작점과 맞춘다. */
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  left: var(--wolf-dialogue-text-left);
+  width: var(--wolf-dialogue-text-width);
+  padding-left: 0;
+  top: 62px;
+  max-height: 230px;
+  line-height: 1.54;
+  box-sizing: border-box;
+}
+
+/* 대화창 기본 위치와 폭을 변수 기준으로 다시 고정. */
+.page-stage.has-talk .talk-row {
+  left: var(--wolf-talk-left);
+  width: var(--wolf-talk-width);
+  bottom: 48px;
+  z-index: 6;
+}
+
+/* 선택지가 같이 있는 화면은 대화창을 충분히 올려서 겹침을 막는다. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 190px;
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: 190px;
+  min-height: 190px;
+  max-height: 190px;
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 46px;
+  padding-bottom: 26px;
+}
+
+/* 선택지는 대화창 본문 시작점과 같은 기준선에 둔다. */
+.page-stage.has-talk .choice-box,
+.choice-box.after-talk {
+  left: var(--wolf-dialogue-text-left);
+  width: var(--wolf-dialogue-text-width);
+  bottom: 26px;
+  padding-top: 10px;
+  gap: 8px;
+  z-index: 12;
+}
+
+.choice-box a {
+  font-size: 20px;
+  line-height: 1.26;
+}
+
+/* 전체 나레이션 화면도 기준값을 통일. */
+.page-stage.no-talk .page-text {
+  left: var(--wolf-narration-left);
+  width: var(--wolf-narration-width);
+}
+
+/* =========================
+   Wolf UI tuning pass 260615-1:
+   - 선택지를 대화창 바로 아래로 당김
+   - 배경 레이어 기본 적용
+========================= */
+
+:root {
+  /* 대화창+선택지 화면에서 선택지를 대화창 아래 한 줄 간격으로 붙이는 값 */
+  --wolf-choice-gap-after-talk: 18px;
+
+  /* 배경 레이어. 파일은 assets/backgrounds/Temple.png 에 두면 됨. */
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-dim: rgba(0, 0, 0, 0.42);
+}
+
+/* 기본 장소 배경: 일단 모든 page-stage에 황폐한 절을 깐다. */
+.page-stage {
+  background-color: #000;
+  background-image: var(--bg-temple);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* 배경 위 어두운 오버레이. 텍스트와 포트레이트 가독성 확보용. */
+.page-stage::before {
+  background: var(--bg-dim);
+  z-index: 0;
+}
+
+/* 대화/나레이션/선택지는 항상 배경 오버레이 위로. */
+.page-box,
+.page-text,
+.narration-full,
+.narration-over-talk,
+.talk-row,
+.choice-box {
+  z-index: 2;
+}
+
+/* 대화 + 선택지 화면: 대화창을 유지하고 선택지를 바로 아래에 붙임. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 190px;
+}
+
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  top: calc(var(--game-h) - 190px + var(--wolf-choice-gap-after-talk));
+  bottom: auto;
+  left: var(--wolf-dialogue-text-left);
+  width: var(--wolf-dialogue-text-width);
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft);
+  gap: 8px;
+  z-index: 12;
+}
+
+/* 선택지가 여러 개일 때도 화면 안에서만 스크롤되도록 안전장치. */
+.page-stage.has-talk.has-choice .choice-box {
+  max-height: 150px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box::-webkit-scrollbar {
+  display: none;
+}
+
+/* 선택지 줄 간격을 대화창에 더 붙어 보이게 조정. */
+.page-stage.has-talk.has-choice .choice-box a {
+  font-size: 20px;
+  line-height: 1.24;
+}
+
+
+
+/* =========================
+   Wolf UI tuning pass 260615-2:
+   - 선택지를 대화창 하단 부속 UI처럼 붙임
+   - 선택지 있는 대화창은 높이를 키우고 내부 하단을 선택지 영역으로 사용
+   - 배경은 조금 더 어둡게 눌러 텍스트와 덜 경쟁하게 함
+========================= */
+
+:root {
+  /* 배경이 텍스트와 경쟁하지 않도록 이전보다 살짝 더 어둡게 */
+  --bg-dim: rgba(0, 0, 0, 0.50);
+
+  /* 선택지가 있는 대화창 전용값 */
+  --wolf-choice-text-top: 520px;
+  --wolf-choice-max-height: 96px;
+}
+
+/* 배경 위 어두운 오버레이 강화 */
+.page-stage::before {
+  background: var(--bg-dim);
+}
+
+/* 선택지가 있는 화면에서는 대화창 자체를 조금 크게 만들어
+   대사와 선택지를 하나의 하단 UI 덩어리로 묶는다. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 88px;
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: 300px;
+  min-height: 300px;
+  max-height: 300px;
+}
+
+/* 대사 영역 아래쪽을 선택지 영역으로 비워둠 */
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 46px;
+  padding-bottom: 122px;
+  background: rgba(0, 0, 0, 0.985);
+}
+
+/* 선택지는 이제 대화창 외부가 아니라, 대화창 하단에 붙은 것처럼 보이게 배치 */
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  position: absolute;
+  left: var(--wolf-dialogue-text-left);
+  top: var(--wolf-choice-text-top);
+  bottom: auto;
+  width: var(--wolf-dialogue-text-width);
+  max-height: var(--wolf-choice-max-height);
+  margin: 0;
+  padding-top: 9px;
+  border-top: 1px solid rgba(210, 210, 210, 0.26);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  z-index: 20;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box::-webkit-scrollbar {
+  display: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box a {
+  font-size: 20px;
+  line-height: 1.22;
+}
+
+/* 선택지가 있는 화면은 상단 나레이션이 너무 강하면 산만하므로 살짝 눌러준다. */
+.page-stage.has-talk.has-choice .narration,
+.page-stage.has-talk.has-choice .narration-over-talk {
+  opacity: 0.92;
+  max-height: 178px;
 }
