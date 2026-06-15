@@ -45,7 +45,7 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei01_2]]
+[[계속->Hanbei01_2_Beat]]
 </div>
 <</page>>
 
@@ -58,7 +58,15 @@ Wolf
 왔나?
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[계속->Hanbei01_3]]
+</div>
+<</page>>
+
+
+:: Hanbei01_2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 그는 검을 어깨에 걸친 채 손을 흔들었다.
 
@@ -67,7 +75,7 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei01_3]]
+[[계속->Hanbei01_2]]
 </div>
 <</page>>
 
@@ -95,25 +103,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei01_4]]
+[[계속->Hanbei01_4_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei01_4 {"position":"950,1000","size":"100,100"}
 <<page>>
-<div class="narration">
-
-한베는 하하 웃으며 검을 뽑았다.
-
-익숙한 소리.
-
-익숙한 자세.
-
-익숙한 거리.
-
-</div>
-
 <<talk "hanbei" "한베">>
 좋아.
 
@@ -128,14 +124,28 @@ Wolf
 <</page>>
 
 
-:: Hanbei01_End {"position":"800,1650","size":"100,100"}
+:: Hanbei01_4_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
+<div class="narration narration-full short-beat">
 
-짧은 대련이 끝났다.
+한베는 하하 웃으며 검을 뽑았다.
+
+익숙한 소리.
+
+익숙한 자세.
+
+익숙한 거리.
 
 </div>
 
+<div class="choice-box">
+[[계속->Hanbei01_4]]
+</div>
+<</page>>
+
+
+:: Hanbei01_End {"position":"800,1650","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 음.
 
@@ -282,6 +292,20 @@ Wolf
 <</page>>
 
 
+:: Hanbei01_End_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+짧은 대련이 끝났다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_End]]
+</div>
+<</page>>
+
+
 :: Hanbei01_End_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
@@ -339,7 +363,7 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei01_Just_3]]
+[[계속->Hanbei01_Just_3_Beat]]
 </div>
 <</page>>
 
@@ -354,14 +378,22 @@ Wolf
 매번 검만 휘두르는 것도 질리거든.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[계속->Hanbei01_Just_4_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_3_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 한베는 검을 바닥에 내려놓았다.
 
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei01_Just_4]]
+[[계속->Hanbei01_Just_3]]
 </div>
 <</page>>
 
@@ -374,7 +406,15 @@ Wolf
 어차피 난 여기 있으니까.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[계속->Hanbei01_End_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Just_4_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 그는 웃으며 말했다.
 
@@ -387,7 +427,7 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei01_End]]
+[[계속->Hanbei01_Just_4]]
 </div>
 <</page>>
 
@@ -418,12 +458,6 @@ Wolf
 
 :: Hanbei01_Spar_2 {"position":"800,1275","size":"100,100"}
 <<page>>
-<div class="narration">
-
-한베는 검을 한 바퀴 돌렸다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 솔직히 말하면.
 
@@ -432,6 +466,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei01_Spar_2_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+한베는 검을 한 바퀴 돌렸다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_Spar_2]]
 </div>
 <</page>>
 
@@ -473,25 +521,33 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei01_Spar_4_ui2]]
+[[계속->Hanbei01_Spar_4_ui2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei01_Spar_4_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-잠시 바람이 분다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 그 점은 좋더군.
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei01_End]]
+[[계속->Hanbei01_End_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei01_Spar_4_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+잠시 바람이 분다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei01_Spar_4_ui2]]
 </div>
 <</page>>
 
@@ -505,7 +561,7 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei01_Spar_2]]
+[[계속->Hanbei01_Spar_2_Beat]]
 </div>
 <</page>>
 
@@ -525,14 +581,28 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei02_2]]
+[[계속->Hanbei02_2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei02_2 {"position":"1200,750","size":"100,100"}
 <<page>>
-<div class="narration">
+<<talk "hanbei" "한베">>
+음.
+
+이번 건 좀 괜찮았는데.
+<</talk>>
+
+<div class="choice-box">
+[[계속->Hanbei02_3_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 한베는 늘 그랬듯 쓰러졌다.
 
@@ -542,32 +612,34 @@ Wolf
 
 </div>
 
-<<talk "hanbei" "한베">>
-음.
-
-이번 건 좀 괜찮았는데.
-<</talk>>
-
 <div class="choice-box">
-[[계속->Hanbei02_3]]
+[[계속->Hanbei02_2]]
 </div>
 <</page>>
 
 
 :: Hanbei02_3 {"position":"1200,875","size":"100,100"}
 <<page>>
-<div class="narration">
-
-그는 옷에 묻은 흙을 털었다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 하마터면 넘어갈 뻔했네.
 <</talk>>
 
 <div class="choice-box">
 [[계속->Hanbei02_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei02_3_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+그는 옷에 묻은 흙을 털었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_3]]
 </div>
 <</page>>
 
@@ -593,8 +665,8 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[다시 자세를 잡는다->Hanbei02_Fight][$hanbeiLove += 1]]
-[[괜찮나 본다->Hanbei02_Worry][$hanbeiLove +=  2]]
+[[다시 자세를 잡는다->Hanbei02_Fight_Beat][$hanbeiLove += 1]]
+[[괜찮나 본다->Hanbei02_Worry_Beat][$hanbeiLove +=  2]]
 [[아무 말도 하지 않는다->Hanbei02_Silent][$isolation += 1]]
 </div>
 <</page>>
@@ -602,16 +674,6 @@ Wolf
 
 :: Hanbei02_End {"position":"1100,1375","size":"100,100"}
 <<page>>
-<div class="narration">
-
-바람이 분다.
-
-훈련장에 떨어진 낙엽이 굴러간다.
-
-한베는 검을 어깨에 걸쳤다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 있지.
 <</talk>>
@@ -629,19 +691,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_End_2_ui2]]
+[[계속->Hanbei02_End_2_ui2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei02_End_2_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-그는 웃었다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 뭐.
 
@@ -650,6 +706,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei02_End_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_End_2_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+그는 웃었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_End_2_ui2]]
 </div>
 <</page>>
 
@@ -708,14 +778,26 @@ Wolf
 <</page>>
 
 
-:: Hanbei02_Fight {"position":"1100,1000","size":"100,100"}
+:: Hanbei02_End_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
+<div class="narration narration-full short-beat">
 
-늑대는 다시 검을 들었다.
+바람이 분다.
+
+훈련장에 떨어진 낙엽이 굴러간다.
+
+한베는 검을 어깨에 걸쳤다.
 
 </div>
 
+<div class="choice-box">
+[[계속->Hanbei02_End]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight {"position":"1100,1000","size":"100,100"}
+<<page>>
 <<talk "hanbei" "한베">>
 오.
 
@@ -725,37 +807,39 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Fight_2]]
+[[계속->Hanbei02_Fight_2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei02_Fight_2 {"position":"1100,1125","size":"100,100"}
 <<page>>
-<div class="narration">
-
-한베도 검을 들었다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 근데 잠깐만.
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Fight_2_ui2]]
+[[계속->Hanbei02_Fight_2_ui2_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+한베도 검을 들었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Fight_2]]
 </div>
 <</page>>
 
 
 :: Hanbei02_Fight_2_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-그가 어깨를 돌린다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 으.
 
@@ -763,19 +847,27 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Fight_3]]
+[[계속->Hanbei02_Fight_3_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_2_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+그가 어깨를 돌린다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Fight_2_ui2]]
 </div>
 <</page>>
 
 
 :: Hanbei02_Fight_3 {"position":"1100,1250","size":"100,100"}
 <<page>>
-<div class="narration">
-
-잠시 침묵.
-
-</div>
-
 <<talk "hanbei" "한베">>
 하하하.
 
@@ -785,7 +877,35 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_End]]
+[[계속->Hanbei02_End_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_3_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+잠시 침묵.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Fight_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Fight_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+늑대는 다시 검을 들었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Fight]]
 </div>
 <</page>>
 
@@ -811,19 +931,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Silent_2_ui2]]
+[[계속->Hanbei02_Silent_2_ui2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei02_Silent_2_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-그는 웃으며 일어섰다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 됐어.
 
@@ -831,7 +945,21 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Silent_3]]
+[[계속->Hanbei02_Silent_3_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Silent_2_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+그는 웃으며 일어섰다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Silent_2_ui2]]
 </div>
 <</page>>
 
@@ -842,7 +970,15 @@ Wolf
 걱정할 필요 없어.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[계속->Hanbei02_End_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Silent_3_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 그 말은.
 
@@ -851,7 +987,7 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei02_End]]
+[[계속->Hanbei02_Silent_3]]
 </div>
 <</page>>
 
@@ -876,18 +1012,6 @@ Wolf
 ...
 <</talk>>
 
-<div class="narration">
-
-늑대는 한베의 팔을 바라보았다.
-
-옷이 조금 찢어져 있었다.
-
-상처도 있다.
-
-이미 아물기 시작하고 있었지만.
-
-</div>
-
 <div class="choice-box">
 [[계속->Hanbei02_Worry_2]]
 </div>
@@ -903,19 +1027,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Worry_2_ui2]]
+[[계속->Hanbei02_Worry_2_ui2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei02_Worry_2_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-그는 웃었다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 괜찮아.
 
@@ -924,6 +1042,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei02_Worry_3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_2_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+그는 웃었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Worry_2_ui2]]
 </div>
 <</page>>
 
@@ -939,19 +1071,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei02_Worry_3_ui2]]
+[[계속->Hanbei02_Worry_3_ui2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei02_Worry_3_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-그는 아무렇지도 않게 말했다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 근데.
 
@@ -960,6 +1086,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei02_Worry_3_ui3]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_3_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+그는 아무렇지도 않게 말했다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Worry_3_ui2]]
 </div>
 <</page>>
 
@@ -973,27 +1113,33 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei02_End]]
+[[계속->Hanbei02_End_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei02_Worry_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+늑대는 한베의 팔을 바라보았다.
+
+옷이 조금 찢어져 있었다.
+
+상처도 있다.
+
+이미 아물기 시작하고 있었지만.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei02_Worry]]
 </div>
 <</page>>
 
 
 :: Hanbei03 {"position":"1375,625","size":"100,100"}
 <<page>>
-<div class="narration">
-
-훈련장.
-
-익숙한 길.
-
-익숙한 공터.
-
-그리고.
-
-익숙한 사람.
-
-</div>
-
 <<talk "hanbei" "한베">>
 오.
 
@@ -1001,19 +1147,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei03_2]]
+[[계속->Hanbei03_2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei03_2 {"position":"1375,750","size":"100,100"}
 <<page>>
-<div class="narration">
-
-한베는 언제나처럼 검을 들고 있었다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 좋아.
 
@@ -1026,6 +1166,20 @@ Wolf
 <</page>>
 
 
+:: Hanbei03_2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+한베는 언제나처럼 검을 들고 있었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_2]]
+</div>
+<</page>>
+
+
 :: Hanbei03_2_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
@@ -1033,19 +1187,13 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei03_3]]
+[[계속->Hanbei03_3_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei03_3 {"position":"1375,875","size":"100,100"}
 <<page>>
-<div class="narration">
-
-늑대는 검집에 손을 얹은 채 가만히 서 있었다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 ...?
 
@@ -1056,6 +1204,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei03_3_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_3_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+늑대는 검집에 손을 얹은 채 가만히 서 있었다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_3]]
 </div>
 <</page>>
 
@@ -1081,37 +1243,39 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei03_4_ui2]]
+[[계속->Hanbei03_4_ui2_Beat]]
 </div>
 <</page>>
 
 
 :: Hanbei03_4_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
-<div class="narration">
-
-잠시 침묵.
-
-</div>
-
 <<talk "wolf" "늑대">>
 그냥 왔다.
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei03_5]]
+[[계속->Hanbei03_5_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei03_4_ui2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+잠시 침묵.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_4_ui2]]
 </div>
 <</page>>
 
 
 :: Hanbei03_5 {"position":"1500,1125","size":"100,100"}
 <<page>>
-<div class="narration">
-
-바람이 분다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 ...
 
@@ -1120,6 +1284,20 @@ Wolf
 
 <div class="choice-box">
 [[계속->Hanbei03_5_ui2]]
+</div>
+<</page>>
+
+
+:: Hanbei03_5_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+바람이 분다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_5]]
 </div>
 <</page>>
 
@@ -1179,7 +1357,7 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei03_7]]
+[[계속->Hanbei03_7_Beat]]
 </div>
 <</page>>
 
@@ -1194,14 +1372,22 @@ Wolf
 난 또 오늘도 맞으러 온 줄 알았는데.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[계속->Hanbei03_8]]
+</div>
+<</page>>
+
+
+:: Hanbei03_7_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 한베는 검을 거두었다.
 
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei03_8]]
+[[계속->Hanbei03_7]]
 </div>
 <</page>>
 
@@ -1220,8 +1406,30 @@ Wolf
 
 <div class="choice-box">
 [[대련하자고 한다->Hanbei03_Fight][$hanbe += 1]]
-[[그냥 앉아 있는다->Hanbei03_Sit][$hanbe += 2]]
+[[그냥 앉아 있는다->Hanbei03_Sit_Beat][$hanbe += 2]]
 [[떠난다->Hanbei03_Leave]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+훈련장.
+
+익숙한 길.
+
+익숙한 공터.
+
+그리고.
+
+익숙한 사람.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03]]
 </div>
 <</page>>
 
@@ -1292,12 +1500,6 @@ Wolf
 
 :: Hanbei03_Sit {"position":"1375,1625","size":"100,100"}
 <<page>>
-<div class="narration">
-
-늑대는 말없이 그의 곁에 앉았다.
-
-</div>
-
 <<talk "hanbei" "한베">>
 ...
 
@@ -1318,7 +1520,15 @@ Wolf
 생각보다 나쁘지 않더군.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[계속->Hanbei03_Sit_3_Beat]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit_2_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 잠시 침묵.
 
@@ -1327,7 +1537,7 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[계속->Hanbei03_Sit_3]]
+[[계속->Hanbei03_Sit_2]]
 </div>
 <</page>>
 
@@ -1342,7 +1552,15 @@ Wolf
 대련 안 해서 좋다는 말이야.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit_3_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 
 그는 웃었다.
 
@@ -1353,7 +1571,21 @@ Wolf
 </div>
 
 <div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
+[[계속->Hanbei03_Sit_3]]
+</div>
+<</page>>
+
+
+:: Hanbei03_Sit_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+
+늑대는 말없이 그의 곁에 앉았다.
+
+</div>
+
+<div class="choice-box">
+[[계속->Hanbei03_Sit]]
 </div>
 <</page>>
 
@@ -1365,7 +1597,7 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei03_Sit_2]]
+[[계속->Hanbei03_Sit_2_Beat]]
 </div>
 <</page>>
 
@@ -1412,7 +1644,7 @@ Wolf
 <</talk>>
 
 <div class="choice-box">
-[[계속->Hanbei_Sake_반응]]
+[[계속->Hanbei_Sake_반응_Beat]]
 </div>
 <</page>>
 
@@ -1425,13 +1657,21 @@ Wolf
 자네가 그런 말을 할 줄은 몰랐군.
 <</talk>>
 
-<div class="narration">
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return]]
+</div>
+<</page>>
+
+
+:: Hanbei_Sake_반응_Beat {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
 한베는 잠시 술병을 바라보다가,
 조용히 받아들었다.
 </div>
 
 <div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return]]
+[[계속->Hanbei_Sake_반응]]
 </div>
 <</page>>
 
@@ -1517,6 +1757,7 @@ Wolf
 누구의 손을 붙잡을 수 있을까.
 
 아직은 알 수 없다.
+</div>
 <div class="narration final-intro">
 
 그는 아직,
@@ -1732,7 +1973,7 @@ Wolf
 <<elseif $hanbeiProgress == 1>>
 [[한베에게 간다->Hanbei02]]
 <<elseif $hanbeiProgress == 2>>
-[[한베에게 간다->Hanbei03]]
+[[한베에게 간다->Hanbei03_Beat]]
 <<else>>
 [[한베와 이야기한다->Hanbei_Loop]]
 <</if>>
@@ -1859,11 +2100,47 @@ Wolf
     return el;
   }
 
+  function getSceneBgClass(passageName) {
+    var name = String(passageName || '');
+
+    if (/^Intro/.test(name)) {
+      return 'bg-black';
+    }
+    if (/^Hanbei/.test(name)) {
+      return 'bg-training';
+    }
+    if (/^NightPatrol/.test(name)) {
+      return 'bg-nightpatrol';
+    }
+    if (/^Kuro/.test(name)) {
+      return 'bg-room';
+    }
+    if (/^Genichiro/.test(name)) {
+      return 'bg-ashina';
+    }
+
+    return 'bg-temple';
+  }
+
+  function getSceneBgAlias(bgClass) {
+    switch (bgClass) {
+      case 'bg-black':
+        return 'bg-intro';
+      case 'bg-nightpatrol':
+        return 'bg-night-patrol';
+      case 'bg-ashina':
+        return 'bg-ashina-tower';
+      default:
+        return bgClass;
+    }
+  }
+
   function markLayout(stage, text) {
     var hasTalk = text.querySelector('.talk-row') !== null;
     var hasChoice = text.querySelector('.choice-box') !== null;
 
     stage.classList.add(hasTalk ? 'has-talk' : 'no-talk');
+    stage.classList.add(hasTalk ? 'dialogue-page' : 'narration-only');
     if (hasChoice) {
       stage.classList.add('has-choice');
     }
@@ -1874,6 +2151,13 @@ Wolf
 
     Array.prototype.forEach.call(text.querySelectorAll('.choice-box'), function (el) {
       el.classList.add(hasTalk ? 'after-talk' : 'narration-choice');
+
+      var links = Array.prototype.filter.call(el.querySelectorAll('a'), function (link) {
+        return link.textContent.trim() !== '';
+      });
+      if (links.length === 1 && links[0].textContent.trim() === '계속') {
+        el.classList.add('next-only');
+      }
     });
   }
 
@@ -1887,9 +2171,20 @@ Wolf
   Macro.add('page', {
     tags : null,
     handler : function () {
-      var stage = makeEl('div', 'stage page-stage');
+      var passageName = (this.passageObj && this.passageObj.title) || State.passage || '';
+      var bgClass = getSceneBgClass(passageName);
+      var bgAlias = getSceneBgAlias(bgClass);
+      var stage = makeEl('div', 'stage page-stage wolf-page ' + bgClass + ' ' + bgAlias);
       var box = makeEl('div', 'page-box');
-      var text = makeEl('div', 'page-text');
+      var text = makeEl('div', 'page-text wolf-content');
+      var sameBg = setup.wolfLastBgClass === bgClass;
+      var transitionClass = sameBg ? 'same-bg' : 'changed-bg';
+
+      stage.classList.add(transitionClass);
+      if (!sameBg) {
+        stage.classList.add('bg-changed');
+      }
+      setup.wolfLastBgClass = bgClass;
 
       stage.appendChild(box);
       box.appendChild(text);
@@ -1898,6 +2193,13 @@ Wolf
       markLayout(stage, text);
 
       this.output.appendChild(stage);
+
+      var passageEl = stage.closest('.passage');
+      if (passageEl) {
+        passageEl.classList.remove('wolf-same-bg', 'wolf-changed-bg', 'same-bg', 'bg-changed');
+        passageEl.classList.add(sameBg ? 'wolf-same-bg' : 'wolf-changed-bg');
+        passageEl.classList.add(sameBg ? 'same-bg' : 'bg-changed');
+      }
     }
   });
 
@@ -1944,7 +2246,55 @@ UIBar.stow();
 Config.passages.transitionOut = 0;
 Config.history.controls = false;
 
+function getStoredStatusHidden() {
+  try {
+    var stored = localStorage.getItem('wolf.statusHidden');
+    return stored === null ? true : stored === 'true';
+  } catch (error) {
+    return true;
+  }
+}
+
+function applyStatusHiddenClass(hidden) {
+  document.documentElement.classList.toggle('status-hidden', hidden);
+  document.body.classList.toggle('status-hidden', hidden);
+}
+
+function setStoredStatusHidden(hidden) {
+  hidden = !!hidden;
+  applyStatusHiddenClass(hidden);
+
+  try {
+    localStorage.setItem('wolf.statusHidden', hidden ? 'true' : 'false');
+  } catch (error) {
+    /* localStorage may be unavailable for local files in some browsers. */
+  }
+}
+
+function applyStoredStatusHidden() {
+  applyStatusHiddenClass(getStoredStatusHidden());
+}
+
+function isTypingTarget(target) {
+  if (!target) {
+    return false;
+  }
+
+  var tagName = String(target.tagName || '').toLowerCase();
+  return tagName === 'input' ||
+    tagName === 'textarea' ||
+    tagName === 'select' ||
+    target.isContentEditable ||
+    !!(target.closest && target.closest('[contenteditable]'));
+}
+
+applyStoredStatusHidden();
+
 $(document).on('keydown', function (event) {
+  if (isTypingTarget(event.target)) {
+    return;
+  }
+
   if (event.key === '[') {
     event.preventDefault();
     document.body.classList.toggle('dev-mode');
@@ -1952,9 +2302,64 @@ $(document).on('keydown', function (event) {
 
   if (event.key === ']') {
     event.preventDefault();
-    document.body.classList.toggle('hide-temp-ui');
+    var currentlyHidden = document.documentElement.classList.contains('status-hidden') ||
+      document.body.classList.contains('status-hidden');
+    setStoredStatusHidden(!currentlyHidden);
   }
 });
+
+window.WolfSetStatusHidden = setStoredStatusHidden;
+window.WolfApplyStoredStatusHidden = applyStoredStatusHidden;
+
+(function () {
+  'use strict';
+
+  var BUTTON_SOUND_SRC = 'assets/sounds/button.mp3';
+  var BUTTON_SOUND_VOLUME = 0.45;
+  var buttonSound = null;
+
+  function getButtonSound() {
+    if (!buttonSound) {
+      buttonSound = new Audio(BUTTON_SOUND_SRC);
+      buttonSound.preload = 'auto';
+      buttonSound.volume = BUTTON_SOUND_VOLUME;
+    }
+
+    return buttonSound;
+  }
+
+  function playButtonSound() {
+    try {
+      var base = getButtonSound();
+      var sound = base.cloneNode();
+      sound.volume = BUTTON_SOUND_VOLUME;
+      sound.currentTime = 0;
+
+      var promise = sound.play();
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(function () {});
+      }
+    } catch (error) {
+      /* SFX must never block navigation. */
+    }
+  }
+
+  function isButtonLikeClick(target) {
+    if (!target || !target.closest) {
+      return false;
+    }
+
+    return !!target.closest('.choice-box a, .next-only a, a.link-internal, a, button, [data-game-back]');
+  }
+
+  document.addEventListener('click', function (event) {
+    if (isButtonLikeClick(event.target)) {
+      playButtonSound();
+    }
+  }, true);
+
+  window.WolfPlayButtonSound = playButtonSound;
+}());
 
 function wolfEscapeHtml(value) {
   return String(value)
@@ -1996,6 +2401,8 @@ function wolfEnsureOuterUI() {
       '</div>' +
     '</div>'
   );
+
+  applyStoredStatusHidden();
 }
 
 function wolfUpdateOuterUI() {
@@ -2028,10 +2435,12 @@ function wolfUpdateOuterUI() {
 
 $(document).on(':passagerender :passageend', function () {
   wolfUpdateOuterUI();
+  applyStoredStatusHidden();
 });
 
 $(document).ready(function () {
   wolfUpdateOuterUI();
+  applyStoredStatusHidden();
 });
 
 $(document).on('click', '[data-game-back]', function (event) {
@@ -2222,7 +2631,8 @@ body.dev-mode #ui-bar {
   font-family: 'NeoDunggeunmo Pro', monospace;
 }
 
-body.hide-temp-ui .outer-dev-ui {
+html.status-hidden .outer-dev-ui,
+body.status-hidden .outer-dev-ui {
   display: none;
 }
 
@@ -3169,9 +3579,814 @@ body.hide-temp-ui .outer-dev-ui {
   line-height: 1.22;
 }
 
+
+
 /* 선택지가 있는 화면은 상단 나레이션이 너무 강하면 산만하므로 살짝 눌러준다. */
 .page-stage.has-talk.has-choice .narration,
 .page-stage.has-talk.has-choice .narration-over-talk {
   opacity: 0.92;
   max-height: 178px;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615:
+   - Temple 배경을 별도 레이어로 분리
+   - 선택지를 대화창 하단 부속 UI로 고정
+========================= */
+
+:root {
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-overlay: rgba(0, 0, 0, 0.40);
+
+  --wolf-talk-choice-bottom: 88px;
+  --wolf-talk-choice-panel-height: 300px;
+  --wolf-choice-attach-top: 520px;
+  --wolf-choice-attach-height: 96px;
+}
+
+.page-stage {
+  background: #000;
+}
+
+.page-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--bg-temple);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(0.53) contrast(0.83);
+}
+
+.page-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--bg-overlay);
+}
+
+.page-box,
+.page-text,
+.narration-full,
+.narration-over-talk,
+.talk-row,
+.choice-box {
+  position: relative;
+  z-index: 2;
+}
+
+.page-stage.has-talk .talk-row {
+  z-index: 3;
+}
+
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: var(--wolf-talk-choice-bottom);
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: var(--wolf-talk-choice-panel-height);
+  min-height: var(--wolf-talk-choice-panel-height);
+  max-height: var(--wolf-talk-choice-panel-height);
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 46px;
+  padding-bottom: 118px;
+  background: rgba(0, 0, 0, 0.985);
+}
+
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  position: absolute;
+  left: var(--wolf-dialogue-text-left);
+  top: var(--wolf-choice-attach-top);
+  bottom: auto;
+  width: var(--wolf-dialogue-text-width);
+  max-height: var(--wolf-choice-attach-height);
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(216, 216, 216, 0.28);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 4;
+}
+
+.page-stage.has-talk.has-choice .choice-box::-webkit-scrollbar {
+  display: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box a {
+  font-size: 20px;
+  line-height: 1.22;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-2:
+   - 모든 나레이션 시작 좌표 통일
+========================= */
+
+:root {
+  --narration-left: 92px;
+  --narration-top: 74px;
+  --narration-width: 776px;
+  --narration-height: 560px;
+
+  --talk-caption-left: 330px;
+  --talk-caption-top: 72px;
+  --talk-caption-width: 570px;
+  --talk-caption-max-height: 178px;
+}
+
+.page-text {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.page-stage.no-talk .page-text {
+  position: absolute;
+  left: var(--narration-left);
+  top: var(--narration-top);
+  width: var(--narration-width);
+  height: var(--narration-height);
+  inset: auto;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.page-stage.no-talk .narration,
+.narration-full {
+  position: static;
+  left: auto;
+  top: auto;
+  width: auto;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  position: absolute;
+  left: var(--talk-caption-left);
+  top: var(--talk-caption-top);
+  width: var(--talk-caption-width);
+  max-height: var(--talk-caption-max-height);
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-3:
+   - passage 이름 기반 장소 배경 자동 적용
+   - 전체 나레이션 내부 여백 통일
+========================= */
+
+:root {
+  --scene-bg: url('assets/backgrounds/Temple.png');
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-training: url('assets/backgrounds/TrainingArea.png');
+  --bg-nightpatrol: url('assets/backgrounds/NightPatrol01.png');
+  --bg-room: url('assets/backgrounds/Room01.png');
+  --bg-ashina: url('assets/backgrounds/AshinaTower.png');
+  --bg-overlay: rgba(0, 0, 0, 0.30);
+
+  --narration-pad-top: 30px;
+  --narration-pad-left: 30px;
+}
+
+.page-stage.bg-temple {
+  --scene-bg: var(--bg-temple);
+}
+
+.page-stage.bg-training {
+  --scene-bg: var(--bg-training);
+}
+
+.page-stage.bg-nightpatrol {
+  --scene-bg: var(--bg-nightpatrol);
+}
+
+.page-stage.bg-room {
+  --scene-bg: var(--bg-room);
+}
+
+.page-stage.bg-ashina {
+  --scene-bg: var(--bg-ashina);
+}
+
+.page-stage.bg-black {
+  background: #000;
+}
+
+.page-stage.bg-black::before,
+.page-stage.bg-black::after {
+  display: none;
+}
+
+.page-stage::before {
+  background-image: var(--scene-bg);
+  background-size: cover;
+  background-position: center center;
+  filter: brightness(0.68) contrast(1.05);
+}
+
+.page-stage::after {
+  background: var(--bg-overlay);
+}
+
+.page-stage.no-talk .page-text {
+  padding-top: var(--narration-pad-top);
+  padding-left: var(--narration-pad-left);
+  box-sizing: border-box;
+}
+
+.page-stage.no-talk .narration,
+.page-stage.no-talk .narration-full {
+  margin-left: 0;
+  padding-left: 0;
+  box-sizing: border-box;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-4:
+   - 스테이터스 UI 저장 토글
+   - 나레이션 중앙 정렬
+   - 같은 배경 전환 시 배경 페이드 억제
+   - 하단 여백 축소
+========================= */
+
+:root {
+  --narration-width: 760px;
+  --talk-caption-width: 720px;
+  --talk-caption-top: 72px;
+
+  --wolf-talk-choice-bottom: 72px;
+  --wolf-choice-attach-top: 536px;
+  --wolf-choice-attach-height: 94px;
+}
+
+.page-stage.no-talk .page-text {
+  left: 50%;
+  top: var(--narration-top);
+  width: var(--narration-width);
+  height: var(--narration-height);
+  transform: translateX(-50%);
+  padding-top: 24px;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.page-stage.no-talk .narration,
+.page-stage.no-talk .narration-full,
+.narration-full {
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  left: 50%;
+  top: var(--talk-caption-top);
+  width: var(--talk-caption-width);
+  transform: translateX(-50%);
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.page-stage.has-talk .talk-row {
+  bottom: 40px;
+}
+
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: var(--wolf-talk-choice-bottom);
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-bottom: 104px;
+}
+
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  top: var(--wolf-choice-attach-top);
+  max-height: var(--wolf-choice-attach-height);
+  gap: 7px;
+}
+
+.page-stage.same-bg,
+.page-stage.same-bg::before,
+.page-stage.same-bg::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.same-bg .narration-full,
+.page-stage.same-bg .narration-over-talk,
+.page-stage.same-bg .talk-row,
+.page-stage.same-bg .talk-portrait-box,
+.page-stage.same-bg .talk-nameplate,
+.page-stage.same-bg .textbox-panel,
+.page-stage.same-bg .choice-box,
+.page-stage.same-bg .next-only {
+  animation: wolf-ui-fade-in 140ms ease-out both;
+}
+
+.page-stage.changed-bg {
+  animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+@keyframes wolf-ui-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wolf-scene-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-7:
+   - no-talk 선택지는 중앙 선택지 박스로 분리
+========================= */
+
+.page-stage.no-talk .choice-box:not(.next-only),
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  max-width: 70%;
+  max-height: 320px;
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+
+  padding: 18px 22px;
+  margin: 0;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(220, 220, 220, 0.28);
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only) a,
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) a {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.page-stage.has-talk .choice-box:not(.next-only),
+.page-stage.has-talk .choice-box.after-talk:not(.next-only) {
+  transform: none;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-5:
+   - 단독 "계속" 링크는 페이지 넘김 버튼으로 분리
+========================= */
+
+.page-stage .choice-box.next-only,
+.page-stage.no-talk .choice-box.next-only,
+.page-stage.has-talk .choice-box.next-only,
+.page-stage.has-talk.has-choice .choice-box.next-only,
+.choice-box.next-only,
+.choice-box.next-only.after-talk,
+.choice-box.next-only.narration-choice {
+  position: absolute !important;
+  right: 56px !important;
+  bottom: 36px !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: auto !important;
+  min-width: 120px;
+  max-width: none;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  display: block;
+  z-index: 90;
+  text-align: right;
+  overflow: visible;
+}
+
+.page-stage .choice-box.next-only a,
+.choice-box.next-only a {
+  display: inline-block;
+  width: auto;
+  padding: 8px 12px;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.72;
+  font-size: 18px;
+  background: transparent;
+  border: 0;
+}
+
+.page-stage .choice-box.next-only a::before,
+.choice-box.next-only a::before {
+  content: "▶ ";
+  opacity: 0.7;
+}
+
+.page-stage .choice-box.next-only a:hover,
+.page-stage .choice-box.next-only a:hover::before,
+.choice-box.next-only a:hover,
+.choice-box.next-only a:hover::before {
+  opacity: 1;
+  color: var(--white);
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-8:
+   - Intro/bg-black 선택지 표시 보장
+========================= */
+
+.page-stage.bg-black .choice-box,
+.page-stage.bg-black.no-talk .choice-box,
+.page-stage.bg-black .choice-box.narration-choice {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 80;
+}
+
+.page-stage.bg-black .choice-box.next-only {
+  display: block;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-9:
+   - narration-only 본문 패널과 선택지를 분리
+   - talk 화면 선택지는 대화창 바깥 아래 영역으로 분리
+========================= */
+
+.page-stage.no-talk .page-text > .narration,
+.page-stage.no-talk .page-text > .narration-full {
+  display: block;
+  width: fit-content;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: center;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only),
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) {
+  position: static;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
+
+  width: fit-content;
+  min-width: 160px;
+  max-width: 260px;
+  max-height: 220px;
+
+  margin: 18px auto 0;
+  padding: 10px 18px;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(220, 220, 220, 0.20);
+  opacity: 0.92;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  z-index: 50;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only) a,
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) a {
+  width: auto;
+  max-width: 100%;
+  text-align: center;
+  font-size: 19px;
+  line-height: 1.28;
+}
+
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 132px;
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: 240px;
+  min-height: 240px;
+  max-height: 240px;
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 36px;
+  padding-bottom: 34px;
+}
+
+.page-stage.has-talk.has-choice .choice-box:not(.next-only),
+.page-stage.has-talk.has-choice .choice-box.after-talk:not(.next-only) {
+  position: absolute;
+  left: var(--wolf-dialogue-text-left);
+  top: auto;
+  right: auto;
+  bottom: 42px;
+  transform: none;
+
+  width: var(--wolf-dialogue-text-width);
+  max-height: 78px;
+  margin: 14px 0 0;
+  padding: 8px 0 0 0;
+  box-sizing: border-box;
+
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(216, 216, 216, 0.24);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  z-index: 20;
+}
+
+.page-stage.has-talk.has-choice .choice-box:not(.next-only) a,
+.page-stage.has-talk.has-choice .choice-box.after-talk:not(.next-only) a {
+  font-size: 19px;
+  line-height: 1.22;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-10:
+   - 같은 배경 이동 시 passage 전체 검은 페이드 제거
+   - 배경 변경 시에만 장면 페이드 허용
+========================= */
+
+.passage.wolf-same-bg,
+.passage:has(.page-stage.same-bg) {
+  animation: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+  background: transparent;
+}
+
+.passage.wolf-same-bg .page-stage,
+.passage:has(.page-stage.same-bg) .page-stage,
+.page-stage.same-bg,
+.page-stage.same-bg::before,
+.page-stage.same-bg::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.same-bg::before,
+.page-stage.same-bg::after {
+  opacity: 1 !important;
+}
+
+.page-stage.same-bg .narration-full,
+.page-stage.same-bg .narration-over-talk,
+.page-stage.same-bg .talk-row,
+.page-stage.same-bg .talk-portrait-box,
+.page-stage.same-bg .talk-nameplate,
+.page-stage.same-bg .textbox-panel,
+.page-stage.same-bg .choice-box,
+.page-stage.same-bg .next-only {
+  animation: wolf-ui-fade-in 140ms ease-out both !important;
+}
+
+.passage.wolf-changed-bg,
+.passage:has(.page-stage.changed-bg) {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.changed-bg:not(.bg-black) {
+  animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+.page-stage.bg-black,
+.page-stage.bg-black::before,
+.page-stage.bg-black::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-11:
+   - narration-only 패널을 넓고 담백한 반투명 띠로 조정
+========================= */
+
+.page-stage.no-talk .page-text > .narration,
+.page-stage.no-talk .page-text > .narration-full {
+  width: fit-content;
+  max-width: 760px;
+  padding: 18px 52px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 0;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.page-stage.no-talk .page-text > .narration *,
+.page-stage.no-talk .page-text > .narration-full * {
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-12:
+   - 안정화용 공통 class alias 적용
+   - wolf-page/narration-only/bg-changed/bg-intro 계열 보강
+========================= */
+
+.wolf-page.bg-intro,
+.wolf-page.bg-black {
+  background: #000;
+}
+
+.wolf-page.bg-intro::before,
+.wolf-page.bg-intro::after,
+.wolf-page.bg-black::before,
+.wolf-page.bg-black::after {
+  display: none;
+  animation: none !important;
+  transition: none !important;
+}
+
+.wolf-page.bg-temple {
+  --scene-bg: var(--bg-temple);
+}
+
+.wolf-page.bg-training {
+  --scene-bg: var(--bg-training);
+}
+
+.wolf-page.bg-night-patrol,
+.wolf-page.bg-nightpatrol {
+  --scene-bg: var(--bg-nightpatrol);
+}
+
+.wolf-page.bg-room {
+  --scene-bg: var(--bg-room);
+}
+
+.wolf-page.bg-ashina-tower,
+.wolf-page.bg-ashina {
+  --scene-bg: var(--bg-ashina);
+}
+
+.wolf-page.same-bg,
+.wolf-page.same-bg::before,
+.wolf-page.same-bg::after,
+.passage.same-bg,
+.passage.wolf-same-bg {
+  animation: none !important;
+  transition: none !important;
+}
+
+.wolf-page.same-bg::before,
+.wolf-page.same-bg::after {
+  opacity: 1 !important;
+}
+
+.wolf-page.same-bg .narration-full,
+.wolf-page.same-bg .narration-over-talk,
+.wolf-page.same-bg .talk-row,
+.wolf-page.same-bg .talk-portrait-box,
+.wolf-page.same-bg .talk-nameplate,
+.wolf-page.same-bg .textbox-panel,
+.wolf-page.same-bg .choice-box,
+.wolf-page.same-bg .next-only {
+  animation: wolf-ui-fade-in 140ms ease-out both !important;
+}
+
+.wolf-page.bg-changed:not(.bg-intro):not(.bg-black),
+.wolf-page.changed-bg:not(.bg-intro):not(.bg-black) {
+  animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+.wolf-page.narration-only .wolf-content > .narration,
+.wolf-page.narration-only .wolf-content > .narration-full {
+  width: fit-content;
+  max-width: 760px;
+  padding: 18px 52px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 0;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  white-space: pre-line;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.wolf-page.narration-only .choice-box:not(.next-only) {
+  position: static;
+  width: fit-content;
+  min-width: 160px;
+  max-width: 280px;
+  margin: 22px auto 0;
+  padding: 8px 12px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  align-items: center;
+}
+
+.wolf-page.has-talk .choice-box:not(.next-only) {
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.wolf-page.bg-intro .choice-box,
+.wolf-page.bg-black .choice-box {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html.status-hidden .outer-dev-ui,
+body.status-hidden .outer-dev-ui {
+  display: none !important;
 }
