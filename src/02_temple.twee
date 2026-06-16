@@ -1,0 +1,143 @@
+:: Temple {"position":"1525,450","size":"100,100"}
+<<page>>
+<div class="narration"><<if $isolation <= -1>>
+황폐한 절이다.
+
+적적하지만 어쩐지 편안한 곳이다.
+갈 곳 없는 이, 잠시 쉬어가는 이,
+고뇌를 깎는 이들이 모여있다.
+<<elseif $isolation == 0>>
+황폐한 절이다.
+
+사실.
+그렇게 황폐하지만은 않다.
+<<elseif $isolation <= 2>>
+황폐한 절이다.
+
+낡은 불상과 무너진 처마 사이로,
+차가운 바람이 지나간다.
+<<elseif $isolation <= 4>>
+황폐한 절이다.
+
+눈을 감고 있으면 많은 소리가 들린다.
+한때나마 사람들의 기원이 모여있던 곳이기에 그런지도.
+아니, 그 기원은 지금까지도 내려져 오고 있는지도 모른다.
+기억해주는 이만 있다면.
+<<elseif $isolation <= 6>>
+황폐한 절이다.
+
+이제는 아무 소리도 들리지 않는다.
+<<elseif $isolation <= 8>>
+황폐한 절이다.
+
+지옥을 앞에 둔 망령들이 모여있다.
+<<else>>
+황폐한 절이다.
+
+…
+<</if>></div>
+
+<div class="choice-box">
+<div class="narration">늑대는 어디로 향하나?</div>
+<<if $hanbeiProgress == 0>>
+[[죽지 않는 무사에게 다가간다->Hanbei01]]
+<<elseif $hanbeiProgress == 1>>
+[[한베에게 간다->Hanbei02]]
+<<elseif $hanbeiProgress == 2>>
+[[한베에게 간다->Hanbei03_Beat]]
+<<else>>
+[[한베와 이야기한다->Hanbei_Loop]]
+<</if>>
+
+<<if $kuroProgress == 0>>
+[[주군에게로 간다->Kuro01]]
+<<else>>
+[[쿠로님에게로 간다->Kuro]]
+<</if>>
+
+<<if $genichiroProgress == 0>>
+[[아시나 성의 대장군에게 간다->Genichiro01]]
+<<else>>
+[[겐이치로 공에게 간다->Genichiro]]
+<</if>>
+</div>
+<</page>>
+
+:: Temple_AfterNight {"position":"1825,625","size":"100,100"}
+<<page>>
+새벽이 가까워진다.
+
+
+<div class="choice-box">[[돌아간다->Temple]]</div>
+<</page>>
+
+:: Temple_Return {"position":"2025,1200","size":"100,100"}
+<<page>>
+<<if $completedHanbei && $completedKuro && $completedGenichiro>>
+  <<set $secondRoutesUnlocked to true>>
+<</if>>
+
+<<if $completedSculptor && $completedIsshin>>
+  <<set $shuraUnlocked to true>>
+<</if>>
+<<set $sceneCount += 1>>
+
+
+<<if $sceneCount % 3 == 0>>
+
+<div class="narration">
+밤이 깊어간다…
+
+늑대는 잠시 걸음을 멈췄다.
+
+오늘 밤, 무엇을 할까.
+</div>
+
+<div class="choice-box">
+[[밤 정찰을 떠난다->NightPatrol_Random]]
+[[잠시 쉰다->NightRest]]
+</div>
+
+<<else>>
+
+<div class="narration">밤이 깊어간다.</div>
+
+<div class="choice-box">
+[[돌아간다->Temple]]
+</div>
+
+<</if>>
+<</page>>
+
+:: Temple_Return_Bad {"position":"2150,1200","size":"100,100"}
+<<page>>
+<<set $sceneCount += 1>>
+<<set $danger += 1>>
+<<set $isolation += 1>>
+
+
+
+<div class="narration">
+밤이 깊어간다.
+
+늑대는 돌아왔다.
+
+돌아왔다는 사실만이,
+간신히 확실했다.
+</div>
+
+<div class="choice-box">
+[[돌아간다->Temple]]
+</div>
+<</page>>
+
+:: Temple_Return_Shura {"position":"2275,1200","size":"100,100"}
+<<set $shura += 1>>
+
+<div class="narration">
+
+손에 묻은 피가 마르지 않는다.
+
+</div>
+
+<<goto "Temple">>

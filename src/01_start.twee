@@ -1,0 +1,25 @@
+:: StoryTitle
+Wolf
+
+:: StoryData
+{
+  "ifid": "60C50748-BBA3-49B6-B5DE-8DA6B1361820",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start",
+  "tag-colors": {
+    "widget": "purple"
+  },
+  "zoom": 1
+}
+
+:: Start {"position":"1500,25","size":"100,100"}
+<div class="title-screen">
+
+  <div class="game-title">WOLF</div>
+  <div class="game-subtitle-en">- SIDEWAYS -</div>
+
+  <div class="game-tagline">검을 거두고, 말로 받아내며, 그들과의 거리를 깎자.</div>
+
+  <div class="title-menu">
+    [[처음부터->Intro_01]]</div></div>

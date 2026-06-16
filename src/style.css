@@ -1,0 +1,1936 @@
+@font-face {
+  font-family: 'NeoDunggeunmo Pro';
+  src: url('assets/Font/NeoDunggeunmoPro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --game-w: 960px;
+  --game-h: 720px;
+
+  --white: #e8e8e8;
+  --text: #d8d8d8;
+  --muted: #a8a8a8;
+
+  --line: #777;
+  --line-soft: #383838;
+  --line-dark: #242424;
+
+  --panel: #050505;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: var(--text);
+  font-family: 'NeoDunggeunmo Pro', monospace;
+  font-size: 22px;
+  line-height: 1.34;
+  overflow: hidden;
+}
+
+/* =========================
+   SugarCube / Twine UI
+   [ 키: 왼쪽 기본 UI 표시
+   ] 키: 바깥 임시 UI 숨김
+========================= */
+
+#ui-bar {
+  transform: translateX(-100%);
+  transition: transform 0.18s ease;
+  z-index: 10000;
+  background: #000 !important;
+  color: var(--text) !important;
+  border-right: 1px solid var(--line) !important;
+  box-shadow: none !important;
+  font-family: 'NeoDunggeunmo Pro', monospace !important;
+}
+
+body.dev-mode #ui-bar {
+  transform: translateX(0);
+}
+
+#ui-bar-body {
+  background: #000 !important;
+  color: var(--text) !important;
+}
+
+#story-title,
+#story-author {
+  color: var(--white) !important;
+  font-family: 'NeoDunggeunmo Pro', monospace !important;
+  letter-spacing: 0.04em;
+}
+
+#story-title {
+  font-size: 22px !important;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 12px;
+}
+
+#menu ul,
+#ui-bar ul {
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+#ui-bar a,
+#ui-bar button,
+#menu-core button,
+#menu-core a,
+#menu-story button,
+#menu-story a {
+  color: var(--white) !important;
+  background: #000 !important;
+  border: 1px solid var(--line-soft) !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  font-family: 'NeoDunggeunmo Pro', monospace !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+#ui-bar a:hover,
+#ui-bar button:hover,
+#menu-core button:hover,
+#menu-core a:hover,
+#menu-story button:hover,
+#menu-story a:hover {
+  color: #000 !important;
+  background: var(--white) !important;
+  border-color: var(--white) !important;
+}
+
+#ui-bar-history [id|="history"],
+#ui-bar-toggle {
+  color: var(--white) !important;
+  background: #000 !important;
+  border: 1px solid var(--line-soft) !important;
+}
+
+/* =========================
+   SugarCube 기본 화면
+========================= */
+
+#story {
+  margin-left: 0 !important;
+  width: 100vw;
+  height: 100vh;
+}
+
+#passages {
+  width: 100vw;
+  height: 100vh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #000;
+}
+
+.passage {
+  width: var(--game-w);
+  height: var(--game-h);
+  margin: 0 !important;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  color: var(--text);
+  border: 1px solid var(--line-dark);
+}
+
+#passages > .passage:not(:last-child) {
+  display: none !important;
+}
+
+.stage,
+.page-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #000;
+}
+
+.passage a {
+  color: var(--white);
+}
+
+/* =========================
+   바깥 임시 UI / 변수창
+========================= */
+
+.outer-dev-ui {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  font-family: 'NeoDunggeunmo Pro', monospace;
+}
+
+html.status-hidden .outer-dev-ui,
+body.status-hidden .outer-dev-ui {
+  display: none;
+}
+
+.outer-back-button {
+  position: fixed;
+  left: calc(50vw - 532px);
+  top: calc(50vh - 346px);
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #6f6f6f;
+  background: #000;
+  border: 1px solid #333;
+  text-decoration: none;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.outer-back-button:hover {
+  color: #fff;
+  border-color: #777;
+  background: #050505;
+}
+
+.outer-back-button.is-disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.outer-vars-panel {
+  position: fixed;
+  left: calc(50vw + 502px);
+  top: calc(50vh - 348px);
+  width: 210px;
+  max-height: 690px;
+  box-sizing: border-box;
+  padding: 12px 12px 14px 12px;
+  pointer-events: auto;
+  background: #000;
+  color: #aaa;
+  border: 1px solid #333;
+  box-shadow: 0 0 0 1px #000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.outer-vars-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.outer-vars-title {
+  color: #ddd;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.outer-passage-name {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.2;
+  word-break: break-all;
+  margin-bottom: 12px;
+}
+
+.outer-var-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid #181818;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.outer-var-key {
+  color: #9a9a9a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outer-var-value {
+  color: #e0e0e0;
+  text-align: right;
+  max-width: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outer-var-empty {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 1240px) {
+  .outer-back-button {
+    left: 14px;
+    top: 14px;
+  }
+
+  .outer-vars-panel {
+    left: auto;
+    right: 14px;
+    top: 54px;
+    max-height: calc(100vh - 70px);
+    opacity: 0.88;
+  }
+}
+
+/* =========================
+   PAGE: 나레이션/행동
+   talk도 page 안에서 자연스럽게 배치됨.
+========================= */
+
+.page-box {
+  position: absolute;
+  left: 90px;
+  top: 78px;
+  width: 780px;
+  max-height: 585px;
+  box-sizing: border-box;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  text-align: left;
+}
+
+.page-box::-webkit-scrollbar {
+  display: none;
+}
+
+.page-text,
+.page-text .narration,
+.narration {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.42;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  text-align: left;
+}
+
+.page-text > br:first-child,
+.narration > br:first-child,
+.page-text > p:first-child:empty,
+.narration > p:first-child:empty {
+  display: none;
+}
+
+.narration strong {
+  color: var(--white);
+  font-weight: normal;
+}
+
+/* =========================
+   TALK: page 안에 들어가는 안전한 대화 블록
+   기존처럼 <<page>> 안에 <<talk>>를 여러 개 써도 깨지지 않음.
+========================= */
+
+.talk-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  column-gap: 14px;
+  align-items: end;
+  width: 100%;
+  margin: 12px 0 18px 0;
+  box-sizing: border-box;
+}
+
+.talk-row.no-portrait {
+  grid-template-columns: 0 1fr;
+  column-gap: 0;
+}
+
+.talk-portrait-box {
+  width: 220px;
+  height: 260px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.talk-portrait-box.is-empty {
+  display: none;
+}
+
+.portrait {
+  display: block;
+  width: 220px;
+  max-width: 220px;
+  max-height: 260px;
+  height: auto;
+  object-fit: contain;
+  object-position: right bottom;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.talk-panel-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 178px;
+  box-sizing: border-box;
+}
+
+.talk-nameplate {
+  position: absolute;
+  left: 28px;
+  top: -22px;
+  min-width: 118px;
+  height: 34px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  z-index: 2;
+  background: #000;
+  border: 1px solid var(--line);
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.textbox-panel {
+  width: 100%;
+  min-height: 178px;
+  box-sizing: border-box;
+  padding: 38px 32px 24px 32px;
+  background: rgba(2, 2, 2, 0.98);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 0 2px #1a1a1a;
+  overflow: hidden;
+}
+
+.dialogue {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  text-align: left;
+}
+
+.dialogue > br:first-child {
+  display: none;
+}
+
+/* =========================
+   선택지
+========================= */
+
+.choice-box {
+  margin-top: 34px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  background: transparent;
+  text-align: left;
+}
+
+.choice-box br {
+  display: none;
+}
+
+.choice-box .narration {
+  margin: 0 0 10px 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+  line-height: 1.34 !important;
+}
+
+.choice-box a {
+  display: block;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  line-height: 1.34;
+  text-align: left;
+  font-size: 21px;
+}
+
+.choice-box a::before {
+  content: "▶ ";
+  color: #777;
+}
+
+.choice-box a:hover,
+.choice-box a:hover::before {
+  color: #fff;
+  background: transparent;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title-screen {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 86px;
+  background: #000;
+  color: var(--text);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-title {
+  font-size: 64px;
+  color: #fff;
+  letter-spacing: 0.18em;
+  margin-bottom: 4px;
+}
+
+.game-subtitle-en {
+  font-size: 24px;
+  color: #888;
+  letter-spacing: 0.22em;
+  margin-bottom: 30px;
+}
+
+.game-tagline {
+  font-size: 20px;
+  color: #aaa;
+  letter-spacing: 0.04em;
+  margin-bottom: 48px;
+}
+
+.title-menu {
+  font-size: 22px;
+  text-align: left;
+}
+
+.title-menu a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #666;
+}
+
+.title-menu a::before {
+  content: "▶ ";
+  color: #aaa;
+}
+
+.title-menu a:hover {
+  color: #000;
+  background: #fff;
+}
+
+.title-menu a:hover::before {
+  color: #000;
+}
+
+.final-intro {
+  color: #d0d0d0;
+  font-style: italic;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Wolf UI layout pass 260614:
+   5. 대화창 위치 고정
+   6. 나레이션 화면 템플릿 정리
+   7. 선택지 위치 정리
+========================= */
+
+/* page는 항상 960x720 전체를 기준 좌표로 쓴다. */
+.stage,
+.page-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 배경 이미지를 나중에 깔 때 이 변수만 바꾸면 됨.
+   예: .page-stage { background-image: var(--bg-temple); } */
+:root {
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-dim: rgba(0, 0, 0, 0.28);
+}
+
+/* 지금은 기존 검은 배경 유지. 배경을 켤 때 아래 background-image 주석을 해제하면 됨. */
+.page-stage {
+  background-color: #000;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-image: var(--bg-temple); */
+}
+
+/* 배경을 켰을 때 텍스트 가독성을 위한 어두운 레이어 */
+.page-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 배경 켠 뒤 필요하면 이 줄을 사용:
+.page-stage::before { background: var(--bg-dim); }
+*/
+
+.page-box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  box-sizing: border-box;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.page-text {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================
+   6. 나레이션 화면
+========================= */
+
+/* 대화가 없는 화면: 전체 나레이션 템플릿 */
+.page-stage.no-talk .page-text {
+  left: 90px;
+  top: 78px;
+  width: 780px;
+  height: 560px;
+  inset: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-stage.no-talk .page-text::-webkit-scrollbar {
+  display: none;
+}
+
+.narration-full,
+.page-stage.no-talk .narration,
+.page-stage.no-talk .page-text {
+  color: var(--muted);
+  font-size: 23px;
+  line-height: 1.62;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+/* 대화가 있는 화면: 위쪽 짧은 나레이션 */
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  position: absolute;
+  left: 90px;
+  top: 64px;
+  width: 780px;
+  max-height: 250px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.62;
+  letter-spacing: 0.04em;
+  text-align: left;
+  z-index: 2;
+}
+
+/* =========================
+   5. 대화창 위치 고정
+========================= */
+
+.page-stage.has-talk .talk-row {
+  position: absolute;
+  left: 58px;
+  bottom: 48px;
+  width: 842px;
+  height: 310px;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  column-gap: 24px;
+  align-items: end;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+/* 선택지가 있는 대화 화면은 대화창을 살짝 위로 올린다. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 92px;
+}
+
+.page-stage.has-talk .talk-row.no-portrait {
+  grid-template-columns: 0 1fr;
+  column-gap: 0;
+  left: 300px;
+  width: 600px;
+}
+
+.talk-portrait-box {
+  width: 240px;
+  height: 310px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: visible;
+}
+
+.portrait {
+  width: 240px;
+  max-width: 240px;
+  max-height: 310px;
+  height: auto;
+  object-fit: contain;
+  object-position: right bottom;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.talk-panel-wrap {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  min-height: 210px;
+  box-sizing: border-box;
+}
+
+.textbox-panel {
+  width: 100%;
+  height: 210px;
+  min-height: 210px;
+  max-height: 210px;
+  box-sizing: border-box;
+  padding: 52px 42px 32px 42px;
+  background: rgba(0, 0, 0, 0.96);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 0 2px #1a1a1a;
+  overflow: hidden;
+}
+
+.talk-nameplate {
+  position: absolute;
+  left: 32px;
+  top: -28px;
+  min-width: 128px;
+  height: 36px;
+  padding: 0 20px;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.98);
+  border: 1px solid var(--line);
+  color: var(--white);
+  font-size: 21px;
+  line-height: 1;
+}
+
+.dialogue {
+  color: var(--muted);
+  font-size: 23px;
+  line-height: 1.58;
+  letter-spacing: 0.035em;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* =========================
+   7. 선택지 위치 정리
+========================= */
+
+.choice-box {
+  box-sizing: border-box;
+  background: transparent;
+  text-align: left;
+  z-index: 5;
+}
+
+.page-stage.no-talk .choice-box,
+.choice-box.narration-choice {
+  margin-top: 34px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.page-stage.has-talk .choice-box,
+.choice-box.after-talk {
+  position: absolute;
+  left: 322px;
+  bottom: 34px;
+  width: 578px;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.choice-box br {
+  display: none;
+}
+
+.choice-box a {
+  display: block;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  line-height: 1.34;
+  text-align: left;
+  font-size: 21px;
+}
+
+.choice-box a::before {
+  content: "▶ ";
+  color: #777;
+}
+
+.choice-box a:hover,
+.choice-box a:hover::before {
+  color: #fff;
+  background: transparent;
+}
+
+/* =========================
+   Wolf UI tuning pass 260614-2:
+   - 전체 화면 축소
+   - 대화창 행간 조정
+   - 대화 위 나레이션 왼쪽 패딩
+========================= */
+
+:root {
+  /* 0.86 추천. 더 작게 보고 싶으면 0.80으로 변경. */
+  --ui-scale: 0.86;
+}
+
+/* 게임 전체를 같은 비율로 축소해서 작은 브라우저에서도 한 화면에 잘 보이게 함. */
+.passage {
+  transform: scale(var(--ui-scale));
+  transform-origin: center center;
+}
+
+/* 대화창 본문 행간: 기존보다 조금 촘촘하게. */
+.dialogue {
+  line-height: 1.38;
+}
+
+/* 대화창 위에 짧게 뜨는 나레이션이 너무 왼쪽에 붙지 않도록 여백 추가. */
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  padding-left: 36px;
+  box-sizing: border-box;
+}
+
+
+
+/* =========================
+   Wolf UI tuning pass 260614-3:
+   - 대화 위 나레이션 / 선택지 기준선 통일
+   - 대화 + 선택지 화면의 겹침 방지
+========================= */
+
+:root {
+  --wolf-narration-left: 90px;
+  --wolf-narration-width: 780px;
+
+  --wolf-talk-left: 58px;
+  --wolf-talk-width: 842px;
+  --wolf-panel-left: 322px;
+  --wolf-panel-width: 578px;
+  --wolf-dialogue-text-left: 364px;
+  --wolf-dialogue-text-width: 536px;
+}
+
+/* 대화 화면 상단 나레이션은 대화 본문 시작점과 맞춘다. */
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  left: var(--wolf-dialogue-text-left);
+  width: var(--wolf-dialogue-text-width);
+  padding-left: 0;
+  top: 62px;
+  max-height: 230px;
+  line-height: 1.54;
+  box-sizing: border-box;
+}
+
+/* 대화창 기본 위치와 폭을 변수 기준으로 다시 고정. */
+.page-stage.has-talk .talk-row {
+  left: var(--wolf-talk-left);
+  width: var(--wolf-talk-width);
+  bottom: 48px;
+  z-index: 6;
+}
+
+/* 선택지가 같이 있는 화면은 대화창을 충분히 올려서 겹침을 막는다. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 190px;
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: 190px;
+  min-height: 190px;
+  max-height: 190px;
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 46px;
+  padding-bottom: 26px;
+}
+
+/* 선택지는 대화창 본문 시작점과 같은 기준선에 둔다. */
+.page-stage.has-talk .choice-box,
+.choice-box.after-talk {
+  left: var(--wolf-dialogue-text-left);
+  width: var(--wolf-dialogue-text-width);
+  bottom: 26px;
+  padding-top: 10px;
+  gap: 8px;
+  z-index: 12;
+}
+
+.choice-box a {
+  font-size: 20px;
+  line-height: 1.26;
+}
+
+/* 전체 나레이션 화면도 기준값을 통일. */
+.page-stage.no-talk .page-text {
+  left: var(--wolf-narration-left);
+  width: var(--wolf-narration-width);
+}
+
+/* =========================
+   Wolf UI tuning pass 260615-1:
+   - 선택지를 대화창 바로 아래로 당김
+   - 배경 레이어 기본 적용
+========================= */
+
+:root {
+  /* 대화창+선택지 화면에서 선택지를 대화창 아래 한 줄 간격으로 붙이는 값 */
+  --wolf-choice-gap-after-talk: 18px;
+
+  /* 배경 레이어. 파일은 assets/backgrounds/Temple.png 에 두면 됨. */
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-dim: rgba(0, 0, 0, 0.42);
+}
+
+/* 기본 장소 배경: 일단 모든 page-stage에 황폐한 절을 깐다. */
+.page-stage {
+  background-color: #000;
+  background-image: var(--bg-temple);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* 배경 위 어두운 오버레이. 텍스트와 포트레이트 가독성 확보용. */
+.page-stage::before {
+  background: var(--bg-dim);
+  z-index: 0;
+}
+
+/* 대화/나레이션/선택지는 항상 배경 오버레이 위로. */
+.page-box,
+.page-text,
+.narration-full,
+.narration-over-talk,
+.talk-row,
+.choice-box {
+  z-index: 2;
+}
+
+/* 대화 + 선택지 화면: 대화창을 유지하고 선택지를 바로 아래에 붙임. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 190px;
+}
+
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  top: calc(var(--game-h) - 190px + var(--wolf-choice-gap-after-talk));
+  bottom: auto;
+  left: var(--wolf-dialogue-text-left);
+  width: var(--wolf-dialogue-text-width);
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft);
+  gap: 8px;
+  z-index: 12;
+}
+
+/* 선택지가 여러 개일 때도 화면 안에서만 스크롤되도록 안전장치. */
+.page-stage.has-talk.has-choice .choice-box {
+  max-height: 150px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box::-webkit-scrollbar {
+  display: none;
+}
+
+/* 선택지 줄 간격을 대화창에 더 붙어 보이게 조정. */
+.page-stage.has-talk.has-choice .choice-box a {
+  font-size: 20px;
+  line-height: 1.24;
+}
+
+
+
+/* =========================
+   Wolf UI tuning pass 260615-2:
+   - 선택지를 대화창 하단 부속 UI처럼 붙임
+   - 선택지 있는 대화창은 높이를 키우고 내부 하단을 선택지 영역으로 사용
+   - 배경은 조금 더 어둡게 눌러 텍스트와 덜 경쟁하게 함
+========================= */
+
+:root {
+  /* 배경이 텍스트와 경쟁하지 않도록 이전보다 살짝 더 어둡게 */
+  --bg-dim: rgba(0, 0, 0, 0.50);
+
+  /* 선택지가 있는 대화창 전용값 */
+  --wolf-choice-text-top: 520px;
+  --wolf-choice-max-height: 96px;
+}
+
+/* 배경 위 어두운 오버레이 강화 */
+.page-stage::before {
+  background: var(--bg-dim);
+}
+
+/* 선택지가 있는 화면에서는 대화창 자체를 조금 크게 만들어
+   대사와 선택지를 하나의 하단 UI 덩어리로 묶는다. */
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 88px;
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: 300px;
+  min-height: 300px;
+  max-height: 300px;
+}
+
+/* 대사 영역 아래쪽을 선택지 영역으로 비워둠 */
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 46px;
+  padding-bottom: 122px;
+  background: rgba(0, 0, 0, 0.985);
+}
+
+/* 선택지는 이제 대화창 외부가 아니라, 대화창 하단에 붙은 것처럼 보이게 배치 */
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  position: absolute;
+  left: var(--wolf-dialogue-text-left);
+  top: var(--wolf-choice-text-top);
+  bottom: auto;
+  width: var(--wolf-dialogue-text-width);
+  max-height: var(--wolf-choice-max-height);
+  margin: 0;
+  padding-top: 9px;
+  border-top: 1px solid rgba(210, 210, 210, 0.26);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  z-index: 20;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box::-webkit-scrollbar {
+  display: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box a {
+  font-size: 20px;
+  line-height: 1.22;
+}
+
+
+
+/* 선택지가 있는 화면은 상단 나레이션이 너무 강하면 산만하므로 살짝 눌러준다. */
+.page-stage.has-talk.has-choice .narration,
+.page-stage.has-talk.has-choice .narration-over-talk {
+  opacity: 0.92;
+  max-height: 178px;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615:
+   - Temple 배경을 별도 레이어로 분리
+   - 선택지를 대화창 하단 부속 UI로 고정
+========================= */
+
+:root {
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-overlay: rgba(0, 0, 0, 0.40);
+
+  --wolf-talk-choice-bottom: 88px;
+  --wolf-talk-choice-panel-height: 300px;
+  --wolf-choice-attach-top: 520px;
+  --wolf-choice-attach-height: 96px;
+}
+
+.page-stage {
+  background: #000;
+}
+
+.page-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--bg-temple);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(0.53) contrast(0.83);
+}
+
+.page-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--bg-overlay);
+}
+
+.page-box,
+.page-text,
+.narration-full,
+.narration-over-talk,
+.talk-row,
+.choice-box {
+  position: relative;
+  z-index: 2;
+}
+
+.page-stage.has-talk .talk-row {
+  z-index: 3;
+}
+
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: var(--wolf-talk-choice-bottom);
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: var(--wolf-talk-choice-panel-height);
+  min-height: var(--wolf-talk-choice-panel-height);
+  max-height: var(--wolf-talk-choice-panel-height);
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 46px;
+  padding-bottom: 118px;
+  background: rgba(0, 0, 0, 0.985);
+}
+
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  position: absolute;
+  left: var(--wolf-dialogue-text-left);
+  top: var(--wolf-choice-attach-top);
+  bottom: auto;
+  width: var(--wolf-dialogue-text-width);
+  max-height: var(--wolf-choice-attach-height);
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(216, 216, 216, 0.28);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 4;
+}
+
+.page-stage.has-talk.has-choice .choice-box::-webkit-scrollbar {
+  display: none;
+}
+
+.page-stage.has-talk.has-choice .choice-box a {
+  font-size: 20px;
+  line-height: 1.22;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-2:
+   - 모든 나레이션 시작 좌표 통일
+========================= */
+
+:root {
+  --narration-left: 92px;
+  --narration-top: 74px;
+  --narration-width: 776px;
+  --narration-height: 560px;
+
+  --talk-caption-left: 330px;
+  --talk-caption-top: 72px;
+  --talk-caption-width: 570px;
+  --talk-caption-max-height: 178px;
+}
+
+.page-text {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.page-stage.no-talk .page-text {
+  position: absolute;
+  left: var(--narration-left);
+  top: var(--narration-top);
+  width: var(--narration-width);
+  height: var(--narration-height);
+  inset: auto;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.page-stage.no-talk .narration,
+.narration-full {
+  position: static;
+  left: auto;
+  top: auto;
+  width: auto;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  position: absolute;
+  left: var(--talk-caption-left);
+  top: var(--talk-caption-top);
+  width: var(--talk-caption-width);
+  max-height: var(--talk-caption-max-height);
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-3:
+   - passage 이름 기반 장소 배경 자동 적용
+   - 전체 나레이션 내부 여백 통일
+========================= */
+
+:root {
+  --scene-bg: url('assets/backgrounds/Temple.png');
+  --bg-temple: url('assets/backgrounds/Temple.png');
+  --bg-training: url('assets/backgrounds/TrainingArea.png');
+  --bg-nightpatrol: url('assets/backgrounds/NightPatrol01.png');
+  --bg-room: url('assets/backgrounds/Room01.png');
+  --bg-ashina: url('assets/backgrounds/AshinaTower.png');
+  --bg-overlay: rgba(0, 0, 0, 0.30);
+
+  --narration-pad-top: 30px;
+  --narration-pad-left: 30px;
+}
+
+.page-stage.bg-temple {
+  --scene-bg: var(--bg-temple);
+}
+
+.page-stage.bg-training {
+  --scene-bg: var(--bg-training);
+}
+
+.page-stage.bg-nightpatrol {
+  --scene-bg: var(--bg-nightpatrol);
+}
+
+.page-stage.bg-room {
+  --scene-bg: var(--bg-room);
+}
+
+.page-stage.bg-ashina {
+  --scene-bg: var(--bg-ashina);
+}
+
+.page-stage.bg-black {
+  background: #000;
+}
+
+.page-stage.bg-black::before,
+.page-stage.bg-black::after {
+  display: none;
+}
+
+.page-stage::before {
+  background-image: var(--scene-bg);
+  background-size: cover;
+  background-position: center center;
+  filter: brightness(0.68) contrast(1.05);
+}
+
+.page-stage::after {
+  background: var(--bg-overlay);
+}
+
+.page-stage.no-talk .page-text {
+  padding-top: var(--narration-pad-top);
+  padding-left: var(--narration-pad-left);
+  box-sizing: border-box;
+}
+
+.page-stage.no-talk .narration,
+.page-stage.no-talk .narration-full {
+  margin-left: 0;
+  padding-left: 0;
+  box-sizing: border-box;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-4:
+   - 스테이터스 UI 저장 토글
+   - 나레이션 중앙 정렬
+   - 같은 배경 전환 시 배경 페이드 억제
+   - 하단 여백 축소
+========================= */
+
+:root {
+  --narration-width: 760px;
+  --talk-caption-width: 720px;
+  --talk-caption-top: 72px;
+
+  --wolf-talk-choice-bottom: 72px;
+  --wolf-choice-attach-top: 536px;
+  --wolf-choice-attach-height: 94px;
+}
+
+.page-stage.no-talk .page-text {
+  left: 50%;
+  top: var(--narration-top);
+  width: var(--narration-width);
+  height: var(--narration-height);
+  transform: translateX(-50%);
+  padding-top: 24px;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.page-stage.no-talk .narration,
+.page-stage.no-talk .narration-full,
+.narration-full {
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.page-stage.has-talk .narration,
+.narration-over-talk {
+  left: 50%;
+  top: var(--talk-caption-top);
+  width: var(--talk-caption-width);
+  transform: translateX(-50%);
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.page-stage.has-talk .talk-row {
+  bottom: 40px;
+}
+
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: var(--wolf-talk-choice-bottom);
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-bottom: 104px;
+}
+
+.page-stage.has-talk.has-choice .choice-box,
+.page-stage.has-talk.has-choice .choice-box.after-talk {
+  top: var(--wolf-choice-attach-top);
+  max-height: var(--wolf-choice-attach-height);
+  gap: 7px;
+}
+
+.page-stage.same-bg,
+.page-stage.same-bg::before,
+.page-stage.same-bg::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.same-bg .narration-full,
+.page-stage.same-bg .narration-over-talk,
+.page-stage.same-bg .talk-row,
+.page-stage.same-bg .talk-portrait-box,
+.page-stage.same-bg .talk-nameplate,
+.page-stage.same-bg .textbox-panel,
+.page-stage.same-bg .choice-box,
+.page-stage.same-bg .next-only {
+  animation: wolf-ui-fade-in 140ms ease-out both;
+}
+
+.page-stage.changed-bg {
+  animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+@keyframes wolf-ui-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wolf-scene-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-7:
+   - no-talk 선택지는 중앙 선택지 박스로 분리
+========================= */
+
+.page-stage.no-talk .choice-box:not(.next-only),
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  max-width: 70%;
+  max-height: 320px;
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+
+  padding: 18px 22px;
+  margin: 0;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(220, 220, 220, 0.28);
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only) a,
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) a {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.page-stage.has-talk .choice-box:not(.next-only),
+.page-stage.has-talk .choice-box.after-talk:not(.next-only) {
+  transform: none;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-5:
+   - 단독 "계속" 링크는 페이지 넘김 버튼으로 분리
+========================= */
+
+.page-stage .choice-box.next-only,
+.page-stage.no-talk .choice-box.next-only,
+.page-stage.has-talk .choice-box.next-only,
+.page-stage.has-talk.has-choice .choice-box.next-only,
+.choice-box.next-only,
+.choice-box.next-only.after-talk,
+.choice-box.next-only.narration-choice {
+  position: absolute !important;
+  right: 56px !important;
+  bottom: 36px !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: auto !important;
+  min-width: 120px;
+  max-width: none;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  display: block;
+  z-index: 90;
+  text-align: right;
+  overflow: visible;
+}
+
+.page-stage .choice-box.next-only a,
+.choice-box.next-only a {
+  display: inline-block;
+  width: auto;
+  padding: 8px 12px;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.72;
+  font-size: 18px;
+  background: transparent;
+  border: 0;
+}
+
+.page-stage .choice-box.next-only a::before,
+.choice-box.next-only a::before {
+  content: "▶ ";
+  opacity: 0.7;
+}
+
+.page-stage .choice-box.next-only a:hover,
+.page-stage .choice-box.next-only a:hover::before,
+.choice-box.next-only a:hover,
+.choice-box.next-only a:hover::before {
+  opacity: 1;
+  color: var(--white);
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-8:
+   - Intro/bg-black 선택지 표시 보장
+========================= */
+
+.page-stage.bg-black .choice-box,
+.page-stage.bg-black.no-talk .choice-box,
+.page-stage.bg-black .choice-box.narration-choice {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 80;
+}
+
+.page-stage.bg-black .choice-box.next-only {
+  display: block;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-9:
+   - narration-only 본문 패널과 선택지를 분리
+   - talk 화면 선택지는 대화창 바깥 아래 영역으로 분리
+========================= */
+
+.page-stage.no-talk .page-text > .narration,
+.page-stage.no-talk .page-text > .narration-full {
+  display: block;
+  width: fit-content;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: center;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only),
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) {
+  position: static;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
+
+  width: fit-content;
+  min-width: 160px;
+  max-width: 260px;
+  max-height: 220px;
+
+  margin: 18px auto 0;
+  padding: 10px 18px;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(220, 220, 220, 0.20);
+  opacity: 0.92;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  z-index: 50;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only) a,
+.page-stage.no-talk .choice-box.narration-choice:not(.next-only) a {
+  width: auto;
+  max-width: 100%;
+  text-align: center;
+  font-size: 19px;
+  line-height: 1.28;
+}
+
+.page-stage.has-talk.has-choice .talk-row {
+  bottom: 132px;
+}
+
+.page-stage.has-talk.has-choice .talk-panel-wrap,
+.page-stage.has-talk.has-choice .textbox-panel {
+  height: 240px;
+  min-height: 240px;
+  max-height: 240px;
+}
+
+.page-stage.has-talk.has-choice .textbox-panel {
+  padding-top: 36px;
+  padding-bottom: 34px;
+}
+
+.page-stage.has-talk.has-choice .choice-box:not(.next-only),
+.page-stage.has-talk.has-choice .choice-box.after-talk:not(.next-only) {
+  position: absolute;
+  left: var(--wolf-dialogue-text-left);
+  top: auto;
+  right: auto;
+  bottom: 42px;
+  transform: none;
+
+  width: var(--wolf-dialogue-text-width);
+  max-height: 78px;
+  margin: 14px 0 0;
+  padding: 8px 0 0 0;
+  box-sizing: border-box;
+
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(216, 216, 216, 0.24);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  z-index: 20;
+}
+
+.page-stage.has-talk.has-choice .choice-box:not(.next-only) a,
+.page-stage.has-talk.has-choice .choice-box.after-talk:not(.next-only) a {
+  font-size: 19px;
+  line-height: 1.22;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-10:
+   - 같은 배경 이동 시 passage 전체 검은 페이드 제거
+   - 배경 변경 시에만 장면 페이드 허용
+========================= */
+
+.passage.wolf-same-bg,
+.passage:has(.page-stage.same-bg) {
+  animation: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+  background: transparent;
+}
+
+.passage.wolf-same-bg .page-stage,
+.passage:has(.page-stage.same-bg) .page-stage,
+.page-stage.same-bg,
+.page-stage.same-bg::before,
+.page-stage.same-bg::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.same-bg::before,
+.page-stage.same-bg::after {
+  opacity: 1 !important;
+}
+
+.page-stage.same-bg .narration-full,
+.page-stage.same-bg .narration-over-talk,
+.page-stage.same-bg .talk-row,
+.page-stage.same-bg .talk-portrait-box,
+.page-stage.same-bg .talk-nameplate,
+.page-stage.same-bg .textbox-panel,
+.page-stage.same-bg .choice-box,
+.page-stage.same-bg .next-only {
+  animation: wolf-ui-fade-in 140ms ease-out both !important;
+}
+
+.passage.wolf-changed-bg,
+.passage:has(.page-stage.changed-bg) {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.changed-bg:not(.bg-black) {
+  animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+.page-stage.bg-black,
+.page-stage.bg-black::before,
+.page-stage.bg-black::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-11:
+   - narration-only 패널을 넓고 담백한 반투명 띠로 조정
+========================= */
+
+.page-stage.no-talk .page-text > .narration,
+.page-stage.no-talk .page-text > .narration-full {
+  width: fit-content;
+  max-width: 760px;
+  padding: 18px 52px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 0;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.page-stage.no-talk .page-text > .narration *,
+.page-stage.no-talk .page-text > .narration-full * {
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260615-12:
+   - 안정화용 공통 class alias 적용
+   - wolf-page/narration-only/bg-changed/bg-intro 계열 보강
+========================= */
+
+.wolf-page.bg-intro,
+.wolf-page.bg-black {
+  background: #000;
+}
+
+.wolf-page.bg-intro::before,
+.wolf-page.bg-intro::after,
+.wolf-page.bg-black::before,
+.wolf-page.bg-black::after {
+  display: none;
+  animation: none !important;
+  transition: none !important;
+}
+
+.wolf-page.bg-temple {
+  --scene-bg: var(--bg-temple);
+}
+
+.wolf-page.bg-training {
+  --scene-bg: var(--bg-training);
+}
+
+.wolf-page.bg-night-patrol,
+.wolf-page.bg-nightpatrol {
+  --scene-bg: var(--bg-nightpatrol);
+}
+
+.wolf-page.bg-room {
+  --scene-bg: var(--bg-room);
+}
+
+.wolf-page.bg-ashina-tower,
+.wolf-page.bg-ashina {
+  --scene-bg: var(--bg-ashina);
+}
+
+.wolf-page.same-bg,
+.wolf-page.same-bg::before,
+.wolf-page.same-bg::after,
+.passage.same-bg,
+.passage.wolf-same-bg {
+  animation: none !important;
+  transition: none !important;
+}
+
+.wolf-page.same-bg::before,
+.wolf-page.same-bg::after {
+  opacity: 1 !important;
+}
+
+.wolf-page.same-bg .narration-full,
+.wolf-page.same-bg .narration-over-talk,
+.wolf-page.same-bg .talk-row,
+.wolf-page.same-bg .talk-portrait-box,
+.wolf-page.same-bg .talk-nameplate,
+.wolf-page.same-bg .textbox-panel,
+.wolf-page.same-bg .choice-box,
+.wolf-page.same-bg .next-only {
+  animation: wolf-ui-fade-in 140ms ease-out both !important;
+}
+
+.wolf-page.bg-changed:not(.bg-intro):not(.bg-black),
+.wolf-page.changed-bg:not(.bg-intro):not(.bg-black) {
+  animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+.wolf-page.narration-only .wolf-content > .narration,
+.wolf-page.narration-only .wolf-content > .narration-full {
+  width: fit-content;
+  max-width: 760px;
+  padding: 18px 52px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 0;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  white-space: pre-line;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.wolf-page.narration-only .choice-box:not(.next-only) {
+  position: static;
+  width: fit-content;
+  min-width: 160px;
+  max-width: 280px;
+  margin: 22px auto 0;
+  padding: 8px 12px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  align-items: center;
+}
+
+.wolf-page.has-talk .choice-box:not(.next-only) {
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.wolf-page.bg-intro .choice-box,
+.wolf-page.bg-black .choice-box {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html.status-hidden .outer-dev-ui,
+body.status-hidden .outer-dev-ui {
+  display: none !important;
+}

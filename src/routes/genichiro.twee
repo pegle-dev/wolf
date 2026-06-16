@@ -1,0 +1,9 @@
+:: Genichiro {"position":"2050,1475","size":"100,100"}
+<<page>>
+대장군이 있다.
+여전히 무서운 표정이다.
+
+<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Genichiro01 {"position":"2050,1600","size":"100,100"}

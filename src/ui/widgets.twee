@@ -1,0 +1,2 @@
+:: UI_Widgets {"position":"300,75","size":"100,100"}
+/* disabled: page/talk are now defined safely in StoryScript via Macro.add */

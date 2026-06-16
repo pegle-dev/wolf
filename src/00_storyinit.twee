@@ -1,0 +1,36 @@
+:: StoryInit {"position":"200,75","size":"100,100"}
+/* 진행도 */
+<<set $hanbeiProgress to 0>>
+<<set $kuroProgress to 0>>
+<<set $genichiroProgress to 0>>
+<<set $sculptorProgress to 0>>
+<<set $isshinProgress to 0>>
+
+/* 호감도 */
+<<set $hanbeiLove to 0>>
+<<set $kuroLove to 0>>
+<<set $genichiroLove to 0>>
+<<set $sculptorLove to 0>>
+<<set $isshinLove to 0>>
+
+/* 공통 수치 */
+<<set $isolation to 0>>
+<<set $danger to 0>>
+<<set $shura to 0>>
+<<set $sceneCount to 0>>
+
+/* 아이템/이벤트 플래그 */
+<<set $hasSake to false>>
+<<set $hanbeiMaskInterest to false>>
+<<set $hanbeiDeepTalk to false>>
+
+/* 엔딩 완료 플래그 */
+<<set $completedHanbei to false>>
+<<set $completedKuro to false>>
+<<set $completedGenichiro to false>>
+<<set $completedSculptor to false>>
+<<set $completedIsshin to false>>
+
+/* 해금 플래그 */
+<<set $secondRoutesUnlocked to false>>
+<<set $shuraUnlocked to false>>
