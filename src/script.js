@@ -74,6 +74,7 @@
       });
       if (links.length === 1 && links[0].textContent.trim() === '계속') {
         el.classList.add('next-only');
+        el.classList.add('wolf-next-button');
       }
     });
   }
@@ -163,6 +164,56 @@ UIBar.stow();
 Config.passages.transitionOut = 0;
 Config.history.controls = false;
 
+var WOLF_STAT_LIMITS = {
+  common : {
+    min : 0,
+    max : 20,
+    keys : ['isolation', 'danger', 'shura']
+  },
+  love : {
+    min : -5,
+    max : 10,
+    keys : ['hanbeiLove', 'kuroLove', 'genichiroLove', 'sculptorLove', 'isshinLove']
+  }
+};
+
+function wolfClampNumber(value, min, max) {
+  var number = Number(value);
+  if (!isFinite(number)) {
+    number = 0;
+  }
+  return Math.max(min, Math.min(max, number));
+}
+
+function wolfClampVariableGroup(variables, group) {
+  group.keys.forEach(function (key) {
+    if (Object.prototype.hasOwnProperty.call(variables, key)) {
+      variables[key] = wolfClampNumber(variables[key], group.min, group.max);
+    }
+  });
+}
+
+function wolfClampStats() {
+  var variables = State.variables || {};
+
+  wolfClampVariableGroup(variables, WOLF_STAT_LIMITS.common);
+  wolfClampVariableGroup(variables, WOLF_STAT_LIMITS.love);
+}
+
+setup.wolfStatLimits = WOLF_STAT_LIMITS;
+setup.wolfClampStats = wolfClampStats;
+window.WolfClampStats = wolfClampStats;
+
+if (Macro.has('clampStats')) {
+  Macro.delete('clampStats');
+}
+
+Macro.add('clampStats', {
+  handler : function () {
+    wolfClampStats();
+  }
+});
+
 function getStoredStatusHidden() {
   try {
     var stored = localStorage.getItem('wolf.statusHidden');
@@ -170,6 +221,13 @@ function getStoredStatusHidden() {
   } catch (error) {
     return true;
   }
+}
+
+function wolfIsDebugMode() {
+  return !!(typeof State !== 'undefined' &&
+    State &&
+    State.variables &&
+    State.variables.debugMode === true);
 }
 
 function applyStatusHiddenClass(hidden) {
@@ -189,7 +247,7 @@ function setStoredStatusHidden(hidden) {
 }
 
 function applyStoredStatusHidden() {
-  applyStatusHiddenClass(getStoredStatusHidden());
+  applyStatusHiddenClass(!wolfIsDebugMode() || getStoredStatusHidden());
 }
 
 function isTypingTarget(target) {
@@ -219,6 +277,11 @@ $(document).on('keydown', function (event) {
 
   if (event.key === ']') {
     event.preventDefault();
+    if (!wolfIsDebugMode()) {
+      applyStatusHiddenClass(true);
+      return;
+    }
+
     var currentlyHidden = document.documentElement.classList.contains('status-hidden') ||
       document.body.classList.contains('status-hidden');
     setStoredStatusHidden(!currentlyHidden);
@@ -311,10 +374,11 @@ function wolfEnsureOuterUI() {
   $('body').append(
     '<div class="outer-dev-ui">' +
       '<a href="#" class="outer-back-button" data-game-back aria-label="앞 화면으로 돌아가기" title="앞 화면으로 돌아가기">◀</a>' +
-      '<div class="outer-vars-panel" aria-label="임시 변수창">' +
-        '<div class="outer-vars-title">VARS</div>' +
+      '<div class="outer-vars-panel" aria-label="Debug Status Panel">' +
+        '<div class="outer-vars-title">DEBUG STATUS</div>' +
         '<div class="outer-passage-name"></div>' +
         '<div class="outer-vars-list"></div>' +
+        '<div class="outer-dev-jumps"></div>' +
       '</div>' +
     '</div>'
   );
@@ -322,8 +386,18 @@ function wolfEnsureOuterUI() {
   applyStoredStatusHidden();
 }
 
+function wolfHasPassage(passageName) {
+  return !!(passageName &&
+    typeof Story !== 'undefined' &&
+    Story &&
+    typeof Story.has === 'function' &&
+    Story.has(passageName));
+}
+
 function wolfUpdateOuterUI() {
   wolfEnsureOuterUI();
+  wolfClampStats();
+  applyStoredStatusHidden();
 
   var canGoBack = State.length > 1 && State.passage !== 'Start';
   $('.outer-back-button')
@@ -333,7 +407,25 @@ function wolfUpdateOuterUI() {
   $('.outer-passage-name').text(State.passage || '');
 
   var vars = State.variables || {};
-  var keys = Object.keys(vars).sort();
+  var keys = [
+    'currentRoute',
+    'hanbeiProgress',
+    'hanbeiLove',
+    'kuroProgress',
+    'kuroLove',
+    'genichiroProgress',
+    'genichiroLove',
+    'sculptorProgress',
+    'sculptorLove',
+    'isshinProgress',
+    'isshinLove',
+    'isolation',
+    'danger',
+    'shura',
+    'anyEndingSeen',
+    'secondLoopUnlocked',
+    'shuraUnlocked'
+  ];
 
   if (!keys.length) {
     $('.outer-vars-list').html('<div class="outer-var-empty">변수 없음</div>');
@@ -348,14 +440,33 @@ function wolfUpdateOuterUI() {
   }).join('');
 
   $('.outer-vars-list').html(html);
+
+  var jumps = [
+    { label : 'SKIP: Temple_Return', passage : 'Temple_Return' },
+    { label : 'SKIP: Temple', passage : 'Temple' },
+    { label : 'TEST: Hanbei', passage : 'Go_Hanbei' },
+    { label : 'TEST: NightPatrol', passage : 'NightPatrol' },
+    { label : 'SKIP: EndingRouter', passage : 'EndingRouter' }
+  ];
+
+  var jumpHtml = '<div class="outer-dev-jumps-title">DEV PANEL</div>' +
+    jumps.map(function (jump) {
+      var disabled = wolfHasPassage(jump.passage) ? '' : ' is-disabled';
+      return '<button type="button" class="outer-dev-jump' + disabled + '" data-dev-jump="' +
+        wolfEscapeHtml(jump.passage) + '">' + wolfEscapeHtml(jump.label) + '</button>';
+    }).join('');
+
+  $('.outer-dev-jumps').html(jumpHtml);
 }
 
 $(document).on(':passagerender :passageend', function () {
+  wolfClampStats();
   wolfUpdateOuterUI();
   applyStoredStatusHidden();
 });
 
 $(document).ready(function () {
+  wolfClampStats();
   wolfUpdateOuterUI();
   applyStoredStatusHidden();
 });
@@ -367,5 +478,16 @@ $(document).on('click', '[data-game-back]', function (event) {
 
   if (State.length > 1) {
     Engine.backward();
+  }
+});
+
+$(document).on('click', '[data-dev-jump]', function (event) {
+  event.preventDefault();
+
+  if (!wolfIsDebugMode() || $(this).hasClass('is-disabled')) return;
+
+  var passage = $(this).attr('data-dev-jump');
+  if (wolfHasPassage(passage)) {
+    Engine.play(passage);
   }
 });

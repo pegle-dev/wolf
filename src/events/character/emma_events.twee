@@ -1,0 +1,27 @@
+:: Event_Emma_IsshinIntro {"position":"1900,1350","size":"100,100"}
+<<page>>
+<<set $emmaIsshinIntroSeen = true>>
+<<set $isshinUnlocked = true>>
+
+<div class="narration">
+황폐한 절로 돌아오는 길목에서,
+엠마가 조용히 늑대를 기다리고 있었다.
+
+그녀는 망설이다가,
+아시나의 한 노인에 대해 말했다.
+
+검을 쥔 채 웃는 법을 알고 있는 사람.
+
+그리고 어쩌면,
+늑대가 만나야 할 사람.
+</div>
+
+<div class="choice-box">
+[[돌아간다->Temple_Return_Hub]]
+</div>
+<</page>>
+
+/* Future Emma event slots:
+   - Event_Emma_ShuraWarning
+   - Event_Emma_InjuryCheck
+*/

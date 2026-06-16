@@ -284,6 +284,52 @@ body.status-hidden .outer-dev-ui {
   line-height: 1.4;
 }
 
+.outer-dev-jumps {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.outer-dev-jumps-title {
+  color: #777;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+
+.outer-dev-jump {
+  display: block;
+  width: 100%;
+  margin: 0 0 6px;
+  padding: 6px 7px;
+  box-sizing: border-box;
+  pointer-events: auto;
+  color: #d8d8d8;
+  background: #050505;
+  border: 1px solid #333;
+  font-family: 'NeoDunggeunmo Pro', monospace;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.outer-dev-jump:hover {
+  color: #fff;
+  border-color: #777;
+}
+
+.outer-dev-jump.is-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.outer-dev-jump.is-disabled:hover {
+  color: #d8d8d8;
+  border-color: #333;
+}
+
 @media (max-width: 1240px) {
   .outer-back-button {
     left: 14px;
@@ -1933,4 +1979,123 @@ body.status-hidden .outer-dev-ui {
 html.status-hidden .outer-dev-ui,
 body.status-hidden .outer-dev-ui {
   display: none !important;
+}
+
+
+
+/* =========================
+   Wolf UI final pass 260616-1:
+   - narration/talk "계속" 버튼 위치 공통화
+   - Temple 허브 선택지 박스 확장
+========================= */
+
+:root {
+  --wolf-next-right: 56px;
+  --wolf-next-bottom: 36px;
+  --wolf-next-min-width: 120px;
+}
+
+.choice-box.wolf-next-button,
+.choice-box.next-only,
+.choice-box.next-only.after-talk,
+.choice-box.next-only.narration-choice,
+.page-stage .choice-box.wolf-next-button,
+.page-stage .choice-box.next-only,
+.page-stage.no-talk .choice-box.wolf-next-button,
+.page-stage.no-talk .choice-box.next-only,
+.page-stage.has-talk .choice-box.wolf-next-button,
+.page-stage.has-talk .choice-box.next-only,
+.page-stage.has-talk.has-choice .choice-box.wolf-next-button,
+.page-stage.has-talk.has-choice .choice-box.next-only,
+.wolf-page .choice-box.wolf-next-button,
+.wolf-page .choice-box.next-only,
+.wolf-page.narration-only .choice-box.wolf-next-button,
+.wolf-page.narration-only .choice-box.next-only,
+.wolf-page.has-talk .choice-box.wolf-next-button,
+.wolf-page.has-talk .choice-box.next-only {
+  position: absolute !important;
+  right: var(--wolf-next-right) !important;
+  bottom: var(--wolf-next-bottom) !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: auto !important;
+  min-width: var(--wolf-next-min-width);
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+  overflow: visible !important;
+  z-index: 90;
+  text-align: right;
+}
+
+.choice-box.wolf-next-button a,
+.choice-box.next-only a,
+.page-stage .choice-box.wolf-next-button a,
+.page-stage .choice-box.next-only a,
+.wolf-page .choice-box.wolf-next-button a,
+.wolf-page .choice-box.next-only a {
+  display: inline-block;
+  width: auto;
+  padding: 8px 12px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.page-stage.no-talk .choice-box.temple-hub-choices,
+.page-stage.no-talk .choice-box.temple-hub-choices.narration-choice,
+.wolf-page.narration-only .choice-box.temple-hub-choices,
+.choice-box.temple-hub-choices {
+  position: relative !important;
+  width: min(82%, 820px) !important;
+  min-width: min(70%, 520px);
+  max-width: 820px !important;
+  max-height: 360px !important;
+  margin: 10px auto 0 !important;
+  top: -18px;
+  padding: 16px 24px !important;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.86) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch !important;
+  gap: 10px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  text-align: center;
+}
+
+.choice-box.temple-hub-choices .narration {
+  width: auto;
+  max-width: none;
+  margin: 0 0 4px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  line-height: 1.45;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.choice-box.temple-hub-choices a {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  line-height: 1.42;
+  text-align: center;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }

@@ -1,0 +1,13 @@
+:: Isshin {"position":"2400,575","size":"100,100"}
+<<page>>
+<div class="narration">
+엠마가 말한 노인은 아직 모습을 드러내지 않았다.
+
+하지만 그가 있는 곳으로 가는 길은,
+이제 희미하게 보인다.
+</div>
+
+<div class="choice-box">
+[[황폐한 절로 돌아간다->Temple_Return]]
+</div>
+<</page>>

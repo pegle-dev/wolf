@@ -1,0 +1,12 @@
+:: EventRouter {"position":"1900,1200","size":"100,100"}
+<<if $hanbeiLove >= 5 and ($sharedSake_hanbei or $maskInterest) and not $hanbeiMaskEventSeen>>
+  <<goto "Hanbei_05_Mask">>
+<<elseif $secondLoopUnlocked and not $emmaIsshinIntroSeen>>
+  <<goto "Event_Emma_IsshinIntro">>
+<<else>>
+  <<if $returnTo>>
+    <<goto $returnTo>>
+  <<else>>
+    <<goto "Temple">>
+  <</if>>
+<</if>>
