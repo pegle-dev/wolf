@@ -85,6 +85,9 @@
   if (Macro.has('talk')) {
     Macro.delete('talk');
   }
+  if (Macro.has('beat')) {
+    Macro.delete('beat');
+  }
 
   Macro.add('page', {
     tags : null,
@@ -150,6 +153,25 @@
       var dialogue = makeEl('div', 'dialogue');
       panel.appendChild(dialogue);
       panelWrap.appendChild(panel);
+      row.appendChild(panelWrap);
+
+      wikiInto(dialogue, this.payload[0].contents);
+      this.output.appendChild(row);
+    }
+  });
+
+  Macro.add('beat', {
+    tags : null,
+    handler : function () {
+      var row = makeEl('div', 'talk-row beat-row inline-narration');
+      var portraitBox = makeEl('div', 'talk-portrait-box beat-portrait-space');
+      var panelWrap = makeEl('div', 'talk-panel-wrap beat-panel-wrap');
+      var panel = makeEl('div', 'textbox-panel beat-panel');
+      var dialogue = makeEl('div', 'dialogue beat-dialogue');
+
+      panel.appendChild(dialogue);
+      panelWrap.appendChild(panel);
+      row.appendChild(portraitBox);
       row.appendChild(panelWrap);
 
       wikiInto(dialogue, this.payload[0].contents);

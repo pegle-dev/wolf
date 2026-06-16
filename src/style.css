@@ -1504,6 +1504,7 @@ body.status-hidden .outer-dev-ui {
 .page-stage.same-bg .narration-full,
 .page-stage.same-bg .narration-over-talk,
 .page-stage.same-bg .talk-row,
+.page-stage.same-bg .beat-row,
 .page-stage.same-bg .talk-portrait-box,
 .page-stage.same-bg .talk-nameplate,
 .page-stage.same-bg .textbox-panel,
@@ -1808,6 +1809,7 @@ body.status-hidden .outer-dev-ui {
 .page-stage.same-bg .narration-full,
 .page-stage.same-bg .narration-over-talk,
 .page-stage.same-bg .talk-row,
+.page-stage.same-bg .beat-row,
 .page-stage.same-bg .talk-portrait-box,
 .page-stage.same-bg .talk-nameplate,
 .page-stage.same-bg .textbox-panel,
@@ -1920,6 +1922,7 @@ body.status-hidden .outer-dev-ui {
 .wolf-page.same-bg .narration-full,
 .wolf-page.same-bg .narration-over-talk,
 .wolf-page.same-bg .talk-row,
+.wolf-page.same-bg .beat-row,
 .wolf-page.same-bg .talk-portrait-box,
 .wolf-page.same-bg .talk-nameplate,
 .wolf-page.same-bg .textbox-panel,
@@ -2060,7 +2063,7 @@ body.status-hidden .outer-dev-ui {
   top: -18px;
   padding: 16px 24px !important;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.86) !important;
+  background: rgba(0, 0, 0, 0.62) !important;
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -2098,4 +2101,191 @@ body.status-hidden .outer-dev-ui {
   white-space: normal;
   word-break: keep-all;
   overflow-wrap: break-word;
+}
+
+
+
+/* =========================
+   Ending presentation
+========================= */
+
+.ending-stamp {
+  position: fixed;
+  right: max(2rem, calc((100vw - var(--game-w)) / 2 + 2rem));
+  bottom: max(1.5rem, calc((100vh - var(--game-h)) / 2 + 1.5rem));
+  z-index: 80;
+  color: var(--white);
+  font-size: 1.6rem;
+  line-height: 1.2;
+  text-align: right;
+  opacity: 0.9;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  pointer-events: none;
+  word-break: keep-all;
+}
+
+
+
+/* =========================
+   Inline dialogue beat
+========================= */
+
+.beat-row .beat-portrait-space {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.beat-row .beat-panel-wrap {
+  min-height: 178px;
+}
+
+.beat-row .beat-panel {
+  min-height: 178px;
+}
+
+.beat-row .beat-dialogue {
+  color: var(--text);
+}
+
+.page-stage.has-talk .beat-row,
+.page-stage.dialogue-page .beat-row,
+.wolf-page.has-talk .beat-row,
+.wolf-page.dialogue-page .beat-row {
+  position: absolute;
+  left: var(--wolf-talk-left);
+  bottom: 132px;
+  width: var(--wolf-talk-width);
+  height: 310px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  column-gap: 24px;
+  align-items: end;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.page-stage.has-talk:not(.has-choice) .beat-row,
+.page-stage.dialogue-page:not(.has-choice) .beat-row,
+.wolf-page.has-talk:not(.has-choice) .beat-row,
+.wolf-page.dialogue-page:not(.has-choice) .beat-row {
+  bottom: 48px;
+}
+
+.beat-row .beat-portrait-space {
+  display: block;
+  width: 240px;
+  height: 260px;
+  visibility: hidden;
+}
+
+.beat-row .talk-nameplate {
+  display: none;
+}
+
+
+
+/* =========================
+   Intro sequence
+========================= */
+
+.page-stage.bg-black .intro-sequence,
+.wolf-page.bg-intro .intro-sequence,
+.wolf-page.bg-black .intro-sequence {
+  position: absolute;
+  left: 50%;
+  top: 72px;
+  transform: translateX(-50%);
+  width: min(680px, 72%);
+  max-height: 520px;
+  box-sizing: border-box;
+  padding: 0 8px 18px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  color: var(--text);
+  text-align: center;
+  z-index: 40;
+}
+
+.page-stage.bg-black .intro-sequence::-webkit-scrollbar,
+.wolf-page.bg-intro .intro-sequence::-webkit-scrollbar,
+.wolf-page.bg-black .intro-sequence::-webkit-scrollbar {
+  display: none;
+}
+
+.intro-line {
+  margin: 0 0 22px;
+  font-size: 22px;
+  line-height: 1.68;
+  letter-spacing: 0.03em;
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  opacity: 0.76;
+}
+
+.intro-line:last-child {
+  opacity: 1;
+  animation: wolf-intro-line-in 220ms ease-out both;
+}
+
+.intro-line.intro-final {
+  margin-top: 30px;
+  font-size: 24px;
+  color: var(--white);
+}
+
+.page-stage.bg-black .choice-box.intro-continue,
+.wolf-page.bg-intro .choice-box.intro-continue,
+.wolf-page.bg-black .choice-box.intro-continue {
+  position: absolute !important;
+  right: 56px !important;
+  bottom: 36px !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: auto !important;
+  min-width: 120px;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+  overflow: visible !important;
+  z-index: 90;
+  text-align: right;
+}
+
+.choice-box.intro-continue a {
+  display: inline-block;
+  width: auto;
+  padding: 8px 12px;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.72;
+  font-size: 18px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.choice-box.intro-continue a:hover {
+  opacity: 1;
+}
+
+@keyframes wolf-intro-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

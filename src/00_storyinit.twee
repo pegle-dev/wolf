@@ -32,6 +32,12 @@
 <<set $hanbeiMaskEventSeen to false>>
 <<set $hanbeiMaskTouched to false>>
 <<set $hanbeiDeepTalk to false>>
+<<set $hanbeiImmortalityTalkSeen to false>>
+<<set $hanbeiDawnTrainingSeen to false>>
+<<set $hanbeiReasonAnswer to "">>
+<<set $hanbeiMortalBladeTalkSeen to false>>
+<<set $hanbeiMercyRequest to false>>
+<<set $hanbeiMaskRemoved to false>>
 <<set $emmaIsshinIntroSeen to false>>
 
 /* 엔딩 완료 플래그 */
@@ -42,6 +48,11 @@
 <<set $completedIsshin to false>>
 <<set $anyEndingSeen to false>>
 <<set $badEndingSeen to false>>
+<<set $hanbeiDone to false>>
+<<set $hanbeiGoodEndingSeen to false>>
+<<set $hanbeiBadEndingSeen to false>>
+<<set $hanbeiMercyEndingSeen to false>>
+<<set $hanbeiSwordBadEndingSeen to false>>
 
 /* 해금 플래그 */
 <<set $secondLoopUnlocked to false>>

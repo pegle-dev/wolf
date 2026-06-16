@@ -1,0 +1,418 @@
+:: Ending_Hanbei {"position":"3200,400","size":"100,100"}
+<<page>>
+<<set $hanbeiDone = true>>
+<<set $completedHanbei = true>>
+<<set $hanbeiGoodEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<if $completedHanbei && $completedKuro && $completedGenichiro>>
+  <<set $secondLoopUnlocked = true>>
+  <<set $secondRoutesUnlocked = true>>
+<</if>>
+<div class="narration narration-full short-beat">해가 저물었다.</div>
+<div class="choice-box">[[계속->Ending_Hanbei_02]]</div>
+<</page>>
+
+:: Ending_Hanbei_02 {"position":"3325,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">늑대는 검을 뽑지 않았다.</div>
+<div class="choice-box">[[계속->Ending_Hanbei_03]]</div>
+<</page>>
+
+:: Ending_Hanbei_03 {"position":"3450,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">한베도 검을 들지 않았다.</div>
+<div class="choice-box">[[계속->Ending_Hanbei_04]]</div>
+<</page>>
+
+:: Ending_Hanbei_04 {"position":"3575,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+두 사람은 한동안,
+황폐한 절의 마당을 보고 있었다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_05]]</div>
+<</page>>
+
+:: Ending_Hanbei_05 {"position":"3700,400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+베지 않는가.
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_06]]</div>
+<</page>>
+
+:: Ending_Hanbei_06 {"position":"3825,400","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+베지 않는다.
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_07]]</div>
+<</page>>
+
+:: Ending_Hanbei_07 {"position":"3950,400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+앞으로도?
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_08]]</div>
+<</page>>
+
+:: Ending_Hanbei_08 {"position":"4075,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+늑대는 잠시 침묵했다.
+
+그 침묵은 망설임이 아니라,
+말을 고르는 시간에 가까웠다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_09]]</div>
+<</page>>
+
+:: Ending_Hanbei_09 {"position":"4200,400","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+다시 온다.
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_10]]</div>
+<</page>>
+
+:: Ending_Hanbei_10 {"position":"4325,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+한베는 고개를 숙였다.
+
+웃는 것 같기도 했고,
+숨을 고르는 것 같기도 했다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_11]]</div>
+<</page>>
+
+:: Ending_Hanbei_11 {"position":"4450,400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그런가.
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_12]]</div>
+<</page>>
+
+:: Ending_Hanbei_12 {"position":"4575,400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그럼,
+기다려도 되겠군.
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_13]]</div>
+<</page>>
+
+:: Ending_Hanbei_13 {"position":"4700,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+황폐한 절이다.
+
+죽지 못하는 무사가 있고,
+그를 베지 않는 늑대가 있다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_14]]</div>
+<</page>>
+
+:: Ending_Hanbei_14 {"position":"4825,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+그날 이후로도,
+검과 검이 부딪치는 날은 있었다.
+
+하지만 가끔은,
+아무것도 하지 않는 날도 있었다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_15]]</div>
+<</page>>
+
+:: Ending_Hanbei_15 {"position":"4950,400","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+그냥 온 날.
+
+그런 날이 생겼다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_End]]</div>
+<</page>>
+
+:: Ending_Hanbei_End {"position":"5075,400","size":"100,100"}
+<<page>>
+<div class="ending-stamp">[End. 그냥 온 날]</div>
+<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence {"position":"3200,650","size":"100,100"}
+<<page>>
+<<set $hanbeiDone = true>>
+<<set $completedHanbei = true>>
+<<set $hanbeiGoodEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<if $completedHanbei && $completedKuro && $completedGenichiro>>
+  <<set $secondLoopUnlocked = true>>
+  <<set $secondRoutesUnlocked = true>>
+<</if>>
+<div class="narration narration-full short-beat">늑대는 대답하지 않았다.</div>
+<div class="choice-box">[[계속->Ending_Hanbei_Silence_02]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence_02 {"position":"3325,650","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+한베는 그 침묵을 기다렸다.
+
+오래 기다리는 일에는 익숙한 사람처럼.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_Silence_03]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence_03 {"position":"3450,650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+하하.
+또 침묵인가.
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_Silence_04]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence_04 {"position":"3575,650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+<div class="choice-box">[[계속->Ending_Hanbei_Silence_05]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence_05 {"position":"3700,650","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+늑대는 한베의 곁에 앉았다.
+
+그것이 대답이었다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_Silence_06]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence_06 {"position":"3825,650","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+한베는 더 묻지 않았다.
+
+황폐한 절의 바람이 지나갔다.
+
+검은 끝내 뽑히지 않았다.
+</div>
+<div class="choice-box">[[계속->Ending_Hanbei_Silence_End]]</div>
+<</page>>
+
+:: Ending_Hanbei_Silence_End {"position":"3950,650","size":"100,100"}
+<<page>>
+<div class="ending-stamp">[End. 곁에 앉은 침묵]</div>
+<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy {"position":"3200,900","size":"100,100"}
+<<page>>
+<<set $badEndingSeen = true>>
+<<set $hanbeiBadEndingSeen = true>>
+<<set $hanbeiMercyEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<div class="narration narration-full short-beat">
+늑대는 한베를 보았다.
+
+죽지 않는 몸.
+
+끝나지 않는 상처.
+
+웃음으로 덮어둔 긴 시간.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_02]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_02 {"position":"3325,900","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그 약속을 받아들인다.
+<</talk>>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_03]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_03 {"position":"3450,900","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">한베는 눈을 감았다.</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_04]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_04 {"position":"3575,900","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그런가.
+<</talk>>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_05]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_05 {"position":"3700,900","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+미안하네.
+<</talk>>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_06]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_06 {"position":"3825,900","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+미안할 것은 없다.
+<</talk>>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_07]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_07 {"position":"3950,900","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+그러나 그 말은,
+둘 중 누구에게도 닿지 않았다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_08]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_08 {"position":"4075,900","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+그날 이후로도 한베는 웃었다.
+
+늑대도 찾아왔다.
+
+대련은 계속되었다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_09]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_09 {"position":"4200,900","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+다만 두 사람은 알고 있었다.
+
+언젠가 검이 도착하면,
+이 대련은 끝난다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_10]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_10 {"position":"4325,900","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+황폐한 절이다.
+
+기다림이 하나 더 늘었다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy_End]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_End {"position":"4450,900","size":"100,100"}
+<<page>>
+<div class="ending-stamp">[Bad End. 끝나는 대련]</div>
+<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword {"position":"3200,1150","size":"100,100"}
+<<page>>
+<<set $badEndingSeen = true>>
+<<set $hanbeiBadEndingSeen = true>>
+<<set $hanbeiSwordBadEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $shura += 1>>
+<<clampStats>>
+<div class="narration narration-full short-beat">
+늑대는 검을 확인했다.
+
+아직 그 검은 아니다.
+
+불사를 벨 수 있는 검은 아니다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_02]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_02 {"position":"3325,1150","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+그런데도 손은,
+칼자루의 위치를 알고 있었다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_03]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_03 {"position":"3450,1150","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+늑대?
+<</talk>>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_04]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_04 {"position":"3575,1150","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_05]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_05 {"position":"3700,1150","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+한베가 웃었다.
+
+그 웃음은 익숙했다.
+
+너무 익숙해서,
+늑대는 잠시 그것을 사람의 얼굴로 보지 못했다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_06]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_06 {"position":"3825,1150","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+죽지 않는 몸.
+
+베어도 일어나는 몸.
+
+끝나지 않는 대련.
+
+검이 운다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_07]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_07 {"position":"3950,1150","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+한베는 무언가를 말하려 했다.
+
+늑대는 듣지 못했다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_08]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_08 {"position":"4075,1150","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+황폐한 절이다.
+
+검과 검이 부딪친다.
+
+그것은 대련이었다.
+
+끝까지,
+대련일 뿐이었다.
+</div>
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword_End]]</div>
+<</page>>
+
+:: BadEnd_Hanbei_Sword_End {"position":"4200,1150","size":"100,100"}
+<<page>>
+<div class="ending-stamp">[Bad End. 불사를 베는 연습]</div>
+<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<</page>>
