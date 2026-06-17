@@ -180,7 +180,7 @@
 <<goto "NightPatrol_Random">>
 
 :: Temple_Sleep {"position":"1800,875","size":"100,100"}
-<<goto "NightRest">>
+<<goto "DreamRouter">>
 
 :: Temple_Return_Bad {"position":"2150,1200","size":"100,100"}
 <<page>>

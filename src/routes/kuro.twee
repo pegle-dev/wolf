@@ -1,7 +1,1094 @@
 :: Kuro {"position":"2250,575","size":"100,100"}
-<<page>>
-주군이 책을 읽고 있다.
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_Return]]</div>
-<</page>>
+<<goto "Go_Kuro">>
 
 :: Kuro01 {"position":"2225,675","size":"100,100"}
+<<goto "Go_Kuro">>
+
+:: Go_Kuro {"position":"2225,800","size":"100,100"}
+<<set $currentRoute = "kuro">>
+
+<<if not $kuroReadingSeen>>
+  <<goto "Kuro_01_Reading">>
+<<elseif not $kuroTeaSeen>>
+  <<goto "Kuro_02_Tea">>
+<<elseif not $kuroSitBesideSeen>>
+  <<goto "Kuro_03_SitBeside">>
+<<elseif not $kuroWaitingSeen>>
+  <<goto "Kuro_04_Waiting">>
+<<elseif not $kuroWishSeen>>
+  <<goto "Kuro_05_Wish">>
+<<elseif not $kuroNameSeen>>
+  <<goto "Kuro_06_Name">>
+<<elseif not $kuroGoodEndingSeen>>
+  <<goto "Ending_Kuro_PathWithoutMaster">>
+<<else>>
+  <<goto "Kuro_AfterEnding">>
+<</if>>
+
+:: Kuro_01_Reading {"position":"2350,800","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroProgress = Math.max($kuroProgress, 1)>>
+<<set $kuroReadingSeen = true>>
+
+<div class="narration">
+소년은 서고에 앉아서 책을 읽고 있었다.
+
+늑대가 말없이 옆에 서자, 그의 주군은 책을 덮고 올려다봤다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk01]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk01 {"position":"2475,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대. 왔는가.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk02]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk02 {"position":"2600,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+예.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk03]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk03 {"position":"2725,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+마침 쉬고 있었다.
+그대도 잠시 앉겠는가.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk04]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk04 {"position":"2850,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+저는 서 있겠습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk05]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk05 {"position":"2975,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그럴 줄 알았다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Beat01]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Beat01 {"position":"3100,800","size":"100,100"}
+<<page>>
+<div class="narration">
+쿠로는 작게 웃고 다시 책을 펼쳤다.
+
+한동안 책장 넘기는 소리만 들렸다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk06]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk06 {"position":"3225,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대, 글은 언제 배웠나.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk07]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk07 {"position":"3350,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+어릴 적… 쵸쵸에게서입니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk08]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk08 {"position":"3475,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+아아… 그렇군.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk09]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk09 {"position":"3600,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+아버님은 왜 그런 걸 가르치냐 하셨지만.
+그분은 물러서지 않으셨습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk10]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk10 {"position":"3725,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그림이 그려지네.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk11]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk11 {"position":"3850,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk12]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk12 {"position":"3975,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+?
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk13]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk13 {"position":"4100,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+하지만…
+글을 읽는 시간의 기쁨을 알게 된 건…
+쿠로님 덕분입니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk14]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk14 {"position":"4225,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk15]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk15 {"position":"4350,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…쿠로님?
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk16]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk16 {"position":"4475,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+잠깐 이쪽을 보지 마라.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk17]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk17 {"position":"4600,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk18]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk18 {"position":"4725,800","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+명령이다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Talk19]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Talk19 {"position":"4850,800","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…뜻대로.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_01_Reading_Choice]]</div>
+<</page>>
+
+:: Kuro_01_Reading_Choice {"position":"4975,800","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "말한 것을 후회하지 않는다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $kuroReadingJoySpoken = true>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "다시 책으로 시선을 내린다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "명령을 따른다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Kuro_02_Tea {"position":"2350,950","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroProgress = Math.max($kuroProgress, 2)>>
+<<set $kuroTeaSeen = true>>
+
+<div class="narration">
+찻잔에서는 김이 올랐다.
+
+쿠로는 말없이 차를 따랐다.
+늑대는 말없이 잔을 받았다.
+
+그 침묵은 어색하지 않았다.
+
+쿠로가 작은 접시를 꺼냈다.
+오하기였다.
+
+늑대의 시선이 아주 잠깐 그곳에 머물렀다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk01]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk01 {"position":"2475,950","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그렇게 좋은가?
+단 것이.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk02]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk02 {"position":"2600,950","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그건…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk03]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk03 {"position":"2725,950","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk04]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk04 {"position":"2850,950","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk05]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk05 {"position":"2975,950","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+혹시 말인데, 늑대.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk06]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk06 {"position":"3100,950","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+예.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk07]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk07 {"position":"3225,950","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+단 걸 좋아한다는 건
+애같거나 약하다는 게 아니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Talk08]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Talk08 {"position":"3350,950","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…그렇습니까.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Beat]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Beat {"position":"3475,950","size":"100,100"}
+<<page>>
+<div class="narration">
+쿠로가 웃었다.
+
+그것은 어린아이 같은 웃음소리였다.
+
+늑대는 말없이 오하기를 우물거렸다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_02_Tea_Choice]]</div>
+<</page>>
+
+:: Kuro_02_Tea_Choice {"position":"3600,950","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "오하기를 받는다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "좋다고 말한다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $kuroSweetHonest = true>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "말없이 먹는다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Kuro_03_SitBeside {"position":"2350,1100","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroProgress = Math.max($kuroProgress, 3)>>
+<<set $kuroSitBesideSeen = true>>
+
+<div class="narration">
+쿠로가 앉자, 늑대는 자연스럽게 그 앞에 무릎을 꿇었다.
+
+쿠로는 책을 펼치려다 멈췄다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk01]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk01 {"position":"2475,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk02]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk02 {"position":"2600,1100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+예.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk03]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk03 {"position":"2725,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그대는 왜 늘 거기에 앉는가.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk04]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk04 {"position":"2850,1100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+이곳이 제 자리입니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk05]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk05 {"position":"2975,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+아니다.
+옆에 앉아라.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk06]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk06 {"position":"3100,1100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그럴 수는 없습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk07]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk07 {"position":"3225,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그럴 수 있다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk08]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk08 {"position":"3350,1100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그래도, 제가 감히…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk09]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk09 {"position":"3475,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+명령이라 하면?
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk10]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk10 {"position":"3600,1100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…그러면 따르겠습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk11]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk11 {"position":"3725,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Talk12]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Talk12 {"position":"3850,1100","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그러면 명령하지 않겠다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Beat]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Beat {"position":"3975,1100","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 대답하지 못했다.
+
+한참 뒤, 늑대는 쿠로의 옆에서 조금 떨어진 곳에 앉았다.
+
+쿠로는 그 모습을 물끄러미 보다가,
+살짝 미소 짓고 책으로 시선을 돌렸다.
+
+평화로운 오후가 흘렀다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_03_SitBeside_Choice]]</div>
+<</page>>
+
+:: Kuro_03_SitBeside_Choice {"position":"4100,1100","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "조금 떨어진 곳에 앉는다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $kuroSatBeside = true>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "무릎을 꿇은 채 있는다" "Temple_Return">>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "명령을 기다린다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Kuro_04_Waiting {"position":"2350,1250","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroProgress = Math.max($kuroProgress, 4)>>
+<<set $kuroWaitingSeen = true>>
+
+<<talk "kuro" "쿠로">>
+오늘은 늦었네.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk02]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk02 {"position":"2475,1250","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+죄송합니다.
+늦어졌습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Beat01]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Beat01 {"position":"2600,1250","size":"100,100"}
+<<page>>
+<div class="narration">
+피의 냄새가 풍겼다.
+
+쿠로는 대답하지 않았다.
+
+벚꽃향도 짙게 풍겼다.
+
+늑대가 몇 번이고 죽었어야 했던 고난이었던 것이다.
+
+쿠로는 깊이 그 냄새를 들이켰다.
+
+늑대가 움찔 떨었다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk03]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk03 {"position":"2725,1250","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+쿠로님.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk04]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk04 {"position":"2850,1250","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+가까이 오게.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk05]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk05 {"position":"2975,1250","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+이 몸은…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Beat02]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Beat02 {"position":"3100,1250","size":"100,100"}
+<<page>>
+<div class="narration">
+쿠로는 멀어지려는 늑대의 소매를 붙잡았다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk06]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk06 {"position":"3225,1250","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그대의 죄는 나의 죄이기도 하네.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk07]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk07 {"position":"3350,1250","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk08]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk08 {"position":"3475,1250","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+같이 떨어져 주겠는가.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Talk09]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Talk09 {"position":"3600,1250","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+어디라도 함께 가겠습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_04_Waiting_Choice]]</div>
+<</page>>
+
+:: Kuro_04_Waiting_Choice {"position":"3725,1250","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "멀어지려 한다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "붙잡힌 채 있는다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $kuroSharedFall = true>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "어디라도 함께 가겠습니다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $kuroSharedFall = true>>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Kuro_05_Wish {"position":"2350,1400","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroProgress = Math.max($kuroProgress, 5)>>
+<<set $kuroWishSeen = true>>
+<<set $kuroFreedomWishHeard = true>>
+
+<<talk "kuro" "쿠로">>
+언젠가 자유로워졌으면 좋겠어.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk02]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk02 {"position":"2475,1400","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+저는 이미 쿠로님의 뜻을 따르고 있습니다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk03]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk03 {"position":"2600,1400","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그 말이 기쁘면서도,
+기쁘지 않다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk04]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk04 {"position":"2725,1400","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk05]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk05 {"position":"2850,1400","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+사실 그대가 내 뜻을 따랐으면 하면서도,
+함께 죽어주었으면 하면서도.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk06]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk06 {"position":"2975,1400","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그러고 싶지 않다.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk07]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk07 {"position":"3100,1400","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+어째서입니까.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Talk08]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Talk08 {"position":"3225,1400","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그러기엔 내가 그대를…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Beat]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Beat {"position":"3350,1400","size":"100,100"}
+<<page>>
+<div class="narration">
+쿠로는 말을 멈췄다.
+
+늑대는 기다렸다.
+명령을 기다리듯이.
+
+하지만 쿠로는 끝내 명령하지 않았다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_05_Wish_Choice]]</div>
+<</page>>
+
+:: Kuro_05_Wish_Choice {"position":"3475,1400","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "명령을 기다리지 않는다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "말없이 기다린다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "함께 가겠다고 한다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Kuro_06_Name {"position":"2350,1550","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroProgress = Math.max($kuroProgress, 6)>>
+<<set $kuroNameSeen = true>>
+
+<<talk "kuro" "쿠로">>
+늑대.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Talk02]]</div>
+<</page>>
+
+:: Kuro_06_Name_Talk02 {"position":"2475,1550","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+예.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Talk03]]</div>
+<</page>>
+
+:: Kuro_06_Name_Talk03 {"position":"2600,1550","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+주군이 없다면 넌 누구지?
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Talk04]]</div>
+<</page>>
+
+:: Kuro_06_Name_Talk04 {"position":"2725,1550","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Talk05]]</div>
+<</page>>
+
+:: Kuro_06_Name_Talk05 {"position":"2850,1550","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+내가 없다면.
+명령이 없다면.
+지켜야 할 것이 없다면.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Talk06]]</div>
+<</page>>
+
+:: Kuro_06_Name_Talk06 {"position":"2975,1550","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그래도 그대는 그대인가.
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Talk07]]</div>
+<</page>>
+
+:: Kuro_06_Name_Talk07 {"position":"3100,1550","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+저는…
+<</talk>>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Beat]]</div>
+<</page>>
+
+:: Kuro_06_Name_Beat {"position":"3225,1550","size":"100,100"}
+<<page>>
+<div class="narration">
+말은 이어지지 않았다.
+
+쿠로는 늑대를 재촉하지 않았다.
+
+그 질문은 답을 요구하는 말이 아니었다.
+늑대가 처음으로 자기 자신에 대해 생각하게 만드는 문이었다.
+</div>
+
+<div class="choice-box">[[계속->Kuro_06_Name_Choice]]</div>
+<</page>>
+
+:: Kuro_06_Name_Choice {"position":"3350,1550","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "저는 늑대입니다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $isolation -= 1>>
+  <<set $kuroSelfAnswer = "wolf">>
+  <<clampStats>>
+<</link>>
+
+<<link "쿠로님의 닌자입니다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<set $isolation += 1>>
+  <<set $kuroSelfAnswer = "shinobi">>
+  <<clampStats>>
+<</link>>
+
+<<link "모르겠습니다" "Temple_Return">>
+  <<set $kuroLove += 2>>
+  <<set $kuroSelfAnswer = "unknown">>
+  <<clampStats>>
+<</link>>
+
+<<link "대답하지 못한다" "Temple_Return">>
+  <<set $kuroLove += 1>>
+  <<set $kuroSelfAnswer = "silence">>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster {"position":"2350,1725","size":"100,100"}
+<<page>>
+<<set $currentRoute = "kuro">>
+<<set $kuroDone = true>>
+<<set $completedKuro = true>>
+<<set $kuroGoodEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<if $completedHanbei && $completedKuro && $completedGenichiro>>
+  <<set $secondLoopUnlocked = true>>
+<</if>>
+
+<div class="narration">
+모든 게 끝났다.
+
+늑대는 검을 들었다.
+
+더 이상 지켜야 할 주군은 없다.
+더 이상 완수해야 할 명도 없다.
+
+그렇다면 남은 도구는,
+스스로를 거두어야 한다.
+
+검끝이 조용히 올라갔다.
+</div>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_02]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_02 {"position":"2475,1725","size":"100,100"}
+<<page>>
+<div class="narration">
+그때, 손이 닿았다.
+
+약하고, 떨리는 손이었다.
+</div>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_03]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_03 {"position":"2600,1725","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그만.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_04]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_04 {"position":"2725,1725","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+쿠로님.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_05]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_05 {"position":"2850,1725","size":"100,100"}
+<<page>>
+<div class="narration">
+쿠로는 가까스로 움직이고 있었다.
+
+인간이 된 몸은 아직 약했다.
+숨은 고르지 않았고, 손끝은 떨렸다.
+
+하지만 그는 늑대를 붙잡고 있었다.
+</div>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_06]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_06 {"position":"2975,1725","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그대는 이제…
+나의 명으로 죽지 않아도 된다.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_07]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_07 {"position":"3100,1725","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+하지만 저는…
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_08]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_08 {"position":"3225,1725","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_09]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_09 {"position":"3350,1725","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+언젠가 찻집을 열 테니,
+그땐 손님으로 와줘.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_10]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_10 {"position":"3475,1725","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+명이라면.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_11]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_11 {"position":"3600,1725","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+명령이 아니라 부탁이다.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_12]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_12 {"position":"3725,1725","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 대답하지 못했다.
+
+쿠로는 천천히 물러섰다.
+
+그의 등은 작았다.
+아주 작았다.
+
+늑대는 멀어져 가는 쿠로의 모습을 바라보았다.
+
+아주 작아질 때까지.
+
+그리고 하늘을 보았다.
+
+아시나에서 보기 드문,
+아무것도 없는 파란 하늘이었다.
+
+늑대는 검을 내렸다.
+
+그리고 처음으로,
+명령 없이 걸었다.
+</div>
+
+<div class="choice-box">[[계속->Ending_Kuro_PathWithoutMaster_End]]</div>
+<</page>>
+
+:: Ending_Kuro_PathWithoutMaster_End {"position":"3850,1725","size":"100,100"}
+<<page>>
+<div class="ending-stamp">[End. 주인 없는 길]</div>
+
+<div class="choice-box">
+[[타이틀로 돌아간다->Start]]
+</div>
+<</page>>
+
+:: Kuro_AfterEnding {"position":"3975,1725","size":"100,100"}
+<<page>>
+<div class="narration">
+쿠로의 방은 비어 있었다.
+
+그러나 이상하게도,
+그곳은 버려진 방처럼 느껴지지 않았다.
+
+늑대는 잠시 그 앞에 서 있다가,
+조용히 돌아섰다.
+</div>
+
+<div class="choice-box">
+[[절로 돌아간다->Temple_Return]]
+</div>
+<</page>>
