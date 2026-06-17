@@ -372,6 +372,36 @@ function wolfEscapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
+function wolfScrollIntroSequenceToBottom() {
+  var sequences = document.querySelectorAll('.passage .intro-sequence');
+  var scroller = sequences.length > 0 ?
+    sequences[sequences.length - 1] :
+    document.querySelector('.intro-sequence');
+
+  if (!scroller) {
+    return;
+  }
+
+  window.requestAnimationFrame(function () {
+    window.requestAnimationFrame(function () {
+      var maxScrollTop = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+
+      if (maxScrollTop <= 0) {
+        return;
+      }
+
+      try {
+        scroller.scrollTo({
+          top : maxScrollTop,
+          behavior : 'smooth'
+        });
+      } catch (error) {
+        scroller.scrollTop = maxScrollTop;
+      }
+    });
+  });
+}
+
 function wolfFormatValue(value) {
   if (value === undefined) return 'undefined';
   if (value === null) return 'null';
@@ -487,10 +517,15 @@ $(document).on(':passagerender :passageend', function () {
   applyStoredStatusHidden();
 });
 
+$(document).on(':passageend', function () {
+  wolfScrollIntroSequenceToBottom();
+});
+
 $(document).ready(function () {
   wolfClampStats();
   wolfUpdateOuterUI();
   applyStoredStatusHidden();
+  wolfScrollIntroSequenceToBottom();
 });
 
 $(document).on('click', '[data-game-back]', function (event) {
