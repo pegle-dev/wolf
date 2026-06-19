@@ -23,6 +23,15 @@
     if (/^Intro/.test(name)) {
       return 'bg-black';
     }
+    if (isNightInterludePassage(name)) {
+      return 'bg-night';
+    }
+    if (/^Temple_AfterNight$/.test(name)) {
+      return 'bg-dawn';
+    }
+    if (/^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth)/.test(name)) {
+      return 'bg-black';
+    }
     if (/^Hanbei/.test(name)) {
       return 'bg-training';
     }
@@ -39,17 +48,54 @@
     return 'bg-temple';
   }
 
+  function isNightInterludePassage(passageName) {
+    return /^(Temple_Return_Hub|Temple_Return_Bad|Temple_Sleep)$/.test(String(passageName || ''));
+  }
+
   function getSceneBgAlias(bgClass) {
     switch (bgClass) {
       case 'bg-black':
         return 'bg-intro';
       case 'bg-nightpatrol':
         return 'bg-night-patrol';
+      case 'bg-night':
+        return 'bg-night';
       case 'bg-ashina':
         return 'bg-ashina-tower';
+      case 'bg-dawn':
+        return 'bg-dawn';
       default:
         return bgClass;
     }
+  }
+
+  function getSequenceClasses(passageName) {
+    var name = String(passageName || '');
+    var classes = [];
+
+    if (/^Intro/.test(name)) {
+      classes.push('intro-sequence-page', 'sequence-accumulate');
+    }
+    if (/^BadEnd_/.test(name)) {
+      classes.push('ending-screen', 'bad-ending-sequence', 'sequence-vanish', 'sequence-cut');
+    }
+    else if (/^Ending_Hidden_Rebirth/.test(name)) {
+      classes.push('ending-screen', 'hidden-ending-sequence', 'final-still-sequence');
+    }
+    else if (/^Ending_/.test(name)) {
+      classes.push('ending-screen', 'ending-sequence', 'sequence-vanish');
+    }
+    else if (/^Hidden_Rebirth_Voices/.test(name)) {
+      classes.push('ending-screen', 'hidden-voice-sequence', 'sequence-vanish');
+    }
+    else if (/^Hidden_Rebirth_(Temple|ExitTemple)/.test(name)) {
+      classes.push('hidden-return-sequence', 'sequence-accumulate');
+    }
+    else if (/^Hidden_Rebirth_FinalField/.test(name)) {
+      classes.push('hidden-final-sequence', 'final-still-sequence');
+    }
+
+    return classes;
   }
 
   function markLayout(stage, text) {
@@ -92,20 +138,33 @@
   Macro.add('page', {
     tags : null,
     handler : function () {
-      var passageName = (this.passageObj && this.passageObj.title) || State.passage || '';
+      var passageName = setup.wolfRenderPassageName || (this.passageObj && this.passageObj.title) || State.passage || '';
       var bgClass = getSceneBgClass(passageName);
       var bgAlias = getSceneBgAlias(bgClass);
       var stage = makeEl('div', 'stage page-stage wolf-page ' + bgClass + ' ' + bgAlias);
       var box = makeEl('div', 'page-box');
       var text = makeEl('div', 'page-text wolf-content');
       var sameBg = setup.wolfLastBgClass === bgClass;
+      var wasNightInterlude = setup.wolfLastWasNightInterlude === true;
+      var isNightInterlude = isNightInterludePassage(passageName);
       var transitionClass = sameBg ? 'same-bg' : 'changed-bg';
+      var sequenceClasses = getSequenceClasses(passageName);
 
       stage.classList.add(transitionClass);
+      sequenceClasses.forEach(function (className) {
+        stage.classList.add(className);
+      });
+      if (isNightInterlude) {
+        stage.classList.add('night-interlude');
+      }
+      if (wasNightInterlude && !isNightInterlude) {
+        stage.classList.add('from-night-interlude');
+      }
       if (!sameBg) {
         stage.classList.add('bg-changed');
       }
       setup.wolfLastBgClass = bgClass;
+      setup.wolfLastWasNightInterlude = isNightInterlude;
 
       stage.appendChild(box);
       box.appendChild(text);
@@ -317,7 +376,7 @@ window.WolfApplyStoredStatusHidden = applyStoredStatusHidden;
   'use strict';
 
   var BUTTON_SOUND_SRC = 'assets/sounds/button.mp3';
-  var BUTTON_SOUND_VOLUME = 0.45;
+  var BUTTON_SOUND_VOLUME = 0.225;
   var buttonSound = null;
 
   function getButtonSound() {
@@ -372,35 +431,175 @@ function wolfEscapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function wolfScrollIntroSequenceToBottom() {
-  var sequences = document.querySelectorAll('.passage .intro-sequence');
-  var scroller = sequences.length > 0 ?
-    sequences[sequences.length - 1] :
-    document.querySelector('.intro-sequence');
+(function () {
+  'use strict';
 
-  if (!scroller) {
-    return;
+  var ENDING_SWAP_MS = 220;
+  var endingSequenceLocked = false;
+
+  function getSequenceLink(target) {
+    if (!target || !target.closest) {
+      return null;
+    }
+
+    return target.closest('.page-stage.sequence-vanish .choice-box a, .page-stage.final-still-sequence .choice-box a');
   }
 
-  window.requestAnimationFrame(function () {
+  function shouldLetBrowserHandle(event, link) {
+    return event.defaultPrevented ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      !link ||
+      !link.getAttribute('data-passage');
+  }
+
+  function isEndingSequencePassage(passage) {
+    return /^(Ending_|BadEnd_|Hidden_Rebirth_Voices)/.test(String(passage || ''));
+  }
+
+  function getPassageSource(passage) {
+    if (!window.Story || typeof Story.get !== 'function') {
+      return null;
+    }
+
+    if (typeof Story.has === 'function' && !Story.has(passage)) {
+      return null;
+    }
+
+    var passageObj = Story.get(passage);
+    if (!passageObj) {
+      return null;
+    }
+
+    if (typeof passageObj.processText === 'function') {
+      return passageObj.processText();
+    }
+
+    return passageObj.text || '';
+  }
+
+  function renderEndingPassage(passage) {
+    var source = getPassageSource(passage);
+    var container = document.createElement('div');
+    var previousBgClass = setup.wolfLastBgClass;
+    var previousNightInterlude = setup.wolfLastWasNightInterlude;
+
+    if (!source) {
+      return null;
+    }
+
+    setup.wolfRenderPassageName = passage;
+    try {
+      jQuery(container).wiki(source);
+    }
+    finally {
+      delete setup.wolfRenderPassageName;
+      setup.wolfLastBgClass = previousBgClass;
+      setup.wolfLastWasNightInterlude = previousNightInterlude;
+    }
+
+    return container.querySelector('.page-stage.ending-screen');
+  }
+
+  function syncEndingStageClasses(stage, renderedStage) {
+    var keepExiting = stage.classList.contains('is-sequence-exiting');
+    stage.className = renderedStage.className;
+    if (keepExiting) {
+      stage.classList.add('is-sequence-exiting');
+    }
+  }
+
+  function commitEndingContent(stage, renderedStage, overlayBox) {
+    var currentBox = stage.querySelector('.page-box');
+    var nextBox = overlayBox || renderedStage.querySelector('.page-box');
+
+    if (!currentBox || !nextBox) {
+      return false;
+    }
+
+    syncEndingStageClasses(stage, renderedStage);
+    currentBox.replaceChildren.apply(currentBox, Array.prototype.slice.call(nextBox.childNodes));
+    stage.classList.remove('is-sequence-exiting', 'is-ending-text-swapping');
+    if (overlayBox && overlayBox.parentNode) {
+      overlayBox.parentNode.removeChild(overlayBox);
+    }
+    return true;
+  }
+
+  function playEndingSequenceInPlace(stage, passage) {
+    var renderedStage;
+    var currentBox;
+    var nextBox;
+
+    if (endingSequenceLocked) {
+      return true;
+    }
+
+    if (!stage) {
+      return false;
+    }
+
+    renderedStage = renderEndingPassage(passage);
+    if (!renderedStage) {
+      return false;
+    }
+
+    currentBox = stage.querySelector('.page-box');
+    nextBox = renderedStage.querySelector('.page-box');
+    if (!currentBox || !nextBox) {
+      return false;
+    }
+
+    endingSequenceLocked = true;
+    stage.classList.add('is-ending-text-swapping');
+    nextBox.classList.add('ending-next-box');
+    stage.appendChild(nextBox);
+
     window.requestAnimationFrame(function () {
-      var maxScrollTop = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+      nextBox.classList.add('is-visible');
+      window.setTimeout(function () {
+        if (!commitEndingContent(stage, renderedStage, nextBox)) {
+          Engine.play(passage);
+          endingSequenceLocked = false;
+          return;
+        }
 
-      if (maxScrollTop <= 0) {
-        return;
-      }
-
-      try {
-        scroller.scrollTo({
-          top : maxScrollTop,
-          behavior : 'smooth'
-        });
-      } catch (error) {
-        scroller.scrollTop = maxScrollTop;
-      }
+        endingSequenceLocked = false;
+      }, ENDING_SWAP_MS);
     });
-  });
-}
+
+    return true;
+  }
+
+  document.addEventListener('click', function (event) {
+    var link = getSequenceLink(event.target);
+
+    if (shouldLetBrowserHandle(event, link)) {
+      return;
+    }
+
+    var passage = link.getAttribute('data-passage');
+    var stage = link.closest('.page-stage');
+    var delay = stage && stage.classList.contains('bad-ending-sequence') ? 120 : 220;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (isEndingSequencePassage(passage) && playEndingSequenceInPlace(stage, passage)) {
+      return;
+    }
+
+    if (stage) {
+      stage.classList.add('is-sequence-exiting');
+    }
+
+    window.setTimeout(function () {
+      Engine.play(passage);
+    }, delay);
+  }, true);
+}());
 
 function wolfFormatValue(value) {
   if (value === undefined) return 'undefined';
@@ -498,7 +697,8 @@ function wolfUpdateOuterUI() {
     { label : 'SKIP: Temple', passage : 'Temple' },
     { label : 'TEST: Hanbei', passage : 'Go_Hanbei' },
     { label : 'TEST: NightPatrol', passage : 'NightPatrol' },
-    { label : 'SKIP: EndingRouter', passage : 'EndingRouter' }
+    { label : 'SKIP: EndingRouter', passage : 'EndingRouter' },
+    { label : '엔딩 테스트', passage : 'Debug_Endings' }
   ];
 
   var jumpHtml = '<div class="outer-dev-jumps-title">DEV PANEL</div>' +
@@ -517,15 +717,10 @@ $(document).on(':passagerender :passageend', function () {
   applyStoredStatusHidden();
 });
 
-$(document).on(':passageend', function () {
-  wolfScrollIntroSequenceToBottom();
-});
-
 $(document).ready(function () {
   wolfClampStats();
   wolfUpdateOuterUI();
   applyStoredStatusHidden();
-  wolfScrollIntroSequenceToBottom();
 });
 
 $(document).on('click', '[data-game-back]', function (event) {

@@ -1,0 +1,57 @@
+:: Debug_Endings {"position":"650,350","size":"100,100"}
+<<page>>
+<div class="debug-endings">
+<h2>엔딩 테스트</h2>
+
+<p>보고 싶은 엔딩을 선택하세요.</p>
+
+<h3>한베</h3>
+[[한베 END: 그냥 온 날->Ending_Hanbei]]
+[[한베 END: 곁에 앉은 침묵->Ending_Hanbei_Silence]]
+[[한베 BAD: 끝나는 대련->BadEnd_Hanbei_Mercy]]
+[[한베 BAD: 불사를 베는 연습->BadEnd_Hanbei_Sword]]
+
+<h3>쿠로</h3>
+[[쿠로 END: 주인 없는 길->Ending_Kuro_PathWithoutMaster]]
+/% TODO: BadEnd_Kuro_LastOrder passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Kuro_UnreachableTeahouse passage 구현 후 링크 추가 %/
+
+<h3>겐이치로</h3>
+[[겐이치로 END: 달이 지는 성->Ending_Genichiro_SettingMoonCastle]]
+/% TODO: BadEnd_Genichiro_MoonlessCastle passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Genichiro_TurnedBack passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Genichiro_AshinaWolf passage 구현 후 링크 추가 %/
+
+<h3>조각가</h3>
+/% TODO: Ending_Sculptor_LeftBuddha passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Sculptor_UncarvedFace passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Sculptor_SpreadingEmber passage 구현 후 링크 추가 %/
+
+<h3>잇신</h3>
+/% TODO: Ending_Isshin_ReedFieldSake passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Isshin_EmptyCup passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_Isshin_SwordDemonLaugh passage 구현 후 링크 추가 %/
+
+<h3>공통 BAD</h3>
+/% TODO: BadEnd_ReturnlessNight passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_EmptyScabbard passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_TamedWolf passage 구현 후 링크 추가 %/
+/% TODO: BadEnd_OwlWolf passage 구현 후 링크 추가 %/
+
+<h3>히든 / 수라</h3>
+[[수라 테스트->Shura]]
+
+<<link "히든 END: 돌아갈 길 처음부터 보기">>
+  <<set $shuraDone = true>>
+  <<set $hiddenRevivalUnlocked = true>>
+  <<goto "Hidden_Rebirth_Voices">>
+<</link>>
+
+[[히든 END: 돌아갈 길 엔딩명 보기->Ending_Hidden_Rebirth_PathHome]]
+
+<hr>
+
+[[황폐한 절로 돌아간다->Temple]]
+[[타이틀로 돌아간다->Start]]
+</div>
+<</page>>

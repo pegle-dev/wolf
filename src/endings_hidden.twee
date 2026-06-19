@@ -1,0 +1,238 @@
+:: Hidden_Rebirth_Voices {"position":"5200,1500","size":"100,100"}
+<<page>>
+<<set $hiddenRevivalSeen = true>>
+<div class="narration-full">
+자네의 미간을 풀어주고 싶어서…
+
+친근한, 하지만 어딘가 외로운 목소리.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Voices_02]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Voices_02 {"position":"5325,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">
+끝내 삼켜지지는 않았군.
+그렇다면 일어서라.
+
+낮고 단단한 목소리.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Voices_03]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Voices_03 {"position":"5450,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">
+하!
+결국 다시 일어나는군, 늑대.
+
+좋은 눈이야.
+아직 사람의 눈을 하고 있군.
+
+웃음기 어린, 거친 목소리.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Voices_04]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Voices_04 {"position":"5575,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">
+…돌아왔군.
+
+이번엔 새기지 말게.
+걷게.
+
+낮고 메마른 목소리.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Voices_05]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Voices_05 {"position":"5700,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">
+나의 늑대는…
+나의 늑대는 수라가 아니다!
+
+어린 소년의 절박한 외침.
+</div>
+
+<div class="choice-box">[[눈을 뜬다->Hidden_Rebirth_Temple]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Temple {"position":"5200,1650","size":"100,100"}
+<<page>>
+<div class="narration-full">
+정신을 차리니 어딘가의 절이었다.
+
+“일어났나.”
+
+몸을 웅크린 채 앉아 있던 거구의 노인이 말을 걸었다.
+웅크린 자세 때문인지, 거대한 몸집이 오히려 작아 보였다.
+
+늑대는 천천히 눈을 깜빡였다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Temple_02]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Temple_02 {"position":"5325,1650","size":"100,100"}
+<<page>>
+<div class="narration-full">
+“네.”
+
+목소리가 낯설었다.
+너무 오래 쓰지 않은 것처럼.
+
+“여기는… 어딥니까?”
+
+몸을 일으키려 하자, 무게가 한쪽으로 기울었다.
+
+왼팔이 없었다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Temple_03]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Temple_03 {"position":"5450,1650","size":"100,100"}
+<<page>>
+<div class="narration-full">
+늑대는 조용히 자신의 몸을 내려다보았다.
+
+노인은 이름 모를 불상을 깎고 있었다.
+칼끝 아래에서 드러나는 얼굴들은 이상할 만큼 평온했다.
+
+“자네에겐 더 이상 무기가 필요하지 않네.”
+
+노인이 말했다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Temple_04]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Temple_04 {"position":"5575,1650","size":"100,100"}
+<<page>>
+<div class="narration-full">
+그러고 보니 칼도 없었다.
+갑옷도 없었다.
+
+어릴 적부터 입어 왔던,
+헤지고 닳은 단감색 옷만이 몸에 걸쳐져 있었다.
+
+늑대는 입을 떼었지만,
+한동안 아무 말도 하지 못했다.
+
+머릿속이 새하얬다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Temple_05]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Temple_05 {"position":"5700,1650","size":"100,100"}
+<<page>>
+<div class="narration-full">
+그러다 문득,
+이유도 알 수 없는 말이 입술 사이로 흘러나왔다.
+
+“…고마웠소.”
+
+왜 이런 말이 나왔을까.
+
+노인은 대답하지 않았다.
+
+그저 아주 잠깐,
+불상을 깎던 손을 멈추었다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_Temple_06]]</div>
+<</page>>
+
+:: Hidden_Rebirth_Temple_06 {"position":"5825,1650","size":"100,100"}
+<<page>>
+<div class="narration-full">
+그리고 무표정한 얼굴로
+절 밖을 가리켰다.
+
+“자네가 가야 할 곳으로 가게.”
+
+잠시 뒤, 그가 덧붙였다.
+
+“화마가 없는 곳으로.”
+</div>
+
+<div class="choice-box">[[절 밖으로 나간다->Hidden_Rebirth_ExitTemple]]</div>
+<</page>>
+
+:: Hidden_Rebirth_ExitTemple {"position":"5200,1800","size":"100,100"}
+<<page>>
+<div class="narration-full">
+늑대는 천천히 몸을 돌렸다.
+
+절을 나서기 전,
+아쉬운 마음에 뒤를 돌아보았다.
+
+그러나 그곳에는 아무것도 없었다.
+
+잠깐 불씨가 날린 듯도 했다.
+
+수많은 나무 불상들만이,
+마치 배웅하듯 조용히 그를 바라보고 있었다.
+</div>
+
+<div class="choice-box">[[밖으로 나간다->Hidden_Rebirth_FinalField]]</div>
+<</page>>
+
+:: Hidden_Rebirth_FinalField {"position":"5200,1950","size":"100,100"}
+<<page>>
+<div class="narration-full">
+밖은 고요했다.
+
+바람이 갈대를 스쳤다.
+
+그리고 멀리,
+아주 멀리 갈대밭 너머에
+어떤 이가 서 있었다.
+
+늑대는 멈춰 섰다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_FinalField_02]]</div>
+<</page>>
+
+:: Hidden_Rebirth_FinalField_02 {"position":"5325,1950","size":"100,100"}
+<<page>>
+<div class="narration-full">
+자신은 죽지 않아 편히 쓰이는 도구도 아니고,
+자유로웠으며,
+지키기 위해 싸웠으나 검에 삼켜지지 않았다.
+
+그리고 무엇보다,
+돌아갈 길을 알고 있었다.
+</div>
+
+<div class="choice-box">[[계속->Hidden_Rebirth_FinalField_03]]</div>
+<</page>>
+
+:: Hidden_Rebirth_FinalField_03 {"position":"5450,1950","size":"100,100"}
+<<page>>
+<div class="narration-full">
+그를 그렇게 만들어 준 이가
+저 앞에 있었다.
+
+늑대는 그제야,
+조금 웃을 수 있었다.
+</div>
+
+<div class="choice-box">[[끝으로->Ending_Hidden_Rebirth_PathHome]]</div>
+<</page>>
+
+:: Ending_Hidden_Rebirth_PathHome {"position":"5200,2100","size":"100,100"}
+<<page>>
+<<set $hiddenRevivalDone = true>>
+<<set $anyEndingSeen = true>>
+<div class="ending-stamp">[End. 돌아갈 길]</div>
+<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<</page>>

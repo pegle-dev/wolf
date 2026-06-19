@@ -91,7 +91,7 @@
 <<set $genichiroProgress = Math.max($genichiroProgress, 2)>>
 <<set $genichiroRooftopSeen = true>>
 
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 또 왔나.
 <</talk>>
 
@@ -109,7 +109,7 @@
 
 :: Genichiro_02_Rooftop_Talk03 {"position":"2425,1875","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 말이 없군.
 늘 그랬듯이.
 <</talk>>
@@ -128,7 +128,7 @@
 
 :: Genichiro_02_Rooftop_Talk05 {"position":"2675,1875","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 비켜서면, 그대는 어디로 가는가.
 <</talk>>
 
@@ -146,7 +146,7 @@
 
 :: Genichiro_02_Rooftop_Talk07 {"position":"2925,1875","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 그렇겠지.
 <</talk>>
 
@@ -246,7 +246,7 @@
 
 :: Genichiro_03_FullDuel_Talk01 {"position":"2675,2025","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 그만.
 <</talk>>
 
@@ -264,7 +264,7 @@
 
 :: Genichiro_03_FullDuel_Talk03 {"position":"2925,2025","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 지금은 아니다.
 <</talk>>
 
@@ -314,7 +314,7 @@
 
 :: Genichiro_04_MoonSake_Talk01 {"position":"2300,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 마실 텐가.
 <</talk>>
 
@@ -332,7 +332,7 @@
 
 :: Genichiro_04_MoonSake_Talk03 {"position":"2550,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 알고 있다.
 <</talk>>
 
@@ -350,7 +350,7 @@
 
 :: Genichiro_04_MoonSake_Talk04 {"position":"2800,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 독은 아니다.
 <</talk>>
 
@@ -368,7 +368,7 @@
 
 :: Genichiro_04_MoonSake_Talk06 {"position":"3050,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro" "겐이치로">>
+<<talk "genichiro_02" "겐이치로">>
 그런 뜻으로 들었다.
 <</talk>>
 

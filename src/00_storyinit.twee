@@ -94,6 +94,10 @@
 <<set $hanbeiBadEndingSeen to false>>
 <<set $hanbeiMercyEndingSeen to false>>
 <<set $hanbeiSwordBadEndingSeen to false>>
+<<set $shuraDone to false>>
+<<set $hiddenRevivalUnlocked to false>>
+<<set $hiddenRevivalSeen to false>>
+<<set $hiddenRevivalDone to false>>
 
 /* 해금 플래그 */
 <<set $secondLoopUnlocked to false>>

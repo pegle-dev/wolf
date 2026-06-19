@@ -345,6 +345,48 @@ body.status-hidden .outer-dev-ui {
   }
 }
 
+.debug-endings {
+  max-width: 760px;
+  margin: 4vh auto;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.72);
+  line-height: 1.6;
+}
+
+.debug-endings h2,
+.debug-endings h3 {
+  margin: 16px 0 8px;
+  line-height: 1.25;
+}
+
+.debug-endings h2 {
+  margin-top: 0;
+}
+
+.debug-endings p {
+  margin: 0 0 14px;
+  color: #bbb;
+}
+
+.debug-endings a {
+  display: block;
+  margin: 4px 0;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.debug-endings a:hover {
+  text-decoration: underline;
+}
+
+.debug-endings hr {
+  margin: 18px 0 12px;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
 /* =========================
    PAGE: 나레이션/행동
    talk도 page 안에서 자연스럽게 배치됨.
@@ -1358,8 +1400,11 @@ body.status-hidden .outer-dev-ui {
   --bg-temple: url('assets/backgrounds/Temple.png');
   --bg-training: url('assets/backgrounds/TrainingArea.png');
   --bg-nightpatrol: url('assets/backgrounds/NightPatrol01.png');
+  --bg-night: url('assets/backgrounds/Night.png');
   --bg-room: url('assets/backgrounds/Room01.png');
   --bg-ashina: url('assets/backgrounds/AshinaTower.png');
+  --bg-intro: url('assets/backgrounds/Intro.png');
+  --bg-dawn: url('assets/backgrounds/Dawn.png');
   --bg-overlay: rgba(0, 0, 0, 0.30);
 
   --narration-pad-top: 30px;
@@ -1378,12 +1423,20 @@ body.status-hidden .outer-dev-ui {
   --scene-bg: var(--bg-nightpatrol);
 }
 
+.page-stage.bg-night {
+  --scene-bg: var(--bg-night);
+}
+
 .page-stage.bg-room {
   --scene-bg: var(--bg-room);
 }
 
 .page-stage.bg-ashina {
   --scene-bg: var(--bg-ashina);
+}
+
+.page-stage.bg-dawn {
+  --scene-bg: var(--bg-dawn);
 }
 
 .page-stage.bg-black {
@@ -1393,6 +1446,24 @@ body.status-hidden .outer-dev-ui {
 .page-stage.bg-black::before,
 .page-stage.bg-black::after {
   display: none;
+}
+
+.page-stage.bg-black.intro-sequence-page {
+  --scene-bg: var(--bg-intro);
+  background: #000;
+}
+
+.page-stage.bg-black.intro-sequence-page::before {
+  display: block;
+  background-image: var(--scene-bg);
+  background-size: cover;
+  background-position: center center;
+  filter: brightness(0.58) contrast(1.02);
+}
+
+.page-stage.bg-black.intro-sequence-page::after {
+  display: block;
+  background: rgba(0, 0, 0, 0.42);
 }
 
 .page-stage::before {
@@ -1883,6 +1954,21 @@ body.status-hidden .outer-dev-ui {
   transition: none !important;
 }
 
+.wolf-page.bg-black.intro-sequence-page::before,
+.wolf-page.bg-intro.intro-sequence-page::before {
+  display: block;
+  background-image: var(--bg-intro);
+  background-size: cover;
+  background-position: center center;
+  filter: brightness(0.58) contrast(1.02);
+}
+
+.wolf-page.bg-black.intro-sequence-page::after,
+.wolf-page.bg-intro.intro-sequence-page::after {
+  display: block;
+  background: rgba(0, 0, 0, 0.42);
+}
+
 .wolf-page.bg-temple {
   --scene-bg: var(--bg-temple);
 }
@@ -1896,6 +1982,10 @@ body.status-hidden .outer-dev-ui {
   --scene-bg: var(--bg-nightpatrol);
 }
 
+.wolf-page.bg-night {
+  --scene-bg: var(--bg-night);
+}
+
 .wolf-page.bg-room {
   --scene-bg: var(--bg-room);
 }
@@ -1903,6 +1993,10 @@ body.status-hidden .outer-dev-ui {
 .wolf-page.bg-ashina-tower,
 .wolf-page.bg-ashina {
   --scene-bg: var(--bg-ashina);
+}
+
+.wolf-page.bg-dawn {
+  --scene-bg: var(--bg-dawn);
 }
 
 .wolf-page.same-bg,
@@ -1934,6 +2028,36 @@ body.status-hidden .outer-dev-ui {
 .wolf-page.bg-changed:not(.bg-intro):not(.bg-black),
 .wolf-page.changed-bg:not(.bg-intro):not(.bg-black) {
   animation: wolf-scene-fade-in 220ms ease-out both;
+}
+
+.page-stage.from-night-interlude,
+.wolf-page.from-night-interlude {
+  animation: wolf-night-interlude-reveal 1400ms ease-out both !important;
+}
+
+.page-stage.night-interlude,
+.wolf-page.night-interlude {
+  animation: wolf-night-interlude-reveal 1400ms ease-out both !important;
+}
+
+.page-stage.night-interlude::before,
+.wolf-page.night-interlude::before {
+  filter: brightness(0.48) contrast(1.02);
+}
+
+.page-stage.night-interlude::after,
+.wolf-page.night-interlude::after {
+  background: rgba(0, 0, 0, 0.46);
+}
+
+@keyframes wolf-night-interlude-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .wolf-page.narration-only .wolf-content > .narration,
@@ -2055,24 +2179,23 @@ body.status-hidden .outer-dev-ui {
 .wolf-page.narration-only .choice-box.temple-hub-choices,
 .choice-box.temple-hub-choices {
   position: relative !important;
-  width: min(82%, 820px) !important;
-  min-width: min(70%, 520px);
+  width: min(92%, 820px) !important;
+  min-width: min(76%, 560px);
   max-width: 820px !important;
-  max-height: 360px !important;
-  margin: 10px auto 0 !important;
-  top: -18px;
-  padding: 16px 24px !important;
+  max-height: none !important;
+  margin: 6px auto 0 !important;
+  top: -28px;
+  padding: 12px 18px !important;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.62) !important;
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch !important;
-  gap: 10px !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
+  gap: 7px 10px !important;
+  overflow: visible !important;
   text-align: center;
 }
 
@@ -2094,9 +2217,11 @@ body.status-hidden .outer-dev-ui {
   display: block;
   width: 100% !important;
   max-width: 100%;
-  padding: 8px 12px;
+  min-height: 0;
+  padding: 6px 10px;
   box-sizing: border-box;
-  line-height: 1.42;
+  font-size: 18px;
+  line-height: 1.24;
   text-align: center;
   white-space: normal;
   word-break: keep-all;
@@ -2125,6 +2250,168 @@ body.status-hidden .outer-dev-ui {
   box-shadow: none;
   pointer-events: none;
   word-break: keep-all;
+}
+
+.page-stage.ending-screen {
+  background: #000;
+  opacity: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.ending-screen::before,
+.page-stage.ending-screen::after {
+  display: none;
+  opacity: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.ending-screen .narration-full,
+.page-stage.ending-screen .narration {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  max-width: 760px;
+  padding: 0;
+  color: var(--white);
+  opacity: 0.92;
+  animation: wolf-ending-text-in 260ms ease-out both;
+}
+
+.page-stage.ending-screen.same-bg,
+.page-stage.ending-screen.changed-bg,
+.page-stage.ending-screen.bg-changed,
+.wolf-page.ending-screen.same-bg,
+.wolf-page.ending-screen.changed-bg,
+.wolf-page.ending-screen.bg-changed {
+  opacity: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.ending-screen.same-bg .narration-full,
+.page-stage.ending-screen.same-bg .narration,
+.page-stage.ending-screen.same-bg .talk-row,
+.page-stage.ending-screen.same-bg .textbox-panel {
+  animation: wolf-ending-text-in 260ms ease-out both !important;
+}
+
+.page-stage.ending-screen.same-bg .choice-box,
+.page-stage.ending-screen .choice-box {
+  animation: none !important;
+  transition: none !important;
+}
+
+.page-stage.ending-screen .page-box {
+  opacity: 1;
+  transition: none;
+}
+
+.page-stage.ending-screen .page-box.ending-next-box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.page-stage.ending-screen .page-box.ending-next-box.is-visible {
+  opacity: 1;
+}
+
+.page-stage.ending-screen .page-box.ending-next-box .narration-full,
+.page-stage.ending-screen .page-box.ending-next-box .narration,
+.page-stage.ending-screen .page-box.ending-next-box .talk-row,
+.page-stage.ending-screen .page-box.ending-next-box .textbox-panel,
+.page-stage.ending-screen.is-ending-text-swapping .page-box:not(.ending-next-box) .narration-full,
+.page-stage.ending-screen.is-ending-text-swapping .page-box:not(.ending-next-box) .narration,
+.page-stage.ending-screen.is-ending-text-swapping .page-box:not(.ending-next-box) .talk-row,
+.page-stage.ending-screen.is-ending-text-swapping .page-box:not(.ending-next-box) .textbox-panel {
+  animation: none !important;
+}
+
+.page-stage.ending-sequence .narration-full,
+.page-stage.ending-sequence .narration {
+  line-height: 1.9;
+}
+
+.page-stage.bad-ending-sequence .narration-full,
+.page-stage.bad-ending-sequence .narration {
+  max-width: 640px;
+  line-height: 1.72;
+  opacity: 0.88;
+  animation-duration: 160ms;
+}
+
+.page-stage.hidden-voice-sequence .narration-full,
+.page-stage.hidden-voice-sequence .narration {
+  max-width: 700px;
+  line-height: 1.95;
+  opacity: 0.94;
+}
+
+.page-stage.hidden-return-sequence .narration-full,
+.page-stage.hidden-return-sequence .narration {
+  max-width: 760px;
+  line-height: 1.9;
+}
+
+.page-stage.hidden-final-sequence .narration-full,
+.page-stage.hidden-final-sequence .narration {
+  max-width: 760px;
+  line-height: 1.95;
+  animation: wolf-ending-text-in 520ms ease-out both;
+}
+
+.page-stage.final-still-sequence .ending-stamp {
+  animation: wolf-ending-stamp-in 900ms ease-out both;
+}
+
+.page-stage.sequence-vanish.is-sequence-exiting .narration-full,
+.page-stage.sequence-vanish.is-sequence-exiting .narration,
+.page-stage.sequence-vanish.is-sequence-exiting .talk-row,
+.page-stage.final-still-sequence.is-sequence-exiting .narration-full,
+.page-stage.final-still-sequence.is-sequence-exiting .narration,
+.page-stage.final-still-sequence.is-sequence-exiting .ending-stamp {
+  animation: none !important;
+}
+
+.page-stage.bad-ending-sequence.is-sequence-exiting .narration-full,
+.page-stage.bad-ending-sequence.is-sequence-exiting .narration,
+.page-stage.bad-ending-sequence.is-sequence-exiting .talk-row {
+  animation: none !important;
+}
+
+@keyframes wolf-ending-text-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.92;
+  }
+}
+
+@keyframes wolf-ending-text-out {
+  from {
+    opacity: 0.92;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes wolf-ending-stamp-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
 }
 
 
@@ -2203,7 +2490,7 @@ body.status-hidden .outer-dev-ui {
   max-height: 520px;
   box-sizing: border-box;
   padding: 0 8px 18px;
-  overflow-y: auto;
+  overflow-y: visible;
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -2231,7 +2518,7 @@ body.status-hidden .outer-dev-ui {
 
 .intro-line:last-child {
   opacity: 1;
-  animation: wolf-intro-line-in 220ms ease-out both;
+  animation: wolf-intro-line-in 900ms ease-out both;
 }
 
 .intro-line.intro-final {

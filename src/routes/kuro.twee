@@ -42,7 +42,7 @@
 
 :: Kuro_01_Reading_Talk01 {"position":"2475,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 늑대. 왔는가.
 <</talk>>
 
@@ -60,7 +60,7 @@
 
 :: Kuro_01_Reading_Talk03 {"position":"2725,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 마침 쉬고 있었다.
 그대도 잠시 앉겠는가.
 <</talk>>
@@ -79,7 +79,7 @@
 
 :: Kuro_01_Reading_Talk05 {"position":"2975,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그럴 줄 알았다.
 <</talk>>
 
@@ -99,7 +99,7 @@
 
 :: Kuro_01_Reading_Talk06 {"position":"3225,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 늑대, 글은 언제 배웠나.
 <</talk>>
 
@@ -117,7 +117,7 @@
 
 :: Kuro_01_Reading_Talk08 {"position":"3475,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 아아… 그렇군.
 <</talk>>
 
@@ -126,7 +126,7 @@
 
 :: Kuro_01_Reading_Talk09 {"position":"3600,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 아버님은 왜 그런 걸 가르치냐 하셨지만.
 그분은 물러서지 않으셨습니다.
 <</talk>>
@@ -136,7 +136,7 @@
 
 :: Kuro_01_Reading_Talk10 {"position":"3725,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그림이 그려지네.
 <</talk>>
 
@@ -154,7 +154,7 @@
 
 :: Kuro_01_Reading_Talk12 {"position":"3975,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 ?
 <</talk>>
 
@@ -174,7 +174,7 @@
 
 :: Kuro_01_Reading_Talk14 {"position":"4225,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 …
 <</talk>>
 
@@ -192,7 +192,7 @@
 
 :: Kuro_01_Reading_Talk16 {"position":"4475,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 잠깐 이쪽을 보지 마라.
 <</talk>>
 
@@ -210,7 +210,7 @@
 
 :: Kuro_01_Reading_Talk18 {"position":"4725,800","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 명령이다.
 <</talk>>
 
@@ -273,7 +273,7 @@
 
 :: Kuro_02_Tea_Talk01 {"position":"2475,950","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그렇게 좋은가?
 단 것이.
 <</talk>>
@@ -301,7 +301,7 @@
 
 :: Kuro_02_Tea_Talk04 {"position":"2850,950","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 …
 <</talk>>
 
@@ -310,7 +310,7 @@
 
 :: Kuro_02_Tea_Talk05 {"position":"2975,950","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 혹시 말인데, 늑대.
 <</talk>>
 
@@ -328,7 +328,7 @@
 
 :: Kuro_02_Tea_Talk07 {"position":"3225,950","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 단 걸 좋아한다는 건
 애같거나 약하다는 게 아니다.
 <</talk>>
@@ -398,7 +398,7 @@
 
 :: Kuro_03_SitBeside_Talk01 {"position":"2475,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 늑대.
 <</talk>>
 
@@ -416,7 +416,7 @@
 
 :: Kuro_03_SitBeside_Talk03 {"position":"2725,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그대는 왜 늘 거기에 앉는가.
 <</talk>>
 
@@ -434,7 +434,7 @@
 
 :: Kuro_03_SitBeside_Talk05 {"position":"2975,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 아니다.
 옆에 앉아라.
 <</talk>>
@@ -453,7 +453,7 @@
 
 :: Kuro_03_SitBeside_Talk07 {"position":"3225,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그럴 수 있다.
 <</talk>>
 
@@ -471,7 +471,7 @@
 
 :: Kuro_03_SitBeside_Talk09 {"position":"3475,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 명령이라 하면?
 <</talk>>
 
@@ -489,7 +489,7 @@
 
 :: Kuro_03_SitBeside_Talk11 {"position":"3725,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 …
 <</talk>>
 
@@ -498,7 +498,7 @@
 
 :: Kuro_03_SitBeside_Talk12 {"position":"3850,1100","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그러면 명령하지 않겠다.
 <</talk>>
 
@@ -550,7 +550,7 @@
 <<set $kuroProgress = Math.max($kuroProgress, 4)>>
 <<set $kuroWaitingSeen = true>>
 
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 오늘은 늦었네.
 <</talk>>
 
@@ -597,7 +597,7 @@
 
 :: Kuro_04_Waiting_Talk04 {"position":"2850,1250","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 가까이 오게.
 <</talk>>
 
@@ -624,7 +624,7 @@
 
 :: Kuro_04_Waiting_Talk06 {"position":"3225,1250","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 그대의 죄는 나의 죄이기도 하네.
 <</talk>>
 
@@ -642,7 +642,7 @@
 
 :: Kuro_04_Waiting_Talk08 {"position":"3475,1250","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_01" "쿠로">>
 같이 떨어져 주겠는가.
 <</talk>>
 
@@ -690,7 +690,7 @@
 <<set $kuroWishSeen = true>>
 <<set $kuroFreedomWishHeard = true>>
 
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 언젠가 자유로워졌으면 좋겠어.
 <</talk>>
 
@@ -708,7 +708,7 @@
 
 :: Kuro_05_Wish_Talk03 {"position":"2600,1400","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 그 말이 기쁘면서도,
 기쁘지 않다.
 <</talk>>
@@ -727,7 +727,7 @@
 
 :: Kuro_05_Wish_Talk05 {"position":"2850,1400","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 사실 그대가 내 뜻을 따랐으면 하면서도,
 함께 죽어주었으면 하면서도.
 <</talk>>
@@ -737,7 +737,7 @@
 
 :: Kuro_05_Wish_Talk06 {"position":"2975,1400","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 그러고 싶지 않다.
 <</talk>>
 
@@ -755,7 +755,7 @@
 
 :: Kuro_05_Wish_Talk08 {"position":"3225,1400","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 그러기엔 내가 그대를…
 <</talk>>
 
@@ -804,7 +804,7 @@
 <<set $kuroProgress = Math.max($kuroProgress, 6)>>
 <<set $kuroNameSeen = true>>
 
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 늑대.
 <</talk>>
 
@@ -822,7 +822,7 @@
 
 :: Kuro_06_Name_Talk03 {"position":"2600,1550","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 주군이 없다면 넌 누구지?
 <</talk>>
 
@@ -840,7 +840,7 @@
 
 :: Kuro_06_Name_Talk05 {"position":"2850,1550","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 내가 없다면.
 명령이 없다면.
 지켜야 할 것이 없다면.
@@ -851,7 +851,7 @@
 
 :: Kuro_06_Name_Talk06 {"position":"2975,1550","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 그래도 그대는 그대인가.
 <</talk>>
 
@@ -953,7 +953,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_03 {"position":"2600,1725","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 그만.
 <</talk>>
 
@@ -985,7 +985,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_06 {"position":"2975,1725","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 그대는 이제…
 나의 명으로 죽지 않아도 된다.
 <</talk>>
@@ -1004,7 +1004,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_08 {"position":"3225,1725","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 늑대.
 <</talk>>
 
@@ -1013,7 +1013,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_09 {"position":"3350,1725","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 언젠가 찻집을 열 테니,
 그땐 손님으로 와줘.
 <</talk>>
@@ -1032,7 +1032,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_11 {"position":"3600,1725","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
+<<talk "kuro_02" "쿠로">>
 명령이 아니라 부탁이다.
 <</talk>>
 
