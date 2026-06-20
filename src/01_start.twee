@@ -23,7 +23,16 @@ Wolf
 
   <div class="title-menu">
     <div class="title-menu-item">
-    [[처음부터->Intro_01]]
+    <<link "처음부터" "Intro_01">>
+      <<set $day = 1>>
+      <<set $timeOfDay = "day">>
+      <<set $dayAdvancedToday = false>>
+      <<set $nightPatrolActive = false>>
+      <<set $nightPatrolUsedToday = false>>
+      <<set $nightPatrolJustFinished = false>>
+      <<set $currentMode = "temple">>
+      <<set $nightPatrolUnlocked = false>>
+    <</link>>
     </div>
 
     <<if $anyEndingSeen>>

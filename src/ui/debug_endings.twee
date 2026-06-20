@@ -5,6 +5,32 @@
 
 <p>보고 싶은 엔딩을 선택하세요.</p>
 
+<h3>날짜 테스트</h3>
+[[DEBUG: 하루 넘기기->AdvanceDay]]
+
+<<link "DEBUG: Day 1로 설정" "Temple_Return">>
+  <<set $day = 1>>
+  <<set $timeOfDay = "day">>
+  <<set $dayAdvancedToday = false>>
+  <<set $nightPatrolUnlocked = false>>
+  <<set $nightPatrolActive = false>>
+  <<set $nightPatrolUsedToday = false>>
+  <<set $nightPatrolJustFinished = false>>
+<</link>>
+
+<<link "DEBUG: Day 3으로 설정" "Temple_Return">>
+  <<set $day = 3>>
+  <<set $timeOfDay = "day">>
+  <<set $dayAdvancedToday = false>>
+  <<set $nightPatrolUnlocked = true>>
+  <<if $secondLoopUnlocked>>
+    <<set $emmaEventUnlocked = true>>
+  <</if>>
+  <<set $nightPatrolActive = false>>
+  <<set $nightPatrolUsedToday = false>>
+  <<set $nightPatrolJustFinished = false>>
+<</link>>
+
 <h3>한베</h3>
 [[한베 END: 그냥 온 날->Ending_Hanbei]]
 [[한베 END: 곁에 앉은 침묵->Ending_Hanbei_Silence]]
@@ -32,15 +58,21 @@
 [[잇신 BAD: 빈 술잔->BadEnd_Isshin_EmptyCup]]
 [[잇신 BAD: 검귀의 웃음->BadEnd_Isshin_SwordDemonLaugh]]
 
-<h3>공통 BAD</h3>
+<h3>공통 배드엔딩</h3>
+[[COMMON BAD ROUTER->CommonBadEndRouter]]
 [[COMMON BAD: 돌아오지 않는 밤->BadEnd_MissingNight]]
 [[COMMON BAD: 빈 칼집->BadEnd_EmptyScabbard]]
 [[COMMON BAD: 길들여진 늑대->BadEnd_TamedWolf]]
 [[WORST BAD: 올빼미의 늑대->BadEnd_OwlWolf]]
 
-<<if $debugMode>>
-[[DEBUG: 공통 배드 라우터 테스트->CommonBadEndRouter]]
-<</if>>
+<h3>수라 구출 이벤트</h3>
+[[SHURA RISK ROUTER->ShuraRiskRouter]]
+[[SHURA RESCUE ROUTER->ShuraRescue_Router]]
+[[RESCUE: 한베->Rescue_Hanbei]]
+[[RESCUE: 쿠로->Rescue_Kuro]]
+[[RESCUE: 겐이치로->Rescue_Genichiro]]
+[[RESCUE: 조각가->Rescue_Sculptor]]
+[[RESCUE: 잇신->Rescue_Isshin]]
 
 <h3>히든 / 수라</h3>
 [[수라 테스트->Shura]]

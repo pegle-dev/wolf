@@ -1,4 +1,8 @@
 :: DreamRouter {"position":"2050,975","size":"100,100"}
+<<set $timeOfDay = "night">>
+<<set $currentMode = "sleep">>
+<<set $nightPatrolActive = false>>
+<<set $nightPatrolJustFinished = false>>
 <<if $danger >= 12 and not $dangerDreamSeen>>
   <<goto "Dream_Danger_Hands">>
 <<elseif $danger >= 12 and $dangerDreamSeen and not $forgottenNightmareSeen>>
@@ -31,7 +35,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -51,7 +55,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -70,7 +74,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -89,7 +93,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -106,7 +110,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -125,7 +129,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -143,7 +147,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -164,7 +168,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -185,7 +189,7 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>
 
@@ -202,6 +206,6 @@
 </div>
 
 <div class="choice-box">
-[[눈을 뜬다->Temple_Return]]
+[[눈을 뜬다->AdvanceDay]]
 </div>
 <</page>>

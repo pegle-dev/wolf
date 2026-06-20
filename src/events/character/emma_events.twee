@@ -9,39 +9,69 @@
 그의 손이 검자루 위에서,
 아주 조금 늦게 떨어졌다.</div>
 
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk01]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Talk01 {"position":"2025,1475","size":"100,100"}
+<<page>>
 <<talk "emma" "엠마">>
 늑대 님.
 <</talk>>
 
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk02]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Talk02 {"position":"2150,1475","size":"100,100"}
+<<page>>
 <<talk "wolf" "늑대">>
 …
 <</talk>>
 
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk03]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Talk03 {"position":"2275,1475","size":"100,100"}
+<<page>>
 <<talk "emma" "엠마">>
 혹시…
 술을 드신 적이 있으십니까?
 <</talk>>
 
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Beat01]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Beat01 {"position":"2400,1475","size":"100,100"}
+<<page>>
 <div class="narration">늑대는 대답하지 않았다.
 
 엠마는 작게 숨을 고른다.</div>
 
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk04]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Talk04 {"position":"2525,1475","size":"100,100"}
+<<page>>
 <<talk "emma" "엠마">>
 검을 내려놓는 법을 아는 분이 한 분 계십니다.
 <</talk>>
 
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk05]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Talk05 {"position":"2650,1475","size":"100,100"}
+<<page>>
 <<talk "emma" "엠마">>
 정확히는,
 검을 든 채 웃는 법을 아는 분이요.
 <</talk>>
 
-<div class="choice-box">[[계속->Emma_IntroduceIsshin_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Choices]]</div>
 <</page>>
 
-:: Emma_IntroduceIsshin_Choices {"position":"2025,1475","size":"100,100"}
+:: Emma_IntroduceIsshin_Choices {"position":"2775,1475","size":"100,100"}
 <<page>>
 <div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="choice-box story-choice-box">
 <<link "그 사람을 묻는다" "Emma_IntroduceIsshin_Accept_Result">>
   <<set $emmaIntroducedIsshin = true>>
   <<set $emmaIsshinIntroSeen = true>>
@@ -58,7 +88,7 @@
 </div>
 <</page>>
 
-:: Emma_IntroduceIsshin_Accept_Result {"position":"2150,1475","size":"100,100"}
+:: Emma_IntroduceIsshin_Accept_Result {"position":"2900,1475","size":"100,100"}
 <<page>>
 <div class="narration">엠마는 아주 조금 안도한 얼굴을 했다.
 
@@ -68,10 +98,10 @@
 누군가가 자신을,
 검이 아닌 쪽으로 보내려 한다는 것을.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return_Hub]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return_Hub]]</div>
 <</page>>
 
-:: Emma_IntroduceIsshin_Refuse_Result {"position":"2275,1475","size":"100,100"}
+:: Emma_IntroduceIsshin_Refuse_Result {"position":"3025,1475","size":"100,100"}
 <<page>>
 <div class="narration">늑대는 필요 없다고 말했다.
 
@@ -81,7 +111,7 @@
 그 조용한 물러섬이,
 이상하게 오래 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return_Hub]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return_Hub]]</div>
 <</page>>
 
 /% Future Emma event slots:

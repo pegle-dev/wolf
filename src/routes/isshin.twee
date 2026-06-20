@@ -27,32 +27,32 @@
 왔느냐, 늑대.
 <</talk>>
 
-<div class="narration">잔은 이미 두 개 놓여 있었다.
+<<beat>>잔은 이미 두 개 놓여 있었다.
 
 하나는 비어 있고,
-하나는 반쯤 차 있었다.</div>
+하나는 반쯤 차 있었다.<</beat>>
 
 <<talk "isshin" "잇신">>
 앉아라.
 오늘은 베는 이야기가 아니다.
 <</talk>>
 
-<div class="narration">늑대는 선 채로 잔을 보았다.
+<<beat>>늑대는 선 채로 잔을 보았다.
 
-잇신이 웃었다.</div>
+잇신이 웃었다.<</beat>>
 
 <<talk "isshin" "잇신">>
 그렇게 노려보지 마라.
 술이 도망가겠다.
 <</talk>>
 
-<div class="choice-box">[[계속->Isshin_01_FirstSake_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Isshin_01_FirstSake_Choices]]</div>
 <</page>>
 
 :: Isshin_01_FirstSake_Choices {"position":"2525,825","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "잔을 받는다" "Isshin_01_FirstSake_Accept_Result">>
   <<set $isshinLove += 1>>
   <<set $isshinAcceptedSake = true>>
@@ -88,7 +88,7 @@
 
 잇신은 그것만으로도 충분하다는 듯 웃었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_01_FirstSake_Refuse_Result {"position":"2775,825","size":"100,100"}
@@ -101,7 +101,7 @@
 하지만 비어 있는 잔은,
 그 뒤로도 계속 그 자리에 있었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_01_FirstSake_Smell_Result {"position":"2900,825","size":"100,100"}
@@ -114,7 +114,7 @@
 그 어색한 수락은,
 거절보다는 오래 자리에 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_02_DangerousJoke {"position":"2400,975","size":"100,100"}
@@ -135,23 +135,23 @@
 취해도 얼굴 하나 안 바뀔 상인가?
 <</talk>>
 
-<div class="narration">잇신은 웃었다.
+<<beat>>잇신은 웃었다.
 
 그 웃음은 가볍지만,
-눈은 늑대의 손을 보고 있었다.</div>
+눈은 늑대의 손을 보고 있었다.<</beat>>
 
 <<talk "isshin" "잇신">>
 좋아하는 것이 있느냐, 늑대.
 검 말고.
 <</talk>>
 
-<div class="choice-box">[[계속->Isshin_02_DangerousJoke_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Isshin_02_DangerousJoke_Choices]]</div>
 <</page>>
 
 :: Isshin_02_DangerousJoke_Choices {"position":"2525,975","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "없습니다" "Isshin_02_DangerousJoke_Answer_Result">>
   <<set $isolation += 1>>
   <<set $isshinJokeSeen = true>>
@@ -189,7 +189,7 @@
 그래서 그 말은,
 빈 잔처럼 잠시 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_02_DangerousJoke_Silent_Result {"position":"2775,975","size":"100,100"}
@@ -202,7 +202,7 @@
 그래서인지 그 말은,
 대답이 아니라 시작처럼 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_02_DangerousJoke_Sword_Result {"position":"2900,975","size":"100,100"}
@@ -213,7 +213,7 @@
 이번에도 웃었지만,
 잔을 내려놓는 소리는 조금 낮았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_03_SwordEyes {"position":"2400,1125","size":"100,100"}
@@ -235,19 +235,19 @@
 베는 것밖에 모르는 눈은 아니다.
 <</talk>>
 
-<div class="narration">잇신은 잔을 들어올렸다.</div>
+<<beat>>잇신은 잔을 들어올렸다.<</beat>>
 
 <<talk "isshin" "잇신">>
 그 차이가 오래가야 한다.
 <</talk>>
 
-<div class="choice-box">[[계속->Isshin_03_SwordEyes_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Isshin_03_SwordEyes_Choices]]</div>
 <</page>>
 
 :: Isshin_03_SwordEyes_Choices {"position":"2525,1125","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "그 차이를 묻는다" "Isshin_03_SwordEyes_Look_Result">>
   <<set $isshinLove += 1>>
   <<set $isshinHeardWarning = true>>
@@ -286,7 +286,7 @@
 그 기다림은,
 검을 뽑기 전의 정적과는 달랐다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_03_SwordEyes_Avoid_Result {"position":"2775,1125","size":"100,100"}
@@ -297,7 +297,7 @@
 다만 잔 안쪽에 남은 술이,
 오래 흔들렸다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_03_SwordEyes_Draw_Result {"position":"2900,1125","size":"100,100"}
@@ -309,7 +309,7 @@
 
 잇신의 눈이 가늘어졌다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_04_NotEaten {"position":"2400,1275","size":"100,100"}
@@ -321,26 +321,26 @@
 검을 쥐는 건 쉽다.
 <</talk>>
 
-<div class="narration">바람이 불었다.
-술잔의 표면이 흔들렸다.</div>
+<<beat>>바람이 불었다.
+술잔의 표면이 흔들렸다.<</beat>>
 
 <<talk "isshin" "잇신">>
 어려운 건,
 검에게 쥐어먹히지 않는 거다.
 <</talk>>
 
-<div class="narration">늑대는 그 말을 이해하지 못했다.
+<<beat>>늑대는 그 말을 이해하지 못했다.
 
 혹은,
-너무 잘 이해했다.</div>
+너무 잘 이해했다.<</beat>>
 
-<div class="choice-box">[[계속->Isshin_04_NotEaten_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Isshin_04_NotEaten_Choices]]</div>
 <</page>>
 
 :: Isshin_04_NotEaten_Choices {"position":"2525,1275","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "검에게 먹힌다는 뜻을 묻는다" "Isshin_04_NotEaten_Ask_Result">>
   <<set $isshinLove += 1>>
   <<set $isshinHeardWarning = true>>
@@ -377,7 +377,7 @@
 답을 알아서가 아니라,
 묻는 쪽에 아직 남아 있기 때문이었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_04_NotEaten_Deny_Result {"position":"2775,1275","size":"100,100"}
@@ -388,7 +388,7 @@
 부정은 짧았고,
 바람은 길었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_04_NotEaten_Laugh_Result {"position":"2900,1275","size":"100,100"}
@@ -399,7 +399,7 @@
 하지만 늑대는,
 그 소리를 구분하지 못했다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_05_ReedField {"position":"2400,1425","size":"100,100"}
@@ -407,30 +407,30 @@
 <<set $currentRoute = "isshin">>
 <<set $isshinProgress = Math.max($isshinProgress, 5)>>
 
-<div class="narration">잇신은 늑대를 갈대밭으로 데려갔다.
+<<beat>>잇신은 늑대를 갈대밭으로 데려갔다.
 
-바람이 낮게 불었다.</div>
+바람이 낮게 불었다.<</beat>>
 
 <<talk "isshin" "잇신">>
 여기서는 칼을 뽑아도 좋고,
 안 뽑아도 좋다.
 <</talk>>
 
-<div class="narration">늑대는 그 말을 이해하지 못했다.
+<<beat>>늑대는 그 말을 이해하지 못했다.
 
-잇신은 웃으며 앉았다.</div>
+잇신은 웃으며 앉았다.<</beat>>
 
 <<talk "isshin" "잇신">>
 그러니 오늘은 안 뽑아보자.
 <</talk>>
 
-<div class="choice-box">[[계속->Isshin_05_ReedField_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Isshin_05_ReedField_Choices]]</div>
 <</page>>
 
 :: Isshin_05_ReedField_Choices {"position":"2525,1425","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "곁에 앉는다" "Isshin_05_ReedField_Sit_Result">>
   <<set $isshinLove += 1>>
   <<set $isshinSatWithoutSword = true>>
@@ -468,7 +468,7 @@
 
 잇신은 그것을 보고 웃었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_05_ReedField_Stand_Result {"position":"2775,1425","size":"100,100"}
@@ -479,7 +479,7 @@
 하지만 빈자리는,
 오래 비어 있는 모양을 했다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_05_ReedField_Sword_Result {"position":"2900,1425","size":"100,100"}
@@ -490,7 +490,7 @@
 그런데도 갈대가 베인 듯,
 바람 소리가 잠시 끊겼다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Isshin_06_FinalChoice {"position":"2400,1575","size":"100,100"}
@@ -498,9 +498,9 @@
 <<set $currentRoute = "isshin">>
 <<set $isshinProgress = Math.max($isshinProgress, 6)>>
 
-<div class="narration">갈대밭에 해가 기울어 있었다.
+<<beat>>갈대밭에 해가 기울어 있었다.
 
-잇신은 빈 잔을 흔들었다.</div>
+잇신은 빈 잔을 흔들었다.<</beat>>
 
 <<talk "isshin" "잇신">>
 늑대.
@@ -514,7 +514,7 @@
 네가 검을 드는 건 보았다.
 <</talk>>
 
-<div class="narration">잇신이 웃었다.</div>
+<<beat>>잇신이 웃었다.<</beat>>
 
 <<talk "isshin" "잇신">>
 이제 술잔을 드는 것도 보았군.
@@ -524,13 +524,13 @@
 어느 쪽이 더 무겁더냐?
 <</talk>>
 
-<div class="choice-box">[[계속->Isshin_06_FinalChoice_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Isshin_06_FinalChoice_Choices]]</div>
 <</page>>
 
 :: Isshin_06_FinalChoice_Choices {"position":"2525,1575","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<if $isshinLove >= 4 or $isshinSatWithoutSword or $isshinHeardWarning>>
 <<link "술잔을 든다" "Ending_Isshin_ReedSake">>
   <<set $isshinDone = true>>
@@ -585,7 +585,7 @@
   <<set $shuraUnlocked = true>>
 <</if>>
 <div class="narration narration-full short-beat">늑대는 검이 아니라 술잔을 들었다.</div>
-<div class="choice-box">[[계속->Ending_Isshin_ReedSake_02]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Isshin_ReedSake_02]]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake_02 {"position":"2525,1750","size":"100,100"}
@@ -594,7 +594,7 @@
 
 하지만 이번에는,
 검이 늑대를 먼저 부르지 않았다.</div>
-<div class="choice-box">[[계속->Ending_Isshin_ReedSake_03]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Isshin_ReedSake_03]]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake_03 {"position":"2650,1750","size":"100,100"}
@@ -603,7 +603,7 @@
 무겁습니까.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Isshin_ReedSake_04]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Isshin_ReedSake_04]]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake_04 {"position":"2775,1750","size":"100,100"}
@@ -612,7 +612,7 @@
 가볍지는 않지.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Isshin_ReedSake_05]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Isshin_ReedSake_05]]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake_05 {"position":"2900,1750","size":"100,100"}
@@ -621,18 +621,18 @@
 검보다도 말입니까.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Isshin_ReedSake_06]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Isshin_ReedSake_06]]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake_06 {"position":"3025,1750","size":"100,100"}
 <<page>>
-<div class="narration">잇신은 웃었다.</div>
+<<beat>>잇신은 웃었다.<</beat>>
 
 <<talk "isshin:like" "잇신">>
 그건 네가 정할 일이다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Isshin_ReedSake_End]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Isshin_ReedSake_End]]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake_End {"position":"3150,1750","size":"100,100"}
@@ -652,14 +652,14 @@
   <<set $shuraUnlocked = true>>
 <</if>>
 <div class="narration narration-full short-beat">잔은 비어 있었다.</div>
-<div class="choice-box">[[계속->BadEnd_Isshin_EmptyCup_02]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Isshin_EmptyCup_02]]</div>
 <</page>>
 
 :: BadEnd_Isshin_EmptyCup_02 {"position":"2525,1925","size":"100,100"}
 <<page>>
 <div class="narration narration-full short-beat">비어 있었기 때문에,
 무엇이 담길 수 있었는지 알 수 없었다.</div>
-<div class="choice-box">[[계속->BadEnd_Isshin_EmptyCup_03]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Isshin_EmptyCup_03]]</div>
 <</page>>
 
 :: BadEnd_Isshin_EmptyCup_03 {"position":"2650,1925","size":"100,100"}
@@ -668,7 +668,7 @@
 
 끝내 들지 않은 것의 무게가,
 검보다 가벼운지는 알 수 없었다.</div>
-<div class="choice-box">[[계속->BadEnd_Isshin_EmptyCup_End]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Isshin_EmptyCup_End]]</div>
 <</page>>
 
 :: BadEnd_Isshin_EmptyCup_End {"position":"2775,1925","size":"100,100"}
@@ -692,14 +692,14 @@
 <</if>>
 <<clampStats>>
 <div class="narration narration-full short-beat">검이 뽑혔다.</div>
-<div class="choice-box">[[계속->BadEnd_Isshin_SwordDemonLaugh_02]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Isshin_SwordDemonLaugh_02]]</div>
 <</page>>
 
 :: BadEnd_Isshin_SwordDemonLaugh_02 {"position":"2525,2100","size":"100,100"}
 <<page>>
 <div class="narration narration-full short-beat">갈대가 흔들렸다.
 술잔은 쓰러지지 않았다.</div>
-<div class="choice-box">[[계속->BadEnd_Isshin_SwordDemonLaugh_03]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Isshin_SwordDemonLaugh_03]]</div>
 <</page>>
 
 :: BadEnd_Isshin_SwordDemonLaugh_03 {"position":"2650,2100","size":"100,100"}
@@ -708,11 +708,11 @@
 …
 <</talk>>
 
-<div class="narration">잇신은 웃었다.
+<<beat>>잇신은 웃었다.
 
 그 웃음은,
-늑대가 처음으로 이해할 수 있는 말이었다.</div>
-<div class="choice-box">[[계속->BadEnd_Isshin_SwordDemonLaugh_End]]</div>
+늑대가 처음으로 이해할 수 있는 말이었다.<</beat>>
+<div class="choice-box continue-row">[[계속->BadEnd_Isshin_SwordDemonLaugh_End]]</div>
 <</page>>
 
 :: BadEnd_Isshin_SwordDemonLaugh_End {"position":"2775,2100","size":"100,100"}

@@ -65,6 +65,9 @@
     if (/^Kuro/.test(name)) {
       return 'bg-room';
     }
+    if (/^Genichiro_01_Gate/.test(name)) {
+      return 'bg-ashina-gate';
+    }
     if (/^Genichiro/.test(name)) {
       return 'bg-ashina';
     }
@@ -106,6 +109,8 @@
         return '밤의 길';
       case 'bg-room':
         return '낡은 서고';
+      case 'bg-ashina-gate':
+        return '아시나 성문';
       case 'bg-ashina':
         return '천수각 망루';
       case 'bg-temple':
@@ -113,6 +118,36 @@
       default:
         return '';
     }
+  }
+
+  function getTimeOfDayLabel(timeOfDay) {
+    switch (String(timeOfDay || 'day')) {
+      case 'night':
+        return '밤';
+      case 'evening':
+        return '저녁';
+      case 'day':
+      default:
+        return '낮';
+    }
+  }
+
+  function shouldShowDayDisplay(passageName) {
+    var name = String(passageName || '');
+
+    return !/^(Intro|Ending_|BadEnd_|Hidden_Rebirth|Debug_)/.test(name);
+  }
+
+  function makeDayDisplay() {
+    var variables = State.variables || {};
+    var day = Number(variables.day);
+    var displayDay = isFinite(day) && day > 0 ? day : 1;
+    var wrapper = makeEl('div', 'day-display');
+
+    wrapper.appendChild(makeEl('div', 'day-display-day', 'DAY ' + displayDay));
+    wrapper.appendChild(makeEl('div', 'day-display-time', getTimeOfDayLabel(variables.timeOfDay)));
+
+    return wrapper;
   }
 
   function isNightInterludePassage(passageName) {
@@ -195,6 +230,8 @@
         return 'bg-night-patrol-05';
       case 'bg-night':
         return 'bg-night';
+      case 'bg-ashina-gate':
+        return 'bg-ashina-gate';
       case 'bg-ashina':
         return 'bg-ashina-tower';
       case 'bg-dawn':
@@ -597,6 +634,7 @@
       var locationName = getSceneLocationName(passageName, bgClass);
       var stage = makeEl('div', 'stage page-stage wolf-page ' + bgClass + ' ' + bgAlias);
       var location = locationName ? makeEl('div', 'location-label', locationName) : null;
+      var dayDisplay = shouldShowDayDisplay(passageName) ? makeDayDisplay() : null;
       var box = makeEl('div', 'page-box');
       var text = makeEl('div', 'page-text wolf-content');
       var sameBg = setup.wolfLastBgClass === bgClass;
@@ -628,6 +666,9 @@
       stage.appendChild(box);
       if (location) {
         stage.insertBefore(location, box);
+      }
+      if (dayDisplay) {
+        stage.insertBefore(dayDisplay, box);
       }
       box.appendChild(text);
 
@@ -777,11 +818,19 @@ Macro.add('clampStats', {
 
 function wolfUpdateRouteUnlocks() {
   var variables = State.variables || {};
+  var day = Number(variables.day);
+
+  if (isFinite(day) && day >= 2) {
+    variables.nightPatrolUnlocked = true;
+  }
 
   if (variables.anyEndingSeen === true) {
     variables.secondLoopUnlocked = true;
     variables.secondRoutesUnlocked = true;
     variables.sculptorUnlocked = true;
+  }
+
+  if (isFinite(day) && day >= 3 && variables.secondLoopUnlocked === true) {
     variables.emmaEventUnlocked = true;
   }
 
@@ -1236,6 +1285,23 @@ function wolfFormatValue(value) {
   }
 }
 
+function wolfFormatDebugValue(key, value) {
+  if (key === 'timeOfDay') {
+    switch (value) {
+      case 'day':
+        return '낮';
+      case 'evening':
+        return '저녁';
+      case 'night':
+        return '밤';
+      default:
+        return wolfFormatValue(value);
+    }
+  }
+
+  return wolfFormatValue(value);
+}
+
 function wolfEnsureOuterUI() {
   if ($('.outer-dev-ui').length) return;
 
@@ -1276,6 +1342,8 @@ function wolfUpdateOuterUI() {
 
   var vars = State.variables || {};
   var keys = [
+    'day',
+    'timeOfDay',
     'currentRoute',
     'hanbeiProgress',
     'hanbeiLove',
@@ -1303,7 +1371,7 @@ function wolfUpdateOuterUI() {
   var html = keys.map(function (key) {
     return '<div class="outer-var-row">' +
       '<span class="outer-var-key">$' + wolfEscapeHtml(key) + '</span>' +
-      '<span class="outer-var-value">' + wolfEscapeHtml(wolfFormatValue(vars[key])) + '</span>' +
+      '<span class="outer-var-value">' + wolfEscapeHtml(wolfFormatDebugValue(key, vars[key])) + '</span>' +
     '</div>';
   }).join('');
 
@@ -1316,6 +1384,7 @@ function wolfUpdateOuterUI() {
     { label : 'TEST: Sculptor', passage : 'Sculptor_Router' },
     { label : 'TEST: Isshin', passage : 'Isshin_Router' },
     { label : 'TEST: NightPatrol', passage : 'NightPatrol' },
+    { label : 'DEBUG: AdvanceDay', passage : 'AdvanceDay' },
     { label : 'SKIP: EndingRouter', passage : 'EndingRouter' },
     { label : '엔딩 테스트', passage : 'Debug_Endings' }
   ];

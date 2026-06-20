@@ -1452,6 +1452,7 @@ body.status-hidden .outer-dev-ui {
   --bg-nightpatrol-05: url('assets/backgrounds/NightPatrol05.png');
   --bg-night: url('assets/backgrounds/Night.png');
   --bg-room: url('assets/backgrounds/Room01.png');
+  --bg-ashina-gate: url('assets/backgrounds/AshinaGate.png');
   --bg-ashina: url('assets/backgrounds/AshinaTower.png');
   --bg-intro: url('assets/backgrounds/Intro.png');
   --bg-dawn: url('assets/backgrounds/Dawn.png');
@@ -1500,6 +1501,10 @@ body.status-hidden .outer-dev-ui {
 
 .page-stage.bg-room {
   --scene-bg: var(--bg-room);
+}
+
+.page-stage.bg-ashina-gate {
+  --scene-bg: var(--bg-ashina-gate);
 }
 
 .page-stage.bg-ashina {
@@ -2094,6 +2099,10 @@ body.status-hidden .outer-dev-ui {
 
 .wolf-page.bg-room {
   --scene-bg: var(--bg-room);
+}
+
+.wolf-page.bg-ashina-gate {
+  --scene-bg: var(--bg-ashina-gate);
 }
 
 .wolf-page.bg-ashina-tower,
@@ -3025,6 +3034,45 @@ body,
 .wolf-page.same-bg .location-label,
 .page-stage.same-bg .location-label {
   animation: wolf-ui-fade-in 140ms ease-out both;
+}
+
+.day-display {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  z-index: 15;
+  box-sizing: border-box;
+  font-family: 'WolfTitleKR', 'WolfBodySerif', serif;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-align: right;
+  color: rgba(245, 245, 245, 0.68);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+  user-select: none;
+}
+
+.day-display-day {
+  font-size: 14px;
+}
+
+.day-display-time {
+  margin-top: 2px;
+  font-size: 13px;
+  color: rgba(245, 245, 245, 0.56);
+}
+
+.wolf-page.same-bg .day-display,
+.page-stage.same-bg .day-display {
+  animation: wolf-ui-fade-in 140ms ease-out both;
+}
+
+.intro-screen .day-display,
+.ending-screen .day-display,
+.ending-return-stage .day-display,
+.debug-screen .day-display {
+  display: none;
 }
 
 /* General route continue buttons: fixed within the game stage. */

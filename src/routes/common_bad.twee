@@ -1,19 +1,18 @@
 :: CommonBadEndRouter {"position":"5600,900","size":"100,100"}
 <<set $commonBadPending = true>>
 
-/% 관계 구출 메모:
-한베가 있으면 늑대는 다시 찾아갈 사람을 기억한다.
-쿠로가 있으면 늑대는 부탁과 명령의 차이를 기억한다.
-겐이치로가 있으면 늑대는 무릎 꿇지 않는 몸을 기억한다.
-조각가가 있으면 늑대는 화마가 되기 전의 경고를 듣는다.
-잇신이 있으면 늑대는 검에게 먹히지 않는 법을 떠올린다.
+/% 공통 배드엔딩:
+danger / isolation / low freedom의 실패.
+구출 이벤트로 막지 않는다.
 
-아무도 닿지 못하면 늑대는 가장 오래된 방식으로 돌아간다.
+수라 구출 이벤트:
+shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이크.
+관계가 늑대를 구원하는 것이 아니라, 수라의 흐름을 한 번 끊는다.
+
+수라 루트:
+플레이어가 직접 [죽인다]를 선택해 들어가는 히든 루트.
+수라 구출 이벤트로 강제 중단하지 않는다.
 %/
-
-<<if ($hanbeiLove >= 4) or ($kuroLove >= 4) or ($genichiroLove >= 4) or ($sculptorLove >= 4) or ($isshinLove >= 4)>>
-  <<goto "Rescue_Router">>
-<</if>>
 
 <<if $isolation >= 12 and $danger >= 10 and $freedom <= 1 and $helpRefusedCount >= 3>>
   <<set $commonBadLevel = 4>>
@@ -33,21 +32,41 @@
 <</if>>
 
 :: Rescue_Router {"position":"5600,1050","size":"100,100"}
-/% TODO: 캐릭터별 전용 구출 이벤트가 확정되면 여기에서 개별 Rescue passage로 분기한다.
-현재 1차 구현에서는 관계 수치가 충분한 캐릭터가 있으면 공통 배드엔딩 직행을 막고 Temple_Return_Hub로 되돌린다. %/
+/% 호환용 alias. 실제 의미는 수라 구출 전용 라우터다. %/
+<<goto "ShuraRescue_Router">>
 
-<<if $hanbeiLove >= 4>>
+:: ShuraRiskRouter {"position":"5600,1025","size":"100,100"}
+<<if $shura >= 8>>
+  <<goto "ShuraRescue_Router">>
+<<elseif $nightPatrolActive>>
+  <<goto "NightPatrol_End">>
+<<else>>
+  <<goto "Temple_Return">>
+<</if>>
+
+:: ShuraRescue_Router {"position":"5600,1150","size":"100,100"}
+<<if $currentRoute == "hanbei" and (($hanbeiLove >= 4) or $hanbeiGoodEndingSeen) and not $hanbeiRescueSeen>>
   <<goto "Rescue_Hanbei">>
-<<elseif $kuroLove >= 4>>
+<<elseif $currentRoute == "kuro" and (($kuroLove >= 4) or $kuroGoodEndingSeen) and not $kuroRescueSeen>>
   <<goto "Rescue_Kuro">>
-<<elseif $genichiroLove >= 4>>
+<<elseif $currentRoute == "genichiro" and (($genichiroLove >= 4) or $genichiroGoodEndingSeen) and not $genichiroRescueSeen>>
   <<goto "Rescue_Genichiro">>
-<<elseif $sculptorLove >= 4>>
+<<elseif $currentRoute == "sculptor" and (($sculptorLove >= 4) or $sculptorGoodEndingSeen) and not $sculptorRescueSeen>>
   <<goto "Rescue_Sculptor">>
-<<elseif $isshinLove >= 4>>
+<<elseif $currentRoute == "isshin" and (($isshinLove >= 4) or $isshinGoodEndingSeen) and not $isshinRescueSeen>>
+  <<goto "Rescue_Isshin">>
+<<elseif (($kuroLove >= 4) or $kuroGoodEndingSeen) and not $kuroRescueSeen>>
+  <<goto "Rescue_Kuro">>
+<<elseif (($hanbeiLove >= 4) or $hanbeiGoodEndingSeen) and not $hanbeiRescueSeen>>
+  <<goto "Rescue_Hanbei">>
+<<elseif (($genichiroLove >= 4) or $genichiroGoodEndingSeen) and not $genichiroRescueSeen>>
+  <<goto "Rescue_Genichiro">>
+<<elseif (($sculptorLove >= 4) or $sculptorGoodEndingSeen) and not $sculptorRescueSeen>>
+  <<goto "Rescue_Sculptor">>
+<<elseif (($isshinLove >= 4) or $isshinGoodEndingSeen) and not $isshinRescueSeen>>
   <<goto "Rescue_Isshin">>
 <<else>>
-  <<goto "CommonBadEndRouter_NoRescue">>
+  <<goto "Shura_NoRescue_Result">>
 <</if>>
 
 :: CommonBadEndRouter_NoRescue {"position":"5600,1200","size":"100,100"}
@@ -61,11 +80,30 @@
   <<goto "BadEnd_MissingNight">>
 <</if>>
 
+:: Shura_NoRescue_Result {"position":"5600,1300","size":"100,100"}
+<<page>>
+<div class="narration">아무도 부르지 않았다.
+
+검은 손에 잘 맞았다.
+너무 잘 맞아서,
+늑대는 잠시 손과 검의 경계를 잊었다.</div>
+
+<div class="continue-row">
+<<if $nightPatrolActive>>
+[[계속->NightPatrol_End]]
+<<else>>
+[[계속->Temple_Return]]
+<</if>>
+</div>
+<</page>>
+
 :: Rescue_Hanbei {"position":"5750,1050","size":"100,100"}
 <<page>>
 <<set $commonBadPending = false>>
-<<set $danger = Math.max(0, $danger - 2)>>
-<<set $isolation = Math.max(0, $isolation - 2)>>
+<<set $hanbeiRescueSeen = true>>
+<<set $lastRescuer = "hanbei">>
+<<set $shura = Math.max(0, $shura - 1)>>
+<<set $danger = Math.max(0, $danger - 1)>>
 <<clampStats>>
 <div class="narration-full">
 돌아오는 길목에서,
@@ -74,14 +112,21 @@
 늑대는 그 소리를 따라 걸었다.
 </div>
 
-<div class="choice-box">[[절로 돌아간다->Temple_Return_Hub]]</div>
+<div class="continue-row">
+<<if $nightPatrolActive>>
+[[절로 돌아간다->NightPatrol_End]]
+<<else>>
+[[절로 돌아간다->Temple_Return]]
+<</if>>
+</div>
 <</page>>
 
 :: Rescue_Kuro {"position":"5750,1175","size":"100,100"}
 <<page>>
 <<set $commonBadPending = false>>
-<<set $danger = Math.max(0, $danger - 2)>>
-<<set $isolation = Math.max(0, $isolation - 2)>>
+<<set $kuroRescueSeen = true>>
+<<set $lastRescuer = "kuro">>
+<<set $shura = Math.max(0, $shura - 2)>>
 <<clampStats>>
 <div class="narration-full">
 작은 등불 하나가 꺼지지 않고 있었다.
@@ -90,14 +135,21 @@
 돌아오라는 부탁처럼 보였다.
 </div>
 
-<div class="choice-box">[[절로 돌아간다->Temple_Return_Hub]]</div>
+<div class="continue-row">
+<<if $nightPatrolActive>>
+[[절로 돌아간다->NightPatrol_End]]
+<<else>>
+[[절로 돌아간다->Temple_Return]]
+<</if>>
+</div>
 <</page>>
 
 :: Rescue_Genichiro {"position":"5750,1300","size":"100,100"}
 <<page>>
 <<set $commonBadPending = false>>
-<<set $danger = Math.max(0, $danger - 2)>>
-<<set $isolation = Math.max(0, $isolation - 1)>>
+<<set $genichiroRescueSeen = true>>
+<<set $lastRescuer = "genichiro">>
+<<set $shura = Math.max(0, $shura - 1)>>
 <<clampStats>>
 <div class="narration-full">
 먼 성 쪽에서 활시위가 우는 소리가 났다.
@@ -106,14 +158,21 @@
 그 소리만으로도 충분했다.
 </div>
 
-<div class="choice-box">[[절로 돌아간다->Temple_Return_Hub]]</div>
+<div class="continue-row">
+<<if $nightPatrolActive>>
+[[절로 돌아간다->NightPatrol_End]]
+<<else>>
+[[절로 돌아간다->Temple_Return]]
+<</if>>
+</div>
 <</page>>
 
 :: Rescue_Sculptor {"position":"5750,1425","size":"100,100"}
 <<page>>
 <<set $commonBadPending = false>>
-<<set $danger = Math.max(0, $danger - 1)>>
-<<set $isolation = Math.max(0, $isolation - 2)>>
+<<set $sculptorRescueSeen = true>>
+<<set $lastRescuer = "sculptor">>
+<<set $shura = Math.max(0, $shura - 2)>>
 <<clampStats>>
 <div class="narration-full">
 불상 깎는 소리가 낮게 이어졌다.
@@ -122,14 +181,21 @@
 그 소리를 듣고 조금 늦게 힘을 풀었다.
 </div>
 
-<div class="choice-box">[[절로 돌아간다->Temple_Return_Hub]]</div>
+<div class="continue-row">
+<<if $nightPatrolActive>>
+[[절로 돌아간다->NightPatrol_End]]
+<<else>>
+[[절로 돌아간다->Temple_Return]]
+<</if>>
+</div>
 <</page>>
 
 :: Rescue_Isshin {"position":"5750,1550","size":"100,100"}
 <<page>>
 <<set $commonBadPending = false>>
-<<set $danger = Math.max(0, $danger - 2)>>
-<<set $isolation = Math.max(0, $isolation - 1)>>
+<<set $isshinRescueSeen = true>>
+<<set $lastRescuer = "isshin">>
+<<set $shura = Math.max(0, $shura - 2)>>
 <<clampStats>>
 <div class="narration-full">
 어디선가 술잔이 놓이는 소리가 났다.
@@ -137,7 +203,13 @@
 늑대는 검을 따라가지 않았다.
 </div>
 
-<div class="choice-box">[[절로 돌아간다->Temple_Return_Hub]]</div>
+<div class="continue-row">
+<<if $nightPatrolActive>>
+[[절로 돌아간다->NightPatrol_End]]
+<<else>>
+[[절로 돌아간다->Temple_Return]]
+<</if>>
+</div>
 <</page>>
 
 :: BadEnd_MissingNight {"position":"5950,900","size":"100,100"}

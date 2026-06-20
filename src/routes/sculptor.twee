@@ -22,12 +22,12 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 1)>>
 
-<div class="narration">조각가는 낡은 불상을 깎고 있었다.
+<<beat>>조각가는 낡은 불상을 깎고 있었다.
 
 늑대가 다가와도,
 그는 한동안 고개를 들지 않았다.
 
-나무를 깎는 소리만 났다.</div>
+나무를 깎는 소리만 났다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 또 피 냄새가 나는군.
@@ -42,13 +42,13 @@
 대개 오래 못 산다.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_01_Carving_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_01_Carving_Choices]]</div>
 <</page>>
 
 :: Sculptor_01_Carving_Choices {"position":"2625,575","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "깎는 것을 지켜본다" "Sculptor_01_Carving_Watch_Result">>
   <<set $sculptorLove += 1>>
   <<set $sculptorCarvingSeen = true>>
@@ -82,7 +82,7 @@
 하지만 이상하게도,
 그 소리는 검을 뽑는 소리보다 오래 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_01_Carving_Ask_Result {"position":"2875,575","size":"100,100"}
@@ -95,7 +95,7 @@
 감추는 법을 묻는 자와,
 감추다 남은 자 사이에 잠시 침묵이 놓였다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_01_Carving_Leave_Result {"position":"3000,575","size":"100,100"}
@@ -106,7 +106,7 @@
 그런 일에 익숙한 사람처럼,
 다시 나무를 깎기 시작했다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_02_Wound {"position":"2500,725","size":"100,100"}
@@ -114,10 +114,10 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 2)>>
 
-<div class="narration">늑대가 절에 돌아왔을 때,
+<<beat>>늑대가 절에 돌아왔을 때,
 소매 안쪽에 피가 배어 있었다.
 
-늑대는 아무렇지 않게 서 있었다.</div>
+늑대는 아무렇지 않게 서 있었다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 숨길 거면 제대로 숨겨라.
@@ -127,20 +127,20 @@
 …
 <</talk>>
 
-<div class="narration">조각가는 붕대를 던졌다.</div>
+<<beat>>조각가는 붕대를 던졌다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 들킨 상처는,
 혼자 싸매는 게 아니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_02_Wound_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_02_Wound_Choices]]</div>
 <</page>>
 
 :: Sculptor_02_Wound_Choices {"position":"2625,725","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "상처를 보인다" "Sculptor_02_Wound_Show_Result">>
   <<set $sculptorLove += 1>>
   <<set $danger -= 1>>
@@ -178,7 +178,7 @@
 그것이 이상하게,
 늑대를 더 오래 붙잡았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_02_Wound_Hide_Result {"position":"2875,725","size":"100,100"}
@@ -189,7 +189,7 @@
 하지만 그 침묵은,
 믿었다는 뜻이 아니었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_02_Wound_Silent_Result {"position":"3000,725","size":"100,100"}
@@ -202,7 +202,7 @@
 늑대가 그것을 받기까지,
 그는 기다렸다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_03_DoNotDie {"position":"2500,875","size":"100,100"}
@@ -210,29 +210,29 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 3)>>
 
-<div class="narration">밤 정찰 전,
-조각가가 늑대를 불렀다.</div>
+<<beat>>밤 정찰 전,
+조각가가 늑대를 불렀다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 죽지만 마라.
 <</talk>>
 
-<div class="narration">늑대는 그것이 명령인지 묻지 않았다.
+<<beat>>늑대는 그것이 명령인지 묻지 않았다.
 
-조각가는 잠시 뒤에 덧붙였다.</div>
+조각가는 잠시 뒤에 덧붙였다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 죽지 말라는 말이 아니다.
 죽으러 가지 말라는 말이다.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_03_DoNotDie_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_03_DoNotDie_Choices]]</div>
 <</page>>
 
 :: Sculptor_03_DoNotDie_Choices {"position":"2625,875","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "알겠다고 한다" "Sculptor_03_DoNotDie_Accept_Result">>
   <<set $sculptorLove += 1>>
   <<set $sculptorAcceptedWarning = true>>
@@ -269,7 +269,7 @@
 그 정도면,
 이번 밤에는 충분했다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_03_DoNotDie_Duty_Result {"position":"2875,875","size":"100,100"}
@@ -279,7 +279,7 @@
 그 말 안에 들어가면,
 살아 돌아올 이유를 생각하지 않아도 되었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_03_DoNotDie_Ignore_Result {"position":"3000,875","size":"100,100"}
@@ -290,7 +290,7 @@
 다만 그 침묵은,
 잠깐이나마 돌아오겠다는 말처럼 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_04_ShuraSmell {"position":"2500,1025","size":"100,100"}
@@ -298,10 +298,10 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 4)>>
 
-<div class="narration">불은 피우지 않았다.
+<<beat>>불은 피우지 않았다.
 
 화로도 꺼져 있었다.
-그럼에도 조각가는 늑대 쪽을 보았다.</div>
+그럼에도 조각가는 늑대 쪽을 보았다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 그 냄새다.
@@ -311,19 +311,19 @@
 무슨 냄새입니까.
 <</talk>>
 
-<div class="narration">조각가는 잠시 침묵했다.</div>
+<<beat>>조각가는 잠시 침묵했다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 너 같은 놈이 끝까지 가면 나는 냄새.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_04_ShuraSmell_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_04_ShuraSmell_Choices]]</div>
 <</page>>
 
 :: Sculptor_04_ShuraSmell_Choices {"position":"2625,1025","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "수라에 대해 묻는다" "Sculptor_04_ShuraSmell_Ask_Result">>
   <<set $sculptorLove += 1>>
   <<set $freedom += 1>>
@@ -361,7 +361,7 @@
 다만 오래된 것을 꺼내기 전,
 잠시 숨을 고르는 소리였다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_04_ShuraSmell_Deny_Result {"position":"2875,1025","size":"100,100"}
@@ -372,7 +372,7 @@
 부정은 때로,
 냄새보다 오래 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_04_ShuraSmell_Fire_Result {"position":"3000,1025","size":"100,100"}
@@ -383,7 +383,7 @@
 그런데도 조각가는,
 조금 더 깊게 얼굴을 찡그렸다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_05_Prosthetic {"position":"2500,1175","size":"100,100"}
@@ -391,28 +391,28 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 5)>>
 
-<div class="narration">조각가는 늑대의 의수 소리를 들었다.
+<<beat>>조각가는 늑대의 의수 소리를 들었다.
 
-삐걱이는 작은 소리였다.</div>
+삐걱이는 작은 소리였다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 무기는 오래 쓰면 손이 된다.
 <</talk>>
 
-<div class="narration">그는 자신의 손을 내려다보았다.</div>
+<<beat>>그는 자신의 손을 내려다보았다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 문제는,
 손이 된 뒤에도 무기처럼 움직인다는 거다.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_05_Prosthetic_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_05_Prosthetic_Choices]]</div>
 <</page>>
 
 :: Sculptor_05_Prosthetic_Choices {"position":"2625,1175","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "의수 소리를 듣는다" "Sculptor_05_Prosthetic_Listen_Result">>
   <<set $sculptorLove += 1>>
   <<set $freedom += 1>>
@@ -450,7 +450,7 @@
 절 안에서는,
 이상하게 선명했다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_05_Prosthetic_Inspect_Result {"position":"2875,1175","size":"100,100"}
@@ -463,7 +463,7 @@
 몸에 붙은 무기는,
 몸보다 먼저 말을 들었다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_05_Prosthetic_Weapon_Result {"position":"3000,1175","size":"100,100"}
@@ -474,7 +474,7 @@
 그래서 조각가는,
 더 오래 늑대를 보았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_06_Face {"position":"2500,1325","size":"100,100"}
@@ -482,31 +482,31 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 6)>>
 
-<div class="narration">조각가는 불상을 깎다가 멈췄다.
+<<beat>>조각가는 불상을 깎다가 멈췄다.
 
-나무 얼굴은 아직 완성되지 않았다.</div>
+나무 얼굴은 아직 완성되지 않았다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 얼굴이 안 나온다.
 <</talk>>
 
-<div class="narration">늑대는 불상을 보았다.
+<<beat>>늑대는 불상을 보았다.
 
 그 얼굴은 누구도 닮지 않았다.
-하지만 이상하게도 자신을 닮은 것 같았다.</div>
+하지만 이상하게도 자신을 닮은 것 같았다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 네 얼굴도,
 아직 안 나온다.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_06_Face_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_06_Face_Choices]]</div>
 <</page>>
 
 :: Sculptor_06_Face_Choices {"position":"2625,1325","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "곁에 남는다" "Sculptor_06_Face_Stay_Result">>
   <<set $sculptorLove += 1>>
   <<set $freedom += 1>>
@@ -546,7 +546,7 @@
 나무 조각이 하나,
 무릎 아래로 떨어졌다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_06_Face_TurnAway_Result {"position":"2875,1325","size":"100,100"}
@@ -557,7 +557,7 @@
 누군가 제 얼굴을 보지 못하는 일에,
 그는 너무 익숙했다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_06_Face_Fire_Result {"position":"3000,1325","size":"100,100"}
@@ -570,7 +570,7 @@
 꺼져 가는 것이 아니라,
 기다리는 것처럼 보였다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Sculptor_07_FinalChoice {"position":"2500,1475","size":"100,100"}
@@ -578,9 +578,9 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 7)>>
 
-<div class="narration">조각가는 완성되지 않은 불상 앞에 앉아 있었다.
+<<beat>>조각가는 완성되지 않은 불상 앞에 앉아 있었다.
 
-늑대는 그 옆에 섰다.</div>
+늑대는 그 옆에 섰다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 내가 막을 수 있는 건 많지 않다.
@@ -594,20 +594,20 @@
 그래도 하나는 말할 수 있다.
 <</talk>>
 
-<div class="narration">잠시 후,
-조각가가 말했다.</div>
+<<beat>>잠시 후,
+조각가가 말했다.<</beat>>
 
 <<talk "sculptor" "조각가">>
 그 불로 가지 마라.
 <</talk>>
 
-<div class="choice-box">[[계속->Sculptor_07_FinalChoice_Choices]]</div>
+<div class="choice-box continue-row">[[계속->Sculptor_07_FinalChoice_Choices]]</div>
 <</page>>
 
 :: Sculptor_07_FinalChoice_Choices {"position":"2625,1475","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="story-choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<if $sculptorLove >= 4 or $sculptorPromisedReturn or $sculptorAcceptedWarning>>
 <<link "불상 곁에 앉는다" "Ending_Sculptor_LeftBehindBuddha">>
   <<set $sculptorDone = true>>
@@ -650,7 +650,7 @@
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <div class="narration narration-full short-beat">조각가는 불상을 완성하지 못했다.</div>
-<div class="choice-box">[[계속->Ending_Sculptor_LeftBehindBuddha_02]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_02]]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_02 {"position":"2625,1650","size":"100,100"}
@@ -659,7 +659,7 @@
 
 깎이지 않은 얼굴은,
 아직 수라가 되지 않았다는 증거처럼 보였다.</div>
-<div class="choice-box">[[계속->Ending_Sculptor_LeftBehindBuddha_03]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_03]]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_03 {"position":"2750,1650","size":"100,100"}
@@ -668,7 +668,7 @@
 죽지만 마라.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Sculptor_LeftBehindBuddha_04]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_04]]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_04 {"position":"2875,1650","size":"100,100"}
@@ -677,7 +677,7 @@
 예.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Sculptor_LeftBehindBuddha_05]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_05]]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_05 {"position":"3000,1650","size":"100,100"}
@@ -686,7 +686,7 @@
 그건 명령이 아니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Sculptor_LeftBehindBuddha_06]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_06]]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_06 {"position":"3125,1650","size":"100,100"}
@@ -695,7 +695,7 @@
 …알고 있습니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Sculptor_LeftBehindBuddha_End]]</div>
+<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_End]]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_End {"position":"3250,1650","size":"100,100"}
@@ -712,21 +712,21 @@
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <div class="narration narration-full short-beat">나무 얼굴은 끝내 나오지 않았다.</div>
-<div class="choice-box">[[계속->BadEnd_Sculptor_UncarvedFace_02]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_UncarvedFace_02]]</div>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace_02 {"position":"2625,1825","size":"100,100"}
 <<page>>
 <div class="narration narration-full short-beat">늑대는 그것을 보았다.
 아무도 닮지 않은 얼굴이었다.</div>
-<div class="choice-box">[[계속->BadEnd_Sculptor_UncarvedFace_03]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_UncarvedFace_03]]</div>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace_03 {"position":"2750,1825","size":"100,100"}
 <<page>>
 <div class="narration narration-full short-beat">이상하게도,
 그것이 가장 자신과 가까워 보였다.</div>
-<div class="choice-box">[[계속->BadEnd_Sculptor_UncarvedFace_End]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_UncarvedFace_End]]</div>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace_End {"position":"2875,1825","size":"100,100"}
@@ -747,7 +747,7 @@
 <<markEndingSeen>>
 <<clampStats>>
 <div class="narration narration-full short-beat">불은 옮겨붙지 않았다.</div>
-<div class="choice-box">[[계속->BadEnd_Sculptor_SpreadingEmber_02]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_SpreadingEmber_02]]</div>
 <</page>>
 
 :: BadEnd_Sculptor_SpreadingEmber_02 {"position":"2625,2000","size":"100,100"}
@@ -756,7 +756,7 @@
 
 나무 냄새와 피 냄새가,
 한순간 같은 냄새가 되었다.</div>
-<div class="choice-box">[[계속->BadEnd_Sculptor_SpreadingEmber_03]]</div>
+<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_SpreadingEmber_03]]</div>
 <</page>>
 
 :: BadEnd_Sculptor_SpreadingEmber_03 {"position":"2750,2000","size":"100,100"}
@@ -765,11 +765,11 @@
 …
 <</talk>>
 
-<div class="narration">조각가는 늑대를 보았다.
+<<beat>>조각가는 늑대를 보았다.
 
 그 눈은 늑대를 보는 눈이면서,
-오래전의 자신을 보는 눈이었다.</div>
-<div class="choice-box">[[계속->BadEnd_Sculptor_SpreadingEmber_End]]</div>
+오래전의 자신을 보는 눈이었다.<</beat>>
+<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_SpreadingEmber_End]]</div>
 <</page>>
 
 :: BadEnd_Sculptor_SpreadingEmber_End {"position":"2875,2000","size":"100,100"}

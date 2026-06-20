@@ -23,6 +23,24 @@
   "늑대의 발소리만이 남는다.",
   "이곳은 쉬는 곳이 아니라, 버티는 곳이 되었다."
 )>>
+<<elseif $day >= 7>>
+<<print either(
+  "오래 머물 곳이 아니라고 생각했다. 하지만 떠나지 않은 것들이 이곳에도 하나씩 쌓이고 있었다.",
+  "같은 바람을 여러 번 맞고 나면, 돌아오는 길도 몸에 남는다.",
+  "낡은 처마 아래에 며칠의 침묵이 겹겹이 내려앉아 있다."
+)>>
+<<elseif $day >= 4>>
+<<print either(
+  "돌아오는 길이 있다는 사실이 조금씩 몸에 익어 간다.",
+  "며칠째 같은 바람이 불고 있다.",
+  "발소리 하나쯤은 이제 구분할 수 있을 것 같다."
+)>>
+<<elseif $day >= 2>>
+<<print either(
+  "낯설던 침묵이 조금 낮아졌다.",
+  "어제와 같은 바람이 처마 아래를 지난다.",
+  "쉬어 가는 법을 몸이 아주 조금 기억한다."
+)>>
 <<else>>
 <<print either(
   "바람만이 처마 아래를 지나간다.",
@@ -136,6 +154,31 @@
 [[아무도 만나지 않는다->Shura]]
 <</if>>
 
+:: AdvanceDay {"position":"1800,725","size":"100,100"}
+<<if not $dayAdvancedToday>>
+  <<set $day += 1>>
+  <<set $timeOfDay = "day">>
+  <<set $currentMode = "temple">>
+  <<set $nightPatrolActive = false>>
+  <<set $dayAdvancedToday = true>>
+  <<run $dayLog.push("Day " + $day)>>
+<</if>>
+<<goto "StartNewDay">>
+
+:: StartNewDay {"position":"1925,725","size":"100,100"}
+<<set $dayAdvancedToday = false>>
+<<set $timeOfDay = "day">>
+<<set $nightPatrolActive = false>>
+<<set $nightPatrolUsedToday = false>>
+<<set $currentMode = "temple">>
+<<if $day >= 2>>
+  <<set $nightPatrolUnlocked = true>>
+<</if>>
+<<if $day >= 3 and $secondLoopUnlocked>>
+  <<set $emmaEventUnlocked = true>>
+<</if>>
+<<goto "Temple_Return">>
+
 :: Temple_AfterNight {"position":"1825,625","size":"100,100"}
 <<page>>
 새벽이 가까워진다.
@@ -152,6 +195,10 @@
 <<if ($danger >= 12 and $isolation >= 10) or ($danger >= 10 and $helpRefusedCount >= 3)>>
   <<goto "CommonBadEndRouter">>
 <</if>>
+<<if $nightPatrolJustFinished>>
+  <<set $nightPatrolJustFinished = false>>
+  <<goto "Temple_Return_Hub">>
+<</if>>
 <<goto "EventRouter">>
 <</page>>
 
@@ -166,20 +213,42 @@
 </div>
 
 <div class="choice-box">
-[[밤 정찰을 나선다->NightPatrol_Roll]]
+<<if $nightPatrolUnlocked and $timeOfDay == "day" and not $nightPatrolActive and not $nightPatrolUsedToday>>
+[[밤 정찰을 나선다->NightPatrol_Start]]
+<</if>>
+<<if $timeOfDay == "day" and not $nightPatrolActive>>
 [[잠든다->Sleep_Roll]]
+<</if>>
 [[절에 머문다->Temple]]
 </div>
 <</page>>
 
+:: NightPatrol_Start {"position":"2000,750","size":"100,100"}
+<<if $nightPatrolUsedToday>>
+  <<goto "Temple_Return_Hub">>
+<<else>>
+  <<set $nightPatrolActive = true>>
+  <<set $nightPatrolUsedToday = true>>
+  <<set $nightPatrolJustFinished = false>>
+  <<set $currentMode = "nightPatrol">>
+  <<set $timeOfDay = "night">>
+  <<goto "NightPatrol_Roll">>
+<</if>>
+
 :: NightPatrol {"position":"2000,825","size":"100,100"}
-<<goto "NightPatrol_Roll">>
+<<goto "NightPatrol_Start">>
 
 :: Temple_Sleep {"position":"1800,875","size":"100,100"}
 <<goto "Sleep_Roll">>
 
 :: Sleep_Roll {"position":"1800,875","size":"100,100"}
-<<if $shura >= 5 or $isolation >= 7>>
+<<set $timeOfDay = "night">>
+<<set $currentMode = "sleep">>
+<<set $nightPatrolActive = false>>
+<<set $nightPatrolJustFinished = false>>
+<<if $dreamUnlocked>>
+  <<goto "DreamRouter">>
+<<elseif $shura >= 5 or $isolation >= 7>>
   <<goto "Sleep_BadOmen">>
 <<elseif $danger >= 4>>
   <<goto "Sleep_Alert">>
@@ -197,7 +266,7 @@
 </div>
 
 <div class="choice-box">
-<<link "눈을 뜬다" "Temple">>
+<<link "눈을 뜬다" "AdvanceDay">>
   <<set $danger = Math.max(0, $danger - 1)>>
   <<clampStats>>
 <</link>>
@@ -217,7 +286,7 @@
 </div>
 
 <div class="choice-box">
-<<link "몸을 일으킨다" "Temple">>
+<<link "몸을 일으킨다" "AdvanceDay">>
   <<set $danger = Math.max(0, $danger - 1)>>
   <<set $isolation += 1>>
   <<clampStats>>
@@ -238,12 +307,12 @@
 </div>
 
 <div class="choice-box">
-<<link "검을 확인한다" "Temple">>
+<<link "검을 확인한다" "AdvanceDay">>
   <<set $shura += 1>>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
-<<link "손을 뗀다" "Temple">>
+<<link "손을 뗀다" "AdvanceDay">>
   <<set $shura = Math.max(0, $shura - 1)>>
   <<clampStats>>
 <</link>>
