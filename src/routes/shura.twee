@@ -1,7 +1,9 @@
 :: Shura {"position":"2500,575","size":"100,100"}
 <<page>>
 <<set $shuraDone = true>>
+<<set $shuraEndingSeen = true>>
 <<set $hiddenRevivalUnlocked = true>>
+<<markEndingSeen>>
 <div class="narration">
 아무도 만나지 않는다.
 

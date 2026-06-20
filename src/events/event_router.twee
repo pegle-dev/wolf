@@ -9,8 +9,6 @@
   <<goto "Hanbei_08_MortalBlade">>
 <<elseif $hanbeiMortalBladeTalkSeen>>
   <<goto "Hanbei_09_FinalChoice">>
-<<elseif $secondLoopUnlocked and not $emmaIsshinIntroSeen>>
-  <<goto "Event_Emma_IsshinIntro">>
 <<else>>
   <<if $returnTo>>
     <<goto $returnTo>>

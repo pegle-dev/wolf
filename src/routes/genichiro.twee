@@ -91,7 +91,7 @@
 <<set $genichiroProgress = Math.max($genichiroProgress, 2)>>
 <<set $genichiroRooftopSeen = true>>
 
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 또 왔나.
 <</talk>>
 
@@ -109,7 +109,7 @@
 
 :: Genichiro_02_Rooftop_Talk03 {"position":"2425,1875","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 말이 없군.
 늘 그랬듯이.
 <</talk>>
@@ -128,7 +128,7 @@
 
 :: Genichiro_02_Rooftop_Talk05 {"position":"2675,1875","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 비켜서면, 그대는 어디로 가는가.
 <</talk>>
 
@@ -146,7 +146,7 @@
 
 :: Genichiro_02_Rooftop_Talk07 {"position":"2925,1875","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 그렇겠지.
 <</talk>>
 
@@ -246,7 +246,7 @@
 
 :: Genichiro_03_FullDuel_Talk01 {"position":"2675,2025","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 그만.
 <</talk>>
 
@@ -264,7 +264,7 @@
 
 :: Genichiro_03_FullDuel_Talk03 {"position":"2925,2025","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 지금은 아니다.
 <</talk>>
 
@@ -314,7 +314,7 @@
 
 :: Genichiro_04_MoonSake_Talk01 {"position":"2300,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 마실 텐가.
 <</talk>>
 
@@ -332,7 +332,7 @@
 
 :: Genichiro_04_MoonSake_Talk03 {"position":"2550,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 알고 있다.
 <</talk>>
 
@@ -350,7 +350,7 @@
 
 :: Genichiro_04_MoonSake_Talk04 {"position":"2800,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 독은 아니다.
 <</talk>>
 
@@ -368,7 +368,7 @@
 
 :: Genichiro_04_MoonSake_Talk06 {"position":"3050,2175","size":"100,100"}
 <<page>>
-<<talk "genichiro_02" "겐이치로">>
+<<talk "genichiro_like" "겐이치로">>
 그런 뜻으로 들었다.
 <</talk>>
 
@@ -816,9 +816,7 @@
 <<set $completedGenichiro = true>>
 <<set $genichiroGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<if $completedHanbei && $completedKuro && $completedGenichiro>>
-  <<set $secondLoopUnlocked = true>>
-<</if>>
+<<markEndingSeen>>
 
 <div class="narration">
 성은 무너지고 있었다.
@@ -987,11 +985,7 @@
 
 :: Ending_Genichiro_SettingMoonCastle_End {"position":"4175,2775","size":"100,100"}
 <<page>>
-<div class="ending-stamp">[End. 달이 지는 성]</div>
-
-<div class="choice-box">
-[[타이틀로 돌아간다->Start]]
-</div>
+<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[End. 달이 지는 성]</div>
 <</page>>
 
 :: Genichiro_AfterEnding {"position":"4300,2775","size":"100,100"}

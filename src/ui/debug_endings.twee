@@ -13,8 +13,8 @@
 
 <h3>쿠로</h3>
 [[쿠로 END: 주인 없는 길->Ending_Kuro_PathWithoutMaster]]
-/% TODO: BadEnd_Kuro_LastOrder passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_Kuro_UnreachableTeahouse passage 구현 후 링크 추가 %/
+[[쿠로 BAD: 마지막 명령->BadEnd_Kuro_LastOrder]]
+[[쿠로 BAD: 닿지 않는 찻집->BadEnd_Kuro_UnreachableTeahouse]]
 
 <h3>겐이치로</h3>
 [[겐이치로 END: 달이 지는 성->Ending_Genichiro_SettingMoonCastle]]
@@ -23,20 +23,24 @@
 /% TODO: BadEnd_Genichiro_AshinaWolf passage 구현 후 링크 추가 %/
 
 <h3>조각가</h3>
-/% TODO: Ending_Sculptor_LeftBuddha passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_Sculptor_UncarvedFace passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_Sculptor_SpreadingEmber passage 구현 후 링크 추가 %/
+[[조각가 END: 남겨진 불상->Ending_Sculptor_LeftBehindBuddha]]
+[[조각가 BAD: 깎이지 않는 얼굴->BadEnd_Sculptor_UncarvedFace]]
+[[조각가 BAD: 옮겨붙은 불씨->BadEnd_Sculptor_SpreadingEmber]]
 
 <h3>잇신</h3>
-/% TODO: Ending_Isshin_ReedFieldSake passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_Isshin_EmptyCup passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_Isshin_SwordDemonLaugh passage 구현 후 링크 추가 %/
+[[잇신 END: 갈대밭의 술자리->Ending_Isshin_ReedSake]]
+[[잇신 BAD: 빈 술잔->BadEnd_Isshin_EmptyCup]]
+[[잇신 BAD: 검귀의 웃음->BadEnd_Isshin_SwordDemonLaugh]]
 
 <h3>공통 BAD</h3>
-/% TODO: BadEnd_ReturnlessNight passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_EmptyScabbard passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_TamedWolf passage 구현 후 링크 추가 %/
-/% TODO: BadEnd_OwlWolf passage 구현 후 링크 추가 %/
+[[COMMON BAD: 돌아오지 않는 밤->BadEnd_MissingNight]]
+[[COMMON BAD: 빈 칼집->BadEnd_EmptyScabbard]]
+[[COMMON BAD: 길들여진 늑대->BadEnd_TamedWolf]]
+[[WORST BAD: 올빼미의 늑대->BadEnd_OwlWolf]]
+
+<<if $debugMode>>
+[[DEBUG: 공통 배드 라우터 테스트->CommonBadEndRouter]]
+<</if>>
 
 <h3>히든 / 수라</h3>
 [[수라 테스트->Shura]]

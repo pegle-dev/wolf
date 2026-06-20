@@ -4,10 +4,7 @@
 <<set $completedHanbei = true>>
 <<set $hanbeiGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<if $completedHanbei && $completedKuro && $completedGenichiro>>
-  <<set $secondLoopUnlocked = true>>
-  <<set $secondRoutesUnlocked = true>>
-<</if>>
+<<markEndingSeen>>
 <div class="narration narration-full short-beat">해가 저물었다.</div>
 <div class="choice-box">[[계속->Ending_Hanbei_02]]</div>
 <</page>>
@@ -139,8 +136,7 @@
 
 :: Ending_Hanbei_End {"position":"5075,400","size":"100,100"}
 <<page>>
-<div class="ending-stamp">[End. 그냥 온 날]</div>
-<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 그냥 온 날]</div>
 <</page>>
 
 :: Ending_Hanbei_Silence {"position":"3200,650","size":"100,100"}
@@ -149,10 +145,7 @@
 <<set $completedHanbei = true>>
 <<set $hanbeiGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<if $completedHanbei && $completedKuro && $completedGenichiro>>
-  <<set $secondLoopUnlocked = true>>
-  <<set $secondRoutesUnlocked = true>>
-<</if>>
+<<markEndingSeen>>
 <div class="narration narration-full short-beat">늑대는 대답하지 않았다.</div>
 <div class="choice-box">[[계속->Ending_Hanbei_Silence_02]]</div>
 <</page>>
@@ -208,8 +201,7 @@
 
 :: Ending_Hanbei_Silence_End {"position":"3950,650","size":"100,100"}
 <<page>>
-<div class="ending-stamp">[End. 곁에 앉은 침묵]</div>
-<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 곁에 앉은 침묵]</div>
 <</page>>
 
 :: BadEnd_Hanbei_Mercy {"position":"3200,900","size":"100,100"}
@@ -218,6 +210,7 @@
 <<set $hanbeiBadEndingSeen = true>>
 <<set $hanbeiMercyEndingSeen = true>>
 <<set $anyEndingSeen = true>>
+<<markEndingSeen>>
 <div class="narration narration-full short-beat">
 늑대는 한베를 보았다.
 
@@ -312,8 +305,7 @@
 
 :: BadEnd_Hanbei_Mercy_End {"position":"4450,900","size":"100,100"}
 <<page>>
-<div class="ending-stamp">[Bad End. 끝나는 대련]</div>
-<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 끝나는 대련]</div>
 <</page>>
 
 :: BadEnd_Hanbei_Sword {"position":"3200,1150","size":"100,100"}
@@ -322,6 +314,7 @@
 <<set $hanbeiBadEndingSeen = true>>
 <<set $hanbeiSwordBadEndingSeen = true>>
 <<set $anyEndingSeen = true>>
+<<markEndingSeen>>
 <<set $shura += 1>>
 <<clampStats>>
 <div class="narration narration-full short-beat">
@@ -413,6 +406,14 @@
 
 :: BadEnd_Hanbei_Sword_End {"position":"4200,1150","size":"100,100"}
 <<page>>
-<div class="ending-stamp">[Bad End. 불사를 베는 연습]</div>
-<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 불사를 베는 연습]</div>
+<</page>>
+
+:: Ending_ReturnToStart {"position":"5200,400","size":"100,100"}
+<<page>>
+<div class="ending-return-screen">
+<div class="choice-box">
+[[다시, 처음으로->Start]]
+</div>
+</div>
 <</page>>

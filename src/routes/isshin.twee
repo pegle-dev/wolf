@@ -1,13 +1,721 @@
 :: Isshin {"position":"2400,575","size":"100,100"}
+<<goto "Isshin_Router">>
+
+:: Isshin_Router {"position":"2400,700","size":"100,100"}
+<<set $currentRoute = "isshin">>
+
+<<if not $isshinFirstSakeSeen>>
+  <<goto "Isshin_01_FirstSake">>
+<<elseif not $isshinJokeSeen>>
+  <<goto "Isshin_02_DangerousJoke">>
+<<elseif not $isshinSwordEyesSeen>>
+  <<goto "Isshin_03_SwordEyes">>
+<<elseif not $isshinLaughSeen>>
+  <<goto "Isshin_04_NotEaten">>
+<<elseif not $isshinReedFieldSeen>>
+  <<goto "Isshin_05_ReedField">>
+<<else>>
+  <<goto "Isshin_06_FinalChoice">>
+<</if>>
+
+:: Isshin_01_FirstSake {"position":"2400,825","size":"100,100"}
 <<page>>
-<div class="narration">
-엠마가 말한 노인은 아직 모습을 드러내지 않았다.
+<<set $currentRoute = "isshin">>
+<<set $isshinProgress = Math.max($isshinProgress, 1)>>
 
-하지만 그가 있는 곳으로 가는 길은,
-이제 희미하게 보인다.
-</div>
+<<talk "isshin" "잇신">>
+왔느냐, 늑대.
+<</talk>>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return]]
+<div class="narration">잔은 이미 두 개 놓여 있었다.
+
+하나는 비어 있고,
+하나는 반쯤 차 있었다.</div>
+
+<<talk "isshin" "잇신">>
+앉아라.
+오늘은 베는 이야기가 아니다.
+<</talk>>
+
+<div class="narration">늑대는 선 채로 잔을 보았다.
+
+잇신이 웃었다.</div>
+
+<<talk "isshin" "잇신">>
+그렇게 노려보지 마라.
+술이 도망가겠다.
+<</talk>>
+
+<div class="choice-box">[[계속->Isshin_01_FirstSake_Choices]]</div>
+<</page>>
+
+:: Isshin_01_FirstSake_Choices {"position":"2525,825","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<link "잔을 받는다" "Isshin_01_FirstSake_Accept_Result">>
+  <<set $isshinLove += 1>>
+  <<set $isshinAcceptedSake = true>>
+  <<set $freedom += 1>>
+  <<set $isshinFirstSakeSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 1)>>
+  <<clampStats>>
+<</link>>
+
+<<link "마시지 않습니다" "Isshin_01_FirstSake_Refuse_Result">>
+  <<set $isolation += 1>>
+  <<set $isshinFirstSakeSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 1)>>
+  <<clampStats>>
+<</link>>
+
+<<link "냄새만 맡는다" "Isshin_01_FirstSake_Smell_Result">>
+  <<set $isshinLove += 1>>
+  <<set $isshinFirstSakeSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 1)>>
+  <<clampStats>>
+<</link>>
 </div>
+</div>
+<</page>>
+
+:: Isshin_01_FirstSake_Accept_Result {"position":"2650,825","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 잔을 받았다.
+
+술 냄새는 낯설었다.
+검집에 밴 기름 냄새와는 달랐다.
+
+잇신은 그것만으로도 충분하다는 듯 웃었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_01_FirstSake_Refuse_Result {"position":"2775,825","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 마시지 않는다고 말했다.
+
+잇신은 웃었다.
+웃음은 가벼웠다.
+
+하지만 비어 있는 잔은,
+그 뒤로도 계속 그 자리에 있었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_01_FirstSake_Smell_Result {"position":"2900,825","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 잔을 들지 않고,
+그 냄새만 맡았다.
+
+잇신은 더 크게 웃었다.
+
+그 어색한 수락은,
+거절보다는 오래 자리에 남았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_02_DangerousJoke {"position":"2400,975","size":"100,100"}
+<<page>>
+<<set $currentRoute = "isshin">>
+<<set $isshinProgress = Math.max($isshinProgress, 2)>>
+
+<<talk "isshin" "잇신">>
+너는 술에 약할 것 같구나.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<<talk "isshin" "잇신">>
+아니면,
+취해도 얼굴 하나 안 바뀔 상인가?
+<</talk>>
+
+<div class="narration">잇신은 웃었다.
+
+그 웃음은 가볍지만,
+눈은 늑대의 손을 보고 있었다.</div>
+
+<<talk "isshin" "잇신">>
+좋아하는 것이 있느냐, 늑대.
+검 말고.
+<</talk>>
+
+<div class="choice-box">[[계속->Isshin_02_DangerousJoke_Choices]]</div>
+<</page>>
+
+:: Isshin_02_DangerousJoke_Choices {"position":"2525,975","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<link "없습니다" "Isshin_02_DangerousJoke_Answer_Result">>
+  <<set $isolation += 1>>
+  <<set $isshinJokeSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 2)>>
+  <<clampStats>>
+<</link>>
+
+<<link "생각해본 적 없습니다" "Isshin_02_DangerousJoke_Silent_Result">>
+  <<set $isshinLove += 1>>
+  <<set $freedom += 1>>
+  <<set $isshinAnsweredAsPerson = true>>
+  <<set $isshinJokeSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 2)>>
+  <<clampStats>>
+<</link>>
+
+<<link "검을 본다" "Isshin_02_DangerousJoke_Sword_Result">>
+  <<set $shura += 1>>
+  <<set $isshinBadPortrait = true>>
+  <<set $isshinJokeSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 2)>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Isshin_02_DangerousJoke_Answer_Result {"position":"2650,975","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 없다고 말했다.
+
+잇신은 고개를 끄덕였다.
+비웃지는 않았다.
+
+그래서 그 말은,
+빈 잔처럼 잠시 남았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_02_DangerousJoke_Silent_Result {"position":"2775,975","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 생각해본 적 없다고 말했다.
+
+잇신은 고개를 끄덕였다.
+비웃지 않았다.
+
+그래서인지 그 말은,
+대답이 아니라 시작처럼 남았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_02_DangerousJoke_Sword_Result {"position":"2900,975","size":"100,100"}
+<<page>>
+<div class="narration">늑대의 시선은 검으로 내려갔다.
+
+잇신은 웃었다.
+이번에도 웃었지만,
+잔을 내려놓는 소리는 조금 낮았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_03_SwordEyes {"position":"2400,1125","size":"100,100"}
+<<page>>
+<<set $currentRoute = "isshin">>
+<<set $isshinProgress = Math.max($isshinProgress, 3)>>
+
+<<talk "isshin" "잇신">>
+좋은 눈이다.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<<talk "isshin" "잇신">>
+베는 눈이지.
+하지만 아직,
+베는 것밖에 모르는 눈은 아니다.
+<</talk>>
+
+<div class="narration">잇신은 잔을 들어올렸다.</div>
+
+<<talk "isshin" "잇신">>
+그 차이가 오래가야 한다.
+<</talk>>
+
+<div class="choice-box">[[계속->Isshin_03_SwordEyes_Choices]]</div>
+<</page>>
+
+:: Isshin_03_SwordEyes_Choices {"position":"2525,1125","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<link "그 차이를 묻는다" "Isshin_03_SwordEyes_Look_Result">>
+  <<set $isshinLove += 1>>
+  <<set $isshinHeardWarning = true>>
+  <<set $freedom += 1>>
+  <<set $isshinSwordEyesSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 3)>>
+  <<clampStats>>
+<</link>>
+
+<<link "시선을 피한다" "Isshin_03_SwordEyes_Avoid_Result">>
+  <<set $isolation += 1>>
+  <<set $isshinLookedAwayFromSword = true>>
+  <<set $isshinSwordEyesSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 3)>>
+  <<clampStats>>
+<</link>>
+
+<<link "검에 손을 둔다" "Isshin_03_SwordEyes_Draw_Result">>
+  <<set $shura += 1>>
+  <<set $isshinBadPortrait = true>>
+  <<set $isshinSwordEyesSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 3)>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Isshin_03_SwordEyes_Look_Result {"position":"2650,1125","size":"100,100"}
+<<page>>
+<div class="narration">잇신은 바로 대답하지 않았다.
+
+대신 잔을 기울였다.
+술이 목을 넘어가는 소리가 났다.
+
+그 기다림은,
+검을 뽑기 전의 정적과는 달랐다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_03_SwordEyes_Avoid_Result {"position":"2775,1125","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 시선을 피했다.
+
+잇신은 쫓아오지 않았다.
+다만 잔 안쪽에 남은 술이,
+오래 흔들렸다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_03_SwordEyes_Draw_Result {"position":"2900,1125","size":"100,100"}
+<<page>>
+<div class="narration">손은 자연스럽게 검으로 갔다.
+
+너무 자연스러워서,
+늑대는 그 움직임을 뒤늦게 알아차렸다.
+
+잇신의 눈이 가늘어졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_04_NotEaten {"position":"2400,1275","size":"100,100"}
+<<page>>
+<<set $currentRoute = "isshin">>
+<<set $isshinProgress = Math.max($isshinProgress, 4)>>
+
+<<talk "isshin" "잇신">>
+검을 쥐는 건 쉽다.
+<</talk>>
+
+<div class="narration">바람이 불었다.
+술잔의 표면이 흔들렸다.</div>
+
+<<talk "isshin" "잇신">>
+어려운 건,
+검에게 쥐어먹히지 않는 거다.
+<</talk>>
+
+<div class="narration">늑대는 그 말을 이해하지 못했다.
+
+혹은,
+너무 잘 이해했다.</div>
+
+<div class="choice-box">[[계속->Isshin_04_NotEaten_Choices]]</div>
+<</page>>
+
+:: Isshin_04_NotEaten_Choices {"position":"2525,1275","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<link "검에게 먹힌다는 뜻을 묻는다" "Isshin_04_NotEaten_Ask_Result">>
+  <<set $isshinLove += 1>>
+  <<set $isshinHeardWarning = true>>
+  <<set $freedom += 1>>
+  <<set $isshinLaughSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 4)>>
+  <<clampStats>>
+<</link>>
+
+<<link "그럴 일은 없습니다" "Isshin_04_NotEaten_Deny_Result">>
+  <<set $isolation += 1>>
+  <<set $danger += 1>>
+  <<set $isshinLaughSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 4)>>
+  <<clampStats>>
+<</link>>
+
+<<link "웃음소리를 듣는다" "Isshin_04_NotEaten_Laugh_Result">>
+  <<set $shura += 1>>
+  <<set $isshinBadPortrait = true>>
+  <<set $isshinLaughSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 4)>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Isshin_04_NotEaten_Ask_Result {"position":"2650,1275","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 물었다.
+
+잇신은 만족한 듯 웃었다.
+답을 알아서가 아니라,
+묻는 쪽에 아직 남아 있기 때문이었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_04_NotEaten_Deny_Result {"position":"2775,1275","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 그럴 일은 없다고 말했다.
+
+잇신은 술잔을 내려놓았다.
+부정은 짧았고,
+바람은 길었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_04_NotEaten_Laugh_Result {"position":"2900,1275","size":"100,100"}
+<<page>>
+<div class="narration">어디선가 웃음소리가 들린 것 같았다.
+
+잇신의 웃음은 아니었다.
+하지만 늑대는,
+그 소리를 구분하지 못했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_05_ReedField {"position":"2400,1425","size":"100,100"}
+<<page>>
+<<set $currentRoute = "isshin">>
+<<set $isshinProgress = Math.max($isshinProgress, 5)>>
+
+<div class="narration">잇신은 늑대를 갈대밭으로 데려갔다.
+
+바람이 낮게 불었다.</div>
+
+<<talk "isshin" "잇신">>
+여기서는 칼을 뽑아도 좋고,
+안 뽑아도 좋다.
+<</talk>>
+
+<div class="narration">늑대는 그 말을 이해하지 못했다.
+
+잇신은 웃으며 앉았다.</div>
+
+<<talk "isshin" "잇신">>
+그러니 오늘은 안 뽑아보자.
+<</talk>>
+
+<div class="choice-box">[[계속->Isshin_05_ReedField_Choices]]</div>
+<</page>>
+
+:: Isshin_05_ReedField_Choices {"position":"2525,1425","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<link "곁에 앉는다" "Isshin_05_ReedField_Sit_Result">>
+  <<set $isshinLove += 1>>
+  <<set $isshinSatWithoutSword = true>>
+  <<set $freedom += 1>>
+  <<set $isshinReedFieldSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 5)>>
+  <<clampStats>>
+<</link>>
+
+<<link "선 채로 있는다" "Isshin_05_ReedField_Stand_Result">>
+  <<set $isolation += 1>>
+  <<set $isshinReedFieldSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 5)>>
+  <<clampStats>>
+<</link>>
+
+<<link "검을 확인한다" "Isshin_05_ReedField_Sword_Result">>
+  <<set $shura += 1>>
+  <<set $isshinBadPortrait = true>>
+  <<set $isshinReedFieldSeen = true>>
+  <<set $isshinProgress = Math.max($isshinProgress, 5)>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Isshin_05_ReedField_Sit_Result {"position":"2650,1425","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 앉았다.
+
+검은 여전히 곁에 있었다.
+하지만 이번에는,
+검이 먼저 자리를 차지하지 않았다.
+
+잇신은 그것을 보고 웃었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_05_ReedField_Stand_Result {"position":"2775,1425","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 선 채로 있었다.
+
+갈대는 앉은 자와 선 자를 가리지 않고 흔들렸다.
+하지만 빈자리는,
+오래 비어 있는 모양을 했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_05_ReedField_Sword_Result {"position":"2900,1425","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 검을 확인했다.
+
+칼집은 닫혀 있었다.
+그런데도 갈대가 베인 듯,
+바람 소리가 잠시 끊겼다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: Isshin_06_FinalChoice {"position":"2400,1575","size":"100,100"}
+<<page>>
+<<set $currentRoute = "isshin">>
+<<set $isshinProgress = Math.max($isshinProgress, 6)>>
+
+<div class="narration">갈대밭에 해가 기울어 있었다.
+
+잇신은 빈 잔을 흔들었다.</div>
+
+<<talk "isshin" "잇신">>
+늑대.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+…
+<</talk>>
+
+<<talk "isshin" "잇신">>
+네가 검을 드는 건 보았다.
+<</talk>>
+
+<div class="narration">잇신이 웃었다.</div>
+
+<<talk "isshin" "잇신">>
+이제 술잔을 드는 것도 보았군.
+<</talk>>
+
+<<talk "isshin" "잇신">>
+어느 쪽이 더 무겁더냐?
+<</talk>>
+
+<div class="choice-box">[[계속->Isshin_06_FinalChoice_Choices]]</div>
+<</page>>
+
+:: Isshin_06_FinalChoice_Choices {"position":"2525,1575","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<if $isshinLove >= 4 or $isshinSatWithoutSword or $isshinHeardWarning>>
+<<link "술잔을 든다" "Ending_Isshin_ReedSake">>
+  <<set $isshinDone = true>>
+  <<set $completedIsshin = true>>
+  <<set $isshinGoodEndingSeen = true>>
+  <<set $anyEndingSeen = true>>
+  <<if $sculptorDone and $isshinDone>>
+    <<set $shuraUnlocked = true>>
+  <</if>>
+  <<clampStats>>
+<</link>>
+<</if>>
+
+<<link "빈 잔을 내려놓는다" "BadEnd_Isshin_EmptyCup">>
+  <<set $isshinDone = true>>
+  <<set $completedIsshin = true>>
+  <<set $isshinBadEmptyCupSeen = true>>
+  <<set $badEndingSeen = true>>
+  <<set $anyEndingSeen = true>>
+  <<if $sculptorDone and $isshinDone>>
+    <<set $shuraUnlocked = true>>
+  <</if>>
+  <<clampStats>>
+<</link>>
+
+<<link "검을 든다" "BadEnd_Isshin_SwordDemonLaugh">>
+  <<set $isshinDone = true>>
+  <<set $completedIsshin = true>>
+  <<set $isshinBadSwordLaughSeen = true>>
+  <<set $badEndingSeen = true>>
+  <<set $anyEndingSeen = true>>
+  <<set $shura += 2>>
+  <<set $isshinBadPortrait = true>>
+  <<set $isshinRouteBad = true>>
+  <<if $sculptorDone and $isshinDone>>
+    <<set $shuraUnlocked = true>>
+  <</if>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake {"position":"2400,1750","size":"100,100"}
+<<page>>
+<<set $isshinDone = true>>
+<<set $completedIsshin = true>>
+<<set $isshinGoodEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<markEndingSeen>>
+<<if $sculptorDone and $isshinDone>>
+  <<set $shuraUnlocked = true>>
+<</if>>
+<div class="narration narration-full short-beat">늑대는 검이 아니라 술잔을 들었다.</div>
+<div class="choice-box">[[계속->Ending_Isshin_ReedSake_02]]</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake_02 {"position":"2525,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">검은 여전히 곁에 있었다.
+
+하지만 이번에는,
+검이 늑대를 먼저 부르지 않았다.</div>
+<div class="choice-box">[[계속->Ending_Isshin_ReedSake_03]]</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake_03 {"position":"2650,1750","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+무겁습니까.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Isshin_ReedSake_04]]</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake_04 {"position":"2775,1750","size":"100,100"}
+<<page>>
+<<talk "isshin:like" "잇신">>
+가볍지는 않지.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Isshin_ReedSake_05]]</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake_05 {"position":"2900,1750","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+검보다도 말입니까.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Isshin_ReedSake_06]]</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake_06 {"position":"3025,1750","size":"100,100"}
+<<page>>
+<div class="narration">잇신은 웃었다.</div>
+
+<<talk "isshin:like" "잇신">>
+그건 네가 정할 일이다.
+<</talk>>
+
+<div class="choice-box">[[계속->Ending_Isshin_ReedSake_End]]</div>
+<</page>>
+
+:: Ending_Isshin_ReedSake_End {"position":"3150,1750","size":"100,100"}
+<<page>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 갈대밭의 술자리]</div>
+<</page>>
+
+:: BadEnd_Isshin_EmptyCup {"position":"2400,1925","size":"100,100"}
+<<page>>
+<<set $isshinDone = true>>
+<<set $completedIsshin = true>>
+<<set $isshinBadEmptyCupSeen = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<markEndingSeen>>
+<<if $sculptorDone and $isshinDone>>
+  <<set $shuraUnlocked = true>>
+<</if>>
+<div class="narration narration-full short-beat">잔은 비어 있었다.</div>
+<div class="choice-box">[[계속->BadEnd_Isshin_EmptyCup_02]]</div>
+<</page>>
+
+:: BadEnd_Isshin_EmptyCup_02 {"position":"2525,1925","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">비어 있었기 때문에,
+무엇이 담길 수 있었는지 알 수 없었다.</div>
+<div class="choice-box">[[계속->BadEnd_Isshin_EmptyCup_03]]</div>
+<</page>>
+
+:: BadEnd_Isshin_EmptyCup_03 {"position":"2650,1925","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">늑대는 그 잔을 보았다.
+
+끝내 들지 않은 것의 무게가,
+검보다 가벼운지는 알 수 없었다.</div>
+<div class="choice-box">[[계속->BadEnd_Isshin_EmptyCup_End]]</div>
+<</page>>
+
+:: BadEnd_Isshin_EmptyCup_End {"position":"2775,1925","size":"100,100"}
+<<page>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 빈 술잔]</div>
+<</page>>
+
+:: BadEnd_Isshin_SwordDemonLaugh {"position":"2400,2100","size":"100,100"}
+<<page>>
+<<set $isshinDone = true>>
+<<set $completedIsshin = true>>
+<<set $isshinBadSwordLaughSeen = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $shura += 2>>
+<<set $isshinBadPortrait = true>>
+<<set $isshinRouteBad = true>>
+<<markEndingSeen>>
+<<if $sculptorDone and $isshinDone>>
+  <<set $shuraUnlocked = true>>
+<</if>>
+<<clampStats>>
+<div class="narration narration-full short-beat">검이 뽑혔다.</div>
+<div class="choice-box">[[계속->BadEnd_Isshin_SwordDemonLaugh_02]]</div>
+<</page>>
+
+:: BadEnd_Isshin_SwordDemonLaugh_02 {"position":"2525,2100","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">갈대가 흔들렸다.
+술잔은 쓰러지지 않았다.</div>
+<div class="choice-box">[[계속->BadEnd_Isshin_SwordDemonLaugh_03]]</div>
+<</page>>
+
+:: BadEnd_Isshin_SwordDemonLaugh_03 {"position":"2650,2100","size":"100,100"}
+<<page>>
+<<talk "isshin:bad" "잇신">>
+…
+<</talk>>
+
+<div class="narration">잇신은 웃었다.
+
+그 웃음은,
+늑대가 처음으로 이해할 수 있는 말이었다.</div>
+<div class="choice-box">[[계속->BadEnd_Isshin_SwordDemonLaugh_End]]</div>
+<</page>>
+
+:: BadEnd_Isshin_SwordDemonLaugh_End {"position":"2775,2100","size":"100,100"}
+<<page>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 검귀의 웃음]</div>
 <</page>>

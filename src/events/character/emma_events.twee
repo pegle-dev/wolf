@@ -1,27 +1,90 @@
 :: Event_Emma_IsshinIntro {"position":"1900,1350","size":"100,100"}
+<<goto "Emma_IntroduceIsshin">>
+
+:: Emma_IntroduceIsshin {"position":"1900,1475","size":"100,100"}
 <<page>>
-<<set $emmaIsshinIntroSeen = true>>
-<<set $isshinUnlocked = true>>
+<<set $emmaEventUnlocked = true>>
+<div class="narration">엠마는 늑대가 잠시 멈춰 선 순간을 보았다.
 
-<div class="narration">
-황폐한 절로 돌아오는 길목에서,
-엠마가 조용히 늑대를 기다리고 있었다.
+그의 손이 검자루 위에서,
+아주 조금 늦게 떨어졌다.</div>
 
-그녀는 망설이다가,
-아시나의 한 노인에 대해 말했다.
+<<talk "emma" "엠마">>
+늑대 님.
+<</talk>>
 
-검을 쥔 채 웃는 법을 알고 있는 사람.
+<<talk "wolf" "늑대">>
+…
+<</talk>>
 
-그리고 어쩌면,
-늑대가 만나야 할 사람.
+<<talk "emma" "엠마">>
+혹시…
+술을 드신 적이 있으십니까?
+<</talk>>
+
+<div class="narration">늑대는 대답하지 않았다.
+
+엠마는 작게 숨을 고른다.</div>
+
+<<talk "emma" "엠마">>
+검을 내려놓는 법을 아는 분이 한 분 계십니다.
+<</talk>>
+
+<<talk "emma" "엠마">>
+정확히는,
+검을 든 채 웃는 법을 아는 분이요.
+<</talk>>
+
+<div class="choice-box">[[계속->Emma_IntroduceIsshin_Choices]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Choices {"position":"2025,1475","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="story-choice-box">
+<<link "그 사람을 묻는다" "Emma_IntroduceIsshin_Accept_Result">>
+  <<set $emmaIntroducedIsshin = true>>
+  <<set $emmaIsshinIntroSeen = true>>
+  <<set $isshinUnlocked = true>>
+  <<set $freedom += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "필요 없다고 한다" "Emma_IntroduceIsshin_Refuse_Result">>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
 </div>
-
-<div class="choice-box">
-[[돌아간다->Temple_Return_Hub]]
 </div>
 <</page>>
 
-/* Future Emma event slots:
+:: Emma_IntroduceIsshin_Accept_Result {"position":"2150,1475","size":"100,100"}
+<<page>>
+<div class="narration">엠마는 아주 조금 안도한 얼굴을 했다.
+
+그 표정은 오래가지 않았다.
+하지만 늑대는 보았다.
+
+누군가가 자신을,
+검이 아닌 쪽으로 보내려 한다는 것을.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return_Hub]]</div>
+<</page>>
+
+:: Emma_IntroduceIsshin_Refuse_Result {"position":"2275,1475","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 필요 없다고 말했다.
+
+엠마는 고개를 숙였다.
+더 권하지는 않았다.
+
+그 조용한 물러섬이,
+이상하게 오래 남았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return_Hub]]</div>
+<</page>>
+
+/% Future Emma event slots:
    - Event_Emma_ShuraWarning
    - Event_Emma_InjuryCheck
-*/
+%/

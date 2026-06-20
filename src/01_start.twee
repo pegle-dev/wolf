@@ -22,7 +22,15 @@ Wolf
   <div class="game-tagline">검을 거두고, 말로 받아내며, 그들과의 거리를 깎자.</div>
 
   <div class="title-menu">
+    <div class="title-menu-item">
     [[처음부터->Intro_01]]
+    </div>
+
+    <<if $anyEndingSeen>>
+    <div class="title-menu-item">
+    [[이어간다->Temple]]
+    </div>
+    <</if>>
 
     <<if $hiddenRevivalUnlocked and not $hiddenRevivalSeen>>
     <div class="hidden-revival-title">

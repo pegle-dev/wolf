@@ -233,6 +233,6 @@
 <<page>>
 <<set $hiddenRevivalDone = true>>
 <<set $anyEndingSeen = true>>
-<div class="ending-stamp">[End. 돌아갈 길]</div>
-<div class="choice-box">[[타이틀로 돌아간다->Start]]</div>
+<<markEndingSeen>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 돌아갈 길]</div>
 <</page>>

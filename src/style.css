@@ -5,6 +5,30 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'WolfBodySerif';
+  src: url('assets/Font/NotoSerifKR-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WolfTitleKR';
+  src: url('assets/Font/ChosunSm.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WolfMainTitle';
+  src: url('assets/Font/Cinzel-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --game-w: 960px;
   --game-h: 720px;
@@ -28,7 +52,7 @@ body {
   height: 100%;
   background: #000;
   color: var(--text);
-  font-family: 'NeoDunggeunmo Pro', monospace;
+  font-family: 'WolfBodySerif', serif;
   font-size: 22px;
   line-height: 1.34;
   overflow: hidden;
@@ -599,43 +623,64 @@ body.status-hidden .outer-dev-ui {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding-bottom: 86px;
+  padding-top: 46px;
   background: #000;
   color: var(--text);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow: hidden;
 }
 
 .game-title {
-  font-size: 64px;
+  font-size: 100px;
+  line-height: 1;
   color: #fff;
-  letter-spacing: 0.18em;
-  margin-bottom: 4px;
+  letter-spacing: 0.14em;
+  margin: 0;
 }
 
 .game-subtitle-en {
   font-size: 24px;
   color: #888;
   letter-spacing: 0.22em;
-  margin-bottom: 30px;
+  margin: 18px 0 0;
 }
 
 .game-tagline {
   font-size: 20px;
   color: #aaa;
   letter-spacing: 0.04em;
-  margin-bottom: 48px;
+  margin: 62px 0 0;
 }
 
 .title-menu {
   font-size: 22px;
   text-align: left;
+  margin-top: 18px;
+  margin-bottom: 3.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.title-menu-item {
+  margin: 0;
+  padding: 0;
+  line-height: 1.25;
+}
+
+.title-menu-item:first-child {
+  margin-bottom: 12px;
 }
 
 .title-menu a {
+  display: inline-block;
+  width: fit-content;
+  margin: 0;
   color: #fff;
   text-decoration: none;
   border-bottom: 1px solid #666;
@@ -963,7 +1008,7 @@ body.status-hidden .outer-dev-ui {
 
 /* 게임 전체를 같은 비율로 축소해서 작은 브라우저에서도 한 화면에 잘 보이게 함. */
 .passage {
-  transform: scale(var(--ui-scale));
+  transform: translateY(-30px) scale(var(--ui-scale));
   transform-origin: center center;
 }
 
@@ -1400,11 +1445,17 @@ body.status-hidden .outer-dev-ui {
   --bg-temple: url('assets/backgrounds/Temple.png');
   --bg-training: url('assets/backgrounds/TrainingArea.png');
   --bg-nightpatrol: url('assets/backgrounds/NightPatrol01.png');
+  --bg-nightpatrol-01: url('assets/backgrounds/NightPatrol01.png');
+  --bg-nightpatrol-02: url('assets/backgrounds/NightPatrol02.png');
+  --bg-nightpatrol-03: url('assets/backgrounds/NightPatrol03.png');
+  --bg-nightpatrol-04: url('assets/backgrounds/NightPatrol04.png');
+  --bg-nightpatrol-05: url('assets/backgrounds/NightPatrol05.png');
   --bg-night: url('assets/backgrounds/Night.png');
   --bg-room: url('assets/backgrounds/Room01.png');
   --bg-ashina: url('assets/backgrounds/AshinaTower.png');
   --bg-intro: url('assets/backgrounds/Intro.png');
   --bg-dawn: url('assets/backgrounds/Dawn.png');
+  --bg-true: url('assets/backgrounds/True.png');
   --bg-overlay: rgba(0, 0, 0, 0.30);
 
   --narration-pad-top: 30px;
@@ -1423,6 +1474,26 @@ body.status-hidden .outer-dev-ui {
   --scene-bg: var(--bg-nightpatrol);
 }
 
+.page-stage.bg-nightpatrol-01 {
+  --scene-bg: var(--bg-nightpatrol-01);
+}
+
+.page-stage.bg-nightpatrol-02 {
+  --scene-bg: var(--bg-nightpatrol-02);
+}
+
+.page-stage.bg-nightpatrol-03 {
+  --scene-bg: var(--bg-nightpatrol-03);
+}
+
+.page-stage.bg-nightpatrol-04 {
+  --scene-bg: var(--bg-nightpatrol-04);
+}
+
+.page-stage.bg-nightpatrol-05 {
+  --scene-bg: var(--bg-nightpatrol-05);
+}
+
 .page-stage.bg-night {
   --scene-bg: var(--bg-night);
 }
@@ -1437,6 +1508,10 @@ body.status-hidden .outer-dev-ui {
 
 .page-stage.bg-dawn {
   --scene-bg: var(--bg-dawn);
+}
+
+.page-stage.bg-true {
+  --scene-bg: var(--bg-true);
 }
 
 .page-stage.bg-black {
@@ -1814,6 +1889,17 @@ body.status-hidden .outer-dev-ui {
   padding-bottom: 34px;
 }
 
+.talk-row .dialogue {
+  line-height: 1.9;
+}
+
+.talk-row .textbox-panel,
+.beat-row .beat-panel {
+  background: rgba(0, 0, 0, 0.90);
+  border: 1px solid rgba(220, 220, 220, 0.24);
+  box-shadow: none;
+}
+
 .page-stage.has-talk.has-choice .choice-box:not(.next-only),
 .page-stage.has-talk.has-choice .choice-box.after-talk:not(.next-only) {
   position: absolute;
@@ -1918,9 +2004,9 @@ body.status-hidden .outer-dev-ui {
   width: fit-content;
   max-width: 760px;
   padding: 18px 52px;
-  background: rgba(0, 0, 0, 0.34);
+  background: transparent;
   border: 0;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
   text-align: center;
   word-break: keep-all;
   overflow-wrap: normal;
@@ -1982,6 +2068,26 @@ body.status-hidden .outer-dev-ui {
   --scene-bg: var(--bg-nightpatrol);
 }
 
+.wolf-page.bg-night-patrol-02,
+.wolf-page.bg-nightpatrol-02 {
+  --scene-bg: var(--bg-nightpatrol-02);
+}
+
+.wolf-page.bg-night-patrol-03,
+.wolf-page.bg-nightpatrol-03 {
+  --scene-bg: var(--bg-nightpatrol-03);
+}
+
+.wolf-page.bg-night-patrol-04,
+.wolf-page.bg-nightpatrol-04 {
+  --scene-bg: var(--bg-nightpatrol-04);
+}
+
+.wolf-page.bg-night-patrol-05,
+.wolf-page.bg-nightpatrol-05 {
+  --scene-bg: var(--bg-nightpatrol-05);
+}
+
 .wolf-page.bg-night {
   --scene-bg: var(--bg-night);
 }
@@ -1997,6 +2103,10 @@ body.status-hidden .outer-dev-ui {
 
 .wolf-page.bg-dawn {
   --scene-bg: var(--bg-dawn);
+}
+
+.wolf-page.bg-true {
+  --scene-bg: var(--bg-true);
 }
 
 .wolf-page.same-bg,
@@ -2065,9 +2175,9 @@ body.status-hidden .outer-dev-ui {
   width: fit-content;
   max-width: 760px;
   padding: 18px 52px;
-  background: rgba(0, 0, 0, 0.34);
+  background: transparent;
   border: 0;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
   text-align: center;
   white-space: pre-line;
   word-break: keep-all;
@@ -2085,6 +2195,18 @@ body.status-hidden .outer-dev-ui {
   border: 0;
   box-shadow: none;
   align-items: center;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only):not(.temple-hub-choices),
+.wolf-page.narration-only .choice-box:not(.next-only):not(.temple-hub-choices) {
+  max-width: min(72vw, 520px);
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.page-stage.no-talk .choice-box:not(.next-only):not(.temple-hub-choices) a,
+.wolf-page.narration-only .choice-box:not(.next-only):not(.temple-hub-choices) a {
+  white-space: nowrap;
 }
 
 .wolf-page.has-talk .choice-box:not(.next-only) {
@@ -2252,6 +2374,111 @@ body.status-hidden .outer-dev-ui {
   word-break: keep-all;
 }
 
+.page-stage.ending-screen .ending-stamp {
+  animation: wolf-ending-stamp-in 2200ms ease-out both;
+}
+
+.page-stage.ending-screen .ending-stamp[data-next] {
+  cursor: default;
+  pointer-events: none;
+}
+
+.ending-return-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  animation: wolf-ending-return-fade-in 900ms ease-out both;
+}
+
+.ending-return-screen.is-leaving {
+  animation: wolf-ending-return-fade-out 700ms ease-in both;
+}
+
+.page-stage.ending-return-stage {
+  overflow: hidden;
+}
+
+.page-stage.ending-return-stage .page-box,
+.page-stage.ending-return-stage.no-talk .page-text {
+  position: absolute;
+  inset: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.page-stage.ending-return-stage .ending-return-screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.page-stage.ending-return-stage .ending-return-screen .choice-box,
+.ending-return-screen .choice-box {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  min-width: 0;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+  text-align: center;
+  overflow: visible !important;
+}
+
+.page-stage.ending-return-stage .ending-return-screen .choice-box a,
+.ending-return-screen .choice-box a {
+  display: inline-block;
+  color: var(--white);
+  font-size: 20px;
+  line-height: 1.4;
+  text-decoration: none;
+  opacity: 0.78;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.ending-return-screen .choice-box a:hover {
+  opacity: 1;
+}
+
+@keyframes wolf-ending-return-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wolf-ending-return-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .page-stage.ending-screen {
   background: #000;
   opacity: 1 !important;
@@ -2369,7 +2596,7 @@ body.status-hidden .outer-dev-ui {
 }
 
 .page-stage.final-still-sequence .ending-stamp {
-  animation: wolf-ending-stamp-in 900ms ease-out both;
+  animation: wolf-ending-stamp-in 2200ms ease-out both;
 }
 
 .page-stage.sequence-vanish.is-sequence-exiting .narration-full,
@@ -2516,9 +2743,13 @@ body.status-hidden .outer-dev-ui {
   opacity: 0.76;
 }
 
+.intro-sequence.intro-tight .intro-line {
+  margin-bottom: 0;
+}
+
 .intro-line:last-child {
   opacity: 1;
-  animation: wolf-intro-line-in 900ms ease-out both;
+  animation: wolf-intro-line-in 1800ms ease-out both;
 }
 
 .intro-line.intro-final {
@@ -2575,4 +2806,349 @@ body.status-hidden .outer-dev-ui {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.page-stage.intro-screen .intro-line,
+.wolf-page.intro-screen .intro-line {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: wolf-intro-line-fade 1100ms ease-out both;
+}
+
+.page-stage.intro-screen .intro-line:last-child,
+.wolf-page.intro-screen .intro-line:last-child {
+  opacity: 0;
+  animation-name: wolf-intro-line-fade;
+}
+
+.page-stage.intro-screen .choice-box.intro-continue,
+.wolf-page.intro-screen .choice-box.intro-continue {
+  opacity: 0;
+  animation: wolf-intro-choice-fade 800ms ease-out both;
+}
+
+@keyframes wolf-intro-line-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 0.82;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wolf-intro-choice-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-stage.intro-screen .intro-line,
+  .wolf-page.intro-screen .intro-line,
+  .page-stage.intro-screen .choice-box.intro-continue,
+  .wolf-page.intro-screen .choice-box.intro-continue {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* =========================
+   Wolf font roles
+========================= */
+
+body,
+#story,
+#passages,
+.passage,
+.wolf-page,
+.page-stage,
+.page-text,
+.narration,
+.narration-full,
+.narration-over-talk,
+.dialogue,
+.beat-dialogue,
+.textbox-panel,
+.choice-box,
+.choice-box a,
+.talk-nameplate,
+.nameplate,
+.outer-vars-panel,
+.outer-dev-ui,
+.outer-dev-jump,
+#ui-bar,
+#ui-bar-body,
+#menu,
+#menu-core,
+#menu-story {
+  font-family: 'WolfBodySerif', serif !important;
+}
+
+.game-title {
+  font-family: 'WolfMainTitle', serif !important;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+
+.game-subtitle-en,
+.game-tagline,
+.title-subtext,
+.chapter-title,
+.ending-stamp,
+.ending-title,
+.ending-text,
+.intro-line.intro-final,
+.outer-vars-title,
+.outer-dev-jumps-title,
+#story-title,
+#story-author {
+  font-family: 'WolfTitleKR', serif !important;
+  font-weight: 400;
+}
+
+/* =========================
+   Temple hub layout
+========================= */
+
+.page-stage.temple-hub.no-talk .page-text,
+.wolf-page.temple-hub.narration-only .wolf-content {
+  position: absolute;
+  inset: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  padding: 0 72px 230px;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.page-stage.temple-hub.no-talk .page-text > .narration,
+.page-stage.temple-hub.no-talk .page-text > .narration-full,
+.wolf-page.temple-hub.narration-only .wolf-content > .narration,
+.wolf-page.temple-hub.narration-only .wolf-content > .narration-full {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: fit-content;
+  max-width: 720px;
+  margin: 0 auto 10px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-align: center;
+}
+
+.page-stage.temple-hub.no-talk .choice-box:not(.next-only),
+.page-stage.temple-hub.no-talk .choice-box.temple-hub-choices,
+.wolf-page.temple-hub.narration-only .choice-box:not(.next-only),
+.wolf-page.temple-hub.narration-only .choice-box.temple-hub-choices {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 108px !important;
+  transform: translateX(-50%) !important;
+  width: min(72%, 560px) !important;
+  min-width: 0 !important;
+  max-width: 560px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  overflow: visible !important;
+  text-align: center;
+}
+
+.page-stage.temple-hub.no-talk .choice-box:not(.next-only) a,
+.page-stage.temple-hub.no-talk .choice-box.temple-hub-choices a,
+.wolf-page.temple-hub.narration-only .choice-box:not(.next-only) a,
+.wolf-page.temple-hub.narration-only .choice-box.temple-hub-choices a {
+  display: inline-block;
+  width: auto !important;
+  max-width: 100%;
+  padding: 2px 8px;
+  text-align: center;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* =========================
+   Location label
+========================= */
+
+.location-label {
+  position: absolute;
+  left: 36px;
+  top: 28px;
+  z-index: 15;
+  padding: 5px 12px;
+  box-sizing: border-box;
+  font-family: 'WolfTitleKR', 'WolfBodySerif', serif;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: rgba(245, 245, 245, 0.62);
+  background: rgba(0, 0, 0, 0.18);
+  border: 0;
+  box-shadow: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.wolf-page.same-bg .location-label,
+.page-stage.same-bg .location-label {
+  animation: wolf-ui-fade-in 140ms ease-out both;
+}
+
+/* General route continue buttons: fixed within the game stage. */
+.page-stage:not(.intro-screen):not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .choice-box.continue-row,
+.wolf-page:not(.intro-screen):not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .choice-box.continue-row {
+  position: absolute !important;
+  right: var(--wolf-next-right) !important;
+  bottom: var(--wolf-next-bottom) !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: auto !important;
+  min-width: var(--wolf-next-min-width);
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+  overflow: visible !important;
+  z-index: 92;
+  text-align: right;
+}
+
+.page-stage:not(.intro-screen):not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .choice-box.continue-row a,
+.wolf-page:not(.intro-screen):not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .choice-box.continue-row a {
+  display: inline-block !important;
+  width: auto !important;
+  padding: 8px 12px;
+  line-height: 1.25;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Story route choice-only pages. */
+.page-stage .route-choice-screen,
+.wolf-page .route-choice-screen,
+.page-stage .story-choice-layer,
+.wolf-page .story-choice-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 48px;
+  transform: translateY(8vh);
+  text-align: center;
+  pointer-events: none;
+}
+
+.page-stage .route-choice-screen .route-choice-box,
+.wolf-page .route-choice-screen .route-choice-box,
+.page-stage .story-choice-layer .story-choice-box,
+.wolf-page .story-choice-layer .story-choice-box {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: min(520px, 80vw) !important;
+  min-width: 0 !important;
+  max-width: min(520px, 80vw) !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  overflow: visible !important;
+  text-align: center !important;
+  pointer-events: auto;
+}
+
+.page-stage .route-choice-screen .route-choice-box a,
+.wolf-page .route-choice-screen .route-choice-box a,
+.page-stage .story-choice-layer .story-choice-box a,
+.wolf-page .story-choice-layer .story-choice-box a {
+  display: inline-block !important;
+  width: auto !important;
+  max-width: 100%;
+  padding: 3px 10px;
+  text-align: center !important;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Ending return screen: keep the single return link centered. */
+.page-stage.ending-return-stage .ending-return-screen .choice-box {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 80% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.page-stage.ending-return-stage .ending-return-screen .choice-box a {
+  display: inline-block !important;
+  width: auto !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  white-space: nowrap;
 }

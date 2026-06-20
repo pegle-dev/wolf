@@ -1,86 +1,917 @@
 :: NightPatrol_Random {"position":"2000,925","size":"100,100"}
-<<page>>
-<<set _event = random(1, 6)>>
+<<goto "NightPatrol_Roll">>
 
-<<if _event == 1>>
+:: NightPatrol_Roll {"position":"2125,925","size":"100,100"}
+<<set _place = random(1, 5)>>
 
-<div class="narration">어둠이 내려앉은 심야다.
-
-하지만 늑대는 아시나 병사들의 공격을 피해
-한참 지붕 위를 내달리고 있다.
-
-아슬아슬하게 불화살이 뺨을 스친다.
-
-휴식은 멀었다.</div>
-
-<<set $danger += 1>>
-
-<<elseif _event == 2>>
-
-<div class="narration">밤길 끝에서, 이름 모를 노파가 늑대를 불러 세웠다.
-
-그녀는 늑대가 누구인지도 묻지 않고,
-작은 부적 하나를 손에 쥐여주었다.
-
-혼자가 아닌 밤도 있다.</div>
-
-<<set $isolation = Math.max(0, $isolation - 1)>>
-
-<<elseif _event == 3>>
-
-<div class="narration">어둠 속에서 발소리가 따라붙었다.
-
-늑대는 뒤돌아보지 않았다.
-
-뒤돌아보면,
-무언가가 시작될 것 같았다.</div>
-
-<<set $danger += 1>>
-
-<<elseif _event == 4>>
-
-<div class="narration">낡은 처마 밑에서 술병 하나를 주웠다.
-
-아직 조금 남아 있다.</div>
-
-<<set $hasSake = true>>
-
-<<elseif _event == 5>>
-
-<div class="narration">멀리서 종소리가 들렸다.
-
-누군가 죽었거나,
-누군가 살아남았거나.
-
-그 둘의 차이는
-이 밤엔 그리 크지 않았다.</div>
-
+<<if $danger >= 6 or $shura >= 5>>
+  <<set _risk = "High">>
+<<elseif $danger >= 3 or $isolation >= 4>>
+  <<set _risk = "Mid">>
 <<else>>
-
-<div class="narration">칼집 안쪽에서,
-검이 아주 작게 떨렸다.
-
-늑대는 그것을 모른 척했다.</div>
-
-<<set $shura += 1>>
-
+  <<set _risk = "Low">>
 <</if>>
-<div class="choice-box">[[황폐한 절로 돌아간다->Temple_AfterNight]]</div>
+
+<<if _place == 1 and _risk == "Low">>
+  <<goto "NightPatrol01_Low">>
+<<elseif _place == 1 and _risk == "Mid">>
+  <<goto "NightPatrol01_Mid">>
+<<elseif _place == 1 and _risk == "High">>
+  <<goto "NightPatrol01_High">>
+
+<<elseif _place == 2 and _risk == "Low">>
+  <<goto "NightPatrol02_Low">>
+<<elseif _place == 2 and _risk == "Mid">>
+  <<goto "NightPatrol02_Mid">>
+<<elseif _place == 2 and _risk == "High">>
+  <<goto "NightPatrol02_High">>
+
+<<elseif _place == 3 and _risk == "Low">>
+  <<goto "NightPatrol03_Low">>
+<<elseif _place == 3 and _risk == "Mid">>
+  <<goto "NightPatrol03_Mid">>
+<<elseif _place == 3 and _risk == "High">>
+  <<goto "NightPatrol03_High">>
+
+<<elseif _place == 4 and _risk == "Low">>
+  <<goto "NightPatrol04_Low">>
+<<elseif _place == 4 and _risk == "Mid">>
+  <<goto "NightPatrol04_Mid">>
+<<elseif _place == 4 and _risk == "High">>
+  <<goto "NightPatrol04_High">>
+
+<<elseif _place == 5 and _risk == "Low">>
+  <<goto "NightPatrol05_Low">>
+<<elseif _place == 5 and _risk == "Mid">>
+  <<goto "NightPatrol05_Mid">>
+<<else>>
+  <<goto "NightPatrol05_High">>
+<</if>>
+
+:: NightPatrol01_Low {"position":"2300,800","size":"100,100"}
+<<page>>
+<div class="narration-full">
+돌계단은 축축했다.
+
+늑대는 한동안 그 아래에 멈춰 섰다.
+
+위쪽에서 발소리가 난 듯했으나,
+곧 바람뿐이 되었다.
+</div>
+
+<div class="choice-box">
+<<link "귀를 기울인다" "NightPatrol01_Low_Listen_Result">>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "그냥 돌아간다" "NightPatrol01_Low_Return_Result">>
+  <<set $isolation += 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol01_Mid {"position":"2425,800","size":"100,100"}
+<<page>>
+<div class="narration-full">
+계단 옆 벽에 손자국이 남아 있었다.
+
+피는 마른 듯했고,
+아직 젖은 듯도 했다.
+
+위쪽 어둠에서 무언가가 숨을 삼켰다.
+</div>
+
+<div class="choice-box">
+<<link "올라가 본다" "NightPatrol01_Mid_Climb_Result">>
+  <<set $danger += 1>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "흔적만 확인하고 돌아간다" "NightPatrol01_Mid_CheckTrace_Result">>
+  <<clampStats>>
+<</link>>
+<<link "보지 못한 척한다" "NightPatrol01_Mid_LookAway_Result">>
+  <<set $isolation += 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol01_High {"position":"2550,800","size":"100,100"}
+<<page>>
+<div class="narration-full">
+계단 위에 병사 하나가 쓰러져 있었다.
+
+아직 숨이 붙어 있었다.
+
+그는 늑대를 보자,
+도망치려는 대신 눈을 감았다.
+</div>
+
+<div class="choice-box">
+<<link "숨이 붙어 있는지 확인한다" "NightPatrol01_High_CheckBreath_Result">>
+  <<set $danger += 1>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "지나친다" "NightPatrol01_High_Pass_Result">>
+  <<set $isolation += 2>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+<<link "끝낸다" "NightPatrol01_High_End_Result">>
+  <<set $shura += 1>>
+  <<set $danger += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol02_Low {"position":"2300,950","size":"100,100"}
+<<page>>
+<div class="narration-full">
+빈집 골목에는 아직 사람의 흔적이 남아 있었다.
+
+문턱에는 작은 신발 한 짝.
+
+바람이 불 때마다,
+문은 안쪽에서 대답하듯 삐걱였다.
+</div>
+
+<div class="choice-box">
+<<link "신발을 문 안쪽에 놓아둔다" "NightPatrol02_Low_PlaceShoes_Result">>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "그대로 둔다" "NightPatrol02_Low_LeaveShoes_Result">>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol02_Mid {"position":"2425,950","size":"100,100"}
+<<page>>
+<div class="narration-full">
+문틈 사이로 작은 숨소리가 들렸다.
+
+늑대가 가까이 다가가자,
+안쪽에서 급히 빗장이 걸렸다.
+
+그 소리는 칼이 뽑히는 소리보다도 작았다.
+</div>
+
+<div class="choice-box">
+<<link "물러난다" "NightPatrol02_Mid_BackAway_Result">>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "안전을 확인한다" "NightPatrol02_Mid_CheckSafety_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+<<link "아무 말 없이 지나친다" "NightPatrol02_Mid_PassSilent_Result">>
+  <<set $isolation += 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol02_High {"position":"2550,950","size":"100,100"}
+<<page>>
+<div class="narration-full">
+빈집 안에서 뒤지는 소리가 났다.
+
+굶주린 자 하나가,
+품 안에 마른 곡식을 감춘 채 늑대를 보았다.
+
+그 손에는 칼이 있었지만,
+칼끝은 떨리고 있었다.
+</div>
+
+<div class="choice-box">
+<<link "곡식은 두고 가라 한다" "NightPatrol02_High_LeaveGrain_Result">>
+  <<set $danger += 1>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "칼을 거두게 한다" "NightPatrol02_High_Disarm_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+<<link "베어 넘긴다" "NightPatrol02_High_CutDown_Result">>
+  <<set $shura += 1>>
+  <<set $danger += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol03_Low {"position":"2300,1100","size":"100,100"}
+<<page>>
+<div class="narration-full">
+성 밑의 뒷골목은 좁았다.
+
+벽은 젖어 있었고,
+발소리는 오래 머물렀다.
+
+늑대는 숨을 죽였다.
+습관처럼.
+</div>
+
+<div class="choice-box">
+<<link "조용히 지나간다" "NightPatrol03_Low_PassQuiet_Result">>
+  <<set $danger -= 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+<<link "흔적을 살핀다" "NightPatrol03_Low_InspectTrace_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol03_Mid {"position":"2425,1100","size":"100,100"}
+<<page>>
+<div class="narration-full">
+앞쪽에서 수군대는 소리가 들렸다.
+
+병사 둘이었다.
+
+그들은 늑대를 보지 못한 채,
+내일 아침 누가 죽을지에 대해 이야기하고 있었다.
+</div>
+
+<div class="choice-box">
+<<link "듣고 지나간다" "NightPatrol03_Mid_ListenPass_Result">>
+  <<set $danger += 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+<<link "몸을 숨긴다" "NightPatrol03_Mid_Hide_Result">>
+  <<set $isolation += 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+<<link "말을 끊고 모습을 드러낸다" "NightPatrol03_Mid_Interrupt_Result">>
+  <<set $danger += 2>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol03_High {"position":"2550,1100","size":"100,100"}
+<<page>>
+<div class="narration-full">
+발치에서 물이 튀었다.
+
+다음 순간,
+어둠 속에서 칼끝이 튀어나왔다.
+
+늑대의 몸은 생각보다 먼저 움직였다.
+</div>
+
+<div class="choice-box">
+<<link "팔만 꺾어 제압한다" "NightPatrol03_High_Restrain_Result">>
+  <<set $danger += 1>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "놓아준다" "NightPatrol03_High_Release_Result">>
+  <<set $danger += 2>>
+  <<clampStats>>
+<</link>>
+<<link "끝까지 벤다" "NightPatrol03_High_CutDown_Result">>
+  <<set $shura += 1>>
+  <<set $danger += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol04_Low {"position":"2300,1250","size":"100,100"}
+<<page>>
+<div class="narration-full">
+숲은 밤을 오래 품고 있었다.
+
+나뭇잎 사이로 바람이 지나갔다.
+
+이상하게도,
+그 소리는 사람의 숨처럼 들렸다.
+</div>
+
+<div class="choice-box">
+<<link "잠시 멈춰 선다" "NightPatrol04_Low_Pause_Result">>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "깊이 들어가지 않는다" "NightPatrol04_Low_AvoidDepth_Result">>
+  <<set $danger -= 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol04_Mid {"position":"2425,1250","size":"100,100"}
+<<page>>
+<div class="narration-full">
+나무 밑에 작은 불상 조각이 놓여 있었다.
+
+갓 깎은 듯한 나뭇결.
+
+늑대는 그것을 본 순간,
+누군가의 거친 손을 떠올렸다.
+</div>
+
+<div class="choice-box">
+<<link "불상 조각을 주워 둔다" "NightPatrol04_Mid_PickBuddha_Result">>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "그 자리에 돌려놓는다" "NightPatrol04_Mid_ReturnBuddha_Result">>
+  <<set $shura -= 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+<<link "밟고 지나간다" "NightPatrol04_Mid_StepOn_Result">>
+  <<set $shura += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol04_High {"position":"2550,1250","size":"100,100"}
+<<page>>
+<div class="narration-full">
+웃음소리가 들렸다.
+
+사람 같았다가,
+짐승 같았다가,
+마침내 자신의 목소리처럼 들렸다.
+
+늑대는 칼자루에 손을 얹었다.
+</div>
+
+<div class="choice-box">
+<<link "손을 뗀다" "NightPatrol04_High_LetGo_Result">>
+  <<set $shura -= 1>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "소리의 끝을 따라간다" "NightPatrol04_High_FollowSound_Result">>
+  <<set $danger += 1>>
+  <<set $shura += 1>>
+  <<clampStats>>
+<</link>>
+<<link "웃음이 멎을 때까지 선다" "NightPatrol04_High_Stand_Result">>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol05_Low {"position":"2300,1400","size":"100,100"}
+<<page>>
+<div class="narration-full">
+성 아래 거리는 텅 비어 있었다.
+
+그러나 완전히 죽은 길은 아니었다.
+
+멀리,
+누군가 아직 불을 끄지 못하고 있었다.
+</div>
+
+<div class="choice-box">
+<<link "불빛을 바라본다" "NightPatrol05_Low_WatchLight_Result">>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "길을 따라 걷는다" "NightPatrol05_Low_WalkRoad_Result">>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol05_Mid {"position":"2425,1400","size":"100,100"}
+<<page>>
+<div class="narration-full">
+길가에 사람이 웅크리고 있었다.
+
+늑대를 알아본 듯했으나,
+이름을 부르지는 않았다.
+
+그저 길을 비켜 앉았다.
+</div>
+
+<div class="choice-box">
+<<link "지나치기 전에 묻는다" "NightPatrol05_Mid_Ask_Result">>
+  <<set $isolation -= 1>>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+<<link "말없이 지나간다" "NightPatrol05_Mid_PassSilent_Result">>
+  <<set $isolation += 1>>
+  <<set $helpRefusedCount += 1>>
+  <<clampStats>>
+<</link>>
+<<link "주변을 경계한다" "NightPatrol05_Mid_WatchAround_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol05_High {"position":"2550,1400","size":"100,100"}
+<<page>>
+<div class="narration-full">
+거리 끝에서 불길이 올랐다.
+
+사람들이 달아나고 있었다.
+
+그 사이,
+누군가 쓰러진 이를 짓밟고 지나갔다.
+</div>
+
+<div class="choice-box">
+<<link "쓰러진 이를 끌어낸다" "NightPatrol05_High_PullOut_Result">>
+  <<set $danger += 2>>
+  <<set $isolation -= 1>>
+  <<clampStats>>
+<</link>>
+<<link "불길의 방향을 확인한다" "NightPatrol05_High_CheckFire_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+<<link "길을 막는 자를 벤다" "NightPatrol05_High_CutBlocker_Result">>
+  <<set $shura += 1>>
+  <<set $danger += 2>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: NightPatrol01_Low_Listen_Result {"position":"2700,800","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 귀를 기울였다.
+
+발소리는 끝내 돌아오지 않았다.
+하지만 바람 사이로,
+절로 돌아가는 길의 소리가 조금 또렷해졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_Low_Return_Result {"position":"2825,800","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 그대로 돌아섰다.
+
+확인하지 않은 계단은 등 뒤에 남았다.
+그 어둠은,
+돌아오는 내내 조용히 따라붙었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_Mid_Climb_Result {"position":"2700,850","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 계단을 올랐다.
+
+어둠은 한 걸음마다 물러났지만,
+그만큼 절의 불빛도 멀어졌다.
+
+손자국은 아직 벽에 남아 있었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_Mid_CheckTrace_Result {"position":"2825,850","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 손자국만 확인했다.
+
+피는 오래되지 않았다.
+하지만 더 따라갈 길은,
+오늘 밤의 몫이 아닌 듯했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_Mid_LookAway_Result {"position":"2950,850","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 눈을 돌렸다.
+
+어둠 속의 숨소리는 곧 사라졌다.
+한 번 보지 않기로 한 것은,
+다시 보기 어려웠다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_High_CheckBreath_Result {"position":"2700,900","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 병사의 숨을 확인했다.
+
+살아 있었다.
+그 사실은 칼보다 무겁고,
+밤길보다 불안했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_High_Pass_Result {"position":"2825,900","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 지나쳤다.
+
+병사의 숨은 뒤쪽에 남았다.
+그 소리가 멀어질수록,
+길은 이상하게 더 조용해졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol01_High_End_Result {"position":"2950,900","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대의 검은 짧게 움직였다.
+
+계단 위의 숨이 멎었다.
+칼날에는 아무 말도 남지 않았고,
+손은 오래 망설이지 않았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_Low_PlaceShoes_Result {"position":"2700,950","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 작은 신발을 문 안쪽에 놓았다.
+
+빈집은 대답하지 않았다.
+그래도 문턱은,
+조금 덜 차갑게 보였다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_Low_LeaveShoes_Result {"position":"2825,950","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 신발을 그대로 두었다.
+
+바람이 다시 문을 흔들었다.
+작은 소리는 빈 골목에 남아,
+오래 삐걱였다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_Mid_BackAway_Result {"position":"2700,1000","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 물러났다.
+
+빗장 너머의 숨소리는 조금씩 가라앉았다.
+문 하나의 거리가,
+오늘은 충분했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_Mid_CheckSafety_Result {"position":"2825,1000","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 주변을 확인했다.
+
+문 안쪽은 끝내 열리지 않았다.
+대신 골목 끝의 어둠이,
+조금 늦게 움직이는 것을 보았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_Mid_PassSilent_Result {"position":"2950,1000","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 아무 말 없이 지나쳤다.
+
+문 안쪽의 숨소리도,
+칼집의 작은 울림도,
+곧 같은 침묵이 되었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_High_LeaveGrain_Result {"position":"2700,1050","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 곡식은 두고 가라 말했다.
+
+굶주린 자의 손은 오래 떨렸다.
+칼끝보다 먼저,
+그 눈이 무너졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_High_Disarm_Result {"position":"2825,1050","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 칼을 거두게 했다.
+
+금속이 바닥에 닿는 소리는 작았다.
+하지만 그 작은 소리에,
+골목의 밤이 한 번 흔들렸다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol02_High_CutDown_Result {"position":"2950,1050","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 망설이지 않았다.
+
+마른 곡식이 바닥에 흩어졌다.
+칼날은 가벼웠고,
+그 가벼움이 조금 늦게 손에 남았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_Low_PassQuiet_Result {"position":"2700,1100","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 조용히 지나갔다.
+
+발소리는 벽에 오래 머물지 않았다.
+숨은 다시 낮아졌고,
+밤은 제자리로 돌아왔다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_Low_InspectTrace_Result {"position":"2825,1100","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 흔적을 살폈다.
+
+젖은 벽 아래로 발자국이 이어져 있었다.
+길은 좁았고,
+칼집은 자꾸 팔에 닿았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_Mid_ListenPass_Result {"position":"2700,1150","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 듣고 지나갔다.
+
+내일 아침의 죽음은 아직 오지 않았다.
+하지만 그 이름 없는 예고는,
+밤의 밀도를 조금 더 짙게 했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_Mid_Hide_Result {"position":"2825,1150","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 몸을 숨겼다.
+
+병사들의 말은 지나갔다.
+어둠에 섞여 있는 동안,
+침묵은 조금 더 익숙해졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_Mid_Interrupt_Result {"position":"2950,1150","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 모습을 드러냈다.
+
+말은 곧 끊겼다.
+두 병사의 손이 칼자루로 갔고,
+밤은 갑자기 좁아졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_High_Restrain_Result {"position":"2700,1200","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 팔만 꺾어 제압했다.
+
+뼈가 우는 소리가 났다.
+죽음까지 가지 않은 밤은,
+그래도 쉽게 조용해지지 않았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_High_Release_Result {"position":"2825,1200","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 그를 놓아주었다.
+
+도망치는 발소리가 물웅덩이를 밟았다.
+사라진 방향은 비었지만,
+위험은 아직 흩어지지 않았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol03_High_CutDown_Result {"position":"2950,1200","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 끝까지 베었다.
+
+물웅덩이에 작은 파문이 일었다.
+움직임은 멎었고,
+검은 너무 자연스럽게 칼집을 찾았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_Low_Pause_Result {"position":"2700,1250","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 잠시 멈춰 섰다.
+
+나뭇잎이 흔들리는 소리를 들었다.
+사람의 숨처럼 들리던 것은,
+잠시 뒤 바람으로 돌아왔다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_Low_AvoidDepth_Result {"position":"2825,1250","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 깊이 들어가지 않았다.
+
+숲은 뒤쪽에서 천천히 닫혔다.
+가지 않은 길이 남았지만,
+칼은 더 가벼워졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_Mid_PickBuddha_Result {"position":"2700,1300","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 불상 조각을 주워 두었다.
+
+거친 나뭇결이 손끝에 걸렸다.
+누군가 오래 깎아낸 시간이,
+잠시 밤을 붙잡았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_Mid_ReturnBuddha_Result {"position":"2825,1300","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 조각을 그 자리에 돌려놓았다.
+
+작은 불상은 아무 말도 하지 않았다.
+그 침묵은 이상하게도,
+검을 거두는 소리와 닮아 있었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_Mid_StepOn_Result {"position":"2950,1300","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 조각을 밟고 지나갔다.
+
+나뭇결이 낮게 부서졌다.
+뒤돌아보지 않자,
+그 소리는 금방 아무것도 아닌 것이 되었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_High_LetGo_Result {"position":"2700,1350","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 칼자루에서 손을 뗐다.
+
+웃음소리는 곧 멀어졌다.
+손바닥에 남은 힘이 풀리자,
+밤은 조금 덜 날카로워졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_High_FollowSound_Result {"position":"2825,1350","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 소리의 끝을 따라갔다.
+
+웃음은 멀어질수록 닮아 갔다.
+타인의 것인지,
+자신의 것인지 알기 어려웠다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol04_High_Stand_Result {"position":"2950,1350","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 웃음이 멎을 때까지 서 있었다.
+
+소리가 사라진 뒤에도,
+숲은 한동안 입을 다물지 않았다.
+혼자 선 밤은 길었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_Low_WatchLight_Result {"position":"2700,1400","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 멀리의 불빛을 바라보았다.
+
+작은 빛이었다.
+하지만 꺼지지 않은 것은,
+혼자 걷는 길을 조금 짧게 만들었다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_Low_WalkRoad_Result {"position":"2825,1400","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 길을 따라 걸었다.
+
+거리에는 아무도 없었다.
+비어 있는 길은,
+비어 있다는 이유만으로 위험하지는 않았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_Mid_Ask_Result {"position":"2700,1450","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 지나치기 전에 물었다.
+
+웅크린 이는 대답하지 않았다.
+하지만 고개를 아주 조금 숙였고,
+길의 침묵은 전보다 덜 차가웠다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_Mid_PassSilent_Result {"position":"2825,1450","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 말없이 지나갔다.
+
+길가의 사람도 이름을 부르지 않았다.
+서로를 모른 척한 밤은,
+오래 마음에 걸리지 않았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_Mid_WatchAround_Result {"position":"2950,1450","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 주변을 경계했다.
+
+웅크린 사람 너머의 골목이 보였다.
+아무 일도 일어나지 않았지만,
+손은 쉽게 칼자루에서 멀어지지 않았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_High_PullOut_Result {"position":"2700,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 쓰러진 이를 끌어냈다.
+
+불길은 가까웠고,
+연기는 목 안쪽을 긁었다.
+살아 있는 무게는 생각보다 무거웠다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_High_CheckFire_Result {"position":"2825,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 불길의 방향을 확인했다.
+
+바람은 금세 바뀔 수 있었다.
+밤의 길은 아직 남아 있었지만,
+돌아갈 길도 서둘러야 했다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<</page>>
+
+:: NightPatrol05_High_CutBlocker_Result {"position":"2950,1500","size":"100,100"}
+<<page>>
+<div class="narration-full">늑대는 길을 막는 자를 베었다.
+
+불빛이 칼날 위로 번졌다.
+비명은 짧았고,
+길은 곧 열렸다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: NightRest {"position":"1800,975","size":"100,100"}
 <<page>>
-<div class="narration">
-늑대는 잠시 눈을 감았다.
-
+<div class="narration">늑대는 잠시 눈을 감았다.
 휴식이라 부르기엔 짧고,
 잠이라 부르기엔 얕았다.
-
 그래도 검을 쥔 손의 떨림은
 조금 가라앉았다.
 </div>
 
 <<set $danger = Math.max(0, $danger - 1)>>
+<<clampStats>>
 
 <div class="choice-box">
 [[황폐한 절로 돌아간다->Temple]]

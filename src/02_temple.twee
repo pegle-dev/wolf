@@ -11,25 +11,25 @@
 :: Temple_Description {"position":"1525,575","size":"100,100"}
 <div class="narration"><<if $shura >= 8>>
 <<print either(
-  "황폐한 절이다.\n검집 안에서 작은 소리가 난다.",
-  "황폐한 절이다.\n불상은 말이 없으나, 시선은 느껴진다.",
-  "황폐한 절이다.\n바람 끝에 피 냄새가 스쳤다.",
-  "황폐한 절이다.\n손은 아직 검을 놓지 못한다."
+  "검집 안에서 작은 소리가 난다.",
+  "불상은 말이 없으나, 시선은 느껴진다.",
+  "바람 끝에 피 냄새가 스쳤다.",
+  "손은 아직 검을 놓지 못한다."
 )>>
 <<elseif $isolation >= 8>>
 <<print either(
-  "황폐한 절이다.\n이제는 아무 소리도 들리지 않는다.",
-  "황폐한 절이다.\n머무는 이들의 그림자마저 멀다.",
-  "황폐한 절이다.\n늑대의 발소리만이 남는다.",
-  "황폐한 절이다.\n이곳은 쉬는 곳이 아니라, 버티는 곳이 되었다."
+  "이제는 아무 소리도 들리지 않는다.",
+  "머무는 이들의 그림자마저 멀다.",
+  "늑대의 발소리만이 남는다.",
+  "이곳은 쉬는 곳이 아니라, 버티는 곳이 되었다."
 )>>
 <<else>>
 <<print either(
-  "황폐한 절이다.\n바람만이 처마 아래를 지나간다.",
-  "황폐한 절이다.\n낡은 불상들 사이로 침묵이 내려앉아 있다.",
-  "황폐한 절이다.\n이상하게도, 이곳에서는 숨을 고를 수 있다.",
-  "황폐한 절이다.\n무너진 곳에도 머무는 이들은 있다.",
-  "황폐한 절이다.\n불상 깎는 소리가 낮게 이어진다."
+  "바람만이 처마 아래를 지나간다.",
+  "낡은 불상들 사이로 침묵이 내려앉아 있다.",
+  "이상하게도, 이곳에서는 숨을 고를 수 있다.",
+  "무너진 곳에도 머무는 이들은 있다.",
+  "불상 깎는 소리가 낮게 이어진다."
 )>>
 <</if>></div>
 
@@ -86,15 +86,15 @@
 
 <<if $kuroProgress == 0>>
 <<if $kuroLove >= 3>>
-[[쿠로님에게로 간다->Kuro01]]
+[[쿠로님에게로 간다->Kuro_Router]]
 <<else>>
-[[주군에게로 간다->Kuro01]]
+[[주군에게로 간다->Kuro_Router]]
 <</if>>
 <<else>>
 <<if $kuroLove >= 3>>
-[[쿠로님에게로 간다->Kuro]]
+[[쿠로님에게로 간다->Kuro_Router]]
 <<else>>
-[[주군에게로 간다->Kuro]]
+[[주군에게로 간다->Kuro_Router]]
 <</if>>
 <</if>>
 
@@ -112,20 +112,29 @@
 <</if>>
 <</if>>
 
+<<if $secondLoopUnlocked or $sculptorUnlocked>>
+<<if $sculptorLove >= 3>>
+[[조각가 곁으로 간다->Sculptor_Router]]
+<<else>>
+[[불상 깎는 이에게 간다->Sculptor_Router]]
+<</if>>
+<</if>>
+
+<<if $secondLoopUnlocked and $emmaEventUnlocked and not $emmaIntroducedIsshin>>
+[[엠마와 이야기한다->Emma_IntroduceIsshin]]
+<</if>>
+
 <<if $isshinUnlocked>>
 <<if $isshinLove >= 3>>
-[[잇신님을 찾아간다->Isshin]]
+[[잇신님을 찾아간다->Isshin_Router]]
 <<else>>
-[[엠마가 말한 노인을 찾아간다->Isshin]]
+[[엠마가 말한 노인을 찾아간다->Isshin_Router]]
 <</if>>
 <</if>>
 
 <<if $shuraUnlocked and $shura >= 13>>
 [[아무도 만나지 않는다->Shura]]
 <</if>>
-
-[[밤의 순찰을 간다->NightPatrol]]
-[[잠을 청한다->Temple_Sleep]]
 
 :: Temple_AfterNight {"position":"1825,625","size":"100,100"}
 <<page>>
@@ -137,58 +146,108 @@
 
 :: Temple_Return {"position":"2025,1200","size":"100,100"}
 <<page>>
-<<if $completedHanbei && $completedKuro && $completedGenichiro>>
-  <<set $secondLoopUnlocked to true>>
-  <<set $secondRoutesUnlocked to true>>
-<</if>>
-
-<<if $completedSculptor && $completedIsshin>>
-  <<set $shuraUnlocked to true>>
-<</if>>
+<<updateRouteUnlocks>>
 <<set $sceneCount += 1>>
 <<set $returnTo = "Temple_Return_Hub">>
+<<if ($danger >= 12 and $isolation >= 10) or ($danger >= 10 and $helpRefusedCount >= 3)>>
+  <<goto "CommonBadEndRouter">>
+<</if>>
 <<goto "EventRouter">>
 <</page>>
 
 
 :: Temple_Return_Hub {"position":"2025,1325","size":"100,100"}
 <<page>>
-<<if $sceneCount % 3 == 0>>
+<div class="narration-full">
+밤이 깊어가고 있다.
 
-<div class="narration">
-밤이 깊어간다…
-
-늑대는 잠시 걸음을 멈췄다.
-
-오늘 밤, 무엇을 할까.
+낡은 처마 아래로,
+찬 바람이 지나간다.
 </div>
 
 <div class="choice-box">
-[[밤 정찰을 떠난다->NightPatrol_Random]]
-[[잠시 쉰다->NightRest]]
+[[밤 정찰을 나선다->NightPatrol_Roll]]
+[[잠든다->Sleep_Roll]]
+[[절에 머문다->Temple]]
 </div>
-
-<<else>>
-
-<div class="narration">밤이 깊어간다.</div>
-
-<div class="choice-box">
-[[돌아간다->Temple]]
-</div>
-
-<</if>>
 <</page>>
 
 :: NightPatrol {"position":"2000,825","size":"100,100"}
-<<goto "NightPatrol_Random">>
+<<goto "NightPatrol_Roll">>
 
 :: Temple_Sleep {"position":"1800,875","size":"100,100"}
-<<page>>
-<div class="narration">늑대는 눈을 감았다.</div>
+<<goto "Sleep_Roll">>
 
-<<timed 1400ms>>
-  <<goto "DreamRouter">>
-<</timed>>
+:: Sleep_Roll {"position":"1800,875","size":"100,100"}
+<<if $shura >= 5 or $isolation >= 7>>
+  <<goto "Sleep_BadOmen">>
+<<elseif $danger >= 4>>
+  <<goto "Sleep_Alert">>
+<<else>>
+  <<goto "Sleep_Calm">>
+<</if>>
+
+:: Sleep_Calm {"position":"1800,1000","size":"100,100"}
+<<page>>
+<div class="narration-full">
+그 밤은 조용했다.
+
+바람은 낡은 처마를 지나갔고,
+늑대는 오래 깨어 있지 않았다.
+</div>
+
+<div class="choice-box">
+<<link "눈을 뜬다" "Temple">>
+  <<set $danger = Math.max(0, $danger - 1)>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Sleep_Alert {"position":"1925,1000","size":"100,100"}
+<<page>>
+<div class="narration-full">
+잠은 얕았다.
+
+멀리서 발소리가 난 듯했고,
+늑대는 몇 번이고 눈을 떴다.
+
+새벽이 되었을 때,
+손은 아직 칼자루 가까이에 있었다.
+</div>
+
+<div class="choice-box">
+<<link "몸을 일으킨다" "Temple">>
+  <<set $danger = Math.max(0, $danger - 1)>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
+:: Sleep_BadOmen {"position":"2050,1000","size":"100,100"}
+<<page>>
+<div class="narration-full">
+꿈속에서 누군가 웃었다.
+
+그것이 적의 목소리였는지,
+자신의 목소리였는지 알 수 없었다.
+
+눈을 떴을 때,
+방 안에는 아무도 없었다.
+</div>
+
+<div class="choice-box">
+<<link "검을 확인한다" "Temple">>
+  <<set $shura += 1>>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+<<link "손을 뗀다" "Temple">>
+  <<set $shura = Math.max(0, $shura - 1)>>
+  <<clampStats>>
+<</link>>
+</div>
 <</page>>
 
 :: Temple_Return_Bad {"position":"2150,1200","size":"100,100"}

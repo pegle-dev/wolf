@@ -23,7 +23,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 오.
-
 왔나?
 <</talk>>
 
@@ -34,13 +33,13 @@
 
 :: Hanbei01_2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 검을 어깨에 걸친 채 손을 흔들었다.
 
 마치 오래된 친구를 맞이하는 것처럼.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_2]]
@@ -62,9 +61,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 뭐야.
-
 그 얼굴.
-
 오늘도 날 베러 온 거 맞구만.
 <</talk>>
 
@@ -77,20 +74,42 @@
 <<page>>
 <<talk "hanbei" "한베">>
 좋아.
-
 그럼 어디 한번 해보자고.
 <</talk>>
 
 <div class="choice-box">
+[[계속->Hanbei01_4_Choices]]
+</div>
+<</page>>
+
+:: Hanbei01_4_Choices {"position":"950,1035","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 [[대련하러 왔다->Hanbei01_Spar]]
 [[그냥 왔다->Hanbei01_Just]]
-[[돌아간다->Temple_Return]]
+[[돌아간다->Hanbei01_Return_Result]]
 </div>
+</div>
+<</page>>
+
+:: Hanbei01_Return_Result {"position":"950,1075","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 돌아섰다.
+
+한베는 붙잡지 않았다.
+그런 일에 익숙한 사람처럼,
+평소와 같은 자리에서 손만 가볍게 들어 보였다.
+
+돌아가는 길은 짧았다.
+그런데도 조금 멀게 느껴졌다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Hanbei01_4_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베는 하하 웃으며 검을 뽑았다.
 
@@ -100,7 +119,7 @@
 
 익숙한 거리.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_4]]
@@ -111,7 +130,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 음.
-
 조금 빨라졌네.
 <</talk>>
 
@@ -170,11 +188,8 @@
 <<page>>
 <<talk "hanbei" "한베">>
 다음에도 오게.
-
 아직, 뒷 마무리가 허술해.
-
 인살할 기회를 자꾸 놓치지 않나.
-
 그리고, 어차피 난 여기 있으니까 말이네.
 <</talk>>
 
@@ -208,9 +223,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 무슨 일인가.
-
 그 얼굴.
-
 설마 걱정이라도 해주는 건가?
 <</talk>>
 
@@ -234,9 +247,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하하!
-
 됐다네.
-
 자네의 그런 표정이면 충분하니.
 <</talk>>
 
@@ -247,11 +258,11 @@
 
 :: Hanbei01_End_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 짧은 대련이 끝났다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_End]]
@@ -319,9 +330,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하하!
-
 그것도 좋네.
-
 매번 검만 휘두르는 것도 질리거든.
 <</talk>>
 
@@ -332,11 +341,11 @@
 
 :: Hanbei01_Just_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베는 검을 바닥에 내려놓았다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_Just_3]]
@@ -347,7 +356,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 그럼 잠깐 쉬었다 가게나.
-
 어차피 난 여기 있으니까.
 <</talk>>
 
@@ -358,7 +366,7 @@
 
 :: Hanbei01_Just_4_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 웃으며 말했다.
 
@@ -368,7 +376,7 @@
 
 조금 외롭게 들렸다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_Just_4]]
@@ -401,7 +409,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 솔직히 말하면.
-
 난 자네가 말 거는 것보다 이게 편하더군.
 <</talk>>
 
@@ -412,11 +419,11 @@
 
 :: Hanbei01_Spar_2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베는 검을 한 바퀴 돌렸다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_Spar_2]]
@@ -438,12 +445,9 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하하!
-
-그런 눈 하지 마.
-
-나도 안다.
-
-네가 말 없는 거.
+그런 눈 하지 마시게.
+이미 잘 안다네.
+그대가 말 없는 거를.
 <</talk>>
 
 <div class="choice-box">
@@ -475,11 +479,11 @@
 
 :: Hanbei01_Spar_4_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 잠시 바람이 분다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei01_Spar_4_ui2]]
@@ -490,7 +494,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 그래.
-
 그게 제일 당신답다.
 <</talk>>
 
@@ -522,7 +525,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 음.
-
 이번 건 좀 괜찮았는데.
 <</talk>>
 
@@ -533,7 +535,7 @@
 
 :: Hanbei02_2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베는 늘 그랬듯 쓰러졌다.
 
@@ -541,7 +543,7 @@
 
 늘 그랬듯 다시 일어났다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_2]]
@@ -561,11 +563,11 @@
 
 :: Hanbei02_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 옷에 묻은 흙을 털었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_3]]
@@ -587,7 +589,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 왜 그러는가?
-
 그런 얼굴 하고.
 <</talk>>
 
@@ -624,7 +625,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 뭐.
-
 하루 이틀쯤은 좋을지도 모르겠다만.
 <</talk>>
 
@@ -635,11 +635,11 @@
 
 :: Hanbei02_End_2_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 웃었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_End_2_ui2]]
@@ -672,7 +672,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하하!
-
 농담이야.
 <</talk>>
 
@@ -698,7 +697,7 @@
 
 :: Hanbei02_End_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 바람이 분다.
 
@@ -706,7 +705,7 @@
 
 한베는 검을 어깨에 걸쳤다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_End]]
@@ -717,9 +716,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 오.
-
 좋아.
-
 그렇게 나와야지.
 <</talk>>
 
@@ -741,11 +738,11 @@
 
 :: Hanbei02_Fight_2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베도 검을 들었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Fight_2]]
@@ -756,7 +753,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 으.
-
 아프네.
 <</talk>>
 
@@ -767,11 +763,11 @@
 
 :: Hanbei02_Fight_2_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그가 어깨를 돌린다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Fight_2_ui2]]
@@ -782,9 +778,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하하.
-
 그런 얼굴 하지 마.
-
 죽지 않으니.
 <</talk>>
 
@@ -795,11 +789,11 @@
 
 :: Hanbei02_Fight_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 잠시 침묵.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Fight_3]]
@@ -808,11 +802,11 @@
 
 :: Hanbei02_Fight_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 늑대는 다시 검을 들었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Fight]]
@@ -834,7 +828,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 아무 말도 안 하는 건 원래 그렇지만.
-
 오늘은 더 심하네.
 <</talk>>
 
@@ -847,7 +840,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 됐어.
-
 안 죽는다니까.
 <</talk>>
 
@@ -858,11 +850,11 @@
 
 :: Hanbei02_Silent_2_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 웃으며 일어섰다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Silent_2_ui2]]
@@ -882,13 +874,13 @@
 
 :: Hanbei02_Silent_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그 말은.
 
 마치 걱정해주기를 바라는 것처럼 들렸다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Silent_3]]
@@ -899,7 +891,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 ...
-
 뭐냐.
 <</talk>>
 
@@ -923,7 +914,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 아.
-
 이거?
 <</talk>>
 
@@ -936,7 +926,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 괜찮아.
-
 익숙하거든.
 <</talk>>
 
@@ -947,11 +936,11 @@
 
 :: Hanbei02_Worry_2_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 웃었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Worry_2_ui2]]
@@ -962,9 +951,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 베이는 것도.
-
 부러지는 것도.
-
 죽는 것도.
 <</talk>>
 
@@ -977,7 +964,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 근데.
-
 아프긴 하다.
 <</talk>>
 
@@ -988,11 +974,11 @@
 
 :: Hanbei02_Worry_3_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 아무렇지도 않게 말했다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Worry_3_ui2]]
@@ -1014,7 +1000,7 @@
 
 :: Hanbei02_Worry_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 늑대는 한베의 팔을 바라보았다.
 
@@ -1024,7 +1010,7 @@
 
 이미 아물기 시작하고 있었지만.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei02_Worry]]
@@ -1035,7 +1021,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 오.
-
 왔나?
 <</talk>>
 
@@ -1048,7 +1033,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 좋아.
-
 오늘은 몇 번이나 날 날려버릴 생각인가?
 <</talk>>
 
@@ -1059,11 +1043,11 @@
 
 :: Hanbei03_2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베는 언제나처럼 검을 들고 있었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_2]]
@@ -1085,9 +1069,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 ...?
-
 왜 그러나?
-
 설마 다쳤나?
 <</talk>>
 
@@ -1098,11 +1080,11 @@
 
 :: Hanbei03_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 늑대는 검집에 손을 얹은 채 가만히 서 있었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_3]]
@@ -1124,7 +1106,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 그럼.
-
 오늘은 안 베나?
 <</talk>>
 
@@ -1146,11 +1127,11 @@
 
 :: Hanbei03_4_ui2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 잠시 침묵.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_4_ui2]]
@@ -1161,7 +1142,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 ...
-
 뭐?
 <</talk>>
 
@@ -1172,11 +1152,11 @@
 
 :: Hanbei03_5_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 바람이 분다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_5]]
@@ -1215,11 +1195,8 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하하하하!
-
 그게 뭔가!
-
 그냥?
-
 진짜 그냥 왔단 말인가?
 <</talk>>
 
@@ -1243,9 +1220,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 이야.
-
 살다 보니 별일이 다 있군.
-
 난 또 오늘도 맞으러 온 줄 알았는데.
 <</talk>>
 
@@ -1256,11 +1231,11 @@
 
 :: Hanbei03_7_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 한베는 검을 거두었다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_7]]
@@ -1271,11 +1246,8 @@
 <<page>>
 <<talk "hanbei" "한베">>
 좋아.
-
 그럼 오늘은 쉬자.
-
 앉게.
-
 가끔은 이런 날도 있어야 하지 않겠나.
 <</talk>>
 
@@ -1288,7 +1260,7 @@
 
 :: Hanbei03_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 훈련장.
 
@@ -1300,7 +1272,7 @@
 
 익숙한 사람.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03]]
@@ -1322,13 +1294,9 @@
 <<page>>
 <<talk "hanbei" "한베">>
 하하.
-
 역시 그럴 줄 알았네.
-
 좋아.
-
 그럼 조금만 봐주게.
-
 솔직히 어제 것도 아직 아프거든.
 <</talk>>
 
@@ -1352,13 +1320,9 @@
 <<page>>
 <<talk "hanbei" "한베">>
 어이.
-
 뭔가 그건.
-
 앉으라니까 가버리는 건 또 처음이군.
-
 하하하.
-
 다음엔 좀 더 있다 가게.
 <</talk>>
 
@@ -1371,7 +1335,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 ...
-
 이거 좀 신기하군.
 <</talk>>
 
@@ -1384,7 +1347,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 자네와 이렇게 있는 거 말일세.
-
 생각보다 나쁘지 않더군.
 <</talk>>
 
@@ -1395,13 +1357,13 @@
 
 :: Hanbei03_Sit_2_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 잠시 침묵.
 
 바람 소리만 들린다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_Sit_2]]
@@ -1412,9 +1374,7 @@
 <<page>>
 <<talk "hanbei" "한베">>
 아.
-
 오해는 하지 말게.
-
 대련 안 해서 좋다는 말이야.
 <</talk>>
 
@@ -1425,7 +1385,7 @@
 
 :: Hanbei03_Sit_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 그는 웃었다.
 
@@ -1433,7 +1393,7 @@
 
 그 웃음은 평소보다 조금 조용했다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_Sit_3]]
@@ -1442,11 +1402,11 @@
 
 :: Hanbei03_Sit_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 
 늑대는 말없이 그의 곁에 앉았다.
 
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei03_Sit]]
@@ -1476,24 +1436,47 @@
 <<page>>
 <<talk "hanbei" "한베">>
 어이, 늑대.
-
 오늘도 날은 잘 드는가?
 <</talk>>
 
 <div class="choice-box">
-<<if $hanbeiProgress >= 3>>
-<<link "함께 마시겠나...?" "Hanbei_04_Sake">>
+[[계속->Hanbei_Loop_Choices]]
+</div>
+<</page>>
+
+:: Hanbei_Loop_Choices {"position":"1175,390","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
+<<if $hasSake>>
+<<link "함께 마시겠나...?" "Hanbei_Sake">>
   <<set $hasSake = false>>
 <</link>>
+<<elseif $hanbeiProgress >= 3 and not $hanbeiSakeEventSeen>>
+[[술병을 본다->Hanbei_04_Sake]]
 <</if>>
 
 <<link "대련한다." "Hanbei_Training">>
   <<set $hanbeiLove += 1>>
 <</link>>
 
-<<link "그냥 돌아간다." "Temple_Return">>
+<<link "그냥 돌아간다." "Hanbei_Loop_Return_Result">>
 <</link>>
 </div>
+</div>
+<</page>>
+
+:: Hanbei_Loop_Return_Result {"position":"1300,475","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 더 머물지 않았다.
+
+등 뒤에서 한베의 웃음이 들린 듯했다.
+가볍고 익숙한 소리였다.
+
+그 익숙함이,
+오늘은 조금 멀리 남았다.</div>
+
+<div class="choice-box">[[돌아간다->Temple_Return]]</div>
 <</page>>
 
 :: Hanbei_Sake {"position":"1675,1475","size":"100,100"}
@@ -1511,7 +1494,6 @@
 <<page>>
 <<talk "hanbei" "한베">>
 허어.
-
 자네가 그런 말을 할 줄은 몰랐군.
 <</talk>>
 
@@ -1524,6 +1506,7 @@
 <<page>>
 <<set $currentRoute = "hanbei">>
 <<set $hanbeiProgress = Math.max($hanbeiProgress, 4)>>
+<<set $hanbeiSakeEventSeen = true>>
 
 <div class="narration">
 황폐한 절이다.
@@ -1562,12 +1545,12 @@
 
 :: Hanbei_04_Sake_Beat01 {"position":"1750,1725","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 술병을 가볍게 흔들었다.
 
 병 안에서 남은 술이 작게 출렁였다.
 그 소리는 이상하게도, 이 황폐한 절에 잘 어울렸다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei_04_Sake_04]]
@@ -1632,12 +1615,12 @@
 
 :: Hanbei_04_Sake_Beat02 {"position":"1900,1725","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 웃었다.
 
 평소와 같은 웃음이었다.
 그러나 그 웃음 뒤에, 잠깐 빈틈 같은 것이 있었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei_04_Sake_09]]
@@ -1668,12 +1651,12 @@
 
 :: Hanbei_04_Sake_Beat03 {"position":"1975,1725","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 대수롭지 않다는 듯 말했다.
 
 죽지 않는 자의 농담은,
 가끔 너무 오래 살아남은 말처럼 들렸다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei_04_Sake_Choice]]
@@ -1682,7 +1665,8 @@
 
 :: Hanbei_04_Sake_Choice {"position":"2000,1725","size":"100,100"}
 <<page>>
-<div class="choice-box">
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "술을 받는다" "Hanbei_04_Sake_Accept">>
   <<set $hanbeiLove += 2>>
   <<set $sharedSake_hanbei = true>>
@@ -1698,6 +1682,7 @@
   <<set $maskInterest = true>>
   <<clampStats>>
 <</link>>
+</div>
 </div>
 <</page>>
 
@@ -1752,12 +1737,12 @@
 
 :: Hanbei_04_Sake_Accept_Beat {"position":"2100,1725","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 웃었다.
 
 이번 웃음은 조금 덜 가벼웠다.
 마치 빈 잔 하나가, 뜻밖에도 무겁게 놓인 것처럼.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -1815,12 +1800,12 @@
 
 :: Hanbei_04_Sake_Refuse_Beat {"position":"2100,1850","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 웃었다.
 
 웃음은 남았고,
 말은 조금 비었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -1878,10 +1863,10 @@
 
 :: Hanbei_04_Sake_Look_Beat {"position":"2100,1975","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 장난스럽게 말했지만,
 손끝은 아주 잠깐 마스크 근처에서 멈췄다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -1906,12 +1891,12 @@
 갑자기 조용해지고.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 늑대는 대답하지 않았다.
 
 그 시선은 한베의 눈가에,
 그리고 그 아래를 가린 마스크에 머물러 있었다.
-<</beat>>
+</div>
 
 <<talk "wolf" "늑대">>
 자네의 얼굴이 보고 싶다.
@@ -1921,26 +1906,34 @@
 …농담도.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 웃으려 했다.
 
 그러나 웃음은 끝까지 이어지지 않았다.
 절 안쪽에서 불상 깎는 소리가 낮게 울렸다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 이런 얼굴,
 별로 보고 싶지 않을 텐데.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 늑대는 손을 뻗었다.
 
 검을 잡을 때보다 느리게.
 상처를 더듬을 때보다 조심스럽게.
-<</beat>>
+</div>
 
 <div class="choice-box">
+[[계속->Hanbei_05_Mask_Choices]]
+</div>
+<</page>>
+
+:: Hanbei_05_Mask_Choices {"position":"1925,1760","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "손을 멈춘다" "Hanbei_05_Mask_Stop">>
   <<set $hanbeiLove += 1>>
   <<clampStats>>
@@ -1956,6 +1949,7 @@
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
+</div>
 </div>
 <</page>>
 
@@ -1977,12 +1971,12 @@
 이상한 데서 예의가 있군.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 다시 웃었다.
 
 이번에는 조금 작게.
 그러나 비어 있지는 않았다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2014,17 +2008,17 @@
 아니.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 늑대는 더 가까이 다가갔다.
 
 마스크 너머로 숨이 닿을 만큼.
 그러나 그것을 넘지는 않았다.
-<</beat>>
+</div>
 
-<<beat>>
+<div class="narration">
 늑대는 조심스레 뺨을 대고,
 마스크 너머로 남아 있는 온기를 느꼈다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 하.
@@ -2043,12 +2037,12 @@
 그렇군.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 웃지 않았다.
 
 웃지 않았으나,
 그 얼굴은 도망가지 않았다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2079,12 +2073,12 @@
 보기에 좋은 건 아니니 말이야.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 웃었다.
 
 늑대는 그 웃음이,
 조금 전보다 멀어진 것을 알았다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2119,12 +2113,12 @@
 자네는 나보다 훨씬 조용히 죽는 법을 배웠을 테니.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 웃으려 했다.
 
 그러나 오늘의 웃음은,
 목에 걸린 칼끝처럼 쉽게 나오지 않았다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 나는 말일세.
@@ -2133,6 +2127,14 @@
 <</talk>>
 
 <div class="choice-box">
+[[계속->Hanbei_06_Immortality_Choices]]
+</div>
+<</page>>
+
+:: Hanbei_06_Immortality_Choices {"position":"2175,1760","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "듣는다" "Hanbei_06_Immortality_Listen">>
   <<set $hanbeiLove += 2>>
   <<clampStats>>
@@ -2148,6 +2150,7 @@
   <<set $hanbeiLove += 1>>
   <<clampStats>>
 <</link>>
+</div>
 </div>
 <</page>>
 
@@ -2174,13 +2177,13 @@
 그 말이면 충분하네.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 고개를 숙였다.
 
 잠시 동안,
 그는 죽지 않는 무사가 아니라
 아주 오래 지친 사람처럼 보였다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2211,12 +2214,12 @@
 그저 끝나고 싶은 것인지.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 늑대의 눈을 피하지 않았다.
 
 둘 사이에는,
 죽음보다 오래 남은 것들이 있었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2248,12 +2251,12 @@
 조금은 가벼워졌네.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 작게 웃었다.
 
 그 웃음은 여전히 닳아 있었지만,
 이번에는 혼자 남은 소리는 아니었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2291,13 +2294,13 @@
 아무리 나라도 좀 바쁘다네.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 웃었다.
 
 그러나 오늘의 웃음은,
 무언가를 감추기 위한 것이라기보다
 무언가를 더 미루지 않기 위한 것처럼 보였다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 늑대.
@@ -2311,15 +2314,23 @@
 넌 왜 아직 싸우는 거냐.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 늑대는 대답하지 않았다.
 
 새벽빛이 무너진 처마 끝에 걸렸다.
 훈련장의 흙은 차갑고,
 손은 아직 검을 기억하고 있었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
+[[계속->Hanbei_07_DawnTrainingGround_Choices]]
+</div>
+<</page>>
+
+:: Hanbei_07_DawnTrainingGround_Choices {"position":"2425,1760","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
 <<link "임무다" "Hanbei_07_DawnTrainingGround_Duty">>
   <<set $isolation += 1>>
   <<set $hanbeiReasonAnswer = "duty">>
@@ -2345,6 +2356,7 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
 <</page>>
 
 :: Hanbei_07_DawnTrainingGround_Duty {"position":"2550,1725","size":"100,100"}
@@ -2353,12 +2365,12 @@
 임무다.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 잠시 늑대를 보았다.
 
 그 말은 틀리지 않았다.
 그렇기에, 더 멀게 들렸다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 그렇군.
@@ -2368,12 +2380,12 @@
 자네다운 답이네.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 새벽바람이 지나갔다.
 
 한베는 더 묻지 않았다.
 늑대도 더 말하지 않았다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2386,13 +2398,13 @@
 모르겠다.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 눈을 조금 크게 떴다.
 
 그것은 대답이 되지 못하는 말이었다.
 그러나 처음으로,
 늑대의 말은 명령도 임무도 아니었다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 하.
@@ -2414,12 +2426,12 @@
 그렇다네.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베는 웃었다.
 
 이번에는 빈 웃음이 아니었다.
 새벽빛이 그의 마스크 가장자리에 닿았다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2454,12 +2466,12 @@
 혼자만의 답은 아니지 않은가.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 늑대는 대답하지 않았다.
 
 그러나 그 침묵은,
 방금 한 말을 거두는 침묵은 아니었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2493,12 +2505,12 @@
 오늘은 대련하지 않는 날이니까.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 검은 뽑히지 않았다.
 
 그것만으로도,
 이 새벽은 평소와 달랐다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2532,10 +2544,10 @@
 한참을 찾아다닌 적이 있었지.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 그러나 그 말은 웃기 위해 꺼낸 것이 아니었다.
 오래 묵은 이야기를, 이제야 손에 쥐어본 사람처럼 말했다.
-<</beat>>
+</div>
 
 <<talk "wolf" "늑대">>
 벨 생각이었나.
@@ -2545,10 +2557,10 @@
 스스로를.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 바람이 무너진 처마 아래를 지나갔다.
 마른 흙 위로, 작은 먼지가 일었다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 그때야 뭐…
@@ -2581,10 +2593,10 @@
 
 <<set $hanbeiMercyRequest = true>>
 
-<<beat>>
+<div class="narration">
 죽지 않는 무사는,
 처음으로 죽을 수 있는 사람처럼 앉아 있었다.
-<</beat>>
+</div>
 
 <<talk "wolf" "늑대">>
 …그러한가.
@@ -2594,10 +2606,10 @@
 그래 주겠는가?
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베가 늘 그랬듯이.
 그러나 가벼운 말이어서 더 무거웠다.
-<</beat>>
+</div>
 
 <<talk "wolf" "늑대">>
 베고 싶지 않다.
@@ -2612,14 +2624,14 @@
 매번 베고 싶지 않았다.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 검과 검이 부딪치던 수많은 날들.
 쓰러지고, 일어나고,
 다시 웃던 얼굴.
 
 그 모든 순간에,
 늑대의 손은 검을 쥐고 있었다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 ……늑대.
@@ -2633,24 +2645,24 @@
 미안할 것은 아무것도…
 <</talk>>
 
-<<beat>>
+<div class="narration">
 한베가 천천히 손을 올렸다.
 낡은 끈이 풀렸다.
 
 그는 아주 조심스럽게,
 마스크를 벗었다.
-<</beat>>
+</div>
 
 <<set $hanbeiMaskRemoved = true>>
 
-<<beat>>
+<div class="narration">
 보지 말아야 할 것을 보았다고도,
 보고 싶던 것을 보았다고도 생각하지 않았다.
 
 다만,
 한베가 숨기고 있던 얼굴이
 이제 숨지 않는다는 것을 알았다.
-<</beat>>
+</div>
 
 <<talk "hanbei" "한베">>
 이런 얼굴이라네.
@@ -2660,7 +2672,7 @@
 한베.
 <</talk>>
 
-<<beat>>
+<div class="narration">
 그뿐이었다.
 하지만 그 이름은,
 검을 맞댈 때 부르던 이름과 같지 않았다.
@@ -2676,7 +2688,7 @@
 자신과 그 벌레가 그다지 다르지 않을 수 있다고,
 
 생각했다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[절로 돌아간다->Temple_Return]]
@@ -2742,12 +2754,12 @@
 
 :: Hanbei_09_FinalChoice_Beat01 {"position":"2925,1725","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 늑대는 대답하지 않았다.
 
 한베는 작게 웃었다.
 그 웃음은 예전보다 조용했다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei_09_FinalChoice_Talk02]]
@@ -2813,27 +2825,79 @@
 
 :: Hanbei_09_FinalChoice_Choices {"position":"3075,1725","size":"100,100"}
 <<page>>
-<div class="choice-box">
-[[베지 않는다->Ending_Hanbei]]
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
+[[베지 않는다->Hanbei_09_FinalChoice_NoCut_Result]]
 
 <<if $hanbeiMercyRequest or $hanbeiDeepTalk>>
-[[그 약속을 받아들인다->BadEnd_Hanbei_Mercy]]
+[[그 약속을 받아들인다->Hanbei_09_FinalChoice_Mercy_Result]]
 <</if>>
 
-[[아무 말도 하지 않는다->Ending_Hanbei_Silence]]
+[[아무 말도 하지 않는다->Hanbei_09_FinalChoice_Silence_Result]]
 
 <<if $isolation >= 14 or $shura >= 8>>
-[[검을 확인한다->BadEnd_Hanbei_Sword]]
+[[검을 확인한다->Hanbei_09_FinalChoice_Sword_Result]]
 <</if>>
 </div>
+</div>
+<</page>>
+
+:: Hanbei_09_FinalChoice_NoCut_Result {"position":"3200,1725","size":"100,100"}
+<<page>>
+<div class="narration">늑대의 손은 검으로 가지 않았다.
+
+한베는 그 대답을 바로 웃어넘기지 않았다.
+그저 아주 천천히,
+기다려도 되는 사람처럼 숨을 내쉬었다.</div>
+
+<div class="choice-box">[[계속->Ending_Hanbei]]</div>
+<</page>>
+
+:: Hanbei_09_FinalChoice_Mercy_Result {"position":"3200,1850","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 약속을 받아들였다.
+
+그 순간 한베의 웃음은 조금 가벼워졌다.
+가벼워졌기 때문에,
+오히려 더 무겁게 남았다.
+
+언젠가 끝날 대련이,
+두 사람 사이에 놓였다.</div>
+
+<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy]]</div>
+<</page>>
+
+:: Hanbei_09_FinalChoice_Silence_Result {"position":"3200,1975","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 아무 말도 하지 않았다.
+
+한베는 그 침묵을 재촉하지 않았다.
+오래 기다리는 일에는 익숙한 사람처럼,
+그는 곁의 빈자리를 그대로 두었다.</div>
+
+<div class="choice-box">[[계속->Ending_Hanbei_Silence]]</div>
+<</page>>
+
+:: Hanbei_09_FinalChoice_Sword_Result {"position":"3200,2100","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 검을 확인했다.
+
+칼자루는 손에 잘 맞았다.
+너무 잘 맞아서,
+그 사실이 조금 늦게 불편해졌다.
+
+한베는 죽지 않는다.
+그 생각이 잠시 너무 쉽게 지나갔다.</div>
+
+<div class="choice-box">[[계속->BadEnd_Hanbei_Sword]]</div>
 <</page>>
 
 :: Hanbei_Sake_반응_Beat {"position":"0,0","size":"100,100"}
 <<page>>
-<<beat>>
+<div class="narration">
 한베는 잠시 술병을 바라보다가,
 조용히 받아들었다.
-<</beat>>
+</div>
 
 <div class="choice-box">
 [[계속->Hanbei_Sake_반응]]
