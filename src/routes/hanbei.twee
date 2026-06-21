@@ -1670,6 +1670,7 @@
 <<link "술을 받는다" "Hanbei_04_Sake_Accept">>
   <<set $hanbeiLove += 2>>
   <<set $sharedSake_hanbei = true>>
+  <<set $traceSharedDrink = true>>
   <<clampStats>>
 <</link>>
 

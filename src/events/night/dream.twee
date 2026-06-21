@@ -3,7 +3,10 @@
 <<set $currentMode = "sleep">>
 <<set $nightPatrolActive = false>>
 <<set $nightPatrolJustFinished = false>>
-<<if $danger >= 12 and not $dangerDreamSeen>>
+<<set $traceFirstDream = true>>
+<<if $danger >= 12 and not $dangerTrapDreamSeen>>
+  <<goto "Dream_Danger_Trap">>
+<<elseif $danger >= 12 and not $dangerDreamSeen>>
   <<goto "Dream_Danger_Hands">>
 <<elseif $danger >= 12 and $dangerDreamSeen and not $forgottenNightmareSeen>>
   <<goto "Dream_Danger_ForgottenNightmare">>
@@ -24,6 +27,43 @@
 <<else>>
   <<goto "Dream_DefaultSleep">>
 <</if>>
+
+:: Dream_Danger_Trap {"position":"2300,875","size":"100,100"}
+<<page>>
+<<set $dangerTrapDreamSeen = true>>
+<<set $lastDream = "danger_trap">>
+
+<div class="narration">늑대는 걷고 있었다.
+
+발밑에서 작은 소리가 났다.
+
+멈춰야 했다.
+
+하지만 꿈속의 몸은 멈추지 않았다.
+
+끈이 발목을 감았다.
+
+넘어지는 순간,
+누군가가 가까이 다가왔다.</div>
+
+<div class="choice-box continue-row">[[눈을 뜬다->Dream_Danger_Trap_Awake]]</div>
+<</page>>
+
+:: Dream_Danger_Trap_Awake {"position":"2425,875","size":"100,100"}
+<<page>>
+<div class="narration">눈을 떴을 때,
+발목에 아무것도 감겨 있지 않았다.
+
+그런데도 한동안 움직일 수 없었다.
+
+절은 조용했다.
+
+너무 조용해서,
+꿈에서 들었던 작은 소리가
+아직 어딘가에 남아 있는 것 같았다.</div>
+
+<div class="choice-box continue-row">[[일어난다->AdvanceDay]]</div>
+<</page>>
 
 :: Dream_DefaultSleep {"position":"2050,1100","size":"100,100"}
 <<page>>

@@ -412,6 +412,128 @@ body.status-hidden .outer-dev-ui {
 }
 
 /* =========================
+   Record book drawer
+========================= */
+
+.recordbook-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.recordbook-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 8001;
+  width: min(460px, 88vw);
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 28px 28px 36px;
+  overflow-y: auto;
+  color: #e8e2d6;
+  background: rgba(42, 42, 42, 0.96);
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: -24px 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.recordbook-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.recordbook-title {
+  font-family: 'WolfTitleKR', 'WolfBodySerif', serif;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+}
+
+.recordbook-close a {
+  color: #aaa;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.recordbook-close a:hover {
+  color: #fff;
+}
+
+.recordbook-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+  font-size: 14px;
+}
+
+.recordbook-tabs a,
+.recordbook-tab {
+  color: #aaa;
+  text-decoration: none;
+  padding-bottom: 5px;
+}
+
+.recordbook-tabs a:hover {
+  color: #fff;
+}
+
+.recordbook-tab.active {
+  color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.recordbook-summary {
+  margin-bottom: 18px;
+  color: #bfb8aa;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.recordbook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.recordbook-section-title {
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: 'WolfTitleKR', 'WolfBodySerif', serif;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+
+.recordbook-item {
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recordbook-item-title {
+  margin-bottom: 6px;
+  color: #f0eadf;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.recordbook-item-desc {
+  color: #bcb5aa;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.recordbook-item.locked .recordbook-item-title {
+  color: #777;
+}
+
+.recordbook-item.locked .recordbook-item-desc {
+  color: #666;
+}
+
+/* =========================
    PAGE: 나레이션/행동
    talk도 page 안에서 자연스럽게 배치됨.
 ========================= */

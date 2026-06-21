@@ -7,6 +7,11 @@
 <<set $nightPatrolJustFinished = false>>
 <<set $currentMode = "nightPatrol">>
 <<set $timeOfDay = "night">>
+<<if $danger >= 14 and $isolation >= 10 and not $nightTrapHumiliationSeen>>
+  <<goto "Night_TrapHumiliation">>
+<<elseif $danger >= 10 and not $nightTrapCordSeen>>
+  <<goto "Night_TrapCord">>
+<</if>>
 <<set _place = random(1, 5)>>
 
 <<if $danger >= 6 or $shura >= 5>>
@@ -54,8 +59,12 @@
 <</if>>
 
 :: NightPatrol_End {"position":"2125,1050","size":"100,100"}
+<<goto "Night_PatrolEnd">>
+
+:: Night_PatrolEnd {"position":"2250,1050","size":"100,100"}
 <<set $nightPatrolActive = false>>
 <<set $nightPatrolJustFinished = true>>
+<<set $traceFirstNightPatrol = true>>
 <<set $currentMode = "temple">>
 <<goto "AdvanceDay">>
 
@@ -479,7 +488,7 @@
 하지만 바람 사이로,
 절로 돌아가는 길의 소리가 조금 또렷해졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_Low_Return_Result {"position":"2825,800","size":"100,100"}
@@ -490,7 +499,7 @@
 그 어둠은,
 돌아오는 내내 조용히 따라붙었다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_Mid_Climb_Result {"position":"2700,850","size":"100,100"}
@@ -502,7 +511,7 @@
 
 손자국은 아직 벽에 남아 있었다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_Mid_CheckTrace_Result {"position":"2825,850","size":"100,100"}
@@ -513,7 +522,7 @@
 하지만 더 따라갈 길은,
 오늘 밤의 몫이 아닌 듯했다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_Mid_LookAway_Result {"position":"2950,850","size":"100,100"}
@@ -524,7 +533,7 @@
 한 번 보지 않기로 한 것은,
 다시 보기 어려웠다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_High_CheckBreath_Result {"position":"2700,900","size":"100,100"}
@@ -535,7 +544,7 @@
 그 사실은 칼보다 무겁고,
 밤길보다 불안했다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_High_Pass_Result {"position":"2825,900","size":"100,100"}
@@ -546,7 +555,7 @@
 그 소리가 멀어질수록,
 길은 이상하게 더 조용해졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol01_High_End_Result {"position":"2950,900","size":"100,100"}
@@ -568,7 +577,7 @@
 그래도 문턱은,
 조금 덜 차갑게 보였다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_Low_LeaveShoes_Result {"position":"2825,950","size":"100,100"}
@@ -579,7 +588,7 @@
 작은 소리는 빈 골목에 남아,
 오래 삐걱였다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_Mid_BackAway_Result {"position":"2700,1000","size":"100,100"}
@@ -590,7 +599,7 @@
 문 하나의 거리가,
 오늘은 충분했다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_Mid_CheckSafety_Result {"position":"2825,1000","size":"100,100"}
@@ -601,7 +610,7 @@
 대신 골목 끝의 어둠이,
 조금 늦게 움직이는 것을 보았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_Mid_PassSilent_Result {"position":"2950,1000","size":"100,100"}
@@ -612,7 +621,7 @@
 칼집의 작은 울림도,
 곧 같은 침묵이 되었다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_High_LeaveGrain_Result {"position":"2700,1050","size":"100,100"}
@@ -623,7 +632,7 @@
 칼끝보다 먼저,
 그 눈이 무너졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_High_Disarm_Result {"position":"2825,1050","size":"100,100"}
@@ -634,7 +643,7 @@
 하지만 그 작은 소리에,
 골목의 밤이 한 번 흔들렸다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol02_High_CutDown_Result {"position":"2950,1050","size":"100,100"}
@@ -656,7 +665,7 @@
 숨은 다시 낮아졌고,
 밤은 제자리로 돌아왔다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_Low_InspectTrace_Result {"position":"2825,1100","size":"100,100"}
@@ -667,7 +676,7 @@
 길은 좁았고,
 칼집은 자꾸 팔에 닿았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_Mid_ListenPass_Result {"position":"2700,1150","size":"100,100"}
@@ -678,7 +687,7 @@
 하지만 그 이름 없는 예고는,
 밤의 밀도를 조금 더 짙게 했다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_Mid_Hide_Result {"position":"2825,1150","size":"100,100"}
@@ -689,7 +698,7 @@
 어둠에 섞여 있는 동안,
 침묵은 조금 더 익숙해졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_Mid_Interrupt_Result {"position":"2950,1150","size":"100,100"}
@@ -700,7 +709,7 @@
 두 병사의 손이 칼자루로 갔고,
 밤은 갑자기 좁아졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_High_Restrain_Result {"position":"2700,1200","size":"100,100"}
@@ -711,7 +720,7 @@
 죽음까지 가지 않은 밤은,
 그래도 쉽게 조용해지지 않았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_High_Release_Result {"position":"2825,1200","size":"100,100"}
@@ -722,7 +731,7 @@
 사라진 방향은 비었지만,
 위험은 아직 흩어지지 않았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol03_High_CutDown_Result {"position":"2950,1200","size":"100,100"}
@@ -744,7 +753,7 @@
 사람의 숨처럼 들리던 것은,
 잠시 뒤 바람으로 돌아왔다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol04_Low_AvoidDepth_Result {"position":"2825,1250","size":"100,100"}
@@ -755,7 +764,7 @@
 가지 않은 길이 남았지만,
 칼은 더 가벼워졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol04_Mid_PickBuddha_Result {"position":"2700,1300","size":"100,100"}
@@ -766,7 +775,7 @@
 누군가 오래 깎아낸 시간이,
 잠시 밤을 붙잡았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol04_Mid_ReturnBuddha_Result {"position":"2825,1300","size":"100,100"}
@@ -777,7 +786,7 @@
 그 침묵은 이상하게도,
 검을 거두는 소리와 닮아 있었다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol04_Mid_StepOn_Result {"position":"2950,1300","size":"100,100"}
@@ -799,7 +808,7 @@
 손바닥에 남은 힘이 풀리자,
 밤은 조금 덜 날카로워졌다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol04_High_FollowSound_Result {"position":"2825,1350","size":"100,100"}
@@ -821,7 +830,7 @@
 숲은 한동안 입을 다물지 않았다.
 혼자 선 밤은 길었다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_Low_WatchLight_Result {"position":"2700,1400","size":"100,100"}
@@ -832,7 +841,7 @@
 하지만 꺼지지 않은 것은,
 혼자 걷는 길을 조금 짧게 만들었다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_Low_WalkRoad_Result {"position":"2825,1400","size":"100,100"}
@@ -843,7 +852,7 @@
 비어 있는 길은,
 비어 있다는 이유만으로 위험하지는 않았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_Mid_Ask_Result {"position":"2700,1450","size":"100,100"}
@@ -854,7 +863,7 @@
 하지만 고개를 아주 조금 숙였고,
 길의 침묵은 전보다 덜 차가웠다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_Mid_PassSilent_Result {"position":"2825,1450","size":"100,100"}
@@ -865,7 +874,7 @@
 서로를 모른 척한 밤은,
 오래 마음에 걸리지 않았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_Mid_WatchAround_Result {"position":"2950,1450","size":"100,100"}
@@ -876,7 +885,7 @@
 아무 일도 일어나지 않았지만,
 손은 쉽게 칼자루에서 멀어지지 않았다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_High_PullOut_Result {"position":"2700,1500","size":"100,100"}
@@ -887,7 +896,7 @@
 연기는 목 안쪽을 긁었다.
 살아 있는 무게는 생각보다 무거웠다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_High_CheckFire_Result {"position":"2825,1500","size":"100,100"}
@@ -898,7 +907,7 @@
 밤의 길은 아직 남아 있었지만,
 돌아갈 길도 서둘러야 했다.</div>
 
-<div class="choice-box">[[돌아간다->NightPatrol_End]]</div>
+<div class="choice-box">[[돌아간다->Night_PatrolEnd]]</div>
 <</page>>
 
 :: NightPatrol05_High_CutBlocker_Result {"position":"2950,1500","size":"100,100"}

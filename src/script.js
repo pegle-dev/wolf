@@ -849,6 +849,7 @@ function wolfMarkEndingSeen() {
 
   variables.endingCount = isFinite(endingCount) ? endingCount + 1 : 1;
   variables.anyEndingSeen = true;
+  variables.traceFirstEnding = true;
 
   wolfUpdateRouteUnlocks();
 }

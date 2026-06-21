@@ -39,7 +39,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 <<if $shura >= 8>>
   <<goto "ShuraRescue_Router">>
 <<elseif $nightPatrolActive>>
-  <<goto "NightPatrol_End">>
+  <<goto "Night_PatrolEnd">>
 <<else>>
   <<goto "Temple_Return">>
 <</if>>
@@ -90,7 +90,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 <div class="continue-row">
 <<if $nightPatrolActive>>
-[[계속->NightPatrol_End]]
+[[계속->Night_PatrolEnd]]
 <<else>>
 [[계속->Temple_Return]]
 <</if>>
@@ -114,7 +114,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 <div class="continue-row">
 <<if $nightPatrolActive>>
-[[절로 돌아간다->NightPatrol_End]]
+[[절로 돌아간다->Night_PatrolEnd]]
 <<else>>
 [[절로 돌아간다->Temple_Return]]
 <</if>>
@@ -137,7 +137,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 <div class="continue-row">
 <<if $nightPatrolActive>>
-[[절로 돌아간다->NightPatrol_End]]
+[[절로 돌아간다->Night_PatrolEnd]]
 <<else>>
 [[절로 돌아간다->Temple_Return]]
 <</if>>
@@ -160,7 +160,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 <div class="continue-row">
 <<if $nightPatrolActive>>
-[[절로 돌아간다->NightPatrol_End]]
+[[절로 돌아간다->Night_PatrolEnd]]
 <<else>>
 [[절로 돌아간다->Temple_Return]]
 <</if>>
@@ -183,7 +183,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 <div class="continue-row">
 <<if $nightPatrolActive>>
-[[절로 돌아간다->NightPatrol_End]]
+[[절로 돌아간다->Night_PatrolEnd]]
 <<else>>
 [[절로 돌아간다->Temple_Return]]
 <</if>>
@@ -205,7 +205,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 <div class="continue-row">
 <<if $nightPatrolActive>>
-[[절로 돌아간다->NightPatrol_End]]
+[[절로 돌아간다->Night_PatrolEnd]]
 <<else>>
 [[절로 돌아간다->Temple_Return]]
 <</if>>

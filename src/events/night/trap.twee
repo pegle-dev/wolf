@@ -1,0 +1,531 @@
+:: Night_TrapCord {"position":"3200,800","size":"100,100"}
+<<page>>
+<<set $nightTrapCordSeen = true>>
+<<set $trapEventSeen = true>>
+
+<div class="narration">발밑에서 작은 소리가 났다.
+
+늑대는 멈춰 섰다.
+
+너무 늦었다.
+
+끈이 발목을 감았다.
+
+몸이 기울었다.
+
+넘어지기 전에 검을 뽑으려 했지만,
+손목에도 무언가가 걸렸다.
+
+금속음.
+
+늑대는 진흙 위에 무릎을 짚었다.</div>
+
+<div class="choice-box continue-row">[[계속->Night_TrapCord_Choices]]</div>
+<</page>>
+
+:: Night_TrapCord_Choices {"position":"3325,800","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="choice-box story-choice-box">
+<<link "끊는다" "Night_TrapCord_Cut_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "몸을 낮춘다" "Night_TrapCord_Low_Result">>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "소리를 죽인다" "Night_TrapCord_Silence_Result">>
+  <<set $isolation += 1>>
+  <<set $shura += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Night_TrapCord_Cut_Result {"position":"3450,750","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 줄을 끊었다.
+
+소리는 작았다.
+
+하지만 밤은 작은 소리도 오래 품었다.
+
+위험은 지나갔다.
+
+그러나 늑대의 몸은 아직,
+그곳에 남아 있었다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<</page>>
+
+:: Night_TrapCord_Low_Result {"position":"3450,850","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 몸을 낮췄다.
+
+숨을 죽이고,
+기척을 죽이고,
+자신이 그곳에 있다는 사실까지 낮췄다.
+
+잠시 뒤 길은 조용해졌다.
+
+그 조용함이,
+오히려 늑대를 더 혼자 있게 했다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<</page>>
+
+:: Night_TrapCord_Silence_Result {"position":"3450,950","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 소리를 내지 않았다.
+
+소리를 내면,
+무언가를 빼앗길 것 같았다.
+
+그래서 그는 조용히 있었다.
+
+그것이 이긴 것인지는 알 수 없었다.
+
+하지만 적어도,
+전부 빼앗기지는 않았다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<</page>>
+
+:: Night_TrapHumiliation {"position":"3200,1050","size":"100,100"}
+<<page>>
+<<set $nightTrapHumiliationSeen = true>>
+<<set $trapEventSeen = true>>
+
+<div class="narration">발밑에서 작은 소리가 났다.
+
+늑대는 멈춰 섰다.
+
+너무 늦었다.
+
+끈이 발목을 감았다.
+
+몸이 기울었다.
+
+넘어지기 전에 검을 뽑으려 했지만,
+손목에도 무언가가 걸렸다.
+
+금속음.
+
+의수가 뒤틀렸다.
+
+늑대는 바닥에 무릎을 짚었다.
+
+어둠 속에서 웃음소리가 났다.
+
+검이 먼저 빼앗겼다.
+
+그다음은 의수였다.
+
+늑대는 그것을 보았다.
+
+자신의 몸에서 떨어져 나간 무기가
+남의 손에 들려 있는 것을.</div>
+
+<div class="choice-box continue-row">[[계속->Night_TrapHumiliation_02]]</div>
+<</page>>
+
+:: Night_TrapHumiliation_02 {"position":"3325,1050","size":"100,100"}
+<<page>>
+<div class="narration">“이게 그 늑대인가.”
+
+누군가가 말했다.
+
+늑대는 고개를 들려 했다.
+
+그러나 목 뒤를 누르는 손이 있었다.
+
+강하지 않았다.
+
+그런데도 몸은 움직이지 않았다.
+
+눌리는 힘보다,
+눌리는 자세를 몸이 먼저 기억하고 있었다.
+
+무릎.
+
+숙인 고개.
+
+기다리는 손.
+
+명령을 받기 전의 침묵.
+
+늑대는 숨을 들이켰다.
+
+피 냄새가 났다.
+
+흙 냄새가 났다.
+
+자신에게서 나는 냄새였다.</div>
+
+<div class="choice-box continue-row">[[계속->Night_TrapHumiliation_Choices]]</div>
+<</page>>
+
+:: Night_TrapHumiliation_Choices {"position":"3450,1050","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="choice-box story-choice-box">
+<<link "버틴다" "Night_TrapHumiliation_Endure_Result">>
+  <<set $danger += 2>>
+  <<clampStats>>
+<</link>>
+
+<<link "소리를 죽인다" "Night_TrapHumiliation_Silence_Result">>
+  <<set $isolation += 2>>
+  <<clampStats>>
+<</link>>
+
+<<link "무릎을 꿇지 않는다" "Night_TrapHumiliation_Resist_Result">>
+  <<set $freedom += 1>>
+  <<set $resistedKneeling = true>>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Night_TrapHumiliation_Endure_Result {"position":"3575,1000","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 이를 악물었다.
+
+검은 없었다.
+
+의수도 움직이지 않았다.
+
+그러나 아직,
+끝난 것은 아니었다.
+
+어둠이 잠깐 깊어졌다.
+
+그 뒤의 일은 끊겨 있었다.</div>
+
+<div class="choice-box continue-row">[[눈을 뜬다->Night_Trap_AfterBlackout]]</div>
+<</page>>
+
+:: Night_TrapHumiliation_Silence_Result {"position":"3575,1100","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 소리를 내지 않았다.
+
+소리를 내면,
+그 소리를 그들이 가져갈 것 같았다.
+
+그들은 그것을 얌전하다고 생각했다.
+
+겁먹었다고 생각했다.
+
+길들여졌다고 생각했다.
+
+틀렸다.
+
+늑대는 소리를 아끼고 있었다.
+
+아직 자신 안에 남아 있는 것을
+그들에게 주지 않기 위해.</div>
+
+<div class="choice-box continue-row">[[눈을 뜬다->Night_Trap_AfterBlackout]]</div>
+<</page>>
+
+:: Night_TrapHumiliation_Resist_Result {"position":"3575,1200","size":"100,100"}
+<<page>>
+<div class="narration">무릎은 땅에 닿아 있었다.
+
+하지만 아직,
+고개를 숙인 것은 아니었다.
+
+늑대는 눈을 감지 않았다.
+
+감으면,
+그 자세에 익숙해질 것 같았다.
+
+누군가가 욕을 했다.
+
+늑대는 쓰러졌다.
+
+그러나 이번에는
+무릎 꿇은 것이 아니었다.
+
+땅에 닿은 것뿐이었다.</div>
+
+<div class="choice-box continue-row">[[눈을 뜬다->Night_Trap_AfterBlackout]]</div>
+<</page>>
+
+:: Night_Trap_AfterBlackout {"position":"3700,1050","size":"100,100"}
+<<page>>
+<<set $nightTrapBlackoutSeen = true>>
+
+<div class="narration">그 뒤의 일은 끊겨 있었다.
+
+늑대는 눈을 떴다.
+
+입안에 피 맛이 났다.
+
+검은 조금 떨어진 곳에 있었다.
+
+의수는 어깨에 붙어 있었지만,
+손가락 하나가 제대로 움직이지 않았다.
+
+늑대는 천천히 몸을 일으켰다.
+
+옷자락이 진흙에 젖어 있었다.
+
+어디가 다쳤는지 확인하려 했다.
+
+그러나 손이 멈췄다.
+
+확인하고 싶지 않았다.</div>
+
+<div class="choice-box continue-row">[[계속->Night_Trap_River]]</div>
+<</page>>
+
+:: Night_Trap_River {"position":"3825,1050","size":"100,100"}
+<<page>>
+<div class="narration">강가에 멈춰 섰다.
+
+늑대는 손을 물에 담갔다.
+
+차가웠다.
+
+피가 흘러나갔다.
+
+흙도 씻겼다.
+
+그러나 지워지지 않는 감각이 있었다.
+
+목 뒤를 누르던 손.
+
+움직이지 않는 의수.
+
+웃음소리.
+
+늑대는 물을 더 세게 문질렀다.
+
+검은 금방 깨끗해졌다.
+
+그 사실이 이상하게도 견디기 어려웠다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_Trap_Return]]</div>
+<</page>>
+
+:: Night_Trap_Return {"position":"3950,1050","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 늦게 돌아왔다.
+
+걸음은 흐트러지지 않았다.
+
+숨도 고르다.
+
+검도 제자리에 있었다.
+
+겉으로 보기에는,
+아무 일도 없었다.</div>
+
+<div class="choice-box continue-row">[[계속->Night_Trap_Return_AftermathRouter]]</div>
+<</page>>
+
+:: Night_Trap_Return_AftermathRouter {"position":"4075,1050","size":"100,100"}
+<<if $sculptorLove >= 4 or $sculptorGoodEndingSeen>>
+  <<goto "Night_Trap_Return_Sculptor">>
+<<elseif $kuroLove >= 4 or $kuroGoodEndingSeen>>
+  <<goto "Night_Trap_Return_KuroMemory">>
+<<else>>
+  <<goto "Night_Trap_Return_Default">>
+<</if>>
+
+:: Night_Trap_Return_Sculptor {"position":"4200,1000","size":"100,100"}
+<<page>>
+<<set $trapHumiliationAftermathSeen = true>>
+
+<div class="narration">조각가는 불상을 깎고 있었다.
+
+칼끝이 멈췄다.
+
+“늦었군.”
+
+늑대는 대답했다.
+
+“임무가 길어졌다.”
+
+“그런가.”
+
+조각가는 늑대를 보지 않았다.
+
+그런데도 알고 있는 것 같았다.
+
+“거짓말이 늘었군.”
+
+늑대는 지나가려 했다.
+
+조각가의 손이 그의 손목을 잡았다.
+
+늑대의 몸이 순간적으로 굳었다.
+
+너무 크게.
+
+너무 빠르게.
+
+조각가는 그 반응을 보았다.
+
+이번에는 아무 말도 하지 않았다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<</page>>
+
+:: Night_Trap_Return_KuroMemory {"position":"4200,1100","size":"100,100"}
+<<page>>
+<<set $trapHumiliationAftermathSeen = true>>
+
+<div class="narration">무릎이 꺾였다.
+
+늑대는 그 자세를 알고 있었다.
+
+너무 잘 알고 있었다.
+
+명령을 기다리는 몸.
+
+벌을 기다리는 몸.
+
+손이 내려오면 고개를 숙이는 몸.
+
+그때, 아주 먼 곳에서 목소리가 들렸다.
+
+늑대.
+
+어린 목소리.
+
+그대는 나의 닌자다.
+
+하지만 나의 물건은 아니다.
+
+늑대는 숨을 멈췄다.
+
+돌아가야 할 곳이 있었다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<</page>>
+
+:: Night_Trap_Return_Default {"position":"4200,1200","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 아무에게도 말하지 않았다.
+
+묻는 이도 없었다.
+
+그것이 다행인지,
+아니면 더 나쁜 일인지는
+아직 알 수 없었다.
+
+다만 몸은 늦게 반응했다.
+
+문이 닫히는 소리에도,
+등 뒤의 발소리에도,
+낯선 손이 가까워지는 기척에도.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<</page>>
+
+:: ReturnRiskRouter {"position":"3200,1350","size":"100,100"}
+<<if $danger >= 12 and $isolation >= 10 and not $returnTrapAmbushSeen>>
+  <<goto "Return_TrapAmbush">>
+<<else>>
+  <<goto "ReturnToTempleHub">>
+<</if>>
+
+:: Return_TrapAmbush {"position":"3325,1350","size":"100,100"}
+<<page>>
+<<set $returnTrapAmbushSeen = true>>
+<<set $trapEventSeen = true>>
+
+<div class="narration">절로 돌아가는 길이 이상했다.
+
+아까 지나온 나무가 다시 앞에 있었다.
+
+피 냄새가 짙어졌다.
+
+발목이 무거웠다.
+
+늑대는 멈춰 섰다.
+
+그제야,
+길이 자신을 돌려보내지 않고 있다는 것을 알았다.</div>
+
+<div class="choice-box continue-row">[[계속->Return_TrapAmbush_Choices]]</div>
+<</page>>
+
+:: Return_TrapAmbush_Choices {"position":"3450,1350","size":"100,100"}
+<<page>>
+<div class="story-choice-layer">
+<div class="choice-box story-choice-box">
+<<link "길을 되짚는다" "Return_TrapAmbush_Back_Result">>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "소리를 죽인다" "Return_TrapAmbush_Silence_Result">>
+  <<set $isolation += 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "검을 확인한다" "Return_TrapAmbush_Sword_Result">>
+  <<set $shura += 1>>
+  <<set $danger += 1>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Return_TrapAmbush_Back_Result {"position":"3575,1300","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 길을 되짚었다.
+
+나무는 제자리에 있었다.
+
+길도 제자리에 있었다.
+
+그러나 돌아오는 동안,
+뒤따르는 기척만은 끝내 사라지지 않았다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->ReturnToTempleHub]]</div>
+<</page>>
+
+:: Return_TrapAmbush_Silence_Result {"position":"3575,1400","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 소리를 죽였다.
+
+발소리도,
+숨소리도,
+자신이 돌아가고 있다는 사실도.
+
+그렇게 해서 길은 열렸다.
+
+대신 돌아온 것은,
+조금 더 조용한 늑대였다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->ReturnToTempleHub]]</div>
+<</page>>
+
+:: Return_TrapAmbush_Sword_Result {"position":"3575,1500","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 검을 확인했다.
+
+칼집 속의 무게가 대답했다.
+
+그 대답은 빠르고,
+단순하고,
+위험했다.
+
+길은 열렸다.
+
+하지만 검을 확인한 손은
+한동안 칼자루에서 떨어지지 않았다.</div>
+
+<div class="choice-box continue-row">[[절로 돌아간다->ReturnToTempleHub]]</div>
+<</page>>

@@ -56,6 +56,7 @@
 <<link "잔을 받는다" "Isshin_01_FirstSake_Accept_Result">>
   <<set $isshinLove += 1>>
   <<set $isshinAcceptedSake = true>>
+  <<set $traceSharedDrink = true>>
   <<set $freedom += 1>>
   <<set $isshinFirstSakeSeen = true>>
   <<set $isshinProgress = Math.max($isshinProgress, 1)>>
