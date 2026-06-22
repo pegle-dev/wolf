@@ -4676,6 +4676,145 @@ body,
   }
 }
 
+/* Recordbook compact tabs and dark scrollbars */
+.recordbook-tabs {
+  flex: 0 0 26px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  margin: 0 !important;
+  padding: 0 26px !important;
+  box-sizing: border-box !important;
+  background: rgba(255, 255, 255, 0.01) !important;
+  border-top: 1px solid rgba(210, 206, 198, 0.055) !important;
+  border-bottom: 1px solid rgba(210, 206, 198, 0.11) !important;
+}
+
+.recordbook-tabs a,
+.recordbook-tab {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 26px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em !important;
+}
+
+.recordbook-tab.active::after {
+  bottom: -1px !important;
+  height: 1px !important;
+  background: rgba(232, 229, 222, 0.56) !important;
+}
+
+.recordbook-content {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 2px 26px 20px !important;
+  box-sizing: border-box !important;
+}
+
+.recordbook-content > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.recordbook-summary {
+  margin: 0 0 6px !important;
+  padding: 0 0 6px !important;
+}
+
+.recordbook-list {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.recordbook-summary + .recordbook-list {
+  margin-top: 0 !important;
+}
+
+.recordbook-panel,
+.recordbook-content,
+.recordbook-page,
+.recordbook-tab-page,
+.recordbook-section,
+.recordbook-list {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(84, 82, 78, 0.78) rgba(13, 13, 13, 0.96) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar,
+.recordbook-content::-webkit-scrollbar,
+.recordbook-page::-webkit-scrollbar,
+.recordbook-tab-page::-webkit-scrollbar,
+.recordbook-section::-webkit-scrollbar,
+.recordbook-list::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-track,
+.recordbook-content::-webkit-scrollbar-track,
+.recordbook-page::-webkit-scrollbar-track,
+.recordbook-tab-page::-webkit-scrollbar-track,
+.recordbook-section::-webkit-scrollbar-track,
+.recordbook-list::-webkit-scrollbar-track {
+  background: rgba(13, 13, 13, 0.96) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-thumb,
+.recordbook-content::-webkit-scrollbar-thumb,
+.recordbook-page::-webkit-scrollbar-thumb,
+.recordbook-tab-page::-webkit-scrollbar-thumb,
+.recordbook-section::-webkit-scrollbar-thumb,
+.recordbook-list::-webkit-scrollbar-thumb {
+  background: rgba(84, 82, 78, 0.78) !important;
+  border: 2px solid rgba(13, 13, 13, 0.96) !important;
+  border-radius: 999px !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-thumb:hover,
+.recordbook-content::-webkit-scrollbar-thumb:hover,
+.recordbook-page::-webkit-scrollbar-thumb:hover,
+.recordbook-tab-page::-webkit-scrollbar-thumb:hover,
+.recordbook-section::-webkit-scrollbar-thumb:hover,
+.recordbook-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(118, 114, 106, 0.84) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-corner,
+.recordbook-content::-webkit-scrollbar-corner,
+.recordbook-page::-webkit-scrollbar-corner,
+.recordbook-tab-page::-webkit-scrollbar-corner,
+.recordbook-section::-webkit-scrollbar-corner,
+.recordbook-list::-webkit-scrollbar-corner {
+  background: rgba(13, 13, 13, 0.96) !important;
+}
+
+@media (max-width: 640px) {
+  .recordbook-tabs {
+    gap: 17px !important;
+    padding: 0 20px !important;
+  }
+
+  .recordbook-tabs a,
+  .recordbook-tab {
+    font-size: 13px !important;
+  }
+
+  .recordbook-content {
+    padding: 2px 20px 18px !important;
+  }
+}
+
 /* =========================
    Narration top alignment / timed choice bar restore
    ========================= */
@@ -4837,4 +4976,797 @@ body,
   background: rgba(206, 202, 194, 0.52) !important;
   visibility: visible !important;
   opacity: 1 !important;
+}
+
+/* Timed choice bar final visibility override */
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 112px !important;
+  transform: translateX(-50%) !important;
+  z-index: 6200 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: min(760px, 82vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .timed-choice-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.timed-choice-screen .timed-choice-bar-ui,
+.timed-choice-screen .first-death-tension-ui,
+.timed-choice-screen .genichiro-arrow-tension-ui,
+.timed-choice-screen .genichiro-arrow-timer {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  display: block !important;
+  width: min(340px, 52vw) !important;
+  min-width: 180px !important;
+  height: auto !important;
+  min-height: 18px !important;
+  margin: 0 auto 6px !important;
+  padding: 0 !important;
+  z-index: 10 !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .first-death-tension-label {
+  display: block !important;
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  color: rgba(210, 205, 194, 0.58) !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.16em !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.timed-choice-screen .timed-choice-bar-track,
+.timed-choice-screen .first-death-tension-track,
+.timed-choice-screen .first-death-tension-bar,
+.timed-choice-screen .genichiro-arrow-tension-bar,
+.timed-choice-screen .genichiro-arrow-timer-track {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: 8px !important;
+  min-height: 8px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  background: rgba(210, 206, 198, 0.16) !important;
+  border: 1px solid rgba(210, 206, 198, 0.28) !important;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.72) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.timed-choice-screen .timed-choice-bar-fill,
+.timed-choice-screen .first-death-tension-fill,
+.timed-choice-screen .genichiro-arrow-tension-fill,
+.timed-choice-screen .genichiro-arrow-timer-fill {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  transform-origin: center center !important;
+  transform: scaleX(1);
+  background: rgba(206, 202, 194, 0.72) !important;
+  box-shadow: 0 0 10px rgba(206, 202, 194, 0.18) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Timed choice layout separation */
+.choice-screen.timed-choice-screen {
+  position: absolute !important;
+  inset: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.timed-choice-screen .first-death-choice-prompt,
+.timed-choice-screen .genichiro-arrow-choice-prompt {
+  position: absolute !important;
+  top: 84px !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  max-width: 720px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 20 !important;
+  color: rgba(206, 202, 194, 0.76) !important;
+  line-height: 1.75 !important;
+  letter-spacing: 0.04em !important;
+  text-align: center !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 124px !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  min-width: 0 !important;
+  max-width: min(720px, 82vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 30 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .timed-choice-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.timed-choice-screen .timed-choice-bar-ui,
+.timed-choice-screen .first-death-tension-ui,
+.timed-choice-screen .genichiro-arrow-tension-ui,
+.timed-choice-screen .genichiro-arrow-timer {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  display: block !important;
+  width: min(320px, 50vw) !important;
+  min-width: 180px !important;
+  height: auto !important;
+  min-height: 17px !important;
+  margin: 0 auto 5px !important;
+  padding: 0 !important;
+  z-index: 10 !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .timed-choice-bar-track,
+.timed-choice-screen .first-death-tension-track,
+.timed-choice-screen .first-death-tension-bar,
+.timed-choice-screen .genichiro-arrow-tension-bar,
+.timed-choice-screen .genichiro-arrow-timer-track {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: 7px !important;
+  min-height: 7px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background: rgba(210, 206, 198, 0.14) !important;
+  border: 1px solid rgba(210, 206, 198, 0.24) !important;
+}
+
+.timed-choice-screen .timed-choice-bar-fill,
+.timed-choice-screen .first-death-tension-fill,
+.timed-choice-screen .genichiro-arrow-tension-fill,
+.timed-choice-screen .genichiro-arrow-timer-fill {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform-origin: center center !important;
+  transform: scaleX(1);
+  background: rgba(206, 202, 194, 0.58) !important;
+}
+
+.timed-choice-screen .global-choice-box {
+  gap: 2px !important;
+  padding: 4px 18px 5px !important;
+}
+
+.timed-choice-screen .global-choice-box a {
+  font-size: 14px !important;
+  line-height: 1.38 !important;
+  padding-top: 1px !important;
+  padding-bottom: 2px !important;
+}
+
+.first-death-choice-screen.urgent-choice-shake .urgent-shake-inner {
+  animation: wolfUrgentChoiceShake 420ms steps(2, end) infinite;
+  will-change: transform;
+}
+
+@keyframes wolfUrgentChoiceShake {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-1px, 0);
+  }
+  40% {
+    transform: translate(1px, -1px);
+  }
+  60% {
+    transform: translate(-1px, 1px);
+  }
+  80% {
+    transform: translate(1px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .first-death-choice-screen.urgent-choice-shake .urgent-shake-inner {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Recordbook final overlay consolidation */
+.recordbook-panel[data-recordbook-source="overlay"],
+.recordbook-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  z-index: 9001 !important;
+  overflow: hidden !important;
+  white-space: normal !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(72, 70, 66, 0.86) rgba(10, 10, 10, 0.98) !important;
+}
+
+.recordbook-dim,
+.recordbook-overlay {
+  z-index: 9000 !important;
+}
+
+.recordbook-header {
+  margin: 0 !important;
+  padding: 12px 24px 4px !important;
+  box-sizing: border-box !important;
+}
+
+.recordbook-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.05 !important;
+}
+
+.recordbook-subtitle {
+  margin: 4px 0 0 !important;
+  padding: 0 !important;
+  line-height: 1.25 !important;
+}
+
+.recordbook-header,
+.recordbook-tabs {
+  flex: 0 0 auto !important;
+}
+
+.recordbook-tabs {
+  flex: 0 0 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+  background: rgba(255, 255, 255, 0.008) !important;
+  border-top: 1px solid rgba(210, 206, 198, 0.04) !important;
+  border-bottom: 1px solid rgba(210, 206, 198, 0.10) !important;
+  white-space: normal !important;
+}
+
+.recordbook-tabs a,
+.recordbook-tab {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 28px !important;
+  margin: 0 !important;
+  padding: 1px 0 0 !important;
+  box-sizing: border-box !important;
+  color: rgba(190, 186, 178, 0.54) !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em !important;
+}
+
+.recordbook-tabs a:hover {
+  color: rgba(224, 221, 214, 0.82) !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+
+.recordbook-tab.active {
+  color: rgba(232, 229, 222, 0.76) !important;
+}
+
+.recordbook-tab.active::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: -1px !important;
+  height: 1px !important;
+  background: rgba(232, 229, 222, 0.52) !important;
+}
+
+.recordbook-content {
+  flex: 1 1 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 24px 20px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  scrollbar-gutter: stable !important;
+  box-sizing: border-box !important;
+  background: rgba(8, 8, 8, 0.38) !important;
+  white-space: normal !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(72, 70, 66, 0.86) rgba(10, 10, 10, 0.98) !important;
+}
+
+body:has(.recordbook-panel) #wolf-global-continue-layer,
+body:has(.recordbook-panel) .wolf-global-continue-layer {
+  display: none !important;
+}
+
+.recordbook-content > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.recordbook-panel > .recordbook-summary,
+.recordbook-content > .recordbook-summary,
+.recordbook-summary {
+  margin: 0 0 6px !important;
+  padding: 2px 0 6px !important;
+  color: rgba(190, 186, 178, 0.58) !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em !important;
+  border-bottom: 1px solid rgba(210, 206, 198, 0.07) !important;
+  white-space: normal !important;
+}
+
+.recordbook-panel > .recordbook-list,
+.recordbook-content > .recordbook-list,
+.recordbook-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 7px !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: normal !important;
+}
+
+.recordbook-summary + .recordbook-list {
+  margin-top: 0 !important;
+}
+
+.recordbook-item,
+.recordbook-item-title,
+.recordbook-item-desc,
+.recordbook-section-title {
+  white-space: normal !important;
+}
+
+.recordbook-page,
+.recordbook-tab-page,
+.recordbook-section {
+  min-height: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: normal !important;
+}
+
+.recordbook-page > *:first-child,
+.recordbook-tab-page > *:first-child,
+.recordbook-section > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.recordbook-panel,
+.recordbook-content,
+.recordbook-page,
+.recordbook-tab-page,
+.recordbook-section,
+.recordbook-list {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(72, 70, 66, 0.86) rgba(10, 10, 10, 0.98) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar,
+.recordbook-content::-webkit-scrollbar,
+.recordbook-page::-webkit-scrollbar,
+.recordbook-tab-page::-webkit-scrollbar,
+.recordbook-section::-webkit-scrollbar,
+.recordbook-list::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-track,
+.recordbook-content::-webkit-scrollbar-track,
+.recordbook-page::-webkit-scrollbar-track,
+.recordbook-tab-page::-webkit-scrollbar-track,
+.recordbook-section::-webkit-scrollbar-track,
+.recordbook-list::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.98) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-track-piece,
+.recordbook-content::-webkit-scrollbar-track-piece,
+.recordbook-page::-webkit-scrollbar-track-piece,
+.recordbook-tab-page::-webkit-scrollbar-track-piece,
+.recordbook-section::-webkit-scrollbar-track-piece,
+.recordbook-list::-webkit-scrollbar-track-piece {
+  background: rgba(10, 10, 10, 0.98) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-button,
+.recordbook-content::-webkit-scrollbar-button,
+.recordbook-page::-webkit-scrollbar-button,
+.recordbook-tab-page::-webkit-scrollbar-button,
+.recordbook-section::-webkit-scrollbar-button,
+.recordbook-list::-webkit-scrollbar-button {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: rgba(10, 10, 10, 0.98) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-thumb,
+.recordbook-content::-webkit-scrollbar-thumb,
+.recordbook-page::-webkit-scrollbar-thumb,
+.recordbook-tab-page::-webkit-scrollbar-thumb,
+.recordbook-section::-webkit-scrollbar-thumb,
+.recordbook-list::-webkit-scrollbar-thumb {
+  background: rgba(72, 70, 66, 0.86) !important;
+  border: 2px solid rgba(10, 10, 10, 0.98) !important;
+  border-radius: 999px !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-thumb:hover,
+.recordbook-content::-webkit-scrollbar-thumb:hover,
+.recordbook-page::-webkit-scrollbar-thumb:hover,
+.recordbook-tab-page::-webkit-scrollbar-thumb:hover,
+.recordbook-section::-webkit-scrollbar-thumb:hover,
+.recordbook-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(104, 100, 94, 0.9) !important;
+}
+
+.recordbook-panel::-webkit-scrollbar-corner,
+.recordbook-content::-webkit-scrollbar-corner,
+.recordbook-page::-webkit-scrollbar-corner,
+.recordbook-tab-page::-webkit-scrollbar-corner,
+.recordbook-section::-webkit-scrollbar-corner,
+.recordbook-list::-webkit-scrollbar-corner {
+  background: rgba(10, 10, 10, 0.98) !important;
+}
+
+@media (max-width: 640px) {
+  .recordbook-tabs {
+    gap: 16px !important;
+    padding: 0 18px !important;
+  }
+
+  .recordbook-tabs a,
+  .recordbook-tab {
+    font-size: 13px !important;
+  }
+
+  .recordbook-content {
+    padding: 0 18px 18px !important;
+  }
+}
+
+/* Wolf global hidden scrollbar theme */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-button,
+*::-webkit-scrollbar-corner {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+/* Recordbook-specific scrollbar kill switch.
+   Earlier recordbook scrollbar selectors are more specific than the global rule. */
+.recordbook-panel,
+.recordbook-content,
+.recordbook-page,
+.recordbook-tab-page,
+.recordbook-section,
+.recordbook-list {
+  scrollbar-width: none !important;
+  scrollbar-color: transparent transparent !important;
+  scrollbar-gutter: auto !important;
+  -ms-overflow-style: none !important;
+}
+
+.recordbook-panel::-webkit-scrollbar,
+.recordbook-content::-webkit-scrollbar,
+.recordbook-page::-webkit-scrollbar,
+.recordbook-tab-page::-webkit-scrollbar,
+.recordbook-section::-webkit-scrollbar,
+.recordbook-list::-webkit-scrollbar,
+.recordbook-panel::-webkit-scrollbar-track,
+.recordbook-content::-webkit-scrollbar-track,
+.recordbook-page::-webkit-scrollbar-track,
+.recordbook-tab-page::-webkit-scrollbar-track,
+.recordbook-section::-webkit-scrollbar-track,
+.recordbook-list::-webkit-scrollbar-track,
+.recordbook-panel::-webkit-scrollbar-track-piece,
+.recordbook-content::-webkit-scrollbar-track-piece,
+.recordbook-page::-webkit-scrollbar-track-piece,
+.recordbook-tab-page::-webkit-scrollbar-track-piece,
+.recordbook-section::-webkit-scrollbar-track-piece,
+.recordbook-list::-webkit-scrollbar-track-piece,
+.recordbook-panel::-webkit-scrollbar-thumb,
+.recordbook-content::-webkit-scrollbar-thumb,
+.recordbook-page::-webkit-scrollbar-thumb,
+.recordbook-tab-page::-webkit-scrollbar-thumb,
+.recordbook-section::-webkit-scrollbar-thumb,
+.recordbook-list::-webkit-scrollbar-thumb,
+.recordbook-panel::-webkit-scrollbar-button,
+.recordbook-content::-webkit-scrollbar-button,
+.recordbook-page::-webkit-scrollbar-button,
+.recordbook-tab-page::-webkit-scrollbar-button,
+.recordbook-section::-webkit-scrollbar-button,
+.recordbook-list::-webkit-scrollbar-button,
+.recordbook-panel::-webkit-scrollbar-corner,
+.recordbook-content::-webkit-scrollbar-corner,
+.recordbook-page::-webkit-scrollbar-corner,
+.recordbook-tab-page::-webkit-scrollbar-corner,
+.recordbook-section::-webkit-scrollbar-corner,
+.recordbook-list::-webkit-scrollbar-corner {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Final choice layout: prompt above, choices below. */
+.choice-screen {
+  position: absolute !important;
+  inset: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.choice-screen .choice-prompt {
+  position: absolute !important;
+  top: 68px !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  max-width: 720px !important;
+  max-height: 34% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 20 !important;
+  overflow: hidden !important;
+  text-align: center !important;
+  line-height: 1.7 !important;
+  letter-spacing: 0.04em !important;
+  pointer-events: none !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 88px !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  max-width: min(720px, 82vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 30 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.timed-choice-screen .first-death-choice-prompt,
+.timed-choice-screen .genichiro-arrow-choice-prompt {
+  top: 64px !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  bottom: 112px !important;
+}
+
+.global-choice-box,
+.story-choice-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 6px 20px 7px !important;
+  overflow: visible !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  transition: none !important;
+  pointer-events: auto !important;
+}
+
+.global-choice-item a,
+.global-choice-box a,
+.story-choice-box a {
+  position: relative !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 3px 0 4px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.42 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.035em !important;
+  color: rgba(206, 202, 194, 0.76) !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.global-choice-item a::before,
+.global-choice-box a::before,
+.story-choice-box a::before {
+  content: "▸" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: rgba(160, 154, 144, 0.66) !important;
+  font-size: 0.86em !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .timed-choice-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.timed-choice-screen .timed-choice-bar-ui,
+.timed-choice-screen .first-death-tension-ui,
+.timed-choice-screen .genichiro-arrow-tension-ui,
+.timed-choice-screen .genichiro-arrow-timer {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  display: block !important;
+  width: min(340px, 52vw) !important;
+  min-width: 180px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .global-choice-box {
+  gap: 4px !important;
+  padding: 6px 20px 7px !important;
+}
+
+.timed-choice-screen .global-choice-box a {
+  font-size: 16px !important;
+  line-height: 1.42 !important;
+  padding: 3px 0 4px 20px !important;
+}
+
+.global-choice-box:hover,
+.story-choice-box:hover,
+.global-choice-box:has(a:hover),
+.story-choice-box:has(a:hover) {
+  border-top-color: rgba(160, 154, 144, 0.42) !important;
+  border-bottom-color: rgba(160, 154, 144, 0.42) !important;
 }

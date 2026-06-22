@@ -17,34 +17,36 @@
 :: FirstDeath_Choices {"position":"2875,125","size":"100,100"}
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-<div class="choice-screen timed-choice-screen first-death-choice-screen">
-<div class="choice-prompt first-death-choice-prompt">기둥이 무너진다.
-쿠로가 그 아래에 있다.</div>
+<div class="choice-screen timed-choice-screen first-death-choice-screen urgent-choice-shake">
+<div class="choice-prompt first-death-choice-prompt"><div class="urgent-shake-inner">기둥이 무너진다.
+쿠로가 그 아래에 있다.</div></div>
 
 <<run setup.startTimedChoiceBar && setup.startTimedChoiceBar(5, "FirstDeath_Timeout")>>
 
 <div class="global-choice-layer first-death-choice-layer">
-  <div class="timed-choice-stack">
-    <div class="first-death-tension-ui timed-choice-bar-ui">
-      <div class="first-death-tension-label">반응</div>
-      <div class="first-death-tension-bar timed-choice-bar-track">
-        <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
+  <div class="urgent-shake-inner">
+    <div class="timed-choice-stack">
+      <div class="first-death-tension-ui timed-choice-bar-ui">
+        <div class="first-death-tension-label">반응</div>
+        <div class="first-death-tension-bar timed-choice-bar-track">
+          <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
+        </div>
       </div>
-    </div>
 
-    <div class="global-choice-box first-death-choice-box">
-      <<link "쿠로를 밀쳐낸다">>
-        <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-        <<goto "FirstDeath_PushKuro">>
-      <</link>>
-      <<link "기둥을 벤다">>
-        <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-        <<goto "FirstDeath_CutPillar">>
-      <</link>>
-      <<link "몸으로 받는다">>
-        <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-        <<goto "FirstDeath_Block">>
-      <</link>>
+      <div class="global-choice-box first-death-choice-box">
+        <<link "쿠로를 밀쳐낸다">>
+          <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+          <<goto "FirstDeath_PushKuro">>
+        <</link>>
+        <<link "기둥을 벤다">>
+          <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+          <<goto "FirstDeath_CutPillar">>
+        <</link>>
+        <<link "몸으로 받는다">>
+          <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+          <<goto "FirstDeath_Block">>
+        <</link>>
+      </div>
     </div>
   </div>
 </div>

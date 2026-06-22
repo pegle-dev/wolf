@@ -23,24 +23,16 @@ Wolf
 
   <div class="title-menu">
     <div class="title-menu-item">
-    <<link "처음부터" "Intro_Dream_01">>
-      <<set $day = 1>>
-      <<set $timeOfDay = "day">>
-      <<set $dayAdvancedToday = false>>
-      <<set $nightPatrolActive = false>>
-      <<set $nightPatrolUsedToday = false>>
-      <<set $nightPatrolJustFinished = false>>
-      <<set $currentMode = "temple">>
-      <<set $nightPatrolUnlocked = false>>
-      <<set $recordBookOpen = false>>
-      <<set $recordBookTab = "endings">>
-      <<set $firstDeathIntroDone = false>>
+    <<link "처음부터">>
+      <<run setup.startNewGame && setup.startNewGame()>>
     <</link>>
     </div>
 
-    <<if $anyEndingSeen>>
+    <<if setup.hasAutosave && setup.hasAutosave()>>
     <div class="title-menu-item">
-    [[이어간다->Temple]]
+    <<link "이어하기">>
+      <<run setup.continueAutosave && setup.continueAutosave()>>
+    <</link>>
     </div>
     <</if>>
 

@@ -1174,9 +1174,6 @@
 
 UIBar.stow();
 
-Config.passages.transitionOut = 0;
-Config.history.controls = false;
-
 var WOLF_STAT_LIMITS = {
   common : {
     min : 0,
@@ -1280,6 +1277,141 @@ if (typeof Macro !== 'undefined' && (!Macro.has || !Macro.has('continueTo'))) {
   });
 }
 
+function wolfSetSessionFlag(key) {
+  try {
+    window.sessionStorage.setItem(key, 'true');
+  } catch (error) {
+    setup[key] = true;
+  }
+}
+
+function wolfHasSessionFlag(key) {
+  try {
+    return window.sessionStorage.getItem(key) === 'true';
+  } catch (error) {
+    return !!setup[key];
+  }
+}
+
+function wolfClearSessionFlag(key) {
+  try {
+    window.sessionStorage.removeItem(key);
+  } catch (error) {
+    setup[key] = false;
+  }
+}
+
+setup.hasAutosave = function () {
+  try {
+    if (typeof Save !== 'undefined' &&
+        Save.browser &&
+        Save.browser.auto &&
+        typeof Save.browser.auto.has === 'function') {
+      return Save.browser.auto.has(0);
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] autosave check failed:', error);
+    }
+  }
+
+  return false;
+};
+
+setup.deleteAutosave = function () {
+  try {
+    if (typeof Save !== 'undefined' &&
+        Save.browser &&
+        Save.browser.auto &&
+        typeof Save.browser.auto.delete === 'function') {
+      Save.browser.auto.delete(0);
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] autosave delete failed:', error);
+    }
+  }
+};
+
+setup.startNewGame = function () {
+  setup.deleteAutosave();
+  setup._wolfStartNewGame = true;
+  wolfSetSessionFlag('wolf.startNewGame');
+
+  if (typeof Engine !== 'undefined' && Engine.restart) {
+    Engine.restart();
+    return;
+  }
+
+  wolfClearSessionFlag('wolf.startNewGame');
+  setup._wolfStartNewGame = false;
+  Engine.play('Intro_Dream_01');
+};
+
+setup.continueAutosave = function () {
+  try {
+    if (setup.hasAutosave && setup.hasAutosave() &&
+        typeof Save !== 'undefined' &&
+        Save.browser &&
+        Save.browser.auto &&
+        typeof Save.browser.auto.load === 'function') {
+      setup._wolfContinuingAutosave = true;
+      wolfSetSessionFlag('wolf.continuingAutosave');
+      Save.browser.auto.load(0);
+      return;
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] autosave load failed:', error);
+    }
+  }
+
+  setup._wolfContinuingAutosave = false;
+  wolfClearSessionFlag('wolf.continuingAutosave');
+};
+
+setup.isAutosaveExcludedPassage = function (passageName) {
+  var name = String(passageName || '');
+
+  return (
+    name === 'Start' ||
+    name === 'StoryInit' ||
+    name.indexOf('RecordBook') !== -1 ||
+    /^Debug/.test(name)
+  );
+};
+
+setup.saveAutosave = function () {
+  var passage = State.passage || '';
+
+  if (setup._wolfForceTitleRedirecting) {
+    if (passage === 'Start') {
+      setup._wolfForceTitleRedirecting = false;
+    }
+    return;
+  }
+
+  if (setup.isAutosaveExcludedPassage && setup.isAutosaveExcludedPassage(passage)) {
+    return;
+  }
+  if (State.variables && State.variables.recordBookOpen) {
+    return;
+  }
+
+  try {
+    if (typeof Save !== 'undefined' &&
+        Save.browser &&
+        Save.browser.auto &&
+        typeof Save.browser.auto.save === 'function') {
+      Save.browser.auto.save('Wolf Autosave');
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] autosave failed:', error);
+    }
+  }
+};
+
 setup.ensureGlobalContinueLayer = function () {
   var layer = document.getElementById('wolf-global-continue-layer');
   var button;
@@ -1318,12 +1450,19 @@ setup.updateGlobalContinue = function () {
   var button = layer.querySelector('.wolf-global-continue-button');
   var marker = root.querySelector ? root.querySelector('.continue-marker') : document.querySelector('.continue-marker');
   var target = marker ? marker.dataset.continueTarget : '';
+  var variables = State.variables || {};
 
   if (!button) {
     return;
   }
 
   button.textContent = setup.t ? setup.t('continue') : '계속.';
+
+  if (variables.recordBookOpen || document.querySelector('.recordbook-panel')) {
+    layer.classList.remove('is-visible');
+    button.onclick = null;
+    return;
+  }
 
   if (!target) {
     layer.classList.remove('is-visible');
@@ -1562,7 +1701,13 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
 
     elapsed = now - startTime;
     remainingRatio = Math.max(0, 1 - (elapsed / totalMs));
-    bar = document.querySelector('[data-timed-choice-bar]');
+    bar = document.querySelector(
+      '[data-timed-choice-bar], ' +
+      '.timed-choice-bar-fill, ' +
+      '.first-death-tension-fill, ' +
+      '.genichiro-arrow-tension-fill, ' +
+      '.genichiro-arrow-timer-fill'
+    );
 
     if (bar) {
       bar.style.transform = 'scaleX(' + remainingRatio + ')';
@@ -2169,6 +2314,21 @@ function wolfUpdateOuterUI() {
   $('.outer-dev-jumps').html(jumpHtml);
 }
 
+$(document).one(':passagedisplay', function () {
+  if (State.passage !== 'Start' && !wolfHasSessionFlag('wolf.continuingAutosave')) {
+    setup._wolfForceTitleRedirecting = true;
+    Engine.play('Start');
+  }
+});
+
+$(document).on(':passagestart', function () {
+  if (wolfHasSessionFlag('wolf.continuingAutosave')) {
+    if (State.variables) {
+      State.variables.recordBookOpen = false;
+    }
+  }
+});
+
 $(document).on(':passagerender :passageend', function (event) {
   if (window.WolfTrimNarrationWhitespace) {
     window.WolfTrimNarrationWhitespace(event && event.content ? event.content : document);
@@ -2178,6 +2338,27 @@ $(document).on(':passagerender :passageend', function (event) {
   applyStoredStatusHidden();
   if (setup.updateGlobalContinue) {
     setup.updateGlobalContinue();
+  }
+});
+
+$(document).on(':passagedisplay', function () {
+  if (wolfHasSessionFlag('wolf.startNewGame') || setup._wolfStartNewGame) {
+    wolfClearSessionFlag('wolf.startNewGame');
+    setup._wolfStartNewGame = false;
+    Engine.play('Intro_Dream_01');
+    return;
+  }
+
+  if (wolfHasSessionFlag('wolf.continuingAutosave') || setup._wolfContinuingAutosave) {
+    wolfClearSessionFlag('wolf.continuingAutosave');
+    setup._wolfContinuingAutosave = false;
+    if (State.variables) {
+      State.variables.recordBookOpen = false;
+    }
+  }
+
+  if (setup.saveAutosave) {
+    setup.saveAutosave();
   }
 });
 
