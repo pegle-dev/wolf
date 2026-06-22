@@ -1,0 +1,2 @@
+/% continueTo is registered in src/script.js with Macro.add so the target can be
+   written to data-continue-target as a real DOM value. %/

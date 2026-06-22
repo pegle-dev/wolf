@@ -1,0 +1,237 @@
+:: Intro_Dream_01 {"position":"1625,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">울지 않는 어린아이가 있다.
+
+시체들 사이에서,
+자신에게 맞지 않게 큰 검을 간신히 쥐고 있다.</div>
+</div>
+
+<<continueTo "Intro_Dream_01_Choice">>
+<<if $debugMode>>
+<div class="debug-skip-link">
+[[인트로 스킵->FirstDeath_Event]]
+</div>
+<</if>>
+<</page>>
+
+:: Intro_Dream_01_Choice {"position":"1685,125","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+<div class="choice-prompt intro-dream-choice-prompt">울지 않는 어린아이가 있다.</div>
+
+<div class="global-choice-layer debug-force-choice">
+  <div class="global-choice-box">
+    [[조용히 내려다본다->Intro_Dream_01_Look]]
+    [[지나친다->Intro_Dream_01_Pass]]
+  </div>
+</div>
+<<if $debugMode>>
+<div class="debug-skip-link">
+[[인트로 스킵->FirstDeath_Event]]
+</div>
+<</if>>
+</div>
+<</page>>
+
+:: Intro_Dream_01_Look {"position":"1750,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">어린아이는 울지 않았다.
+
+우는 법을 배우기 전에,
+검을 먼저 배운 아이였기 때문이다.</div>
+</div>
+
+<<continueTo "Intro_Dream_02">>
+<</page>>
+
+:: Intro_Dream_01_Pass {"position":"1750,225","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">지나친다.
+
+전장에서는,
+울지 않는 아이보다 더 급한 죽음이 많았다.</div>
+</div>
+
+<<continueTo "Intro_Dream_02">>
+<</page>>
+
+:: Intro_Dream_02 {"position":"1875,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">상처입은 허수아비가
+폐허가 된 절 밖에 서 있다.
+
+피는 흐르지 않는다.
+
+하지만 베인 자국은,
+너무 많다.</div>
+</div>
+
+<<continueTo "Intro_Dream_02_Choice">>
+<</page>>
+
+:: Intro_Dream_02_Choice {"position":"1935,125","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+<div class="choice-prompt intro-dream-choice-prompt">상처입은 허수아비가
+절 밖에 서 있다.</div>
+
+<div class="global-choice-layer debug-force-choice">
+  <div class="global-choice-box">
+    [[말을 걸어본다->Intro_Dream_02_Talk]]
+    [[지나친다->Intro_Dream_02_Pass]]
+  </div>
+</div>
+</div>
+<</page>>
+
+:: Intro_Dream_02_Talk {"position":"2000,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">대답은 없었다.
+
+다만 허수아비는,
+방금 전보다 조금 더 사람처럼 서 있었다.</div>
+</div>
+
+<<continueTo "Intro_Dream_03">>
+<</page>>
+
+:: Intro_Dream_02_Pass {"position":"2000,225","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">지나친다.
+
+베인 것들은 언제나
+그 자리에 남아 있었다.</div>
+</div>
+
+<<continueTo "Intro_Dream_03">>
+<</page>>
+
+:: Intro_Dream_03 {"position":"2125,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">고귀한 어린 아이의 뒷모습이
+점점 멀어져 간다.
+
+불러야 한다.
+
+기다려야 한다.
+
+늑대는,
+그 둘의 차이를 아직 모른다.</div>
+</div>
+
+<<continueTo "Intro_Dream_03_Choice">>
+<</page>>
+
+:: Intro_Dream_03_Choice {"position":"2185,125","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+<div class="choice-prompt intro-dream-choice-prompt">고귀한 어린 아이의 뒷모습이
+점점 멀어져 간다.</div>
+
+<div class="global-choice-layer debug-force-choice">
+  <div class="global-choice-box">
+    [[그를 부른다->Intro_Dream_03_Call]]
+    [[무릎을 꿇고 기다린다->Intro_Dream_03_Kneel]]
+  </div>
+</div>
+</div>
+<</page>>
+
+:: Intro_Dream_03_Call {"position":"2250,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">목소리는 나오지 않았다.
+
+대신 손이,
+검자루를 찾았다.</div>
+</div>
+
+<<continueTo "Intro_Dream_04">>
+<</page>>
+
+:: Intro_Dream_03_Kneel {"position":"2250,225","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">무릎을 꿇는다.
+
+기다리는 법은 알았다.
+명령을 기다리는 법은,
+더 잘 알았다.</div>
+</div>
+
+<<continueTo "Intro_Dream_04">>
+<</page>>
+
+:: Intro_Dream_04 {"position":"2375,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">불에 타는 성이다.
+
+누군가가
+우는 듯,
+웃는 듯,
+소리치고 있다.</div>
+</div>
+
+<<continueTo "Intro_Dream_04_Choice">>
+<</page>>
+
+:: Intro_Dream_04_Choice {"position":"2435,125","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+<div class="choice-prompt intro-dream-choice-prompt">불에 타는 성이다.
+
+누군가가 아직,
+그 안에 있다.</div>
+
+<div class="global-choice-layer debug-force-choice">
+  <div class="global-choice-box">
+    [[침묵한다->Intro_Dream_04_Silence]]
+    [[그를 구하러 달려들어간다->Intro_Dream_04_Run]]
+  </div>
+</div>
+</div>
+<</page>>
+
+:: Intro_Dream_04_Silence {"position":"2500,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">침묵한다.
+
+불은 대답을 요구하지 않았다.
+다만,
+남은 것들을 삼켰다.</div>
+</div>
+
+<<continueTo "Intro_Wake">>
+<</page>>
+
+:: Intro_Dream_04_Run {"position":"2500,225","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">달려들어간다.
+
+구해야 할 자가 누구였는지,
+늑대는 끝내 보지 못했다.</div>
+</div>
+
+<<continueTo "Intro_Wake">>
+<</page>>
+
+:: Intro_Wake {"position":"2625,125","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block intro-dream-narration">…묘한 꿈을 꿨다.
+
+이곳은…</div>
+</div>
+
+<<continueTo "FirstDeath_Event">>
+<</page>>

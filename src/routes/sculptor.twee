@@ -42,7 +42,7 @@
 대개 오래 못 산다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_01_Carving_Choices]]</div>
+<<continueTo "Sculptor_01_Carving_Choices">>
 <</page>>
 
 :: Sculptor_01_Carving_Choices {"position":"2625,575","size":"100,100"}
@@ -82,7 +82,7 @@
 하지만 이상하게도,
 그 소리는 검을 뽑는 소리보다 오래 남았다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_01_Carving_Ask_Result {"position":"2875,575","size":"100,100"}
@@ -95,7 +95,7 @@
 감추는 법을 묻는 자와,
 감추다 남은 자 사이에 잠시 침묵이 놓였다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_01_Carving_Leave_Result {"position":"3000,575","size":"100,100"}
@@ -106,7 +106,7 @@
 그런 일에 익숙한 사람처럼,
 다시 나무를 깎기 시작했다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_02_Wound {"position":"2500,725","size":"100,100"}
@@ -134,7 +134,7 @@
 혼자 싸매는 게 아니다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_02_Wound_Choices]]</div>
+<<continueTo "Sculptor_02_Wound_Choices">>
 <</page>>
 
 :: Sculptor_02_Wound_Choices {"position":"2625,725","size":"100,100"}
@@ -178,7 +178,7 @@
 그것이 이상하게,
 늑대를 더 오래 붙잡았다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_02_Wound_Hide_Result {"position":"2875,725","size":"100,100"}
@@ -189,7 +189,7 @@
 하지만 그 침묵은,
 믿었다는 뜻이 아니었다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_02_Wound_Silent_Result {"position":"3000,725","size":"100,100"}
@@ -202,7 +202,7 @@
 늑대가 그것을 받기까지,
 그는 기다렸다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_03_DoNotDie {"position":"2500,875","size":"100,100"}
@@ -226,7 +226,7 @@
 죽으러 가지 말라는 말이다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_03_DoNotDie_Choices]]</div>
+<<continueTo "Sculptor_03_DoNotDie_Choices">>
 <</page>>
 
 :: Sculptor_03_DoNotDie_Choices {"position":"2625,875","size":"100,100"}
@@ -269,7 +269,7 @@
 그 정도면,
 이번 밤에는 충분했다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_03_DoNotDie_Duty_Result {"position":"2875,875","size":"100,100"}
@@ -279,7 +279,7 @@
 그 말 안에 들어가면,
 살아 돌아올 이유를 생각하지 않아도 되었다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_03_DoNotDie_Ignore_Result {"position":"3000,875","size":"100,100"}
@@ -290,7 +290,7 @@
 다만 그 침묵은,
 잠깐이나마 돌아오겠다는 말처럼 남았다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_04_ShuraSmell {"position":"2500,1025","size":"100,100"}
@@ -317,7 +317,7 @@
 너 같은 놈이 끝까지 가면 나는 냄새.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_04_ShuraSmell_Choices]]</div>
+<<continueTo "Sculptor_04_ShuraSmell_Choices">>
 <</page>>
 
 :: Sculptor_04_ShuraSmell_Choices {"position":"2625,1025","size":"100,100"}
@@ -361,7 +361,7 @@
 다만 오래된 것을 꺼내기 전,
 잠시 숨을 고르는 소리였다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_04_ShuraSmell_Deny_Result {"position":"2875,1025","size":"100,100"}
@@ -372,7 +372,7 @@
 부정은 때로,
 냄새보다 오래 남았다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_04_ShuraSmell_Fire_Result {"position":"3000,1025","size":"100,100"}
@@ -383,7 +383,7 @@
 그런데도 조각가는,
 조금 더 깊게 얼굴을 찡그렸다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_05_Prosthetic {"position":"2500,1175","size":"100,100"}
@@ -406,7 +406,7 @@
 손이 된 뒤에도 무기처럼 움직인다는 거다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_05_Prosthetic_Choices]]</div>
+<<continueTo "Sculptor_05_Prosthetic_Choices">>
 <</page>>
 
 :: Sculptor_05_Prosthetic_Choices {"position":"2625,1175","size":"100,100"}
@@ -450,7 +450,7 @@
 절 안에서는,
 이상하게 선명했다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_05_Prosthetic_Inspect_Result {"position":"2875,1175","size":"100,100"}
@@ -463,7 +463,7 @@
 몸에 붙은 무기는,
 몸보다 먼저 말을 들었다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_05_Prosthetic_Weapon_Result {"position":"3000,1175","size":"100,100"}
@@ -474,7 +474,7 @@
 그래서 조각가는,
 더 오래 늑대를 보았다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_06_Face {"position":"2500,1325","size":"100,100"}
@@ -500,7 +500,7 @@
 아직 안 나온다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_06_Face_Choices]]</div>
+<<continueTo "Sculptor_06_Face_Choices">>
 <</page>>
 
 :: Sculptor_06_Face_Choices {"position":"2625,1325","size":"100,100"}
@@ -546,7 +546,7 @@
 나무 조각이 하나,
 무릎 아래로 떨어졌다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_06_Face_TurnAway_Result {"position":"2875,1325","size":"100,100"}
@@ -557,7 +557,7 @@
 누군가 제 얼굴을 보지 못하는 일에,
 그는 너무 익숙했다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_06_Face_Fire_Result {"position":"3000,1325","size":"100,100"}
@@ -570,7 +570,7 @@
 꺼져 가는 것이 아니라,
 기다리는 것처럼 보였다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Sculptor_07_FinalChoice {"position":"2500,1475","size":"100,100"}
@@ -601,7 +601,7 @@
 그 불로 가지 마라.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Sculptor_07_FinalChoice_Choices]]</div>
+<<continueTo "Sculptor_07_FinalChoice_Choices">>
 <</page>>
 
 :: Sculptor_07_FinalChoice_Choices {"position":"2625,1475","size":"100,100"}
@@ -649,8 +649,9 @@
 <<set $sculptorGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
+<<qualifiedCharacterEnding "sculptor">>
 <div class="narration narration-full short-beat">조각가는 불상을 완성하지 못했다.</div>
-<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_02]]</div>
+<<continueTo "Ending_Sculptor_LeftBehindBuddha_02">>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_02 {"position":"2625,1650","size":"100,100"}
@@ -659,7 +660,7 @@
 
 깎이지 않은 얼굴은,
 아직 수라가 되지 않았다는 증거처럼 보였다.</div>
-<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_03]]</div>
+<<continueTo "Ending_Sculptor_LeftBehindBuddha_03">>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_03 {"position":"2750,1650","size":"100,100"}
@@ -668,7 +669,7 @@
 죽지만 마라.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_04]]</div>
+<<continueTo "Ending_Sculptor_LeftBehindBuddha_04">>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_04 {"position":"2875,1650","size":"100,100"}
@@ -677,7 +678,7 @@
 예.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_05]]</div>
+<<continueTo "Ending_Sculptor_LeftBehindBuddha_05">>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_05 {"position":"3000,1650","size":"100,100"}
@@ -686,7 +687,7 @@
 그건 명령이 아니다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_06]]</div>
+<<continueTo "Ending_Sculptor_LeftBehindBuddha_06">>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_06 {"position":"3125,1650","size":"100,100"}
@@ -695,7 +696,7 @@
 …알고 있습니다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Ending_Sculptor_LeftBehindBuddha_End]]</div>
+<<continueTo "Ending_Sculptor_LeftBehindBuddha_End">>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha_End {"position":"3250,1650","size":"100,100"}
@@ -712,21 +713,21 @@
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <div class="narration narration-full short-beat">나무 얼굴은 끝내 나오지 않았다.</div>
-<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_UncarvedFace_02]]</div>
+<<continueTo "BadEnd_Sculptor_UncarvedFace_02">>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace_02 {"position":"2625,1825","size":"100,100"}
 <<page>>
 <div class="narration narration-full short-beat">늑대는 그것을 보았다.
 아무도 닮지 않은 얼굴이었다.</div>
-<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_UncarvedFace_03]]</div>
+<<continueTo "BadEnd_Sculptor_UncarvedFace_03">>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace_03 {"position":"2750,1825","size":"100,100"}
 <<page>>
 <div class="narration narration-full short-beat">이상하게도,
 그것이 가장 자신과 가까워 보였다.</div>
-<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_UncarvedFace_End]]</div>
+<<continueTo "BadEnd_Sculptor_UncarvedFace_End">>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace_End {"position":"2875,1825","size":"100,100"}
@@ -747,7 +748,7 @@
 <<markEndingSeen>>
 <<clampStats>>
 <div class="narration narration-full short-beat">불은 옮겨붙지 않았다.</div>
-<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_SpreadingEmber_02]]</div>
+<<continueTo "BadEnd_Sculptor_SpreadingEmber_02">>
 <</page>>
 
 :: BadEnd_Sculptor_SpreadingEmber_02 {"position":"2625,2000","size":"100,100"}
@@ -756,7 +757,7 @@
 
 나무 냄새와 피 냄새가,
 한순간 같은 냄새가 되었다.</div>
-<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_SpreadingEmber_03]]</div>
+<<continueTo "BadEnd_Sculptor_SpreadingEmber_03">>
 <</page>>
 
 :: BadEnd_Sculptor_SpreadingEmber_03 {"position":"2750,2000","size":"100,100"}
@@ -769,7 +770,7 @@
 
 그 눈은 늑대를 보는 눈이면서,
 오래전의 자신을 보는 눈이었다.<</beat>>
-<div class="choice-box continue-row">[[계속->BadEnd_Sculptor_SpreadingEmber_End]]</div>
+<<continueTo "BadEnd_Sculptor_SpreadingEmber_End">>
 <</page>>
 
 :: BadEnd_Sculptor_SpreadingEmber_End {"position":"2875,2000","size":"100,100"}

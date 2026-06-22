@@ -7,7 +7,7 @@
 친근한, 하지만 어딘가 외로운 목소리.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Voices_02]]</div>
+<<continueTo "Hidden_Rebirth_Voices_02">>
 <</page>>
 
 :: Hidden_Rebirth_Voices_02 {"position":"5325,1500","size":"100,100"}
@@ -19,7 +19,7 @@
 낮고 단단한 목소리.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Voices_03]]</div>
+<<continueTo "Hidden_Rebirth_Voices_03">>
 <</page>>
 
 :: Hidden_Rebirth_Voices_03 {"position":"5450,1500","size":"100,100"}
@@ -34,7 +34,7 @@
 웃음기 어린, 거친 목소리.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Voices_04]]</div>
+<<continueTo "Hidden_Rebirth_Voices_04">>
 <</page>>
 
 :: Hidden_Rebirth_Voices_04 {"position":"5575,1500","size":"100,100"}
@@ -48,7 +48,7 @@
 낮고 메마른 목소리.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Voices_05]]</div>
+<<continueTo "Hidden_Rebirth_Voices_05">>
 <</page>>
 
 :: Hidden_Rebirth_Voices_05 {"position":"5700,1500","size":"100,100"}
@@ -76,7 +76,7 @@
 늑대는 천천히 눈을 깜빡였다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Temple_02]]</div>
+<<continueTo "Hidden_Rebirth_Temple_02">>
 <</page>>
 
 :: Hidden_Rebirth_Temple_02 {"position":"5325,1650","size":"100,100"}
@@ -94,7 +94,7 @@
 왼팔이 없었다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Temple_03]]</div>
+<<continueTo "Hidden_Rebirth_Temple_03">>
 <</page>>
 
 :: Hidden_Rebirth_Temple_03 {"position":"5450,1650","size":"100,100"}
@@ -110,7 +110,7 @@
 노인이 말했다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Temple_04]]</div>
+<<continueTo "Hidden_Rebirth_Temple_04">>
 <</page>>
 
 :: Hidden_Rebirth_Temple_04 {"position":"5575,1650","size":"100,100"}
@@ -128,7 +128,7 @@
 머릿속이 새하얬다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Temple_05]]</div>
+<<continueTo "Hidden_Rebirth_Temple_05">>
 <</page>>
 
 :: Hidden_Rebirth_Temple_05 {"position":"5700,1650","size":"100,100"}
@@ -147,7 +147,7 @@
 불상을 깎던 손을 멈추었다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_Temple_06]]</div>
+<<continueTo "Hidden_Rebirth_Temple_06">>
 <</page>>
 
 :: Hidden_Rebirth_Temple_06 {"position":"5825,1650","size":"100,100"}
@@ -199,7 +199,7 @@
 늑대는 멈춰 섰다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_FinalField_02]]</div>
+<<continueTo "Hidden_Rebirth_FinalField_02">>
 <</page>>
 
 :: Hidden_Rebirth_FinalField_02 {"position":"5325,1950","size":"100,100"}
@@ -213,7 +213,7 @@
 돌아갈 길을 알고 있었다.
 </div>
 
-<div class="choice-box">[[계속->Hidden_Rebirth_FinalField_03]]</div>
+<<continueTo "Hidden_Rebirth_FinalField_03">>
 <</page>>
 
 :: Hidden_Rebirth_FinalField_03 {"position":"5450,1950","size":"100,100"}

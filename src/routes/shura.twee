@@ -11,7 +11,5 @@
 말이 되기 전의 침묵으로 남아 있다.
 </div>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return_Shura]]
-</div>
+<<continueTo "Temple_Return_Shura">>
 <</page>>

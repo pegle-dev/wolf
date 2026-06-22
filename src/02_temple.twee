@@ -3,6 +3,10 @@
 <<include "Temple_Description">>
 <<include "Temple_CharacterEcho">>
 
+<<if $recordBookUnlocked and not $recordBookFirstOpened>>
+<<run setup.showToast && setup.showToast(setup.t("recordSomethingRemains"), "record")>>
+<</if>>
+
 <div class="choice-box temple-hub-choices">
 <<include "Temple_Choices">>
 </div>
@@ -76,7 +80,13 @@
 <</if>>
 
 :: Temple_Choices {"position":"1525,825","size":"100,100"}
-<<if $hanbeiProgress == 0>>
+<<if $endingHanbeiQuietDaySeen>>
+<<if $hanbeiLove >= 3>>
+[[한베와 이야기한다->Hanbei_Loop]]
+<<else>>
+[[죽지 않는 무사에게 다가간다->Hanbei_Loop]]
+<</if>>
+<<elseif $hanbeiProgress == 0>>
 <<if $hanbeiLove >= 3>>
 [[한베에게 간다->Hanbei01]]
 <<else>>
@@ -96,9 +106,9 @@
 <</if>>
 <<else>>
 <<if $hanbeiLove >= 3>>
-[[한베와 이야기한다->Hanbei_Loop]]
+[[한베와 이야기한다->Hanbei_Sake]]
 <<else>>
-[[죽지 않는 무사에게 다가간다->Hanbei_Loop]]
+[[죽지 않는 무사에게 다가간다->Hanbei_Sake]]
 <</if>>
 <</if>>
 
@@ -154,7 +164,9 @@
 [[아무도 만나지 않는다->Shura]]
 <</if>>
 
-[[기록장을 펼친다->RecordBook]]
+<<if $timeOfDay == "day" and not $nightPatrolActive>>
+[[밤이 깊어지기를 기다린다->Temple_Return]]
+<</if>>
 
 :: AdvanceDay {"position":"1800,725","size":"100,100"}
 <<if not $dayAdvancedToday>>
@@ -173,13 +185,16 @@
 <<set $timeOfDay = "day">>
 <<set $nightPatrolActive = false>>
 <<set $nightPatrolUsedToday = false>>
-<<set $nightPatrolJustFinished = false>>
 <<set $currentMode = "temple">>
 <<if $day >= 2>>
   <<set $nightPatrolUnlocked = true>>
 <</if>>
 <<if $day >= 3 and $secondLoopUnlocked>>
   <<set $emmaEventUnlocked = true>>
+<</if>>
+<<if $nightPatrolJustFinished>>
+  <<set $nightPatrolJustFinished = false>>
+  <<goto "Temple_AfterNight">>
 <</if>>
 <<goto "ReturnToTempleHub">>
 
@@ -195,6 +210,9 @@
 <<set $nightPatrolJustFinished = false>>
 <<set $returnTo = "Temple">>
 <<set $dayEndReturn = false>>
+<<if $returnEventPending>>
+  <<goto "Temple_AfterNight">>
+<</if>>
 <<goto "Temple">>
 
 :: Temple_AfterNight {"position":"1825,625","size":"100,100"}
@@ -202,14 +220,14 @@
 새벽이 가까워진다.
 
 
-<div class="choice-box">[[돌아간다->Temple]]</div>
+<<continueTo "ReturnEvent_Router">>
 <</page>>
 
 :: Temple_Return {"position":"2025,1200","size":"100,100"}
 <<page>>
 <<updateRouteUnlocks>>
 <<set $sceneCount += 1>>
-<<set $returnTo = "Temple_Return_Hub">>
+<<set $returnTo = "Temple_Return">>
 <<set $currentMode = "temple">>
 <<if $dayEndReturn>>
   <<set $dayEndReturn = false>>
@@ -221,33 +239,30 @@
 <</if>>
 <<set $nightPatrolJustFinished = false>>
 <<set $nightPatrolActive = false>>
-<<goto "Temple_Return_Hub">>
-<</page>>
-
-
-:: Temple_Return_Hub {"position":"2025,1325","size":"100,100"}
-<<page>>
+<<set $timeOfDay = "night">>
 <div class="narration-full">
-절의 공기가 다시 낮게 가라앉았다.
+밤이 왔다.
 
-낡은 처마 아래로,
-찬 바람이 지나간다.
+황폐한 절은 낮보다 조용했다.
+늑대는 잠시 처마 아래에 섰다.
+
+오늘 밤, 무엇을 할까.
 </div>
 
 <div class="choice-box">
-<<if $nightPatrolUnlocked and $timeOfDay == "day" and not $nightPatrolActive and not $nightPatrolUsedToday>>
-[[밤 정찰을 나선다->NightPatrol_Start]]
+<<if $nightPatrolUnlocked and not $nightPatrolUsedToday>>
+[[밤 정찰을 나선다->NightPatrol_Random]]
 <</if>>
-<<if $timeOfDay == "day" and not $nightPatrolActive>>
-[[잠든다->Sleep_Roll]]
-<</if>>
-[[절에 머문다->Temple]]
+[[잠든다->Dream_Router]]
 </div>
 <</page>>
 
+:: Temple_Return_Hub {"position":"2025,1325","size":"100,100"}
+<<goto "Temple_Return">>
+
 :: NightPatrol_Start {"position":"2000,750","size":"100,100"}
 <<if $nightPatrolUsedToday>>
-  <<goto "Temple_Return_Hub">>
+  <<goto "Temple_Return">>
 <<else>>
   <<set $nightPatrolActive = true>>
   <<set $nightPatrolUsedToday = true>>
@@ -358,9 +373,7 @@
 간신히 확실했다.
 </div>
 
-<div class="choice-box">
-[[돌아간다->Temple]]
-</div>
+<<continueTo "Temple">>
 <</page>>
 
 :: Temple_Return_Shura {"position":"2275,1200","size":"100,100"}

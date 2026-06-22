@@ -5,9 +5,7 @@
 <div class="intro-line">손바닥을 찢고 흐르는 뜨거운 피.</div>
 </div>
 
-<div class="choice-box intro-continue">
-[[계속->Intro_02]]
-</div>
+<<continueTo "Intro_02">>
 <</page>>
 
 :: Intro_02 {"position":"1500,225","size":"100,100"}
@@ -17,9 +15,7 @@
 <div class="intro-line">그 전까지의 자신은 살아 있는 것이 아니라,<br>그저 숨 쉬는 망령에 불과했다는 것을.</div>
 </div>
 
-<div class="choice-box intro-continue">
-[[계속->Intro_03]]
-</div>
+<<continueTo "Intro_03">>
 <</page>>
 
 :: Intro_03 {"position":"1500,325","size":"100,100"}
@@ -29,9 +25,7 @@
 <div class="intro-line">소년의 따뜻한 눈을 바라볼 때면,<br>도구로만 살아왔던 자신도 조금은 인간다워진 것 같았다.</div>
 </div>
 
-<div class="choice-box intro-continue">
-[[계속->Intro_04]]
-</div>
+<<continueTo "Intro_04">>
 <</page>>
 
 :: Intro_04 {"position":"1500,425","size":"100,100"}
@@ -42,9 +36,7 @@
 <div class="intro-line">누군가의 그림자가 되고,<br>누군가의 죽음이 되어 왔다.</div>
 </div>
 
-<div class="choice-box intro-continue">
-[[계속->Intro_05]]
-</div>
+<<continueTo "Intro_05">>
 <</page>>
 
 :: Intro_05 {"position":"1500,525","size":"100,100"}
@@ -55,9 +47,7 @@
 <div class="intro-line">그땐 누군가의 곁에 남을 수 있을까.<br>누구의 손을 붙잡을 수 있을까.</div>
 </div>
 
-<div class="choice-box intro-continue">
-[[계속->Intro_06]]
-</div>
+<<continueTo "Intro_06">>
 <</page>>
 
 :: Intro_06 {"position":"1500,625","size":"100,100"}

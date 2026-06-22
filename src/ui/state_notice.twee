@@ -1,0 +1,12 @@
+:: Widget_StateNotice [widget] {"position":"500,75","size":"100,100"}
+<<widget "stateNotice">>
+<<if _args[0] is "danger">>
+<<run setup.showToast && setup.showToast(setup.t("dangerNotice"), "danger")>>
+<<elseif _args[0] is "isolation">>
+<<run setup.showToast && setup.showToast(setup.t("isolationNotice"), "isolation")>>
+<<elseif _args[0] is "shura">>
+<<run setup.showToast && setup.showToast(setup.t("shuraNotice"), "shura")>>
+<<elseif _args[0] is "bond">>
+<<run setup.showToast && setup.showToast(setup.t("bondNotice"), "bond")>>
+<</if>>
+<</widget>>

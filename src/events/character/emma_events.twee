@@ -9,7 +9,7 @@
 그의 손이 검자루 위에서,
 아주 조금 늦게 떨어졌다.</div>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk01]]</div>
+<<continueTo "Emma_IntroduceIsshin_Talk01">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Talk01 {"position":"2025,1475","size":"100,100"}
@@ -18,7 +18,7 @@
 늑대 님.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk02]]</div>
+<<continueTo "Emma_IntroduceIsshin_Talk02">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Talk02 {"position":"2150,1475","size":"100,100"}
@@ -27,7 +27,7 @@
 …
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk03]]</div>
+<<continueTo "Emma_IntroduceIsshin_Talk03">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Talk03 {"position":"2275,1475","size":"100,100"}
@@ -37,7 +37,7 @@
 술을 드신 적이 있으십니까?
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Beat01]]</div>
+<<continueTo "Emma_IntroduceIsshin_Beat01">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Beat01 {"position":"2400,1475","size":"100,100"}
@@ -46,7 +46,7 @@
 
 엠마는 작게 숨을 고른다.</div>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk04]]</div>
+<<continueTo "Emma_IntroduceIsshin_Talk04">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Talk04 {"position":"2525,1475","size":"100,100"}
@@ -55,7 +55,7 @@
 검을 내려놓는 법을 아는 분이 한 분 계십니다.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Talk05]]</div>
+<<continueTo "Emma_IntroduceIsshin_Talk05">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Talk05 {"position":"2650,1475","size":"100,100"}
@@ -65,7 +65,7 @@
 검을 든 채 웃는 법을 아는 분이요.
 <</talk>>
 
-<div class="choice-box continue-row">[[계속->Emma_IntroduceIsshin_Choices]]</div>
+<<continueTo "Emma_IntroduceIsshin_Choices">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Choices {"position":"2775,1475","size":"100,100"}
@@ -98,7 +98,7 @@
 누군가가 자신을,
 검이 아닌 쪽으로 보내려 한다는 것을.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return_Hub]]</div>
+<<continueTo "Temple_Return_Hub">>
 <</page>>
 
 :: Emma_IntroduceIsshin_Refuse_Result {"position":"3025,1475","size":"100,100"}
@@ -111,7 +111,7 @@
 그 조용한 물러섬이,
 이상하게 오래 남았다.</div>
 
-<div class="choice-box continue-row">[[돌아간다->Temple_Return_Hub]]</div>
+<<continueTo "Temple_Return_Hub">>
 <</page>>
 
 /% Future Emma event slots:

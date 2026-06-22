@@ -4,7 +4,16 @@
 <<set $nightPatrolActive = false>>
 <<set $nightPatrolJustFinished = false>>
 <<set $traceFirstDream = true>>
-<<if $danger >= 12 and not $dangerTrapDreamSeen>>
+<<set $returnEventPending = true>>
+<<if $dreamCordUnlocked and not $dreamCordSeen>>
+  <<goto "Dream_Cord">>
+<<elseif $dreamNoNameUnlocked and not $dreamNoNameSeen>>
+  <<goto "Dream_NoName">>
+<<elseif $dreamNoSwordUnlocked and not $dreamNoSwordSeen>>
+  <<goto "Dream_NoSword">>
+<<elseif not $dreamNoSwordSeen>>
+  <<goto "Dream_NoSword">>
+<<elseif $danger >= 12 and not $dangerTrapDreamSeen>>
   <<goto "Dream_Danger_Trap">>
 <<elseif $danger >= 12 and not $dangerDreamSeen>>
   <<goto "Dream_Danger_Hands">>
@@ -27,6 +36,224 @@
 <<else>>
   <<goto "Dream_DefaultSleep">>
 <</if>>
+
+:: Dream_Router {"position":"2050,925","size":"100,100"}
+<<goto "DreamRouter">>
+
+:: Dream_NoSword {"position":"2425,700","size":"100,100"}
+<<page>>
+<<set $dreamNoSwordSeen = true>>
+<<set $traceFirstDream = true>>
+<<set $recordBookNewDream = true>>
+<<set $lastDream = "no_sword">>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 꿈을 꾸었다.
+
+손이 비어 있었다.
+
+하지만 손가락은,
+무언가를 쥔 모양으로 굳어 있었다.
+
+검이 없는데도
+검의 무게가 남아 있었다.</div>
+</div>
+
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
+
+:: Dream_Cord {"position":"2425,825","size":"100,100"}
+<<page>>
+<<set $dreamCordSeen = true>>
+<<set $traceFirstDream = true>>
+<<set $recordBookNewDream = true>>
+<<set $lastDream = "cord">>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 물속에 서 있었다.
+
+발목에 무언가가 감겨 있었다.
+
+끈인지,
+손인지,
+풀인지 알 수 없었다.
+
+움직이면 더 깊이 조였다.
+가만히 있으면 더 아래로 가라앉았다.</div>
+</div>
+
+<<continueTo "Dream_Cord_Choice">>
+<</page>>
+
+:: Dream_Cord_Choice {"position":"2550,825","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+<div class="choice-prompt">무언가가 발목을 잡고 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "풀어낸다" "Dream_Cord_Untie">>
+<<choiceTo "끊어낸다" "Dream_Cord_Cut">>
+<<choiceTo "가만히 있는다" "Dream_Cord_Still">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: Dream_Cord_Untie {"position":"2675,775","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 매듭을 더듬었다.
+
+어디선가 들었던 목소리가,
+손끝을 아주 잠깐 멈춰 세웠다.
+
+서두르지 마라.</div>
+</div>
+
+<<stateNotice "bond">>
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
+
+:: Dream_Cord_Cut {"position":"2675,825","size":"100,100"}
+<<page>>
+<<set $shura = ($shura || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 끊어냈다.
+
+끈이었는지,
+손이었는지,
+끝내 확인하지 않았다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
+
+:: Dream_Cord_Still {"position":"2675,875","size":"100,100"}
+<<page>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">가만히 있었다.
+
+가만히 있는 것은,
+명령을 기다리는 것과 닮아 있었다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
+
+:: Dream_NoName {"position":"2425,950","size":"100,100"}
+<<page>>
+<<set $dreamNoNameSeen = true>>
+<<set $traceFirstDream = true>>
+<<set $recordBookNewDream = true>>
+<<set $lastDream = "no_name">>
+
+<div class="narration-screen">
+<div class="narration narration-block">누군가가 늑대를 불렀다.
+
+하지만 그 이름은
+늑대의 것이 아니었다.
+
+다른 이름이었다.
+
+오래전에 버렸거나,
+한 번도 가진 적 없는 이름이었다.
+
+늑대는 돌아보지 않았다.
+
+그런데도 몸은 대답했다.</div>
+</div>
+
+<<continueTo "Dream_NoName_Choice">>
+<</page>>
+
+:: Dream_NoName_Choice {"position":"2550,950","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+<div class="choice-prompt">늑대가 아닌 이름이 들린다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "돌아본다" "Dream_NoName_Turn">>
+<<choiceTo "대답하지 않는다" "Dream_NoName_Silence">>
+<<choiceTo "검을 쥔다" "Dream_NoName_Grip">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: Dream_NoName_Turn {"position":"2675,925","size":"100,100"}
+<<page>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">돌아본다.
+
+아무도 없었다.
+
+다만,
+돌아본 몸만 남아 있었다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
+
+:: Dream_NoName_Silence {"position":"2675,975","size":"100,100"}
+<<page>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">대답하지 않았다.
+
+이름이 없으면,
+부를 수도 없다.
+
+그 편이 편했다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
+
+:: Dream_NoName_Grip {"position":"2675,1025","size":"100,100"}
+<<page>>
+<<set $shura = ($shura || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검을 쥐었다.
+
+누가 불렀는지 알기도 전에,
+손은 이미 대답하고 있었다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<recordNotice "dream">>
+
+<<continueTo "AdvanceDay">>
+<</page>>
 
 :: Dream_Danger_Trap {"position":"2300,875","size":"100,100"}
 <<page>>

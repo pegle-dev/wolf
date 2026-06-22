@@ -1,0 +1,13 @@
+:: Widget_RecordNotice [widget]
+
+<<widget "recordNotice">>
+<<if _args[0] is "ending">>
+<<run setup.showToast && setup.showToast(setup.t("recordNewEnding"), "record")>>
+<<elseif _args[0] is "trace">>
+<<run setup.showToast && setup.showToast(setup.t("recordNewTrace"), "record")>>
+<<elseif _args[0] is "dream">>
+<<run setup.showToast && setup.showToast(setup.t("recordNewDream"), "record")>>
+<<elseif _args[0] is "bond">>
+<<run setup.showToast && setup.showToast(setup.t("recordNewBond"), "record")>>
+<</if>>
+<</widget>>

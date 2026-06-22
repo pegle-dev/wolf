@@ -2,6 +2,7 @@
 <<page>>
 <<set $nightTrapCordSeen = true>>
 <<set $trapEventSeen = true>>
+<<set $traceNightCordSeen = true>>
 
 <div class="narration">발밑에서 작은 소리가 났다.
 
@@ -20,13 +21,17 @@
 
 늑대는 진흙 위에 무릎을 짚었다.</div>
 
-<div class="choice-box continue-row">[[계속->Night_TrapCord_Choices]]</div>
+<<continueTo "Night_TrapCord_Choices">>
 <</page>>
 
 :: Night_TrapCord_Choices {"position":"3325,800","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="choice-box story-choice-box">
+<div class="choice-screen">
+<div class="choice-prompt">끈이 발목을 감고 있다.
+밤은 작은 소리도 오래 품는다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "끊는다" "Night_TrapCord_Cut_Result">>
   <<set $danger += 1>>
   <<clampStats>>
@@ -44,6 +49,7 @@
 <</link>>
 </div>
 </div>
+</div>
 <</page>>
 
 :: Night_TrapCord_Cut_Result {"position":"3450,750","size":"100,100"}
@@ -59,7 +65,7 @@
 그러나 늑대의 몸은 아직,
 그곳에 남아 있었다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<<continueTo "Night_PatrolEnd">>
 <</page>>
 
 :: Night_TrapCord_Low_Result {"position":"3450,850","size":"100,100"}
@@ -75,7 +81,7 @@
 그 조용함이,
 오히려 늑대를 더 혼자 있게 했다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<<continueTo "Night_PatrolEnd">>
 <</page>>
 
 :: Night_TrapCord_Silence_Result {"position":"3450,950","size":"100,100"}
@@ -92,13 +98,15 @@
 하지만 적어도,
 전부 빼앗기지는 않았다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<<continueTo "Night_PatrolEnd">>
 <</page>>
 
 :: Night_TrapHumiliation {"position":"3200,1050","size":"100,100"}
 <<page>>
 <<set $nightTrapHumiliationSeen = true>>
 <<set $trapEventSeen = true>>
+<<set $traceNightCordSeen = true>>
+<<set $traceNightWrongNameSeen = true>>
 
 <div class="narration">발밑에서 작은 소리가 났다.
 
@@ -130,7 +138,7 @@
 자신의 몸에서 떨어져 나간 무기가
 남의 손에 들려 있는 것을.</div>
 
-<div class="choice-box continue-row">[[계속->Night_TrapHumiliation_02]]</div>
+<<continueTo "Night_TrapHumiliation_02">>
 <</page>>
 
 :: Night_TrapHumiliation_02 {"position":"3325,1050","size":"100,100"}
@@ -166,13 +174,17 @@
 
 자신에게서 나는 냄새였다.</div>
 
-<div class="choice-box continue-row">[[계속->Night_TrapHumiliation_Choices]]</div>
+<<continueTo "Night_TrapHumiliation_Choices">>
 <</page>>
 
 :: Night_TrapHumiliation_Choices {"position":"3450,1050","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="choice-box story-choice-box">
+<div class="choice-screen">
+<div class="choice-prompt">무기가 빼앗겼다.
+늑대는 진흙 위에 눌려 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "버틴다" "Night_TrapHumiliation_Endure_Result">>
   <<set $danger += 2>>
   <<clampStats>>
@@ -189,6 +201,7 @@
   <<set $danger += 1>>
   <<clampStats>>
 <</link>>
+</div>
 </div>
 </div>
 <</page>>
@@ -261,6 +274,7 @@
 :: Night_Trap_AfterBlackout {"position":"3700,1050","size":"100,100"}
 <<page>>
 <<set $nightTrapBlackoutSeen = true>>
+<<set $traceNightHandMovesSeen = true>>
 
 <div class="narration">그 뒤의 일은 끊겨 있었다.
 
@@ -283,7 +297,7 @@
 
 확인하고 싶지 않았다.</div>
 
-<div class="choice-box continue-row">[[계속->Night_Trap_River]]</div>
+<<continueTo "Night_Trap_River">>
 <</page>>
 
 :: Night_Trap_River {"position":"3825,1050","size":"100,100"}
@@ -312,7 +326,7 @@
 
 그 사실이 이상하게도 견디기 어려웠다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_Trap_Return]]</div>
+<<continueTo "Night_Trap_Return">>
 <</page>>
 
 :: Night_Trap_Return {"position":"3950,1050","size":"100,100"}
@@ -328,7 +342,7 @@
 겉으로 보기에는,
 아무 일도 없었다.</div>
 
-<div class="choice-box continue-row">[[계속->Night_Trap_Return_AftermathRouter]]</div>
+<<continueTo "Night_Trap_Return_AftermathRouter">>
 <</page>>
 
 :: Night_Trap_Return_AftermathRouter {"position":"4075,1050","size":"100,100"}
@@ -376,7 +390,7 @@
 
 이번에는 아무 말도 하지 않았다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<<continueTo "Night_PatrolEnd">>
 <</page>>
 
 :: Night_Trap_Return_KuroMemory {"position":"4200,1100","size":"100,100"}
@@ -409,7 +423,7 @@
 
 돌아가야 할 곳이 있었다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<<continueTo "Night_PatrolEnd">>
 <</page>>
 
 :: Night_Trap_Return_Default {"position":"4200,1200","size":"100,100"}
@@ -428,7 +442,7 @@
 등 뒤의 발소리에도,
 낯선 손이 가까워지는 기척에도.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->Night_PatrolEnd]]</div>
+<<continueTo "Night_PatrolEnd">>
 <</page>>
 
 :: ReturnRiskRouter {"position":"3200,1350","size":"100,100"}
@@ -456,13 +470,17 @@
 그제야,
 길이 자신을 돌려보내지 않고 있다는 것을 알았다.</div>
 
-<div class="choice-box continue-row">[[계속->Return_TrapAmbush_Choices]]</div>
+<<continueTo "Return_TrapAmbush_Choices">>
 <</page>>
 
 :: Return_TrapAmbush_Choices {"position":"3450,1350","size":"100,100"}
 <<page>>
-<div class="story-choice-layer">
-<div class="choice-box story-choice-box">
+<div class="choice-screen">
+<div class="choice-prompt">절로 돌아가는 길이 열리지 않는다.
+피 냄새가 뒤따르고 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "길을 되짚는다" "Return_TrapAmbush_Back_Result">>
   <<set $danger += 1>>
   <<clampStats>>
@@ -480,6 +498,7 @@
 <</link>>
 </div>
 </div>
+</div>
 <</page>>
 
 :: Return_TrapAmbush_Back_Result {"position":"3575,1300","size":"100,100"}
@@ -493,7 +512,7 @@
 그러나 돌아오는 동안,
 뒤따르는 기척만은 끝내 사라지지 않았다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->ReturnToTempleHub]]</div>
+<<continueTo "ReturnToTempleHub">>
 <</page>>
 
 :: Return_TrapAmbush_Silence_Result {"position":"3575,1400","size":"100,100"}
@@ -509,7 +528,7 @@
 대신 돌아온 것은,
 조금 더 조용한 늑대였다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->ReturnToTempleHub]]</div>
+<<continueTo "ReturnToTempleHub">>
 <</page>>
 
 :: Return_TrapAmbush_Sword_Result {"position":"3575,1500","size":"100,100"}
@@ -527,5 +546,5 @@
 하지만 검을 확인한 손은
 한동안 칼자루에서 떨어지지 않았다.</div>
 
-<div class="choice-box continue-row">[[절로 돌아간다->ReturnToTempleHub]]</div>
+<<continueTo "ReturnToTempleHub">>
 <</page>>

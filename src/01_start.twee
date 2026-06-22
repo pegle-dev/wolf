@@ -23,7 +23,7 @@ Wolf
 
   <div class="title-menu">
     <div class="title-menu-item">
-    <<link "처음부터" "Intro_01">>
+    <<link "처음부터" "Intro_Dream_01">>
       <<set $day = 1>>
       <<set $timeOfDay = "day">>
       <<set $dayAdvancedToday = false>>
@@ -32,6 +32,9 @@ Wolf
       <<set $nightPatrolJustFinished = false>>
       <<set $currentMode = "temple">>
       <<set $nightPatrolUnlocked = false>>
+      <<set $recordBookOpen = false>>
+      <<set $recordBookTab = "endings">>
+      <<set $firstDeathIntroDone = false>>
     <</link>>
     </div>
 

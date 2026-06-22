@@ -1,0 +1,197 @@
+:: RecordBookOverlay {"position":"750,500","size":"100,100"}
+<div class="recordbook-dim"></div>
+<aside class="recordbook-panel">
+  <div class="recordbook-header">
+    <div class="recordbook-heading">
+      <div class="recordbook-title"><<print setup.t("journal")>></div>
+      <div class="recordbook-subtitle"><<print setup.t("journalSubtitle")>></div>
+    </div>
+    <div class="recordbook-close">
+      <<link setup.t("close")>>
+        <<run setup.closeRecordBookOverlay()>>
+      <</link>>
+    </div>
+  </div>
+
+  <div class="recordbook-tabs">
+    <<if $recordBookTab is "endings">>
+      <span class="recordbook-tab active"><<print setup.t("endings")>></span>
+    <<else>>
+      <<link setup.t("endings")>>
+        <<run setup.switchRecordBookTab("endings")>>
+      <</link>>
+    <</if>>
+
+    <<if $recordBookTab is "dreams">>
+      <span class="recordbook-tab active"><<print setup.t("dreams")>></span>
+    <<else>>
+      <<link setup.t("dreams")>>
+        <<run setup.switchRecordBookTab("dreams")>>
+      <</link>>
+    <</if>>
+
+    <<if $recordBookTab is "bonds">>
+      <span class="recordbook-tab active"><<print setup.t("bonds")>></span>
+    <<else>>
+      <<link setup.t("bonds")>>
+        <<run setup.switchRecordBookTab("bonds")>>
+      <</link>>
+    <</if>>
+
+    <<if $recordBookTab is "traces">>
+      <span class="recordbook-tab active"><<print setup.t("traces")>></span>
+    <<else>>
+      <<link setup.t("traces")>>
+        <<run setup.switchRecordBookTab("traces")>>
+      <</link>>
+    <</if>>
+  </div>
+
+  <div class="recordbook-content">
+    <<if $recordBookTab is "dreams">>
+      <<include "RecordBookOverlay_Dreams">>
+    <<elseif $recordBookTab is "bonds">>
+      <<include "RecordBookOverlay_Bonds">>
+    <<elseif $recordBookTab is "traces">>
+      <<include "RecordBookOverlay_Traces">>
+    <<else>>
+      <<include "RecordBookOverlay_Endings">>
+    <</if>>
+  </div>
+</aside>
+
+:: RecordBookOverlay_Endings {"position":"875,500","size":"100,100"}
+<<set _seen = 0>>
+<<if $hanbeiGoodEndingSeen>><<set _seen += 2>><</if>>
+<<if $hanbeiMercyEndingSeen>><<set _seen += 1>><</if>>
+<<if $hanbeiSwordBadEndingSeen>><<set _seen += 1>><</if>>
+<<if $kuroGoodEndingSeen>><<set _seen += 1>><</if>>
+<<if $kuroBadLastOrderSeen>><<set _seen += 1>><</if>>
+<<if $kuroBadTeahouseSeen>><<set _seen += 1>><</if>>
+<<if $genichiroGoodEndingSeen>><<set _seen += 1>><</if>>
+<<if $endingGenichiroSameMoonSeen>><<set _seen += 1>><</if>>
+<<if $endingGenichiroFootprintsSeen>><<set _seen += 1>><</if>>
+<<if $badEndGenichiroArrowSeen>><<set _seen += 1>><</if>>
+<<if $badEndGenichiroSinkingCastleSeen>><<set _seen += 1>><</if>>
+<<if $badEndGenichiroLightningWolfSeen>><<set _seen += 1>><</if>>
+<<if $badEndGenichiroKneelingCastleSeen>><<set _seen += 1>><</if>>
+<<if $sculptorGoodEndingSeen>><<set _seen += 1>><</if>>
+<<if $sculptorBadFaceSeen>><<set _seen += 1>><</if>>
+<<if $sculptorBadFireSeen>><<set _seen += 1>><</if>>
+<<if $isshinGoodEndingSeen>><<set _seen += 1>><</if>>
+<<if $isshinBadEmptyCupSeen>><<set _seen += 1>><</if>>
+<<if $isshinBadSwordLaughSeen>><<set _seen += 1>><</if>>
+<<if $badMissingNightSeen>><<set _seen += 1>><</if>>
+<<if $badEmptyScabbardSeen>><<set _seen += 1>><</if>>
+<<if $badTamedWolfSeen>><<set _seen += 1>><</if>>
+<<if $badOwlWolfSeen>><<set _seen += 1>><</if>>
+<<if $badEndFirstDeathSeen>><<set _seen += 1>><</if>>
+<<if $endingHanbeiQuietDaySeen>><<set _seen += 1>><</if>>
+<<if $shuraEndingSeen>><<set _seen += 1>><</if>>
+<<if $hiddenRevivalDone>><<set _seen += 1>><</if>>
+
+<div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 28</span></div>
+<div class="recordbook-list">
+  <div class="recordbook-item <<if not $badEndFirstDeathSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndFirstDeathSeen>>[Bad End. 첫 번째 죽음]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndFirstDeathSeen>>쿠로를 구하려다 늑대는 처음으로 죽었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingHanbeiQuietDaySeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHanbeiQuietDaySeen>>[End. 그냥 온 날]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHanbeiQuietDaySeen>>한베와 검을 뽑지 않은 시간을 보냈다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hanbeiGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiGoodEndingSeen>>[End. 그냥 온 날] / [End. 곁에 앉은 침묵]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiGoodEndingSeen>>한베와 검을 뽑지 않는 시간을 남겼다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hanbeiMercyEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiMercyEndingSeen>>[Bad End. 끝나는 대련]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiMercyEndingSeen>>끝을 바라는 약속을 받아들였다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hanbeiSwordBadEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiSwordBadEndingSeen>>[Bad End. 불사를 베는 연습]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiSwordBadEndingSeen>>대련은 끝까지 대련으로 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $kuroGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroGoodEndingSeen>>[End. 주인 없는 길]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $kuroGoodEndingSeen>>주군과 닌자라는 이름 너머의 길을 보았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($kuroBadLastOrderSeen or $kuroBadTeahouseSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroBadLastOrderSeen or $kuroBadTeahouseSeen>>[Bad End. 쿠로의 그림자]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $kuroBadLastOrderSeen or $kuroBadTeahouseSeen>>명령과 약속 사이에서 돌아오지 못한 길.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($genichiroGoodEndingSeen or $endingGenichiroSameMoonSeen or $endingGenichiroFootprintsSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroGoodEndingSeen or $endingGenichiroSameMoonSeen or $endingGenichiroFootprintsSeen>>[End. 아시나의 달]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $genichiroGoodEndingSeen or $endingGenichiroSameMoonSeen or $endingGenichiroFootprintsSeen>>겐이치로와 같은 성, 같은 달 아래에 섰다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $badEndGenichiroArrowSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndGenichiroArrowSeen>>[Bad End. 성문 앞의 화살]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndGenichiroArrowSeen>>성문 앞에서 늑대는 움직이지 못했다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($badEndGenichiroSinkingCastleSeen or $badEndGenichiroLightningWolfSeen or $badEndGenichiroKneelingCastleSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndGenichiroSinkingCastleSeen or $badEndGenichiroLightningWolfSeen or $badEndGenichiroKneelingCastleSeen>>[Bad End. 꺾이지 않는 성]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndGenichiroSinkingCastleSeen or $badEndGenichiroLightningWolfSeen or $badEndGenichiroKneelingCastleSeen>>성은 무너졌고, 검은 다른 이름으로 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $sculptorGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $sculptorGoodEndingSeen>>[End. 남겨진 불상]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $sculptorGoodEndingSeen>>불상 곁에 남은 것은 벌이 아니라 기억이었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $isshinGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinGoodEndingSeen>>[End. 갈대밭의 술자리]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isshinGoodEndingSeen>>검 대신 술잔을 든 밤이 있었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen>>[Bad End. 공통 실패의 흔적]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen>>고립과 위험이 늑대의 길을 덮었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $shuraEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $shuraEndingSeen>>[End. 수라]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $shuraEndingSeen>>검이 사람을 삼킨 끝을 보았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hiddenRevivalDone>>locked<</if>>"><div class="recordbook-item-title"><<if $hiddenRevivalDone>>[End. 돌아갈 길]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hiddenRevivalDone>>검 없이도 걸어갈 수 있는 길이 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+</div>
+
+:: RecordBookOverlay_Dreams {"position":"1000,500","size":"100,100"}
+<<set _seen = 0>>
+<<if $traceFirstDream>><<set _seen += 1>><</if>>
+<<if $dreamNoSwordSeen>><<set _seen += 1>><</if>>
+<<if $dreamCordSeen>><<set _seen += 1>><</if>>
+<<if $dreamNoNameSeen>><<set _seen += 1>><</if>>
+<<if $dangerTrapDreamSeen>><<set _seen += 1>><</if>>
+<<if $hanbeiDreamSeen>><<set _seen += 1>><</if>>
+<<if $kuroDreamSeen>><<set _seen += 1>><</if>>
+<<if $genichiroDreamSeen>><<set _seen += 1>><</if>>
+<<if $sculptorDreamSeen>><<set _seen += 1>><</if>>
+<<if $isshinDreamSeen>><<set _seen += 1>><</if>>
+<<if $isolationDreamSeen>><<set _seen += 1>><</if>>
+<<if $isolationChildBattlefieldDreamSeen>><<set _seen += 1>><</if>>
+<<if $dangerDreamSeen>><<set _seen += 1>><</if>>
+<<if $forgottenNightmareSeen>><<set _seen += 1>><</if>>
+
+<div class="recordbook-summary">잠든 뒤에도 남는 것들. <span>꿈 <<= _seen>> / 14</span></div>
+<div class="recordbook-list">
+  <div class="recordbook-item <<if not $traceFirstDream>>locked<</if>>"><div class="recordbook-item-title"><<if $traceFirstDream>>[첫 번째 꿈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceFirstDream>>잠든 뒤, 늑대는 무언가를 보았다.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $dreamNoSwordSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $dreamNoSwordSeen>>[검이 없는 꿈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $dreamNoSwordSeen>>손은 비어 있었지만, 검의 무게는 남아 있었다.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $dreamCordSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $dreamCordSeen>>[발목을 잡는 꿈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $dreamCordSeen>>멈춰야 했다. 하지만 꿈속의 몸은 멈추지 않았다.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $dreamNoNameSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $dreamNoNameSeen>>[이름이 없는 꿈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $dreamNoNameSeen>>늑대가 아닌 이름에, 몸이 먼저 반응했다.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $dangerTrapDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $dangerTrapDreamSeen>>[발목을 감은 꿈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $dangerTrapDreamSeen>>몸이 먼저 위험을 기억하기 시작했을 때 나타난 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hanbeiDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiDreamSeen>>[다시 일어나는 무사]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiDreamSeen>>이기고 싶은 것이 아니라, 쉬게 하고 싶었던 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $kuroDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroDreamSeen>>[명령하지 않는 주군]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $kuroDreamSeen>>뒤따르는 발걸음을 믿는 어린 주군의 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $genichiroDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroDreamSeen>>[불타는 성 위]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $genichiroDreamSeen>>베어야 할 이유를 찾지 못한 채 성을 올려다본 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $sculptorDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $sculptorDreamSeen>>[늑대를 닮은 불상]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $sculptorDreamSeen>>깎이는 나무와 함께 안쪽의 무언가가 떨어져 나간 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $isshinDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinDreamSeen>>[검에게 먹히지 않는 자]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isshinDreamSeen>>죽음을 알고도 웃는 검사의 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $isolationDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isolationDreamSeen>>[발자국 없는 안개]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isolationDreamSeen>>찾던 이름마저 잊어 가는 고독의 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $isolationChildBattlefieldDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isolationChildBattlefieldDreamSeen>>[어린 전장]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isolationChildBattlefieldDreamSeen>>누구도 이름을 부르지 않던 오래전 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $dangerDreamSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $dangerDreamSeen>>[붙잡는 손들]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $dangerDreamSeen>>죽은 자와 죽지 못한 자들의 손이 남긴 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+  <div class="recordbook-item <<if not $forgottenNightmareSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $forgottenNightmareSeen>>[잊힌 악몽]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $forgottenNightmareSeen>>내용은 사라졌지만, 손바닥의 힘만 남은 꿈.<<else>><<print setup.t("lockedDream")>><</if>></div></div>
+</div>
+
+:: RecordBookOverlay_Bonds {"position":"1125,500","size":"100,100"}
+<div class="recordbook-summary">누군가와 얽힌 기억들.</div>
+<div class="recordbook-list">
+  <div class="recordbook-section-title">한베</div>
+  <div class="recordbook-item <<if not $hanbeiJustVisitedSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiJustVisitedSeen>>그냥 온 날<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiJustVisitedSeen>>늑대는 검을 뽑지 않고 한베를 찾아갔다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($hanbeiSakeSeen or $sharedSake_hanbei)>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiSakeSeen or $sharedSake_hanbei>>술잔을 나눈 날<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiSakeSeen or $sharedSake_hanbei>>늑대는 죽지 않는 무사가 건넨 술잔을 받았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hanbeiMaskEventSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiMaskEventSeen>>가려진 얼굴<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiMaskEventSeen>>한베는 웃음 너머의 얼굴을 숨기지 않기 시작했다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-item <<if not $hanbeiImmortalityTalkSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiImmortalityTalkSeen>>끝나지 않는 몸<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiImmortalityTalkSeen>>불사의 피로가 처음으로 말이 되었다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-section-title">쿠로</div>
+  <div class="recordbook-item <<if not $kuroReadingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroReadingSeen>>책을 읽는 시간<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $kuroReadingSeen>>글을 읽는 기쁨이 조용히 남았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-item <<if not $kuroWishSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroWishSeen>>명령이 아닌 부탁<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $kuroWishSeen>>주군의 말이 임무가 아닌 바람으로 들렸다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-section-title">겐이치로</div>
+  <div class="recordbook-item <<if not $genichiroMoonSakeSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroMoonSakeSeen>>같은 달<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $genichiroMoonSakeSeen>>성 위의 달 아래서, 적의 이름이 조금 달라졌다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-item <<if not $genichiroDoNotReturnSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroDoNotReturnSeen>>돌아가지 마라<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $genichiroDoNotReturnSeen>>붙잡힌 말은 명령보다 오래 남았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-section-title">조각가 / 잇신</div>
+  <div class="recordbook-item <<if not $sculptorFaceSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $sculptorFaceSeen>>깎이지 않는 얼굴<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $sculptorFaceSeen>>불상들 사이에 남은 얼굴을 보았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <div class="recordbook-item <<if not $isshinReedFieldSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinReedFieldSeen>>갈대밭의 사람<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $isshinReedFieldSeen>>검사의 웃음과 죽음의 거리가 가까워졌다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+</div>
+
+:: RecordBookOverlay_Traces {"position":"1250,500","size":"100,100"}
+<<set _seen = 0>>
+<<if $traceFirstNightPatrol>><<set _seen += 1>><</if>>
+<<if $traceFirstDream>><<set _seen += 1>><</if>>
+<<if $traceFirstDeath>><<set _seen += 1>><</if>>
+<<if $traceSharedDrink>><<set _seen += 1>><</if>>
+<<if $traceFirstEnding or $anyEndingSeen>><<set _seen += 1>><</if>>
+<<if $resistedKneeling>><<set _seen += 1>><</if>>
+<<if $trapEventSeen>><<set _seen += 1>><</if>>
+<<if $traceNightArrowSeen>><<set _seen += 1>><</if>>
+<<if $traceNightFallingTileSeen>><<set _seen += 1>><</if>>
+<<if $traceNightWrongNameSeen>><<set _seen += 1>><</if>>
+<<if $traceNightCordSeen>><<set _seen += 1>><</if>>
+<<if $traceNightHandMovesSeen>><<set _seen += 1>><</if>>
+<<if $traceNightBloodScentSeen>><<set _seen += 1>><</if>>
+
+<div class="recordbook-summary">죽음과 선택이 남긴 흔적들. <span>흔적 <<= _seen>> / 13</span></div>
+<div class="recordbook-list">
+  <div class="recordbook-item <<if not $traceFirstDeath>>locked<</if>>"><div class="recordbook-item-title"><<if $traceFirstDeath>>첫 번째 죽음<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $traceFirstDeath>>늑대는 죽음을 기록으로 남겼다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceFirstNightPatrol>>locked<</if>>"><div class="recordbook-item-title"><<if $traceFirstNightPatrol>>[첫 밤정찰]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceFirstNightPatrol>>밤의 길을 처음 걸었다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceFirstDream>>locked<</if>>"><div class="recordbook-item-title"><<if $traceFirstDream>>[첫 번째 꿈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceFirstDream>>잠든 뒤, 늑대의 안쪽이 모습을 드러냈다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceSharedDrink>>locked<</if>>"><div class="recordbook-item-title"><<if $traceSharedDrink>>[술잔을 나눈 늑대]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceSharedDrink>>누군가와 술을 나누었다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($traceFirstEnding or $anyEndingSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $traceFirstEnding or $anyEndingSeen>>[돌아온 늑대]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceFirstEnding or $anyEndingSeen>>처음으로 하나의 결말을 보았다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $resistedKneeling>>locked<</if>>"><div class="recordbook-item-title"><<if $resistedKneeling>>[무릎 꿇지 않은 밤]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $resistedKneeling>>몸이 기억하는 굴복을 거슬렀다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $trapEventSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $trapEventSeen>>[함정의 흔적]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $trapEventSeen>>밤길이 항상 길만은 아니라는 것을 알았다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceNightArrowSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $traceNightArrowSeen>>[귀를 스친 화살]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceNightArrowSeen>>밤의 지붕 위에서 화살을 맞이했다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceNightFallingTileSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $traceNightFallingTileSeen>>[꺼진 기와]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceNightFallingTileSeen>>발밑의 지붕이 무너졌다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceNightWrongNameSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $traceNightWrongNameSeen>>[잘못 불린 이름]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceNightWrongNameSeen>>늑대가 아닌 이름에 몸이 반응했다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceNightCordSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $traceNightCordSeen>>[발목의 끈]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceNightCordSeen>>무언가가 늑대의 발목을 붙잡았다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceNightHandMovesSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $traceNightHandMovesSeen>>[먼저 움직인 손]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceNightHandMovesSeen>>명령보다 먼저 검을 찾았다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+  <div class="recordbook-item <<if not $traceNightBloodScentSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $traceNightBloodScentSeen>>[피 냄새]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $traceNightBloodScentSeen>>밤바람에 쿠로의 피 냄새가 섞였다.<<else>><<print setup.t("lockedTrace")>><</if>></div></div>
+</div>

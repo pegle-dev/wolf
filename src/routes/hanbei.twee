@@ -1,3 +1,155 @@
+:: Hanbei_Start {"position":"650,475","size":"100,100"}
+<<goto "Hanbei_FirstVisit">>
+
+:: Hanbei_FirstVisit {"position":"650,600","size":"100,100"}
+<<page>>
+<<set $currentRoute = "hanbei">>
+<<set $hanbeiProgress = Math.max(($hanbeiProgress || 0), 1)>>
+
+<div class="narration-screen">
+  <div class="narration narration-block">한베는 낡은 기둥에 등을 기대고 있었다.
+
+늑대가 다가가자,
+그는 눈도 뜨지 않았다.
+
+발소리를 이미 알고 있는 사람처럼,
+가볍게 말했다.
+
+“오늘도 날 베러 왔나?”</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_Choice">>
+<</page>>
+
+:: Hanbei_FirstVisit_Choice {"position":"650,725","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">한베가 눈을 뜬다.
+
+검은 아직 뽑히지 않았다.</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "그냥 왔다" "Hanbei_FirstVisit_JustCame">>
+      <<choiceTo "대련하러 왔다" "Hanbei_FirstVisit_Duel">>
+      <<choiceTo "확인하러 왔다" "Hanbei_FirstVisit_Check">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Hanbei_FirstVisit_JustCame {"position":"650,850","size":"100,100"}
+<<page>>
+<<set $hanbeiJustVisitedSeen = true>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+  <div class="narration narration-block">“그냥 왔다.”
+
+한베가 눈을 떴다.
+
+“그냥?”
+
+늑대는 검을 뽑지 않았다.
+
+한베는 잠시 늑대를 보다가,
+작게 웃었다.
+
+“그거 참,
+이상하게 무서운 말이군.”
+
+웃음은 짧았다.
+그 뒤에는 아무 말도 오지 않았다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Hanbei_Sake">>
+<</page>>
+
+:: Hanbei_FirstVisit_Duel {"position":"775,850","size":"100,100"}
+<<page>>
+<<if not $hanbeiJustVisitedSeen>>
+<<set $hanbeiJustVisitedSeen = true>>
+<<set $recordBookNewBond = true>>
+<</if>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+  <div class="narration narration-block">“대련하러 왔다.”
+
+“그렇겠지.”
+
+한베는 천천히 일어났다.
+
+“자네 손이 쉬는 날이 있다면,
+내가 먼저 의심해야 하지 않겠나.”
+
+그는 웃으며 검을 들었다.
+일어나는 동작이 너무 익숙했다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Hanbei_DuelShort">>
+<</page>>
+
+:: Hanbei_FirstVisit_Check {"position":"900,850","size":"100,100"}
+<<page>>
+<<if not $hanbeiJustVisitedSeen>>
+<<set $hanbeiJustVisitedSeen = true>>
+<<set $recordBookNewBond = true>>
+<</if>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<clampStats>>
+
+<div class="narration-screen">
+  <div class="narration narration-block">“확인하러 왔다.”
+
+“내가 아직 죽지 않았는지?”
+
+늑대는 고개를 끄덕였다.
+
+“성실하군.”
+
+한베는 웃었다.
+웃음 끝이 조금 늦게 내려앉았다.
+
+“그런 성실함은,
+사람을 오래 살게 만들기도 하지.”
+
+그 말은 농담처럼 들렸다.
+그래서 더 가볍지 않았다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Hanbei_Sake">>
+<</page>>
+
+:: Hanbei_DuelShort {"position":"775,975","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+  <div class="narration narration-block">검과 검이 짧게 부딪쳤다.
+
+한베는 쓰러졌다가,
+곧바로 다시 일어났다.
+
+흙이 옷자락에서 떨어졌다.
+
+“좋아.
+오늘도 자네 손은 성실하군.”
+
+한베는 웃었다.
+늑대는 검을 거두었다.</div>
+</div>
+
+<<continueTo "Hanbei_Sake">>
+<</page>>
+
 :: Hanbei01 {"position":"1075,625","size":"100,100"}
 <<page>>
 <div class="narration">
@@ -14,9 +166,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_2_Beat]]
-</div>
+<<continueTo "Hanbei01_2_Beat">>
 <</page>>
 
 :: Hanbei01_2 {"position":"950,750","size":"100,100"}
@@ -26,9 +176,7 @@
 왔나?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_3]]
-</div>
+<<continueTo "Hanbei01_3">>
 <</page>>
 
 :: Hanbei01_2_Beat {"position":"0,0","size":"100,100"}
@@ -41,9 +189,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_2]]
-</div>
+<<continueTo "Hanbei01_2">>
 <</page>>
 
 :: Hanbei01_3 {"position":"950,875","size":"100,100"}
@@ -52,9 +198,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_3_ui2]]
-</div>
+<<continueTo "Hanbei01_3_ui2">>
 <</page>>
 
 :: Hanbei01_3_ui2 {"position":"0,0","size":"100,100"}
@@ -65,9 +209,7 @@
 오늘도 날 베러 온 거 맞구만.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_4_Beat]]
-</div>
+<<continueTo "Hanbei01_4_Beat">>
 <</page>>
 
 :: Hanbei01_4 {"position":"950,1000","size":"100,100"}
@@ -77,9 +219,7 @@
 그럼 어디 한번 해보자고.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_4_Choices]]
-</div>
+<<continueTo "Hanbei01_4_Choices">>
 <</page>>
 
 :: Hanbei01_4_Choices {"position":"950,1035","size":"100,100"}
@@ -104,7 +244,7 @@
 돌아가는 길은 짧았다.
 그런데도 조금 멀게 느껴졌다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei01_4_Beat {"position":"0,0","size":"100,100"}
@@ -121,9 +261,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_4]]
-</div>
+<<continueTo "Hanbei01_4">>
 <</page>>
 
 :: Hanbei01_End {"position":"800,1650","size":"100,100"}
@@ -133,9 +271,7 @@
 조금 빨라졌네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_ui2]]
-</div>
+<<continueTo "Hanbei01_End_ui2">>
 <</page>>
 
 :: Hanbei01_End_2 {"position":"800,1775","size":"100,100"}
@@ -144,9 +280,7 @@
 칭찬이라구.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_2_ui2]]
-</div>
+<<continueTo "Hanbei01_End_2_ui2">>
 <</page>>
 
 :: Hanbei01_End_2_ui2 {"position":"0,0","size":"100,100"}
@@ -155,9 +289,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_2_ui3]]
-</div>
+<<continueTo "Hanbei01_End_2_ui3">>
 <</page>>
 
 :: Hanbei01_End_2_ui3 {"position":"0,0","size":"100,100"}
@@ -166,9 +298,7 @@
 정말 반응이 없구만.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_2_ui4]]
-</div>
+<<continueTo "Hanbei01_End_2_ui4">>
 <</page>>
 
 :: Hanbei01_End_2_ui4 {"position":"0,0","size":"100,100"}
@@ -179,9 +309,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_3]]
-</div>
+<<continueTo "Hanbei01_End_3">>
 <</page>>
 
 :: Hanbei01_End_3 {"position":"800,1900","size":"100,100"}
@@ -193,9 +321,7 @@
 그리고, 어차피 난 여기 있으니까 말이네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_4]]
-</div>
+<<continueTo "Hanbei01_End_4">>
 <</page>>
 
 :: Hanbei01_End_4 {"position":"800,2025","size":"100,100"}
@@ -214,9 +340,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_5]]
-</div>
+<<continueTo "Hanbei01_End_5">>
 <</page>>
 
 :: Hanbei01_End_5 {"position":"800,2150","size":"100,100"}
@@ -227,9 +351,7 @@
 설마 걱정이라도 해주는 건가?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_5_ui2]]
-</div>
+<<continueTo "Hanbei01_End_5_ui2">>
 <</page>>
 
 :: Hanbei01_End_5_ui2 {"position":"0,0","size":"100,100"}
@@ -238,22 +360,20 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_6]]
-</div>
+<<continueTo "Hanbei01_End_6">>
 <</page>>
 
 :: Hanbei01_End_6 {"position":"800,2275","size":"100,100"}
 <<page>>
+<<set $hanbeiProgress = 1>>
+<<set $hanbeiLove += 1>>
 <<talk "hanbei" "한베">>
 하하하!
 됐다네.
 자네의 그런 표정이면 충분하니.
 <</talk>>
 
-<div class="choice-box">
-[[돌아간다->Temple_Return][$hanbeiProgress = 1, $hanbeiLove += 1]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei01_End_Beat {"position":"0,0","size":"100,100"}
@@ -264,9 +384,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_End]]
-</div>
+<<continueTo "Hanbei01_End">>
 <</page>>
 
 :: Hanbei01_End_ui2 {"position":"0,0","size":"100,100"}
@@ -275,9 +393,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_2]]
-</div>
+<<continueTo "Hanbei01_End_2">>
 <</page>>
 
 :: Hanbei01_Just {"position":"950,1150","size":"100,100"}
@@ -286,9 +402,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_ui2]]
-</div>
+<<continueTo "Hanbei01_Just_ui2">>
 <</page>>
 
 :: Hanbei01_Just_2 {"position":"950,1275","size":"100,100"}
@@ -297,9 +411,7 @@
 그냥...?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_2_ui2]]
-</div>
+<<continueTo "Hanbei01_Just_2_ui2">>
 <</page>>
 
 :: Hanbei01_Just_2_ui2 {"position":"0,0","size":"100,100"}
@@ -308,9 +420,7 @@
 그렇다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_2_ui3]]
-</div>
+<<continueTo "Hanbei01_Just_2_ui3">>
 <</page>>
 
 :: Hanbei01_Just_2_ui3 {"position":"0,0","size":"100,100"}
@@ -321,9 +431,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_3_Beat]]
-</div>
+<<continueTo "Hanbei01_Just_3_Beat">>
 <</page>>
 
 :: Hanbei01_Just_3 {"position":"950,1400","size":"100,100"}
@@ -334,22 +442,28 @@
 매번 검만 휘두르는 것도 질리거든.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_4_Beat]]
-</div>
+<<continueTo "Hanbei01_Just_4_Beat">>
 <</page>>
 
 :: Hanbei01_Just_3_Beat {"position":"0,0","size":"100,100"}
 <<page>>
+<<if $recordBookUnlocked and not $hanbeiJustVisitedSeen>>
+<<set $hanbeiJustVisitedSeen = true>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<set $recordBookNewBond = true>>
+<</if>>
 <div class="narration">
 
 한베는 검을 바닥에 내려놓았다.
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_3]]
-</div>
+<<if $recordBookUnlocked and $hanbeiJustVisitedSeen and $recordBookNewBond>>
+<<recordNotice "bond">>
+<</if>>
+
+<<continueTo "Hanbei01_Just_3">>
 <</page>>
 
 :: Hanbei01_Just_4 {"position":"950,1525","size":"100,100"}
@@ -359,9 +473,7 @@
 어차피 난 여기 있으니까.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_Beat]]
-</div>
+<<continueTo "Hanbei01_End_Beat">>
 <</page>>
 
 :: Hanbei01_Just_4_Beat {"position":"0,0","size":"100,100"}
@@ -378,9 +490,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_4]]
-</div>
+<<continueTo "Hanbei01_Just_4">>
 <</page>>
 
 :: Hanbei01_Just_ui2 {"position":"0,0","size":"100,100"}
@@ -389,9 +499,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Just_2]]
-</div>
+<<continueTo "Hanbei01_Just_2">>
 <</page>>
 
 :: Hanbei01_Spar {"position":"800,1150","size":"100,100"}
@@ -400,9 +508,7 @@
 한수 부탁하지.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_ui2]]
-</div>
+<<continueTo "Hanbei01_Spar_ui2">>
 <</page>>
 
 :: Hanbei01_Spar_2 {"position":"800,1275","size":"100,100"}
@@ -412,9 +518,7 @@
 난 자네가 말 거는 것보다 이게 편하더군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_2_ui2]]
-</div>
+<<continueTo "Hanbei01_Spar_2_ui2">>
 <</page>>
 
 :: Hanbei01_Spar_2_Beat {"position":"0,0","size":"100,100"}
@@ -425,9 +529,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_2]]
-</div>
+<<continueTo "Hanbei01_Spar_2">>
 <</page>>
 
 :: Hanbei01_Spar_2_ui2 {"position":"0,0","size":"100,100"}
@@ -436,9 +538,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_3]]
-</div>
+<<continueTo "Hanbei01_Spar_3">>
 <</page>>
 
 :: Hanbei01_Spar_3 {"position":"800,1400","size":"100,100"}
@@ -450,9 +550,7 @@
 그대가 말 없는 거를.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_4]]
-</div>
+<<continueTo "Hanbei01_Spar_4">>
 <</page>>
 
 :: Hanbei01_Spar_4 {"position":"800,1525","size":"100,100"}
@@ -461,9 +559,7 @@
 근데 검은 거짓말을 하지 않지 않나?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_4_ui2_Beat]]
-</div>
+<<continueTo "Hanbei01_Spar_4_ui2_Beat">>
 <</page>>
 
 :: Hanbei01_Spar_4_ui2 {"position":"0,0","size":"100,100"}
@@ -472,9 +568,7 @@
 그 점은 좋더군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_End_Beat]]
-</div>
+<<continueTo "Hanbei01_End_Beat">>
 <</page>>
 
 :: Hanbei01_Spar_4_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -485,9 +579,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_4_ui2]]
-</div>
+<<continueTo "Hanbei01_Spar_4_ui2">>
 <</page>>
 
 :: Hanbei01_Spar_ui2 {"position":"0,0","size":"100,100"}
@@ -497,9 +589,7 @@
 그게 제일 당신답다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei01_Spar_2_Beat]]
-</div>
+<<continueTo "Hanbei01_Spar_2_Beat">>
 <</page>>
 
 :: Hanbei02 {"position":"1200,625","size":"100,100"}
@@ -516,9 +606,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_2_Beat]]
-</div>
+<<continueTo "Hanbei02_2_Beat">>
 <</page>>
 
 :: Hanbei02_2 {"position":"1200,750","size":"100,100"}
@@ -528,9 +616,7 @@
 이번 건 좀 괜찮았는데.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_3_Beat]]
-</div>
+<<continueTo "Hanbei02_3_Beat">>
 <</page>>
 
 :: Hanbei02_2_Beat {"position":"0,0","size":"100,100"}
@@ -545,9 +631,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_2]]
-</div>
+<<continueTo "Hanbei02_2">>
 <</page>>
 
 :: Hanbei02_3 {"position":"1200,875","size":"100,100"}
@@ -556,9 +640,7 @@
 하마터면 넘어갈 뻔했네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_3_ui2]]
-</div>
+<<continueTo "Hanbei02_3_ui2">>
 <</page>>
 
 :: Hanbei02_3_Beat {"position":"0,0","size":"100,100"}
@@ -569,9 +651,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_3]]
-</div>
+<<continueTo "Hanbei02_3">>
 <</page>>
 
 :: Hanbei02_3_ui2 {"position":"0,0","size":"100,100"}
@@ -580,9 +660,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_3_ui3]]
-</div>
+<<continueTo "Hanbei02_3_ui3">>
 <</page>>
 
 :: Hanbei02_3_ui3 {"position":"0,0","size":"100,100"}
@@ -605,9 +683,7 @@
 있지.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_2]]
-</div>
+<<continueTo "Hanbei02_End_2">>
 <</page>>
 
 :: Hanbei02_End_2 {"position":"1100,1500","size":"100,100"}
@@ -616,9 +692,7 @@
 사람들은 불사면 좋겠다고 하더군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_2_ui2_Beat]]
-</div>
+<<continueTo "Hanbei02_End_2_ui2_Beat">>
 <</page>>
 
 :: Hanbei02_End_2_ui2 {"position":"0,0","size":"100,100"}
@@ -628,9 +702,7 @@
 하루 이틀쯤은 좋을지도 모르겠다만.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_3]]
-</div>
+<<continueTo "Hanbei02_End_3">>
 <</page>>
 
 :: Hanbei02_End_2_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -641,9 +713,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_2_ui2]]
-</div>
+<<continueTo "Hanbei02_End_2_ui2">>
 <</page>>
 
 :: Hanbei02_End_3 {"position":"1100,1625","size":"100,100"}
@@ -652,9 +722,7 @@
 근데 이렇게 오래 되면 질리더군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_3_ui2]]
-</div>
+<<continueTo "Hanbei02_End_3_ui2">>
 <</page>>
 
 :: Hanbei02_End_3_ui2 {"position":"0,0","size":"100,100"}
@@ -663,9 +731,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_3_ui3]]
-</div>
+<<continueTo "Hanbei02_End_3_ui3">>
 <</page>>
 
 :: Hanbei02_End_3_ui3 {"position":"0,0","size":"100,100"}
@@ -675,13 +741,12 @@
 농담이야.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_3_ui4]]
-</div>
+<<continueTo "Hanbei02_End_3_ui4">>
 <</page>>
 
 :: Hanbei02_End_3_ui4 {"position":"0,0","size":"100,100"}
 <<page>>
+<<set $hanbeiProgress = 2>>
 <div class="narration">
 
 그렇게 말했지만.
@@ -690,9 +755,7 @@
 
 </div>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 2]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei02_End_Beat {"position":"0,0","size":"100,100"}
@@ -707,9 +770,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_End]]
-</div>
+<<continueTo "Hanbei02_End">>
 <</page>>
 
 :: Hanbei02_Fight {"position":"1100,1000","size":"100,100"}
@@ -720,9 +781,7 @@
 그렇게 나와야지.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight_2_Beat]]
-</div>
+<<continueTo "Hanbei02_Fight_2_Beat">>
 <</page>>
 
 :: Hanbei02_Fight_2 {"position":"1100,1125","size":"100,100"}
@@ -731,9 +790,7 @@
 근데 잠깐만.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight_2_ui2_Beat]]
-</div>
+<<continueTo "Hanbei02_Fight_2_ui2_Beat">>
 <</page>>
 
 :: Hanbei02_Fight_2_Beat {"position":"0,0","size":"100,100"}
@@ -744,9 +801,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight_2]]
-</div>
+<<continueTo "Hanbei02_Fight_2">>
 <</page>>
 
 :: Hanbei02_Fight_2_ui2 {"position":"0,0","size":"100,100"}
@@ -756,9 +811,7 @@
 아프네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight_3_Beat]]
-</div>
+<<continueTo "Hanbei02_Fight_3_Beat">>
 <</page>>
 
 :: Hanbei02_Fight_2_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -769,9 +822,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight_2_ui2]]
-</div>
+<<continueTo "Hanbei02_Fight_2_ui2">>
 <</page>>
 
 :: Hanbei02_Fight_3 {"position":"1100,1250","size":"100,100"}
@@ -782,9 +833,7 @@
 죽지 않으니.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_Beat]]
-</div>
+<<continueTo "Hanbei02_End_Beat">>
 <</page>>
 
 :: Hanbei02_Fight_3_Beat {"position":"0,0","size":"100,100"}
@@ -795,9 +844,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight_3]]
-</div>
+<<continueTo "Hanbei02_Fight_3">>
 <</page>>
 
 :: Hanbei02_Fight_Beat {"position":"0,0","size":"100,100"}
@@ -808,9 +855,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Fight]]
-</div>
+<<continueTo "Hanbei02_Fight">>
 <</page>>
 
 :: Hanbei02_Silent {"position":"1350,1000","size":"100,100"}
@@ -819,9 +864,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Silent_ui2]]
-</div>
+<<continueTo "Hanbei02_Silent_ui2">>
 <</page>>
 
 :: Hanbei02_Silent_2 {"position":"1350,1125","size":"100,100"}
@@ -831,9 +874,7 @@
 오늘은 더 심하네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Silent_2_ui2_Beat]]
-</div>
+<<continueTo "Hanbei02_Silent_2_ui2_Beat">>
 <</page>>
 
 :: Hanbei02_Silent_2_ui2 {"position":"0,0","size":"100,100"}
@@ -843,9 +884,7 @@
 안 죽는다니까.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Silent_3_Beat]]
-</div>
+<<continueTo "Hanbei02_Silent_3_Beat">>
 <</page>>
 
 :: Hanbei02_Silent_2_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -856,9 +895,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Silent_2_ui2]]
-</div>
+<<continueTo "Hanbei02_Silent_2_ui2">>
 <</page>>
 
 :: Hanbei02_Silent_3 {"position":"1350,1250","size":"100,100"}
@@ -867,9 +904,7 @@
 걱정할 필요 없어.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_Beat]]
-</div>
+<<continueTo "Hanbei02_End_Beat">>
 <</page>>
 
 :: Hanbei02_Silent_3_Beat {"position":"0,0","size":"100,100"}
@@ -882,9 +917,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Silent_3]]
-</div>
+<<continueTo "Hanbei02_Silent_3">>
 <</page>>
 
 :: Hanbei02_Silent_ui2 {"position":"0,0","size":"100,100"}
@@ -894,9 +927,7 @@
 뭐냐.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Silent_2]]
-</div>
+<<continueTo "Hanbei02_Silent_2">>
 <</page>>
 
 :: Hanbei02_Worry {"position":"1225,1000","size":"100,100"}
@@ -905,9 +936,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_2]]
-</div>
+<<continueTo "Hanbei02_Worry_2">>
 <</page>>
 
 :: Hanbei02_Worry_2 {"position":"1225,1125","size":"100,100"}
@@ -917,9 +946,7 @@
 이거?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_2_ui2_Beat]]
-</div>
+<<continueTo "Hanbei02_Worry_2_ui2_Beat">>
 <</page>>
 
 :: Hanbei02_Worry_2_ui2 {"position":"0,0","size":"100,100"}
@@ -929,9 +956,7 @@
 익숙하거든.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_3]]
-</div>
+<<continueTo "Hanbei02_Worry_3">>
 <</page>>
 
 :: Hanbei02_Worry_2_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -942,9 +967,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_2_ui2]]
-</div>
+<<continueTo "Hanbei02_Worry_2_ui2">>
 <</page>>
 
 :: Hanbei02_Worry_3 {"position":"1225,1250","size":"100,100"}
@@ -955,9 +978,7 @@
 죽는 것도.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_3_ui2_Beat]]
-</div>
+<<continueTo "Hanbei02_Worry_3_ui2_Beat">>
 <</page>>
 
 :: Hanbei02_Worry_3_ui2 {"position":"0,0","size":"100,100"}
@@ -967,9 +988,7 @@
 아프긴 하다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_3_ui3]]
-</div>
+<<continueTo "Hanbei02_Worry_3_ui3">>
 <</page>>
 
 :: Hanbei02_Worry_3_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -980,9 +999,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry_3_ui2]]
-</div>
+<<continueTo "Hanbei02_Worry_3_ui2">>
 <</page>>
 
 :: Hanbei02_Worry_3_ui3 {"position":"0,0","size":"100,100"}
@@ -993,9 +1010,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_End_Beat]]
-</div>
+<<continueTo "Hanbei02_End_Beat">>
 <</page>>
 
 :: Hanbei02_Worry_Beat {"position":"0,0","size":"100,100"}
@@ -1012,9 +1027,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei02_Worry]]
-</div>
+<<continueTo "Hanbei02_Worry">>
 <</page>>
 
 :: Hanbei03 {"position":"1375,625","size":"100,100"}
@@ -1024,9 +1037,7 @@
 왔나?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_2_Beat]]
-</div>
+<<continueTo "Hanbei03_2_Beat">>
 <</page>>
 
 :: Hanbei03_2 {"position":"1375,750","size":"100,100"}
@@ -1036,9 +1047,7 @@
 오늘은 몇 번이나 날 날려버릴 생각인가?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_2_ui2]]
-</div>
+<<continueTo "Hanbei03_2_ui2">>
 <</page>>
 
 :: Hanbei03_2_Beat {"position":"0,0","size":"100,100"}
@@ -1049,9 +1058,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_2]]
-</div>
+<<continueTo "Hanbei03_2">>
 <</page>>
 
 :: Hanbei03_2_ui2 {"position":"0,0","size":"100,100"}
@@ -1060,9 +1067,7 @@
 ...
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_3_Beat]]
-</div>
+<<continueTo "Hanbei03_3_Beat">>
 <</page>>
 
 :: Hanbei03_3 {"position":"1375,875","size":"100,100"}
@@ -1073,9 +1078,7 @@
 설마 다쳤나?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_3_ui2]]
-</div>
+<<continueTo "Hanbei03_3_ui2">>
 <</page>>
 
 :: Hanbei03_3_Beat {"position":"0,0","size":"100,100"}
@@ -1086,9 +1089,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_3]]
-</div>
+<<continueTo "Hanbei03_3">>
 <</page>>
 
 :: Hanbei03_3_ui2 {"position":"0,0","size":"100,100"}
@@ -1097,9 +1098,7 @@
 아니다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_4]]
-</div>
+<<continueTo "Hanbei03_4">>
 <</page>>
 
 :: Hanbei03_4 {"position":"1500,1000","size":"100,100"}
@@ -1109,9 +1108,7 @@
 오늘은 안 베나?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_4_ui2_Beat]]
-</div>
+<<continueTo "Hanbei03_4_ui2_Beat">>
 <</page>>
 
 :: Hanbei03_4_ui2 {"position":"0,0","size":"100,100"}
@@ -1120,9 +1117,7 @@
 그냥 왔다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_5_Beat]]
-</div>
+<<continueTo "Hanbei03_5_Beat">>
 <</page>>
 
 :: Hanbei03_4_ui2_Beat {"position":"0,0","size":"100,100"}
@@ -1133,9 +1128,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_4_ui2]]
-</div>
+<<continueTo "Hanbei03_4_ui2">>
 <</page>>
 
 :: Hanbei03_5 {"position":"1500,1125","size":"100,100"}
@@ -1145,9 +1138,7 @@
 뭐?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_5_ui2]]
-</div>
+<<continueTo "Hanbei03_5_ui2">>
 <</page>>
 
 :: Hanbei03_5_Beat {"position":"0,0","size":"100,100"}
@@ -1158,9 +1149,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_5]]
-</div>
+<<continueTo "Hanbei03_5">>
 <</page>>
 
 :: Hanbei03_5_ui2 {"position":"0,0","size":"100,100"}
@@ -1169,9 +1158,7 @@
 그냥.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_5_ui3]]
-</div>
+<<continueTo "Hanbei03_5_ui3">>
 <</page>>
 
 :: Hanbei03_5_ui3 {"position":"0,0","size":"100,100"}
@@ -1186,9 +1173,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_6]]
-</div>
+<<continueTo "Hanbei03_6">>
 <</page>>
 
 :: Hanbei03_6 {"position":"1500,1250","size":"100,100"}
@@ -1200,9 +1185,7 @@
 진짜 그냥 왔단 말인가?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_6_ui2]]
-</div>
+<<continueTo "Hanbei03_6_ui2">>
 <</page>>
 
 :: Hanbei03_6_ui2 {"position":"0,0","size":"100,100"}
@@ -1211,9 +1194,7 @@
 그렇다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_7_Beat]]
-</div>
+<<continueTo "Hanbei03_7_Beat">>
 <</page>>
 
 :: Hanbei03_7 {"position":"1500,1375","size":"100,100"}
@@ -1224,9 +1205,7 @@
 난 또 오늘도 맞으러 온 줄 알았는데.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_8]]
-</div>
+<<continueTo "Hanbei03_8">>
 <</page>>
 
 :: Hanbei03_7_Beat {"position":"0,0","size":"100,100"}
@@ -1237,9 +1216,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_7]]
-</div>
+<<continueTo "Hanbei03_7">>
 <</page>>
 
 :: Hanbei03_8 {"position":"1500,1500","size":"100,100"}
@@ -1274,9 +1251,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03]]
-</div>
+<<continueTo "Hanbei03">>
 <</page>>
 
 :: Hanbei03_Fight {"position":"1250,1625","size":"100,100"}
@@ -1285,13 +1260,12 @@
 한 수 더 부탁하지.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_Fight_ui2]]
-</div>
+<<continueTo "Hanbei03_Fight_ui2">>
 <</page>>
 
 :: Hanbei03_Fight_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
+<<set $hanbeiProgress = 3>>
 <<talk "hanbei" "한베">>
 하하.
 역시 그럴 줄 알았네.
@@ -1300,9 +1274,7 @@
 솔직히 어제 것도 아직 아프거든.
 <</talk>>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei03_Leave {"position":"1500,1625","size":"100,100"}
@@ -1311,13 +1283,12 @@
 가보겠다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_Leave_ui2]]
-</div>
+<<continueTo "Hanbei03_Leave_ui2">>
 <</page>>
 
 :: Hanbei03_Leave_ui2 {"position":"0,0","size":"100,100"}
 <<page>>
+<<set $hanbeiProgress = 3>>
 <<talk "hanbei" "한베">>
 어이.
 뭔가 그건.
@@ -1326,9 +1297,7 @@
 다음엔 좀 더 있다 가게.
 <</talk>>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei03_Sit {"position":"1375,1625","size":"100,100"}
@@ -1338,9 +1307,7 @@
 이거 좀 신기하군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_Sit_ui2]]
-</div>
+<<continueTo "Hanbei03_Sit_ui2">>
 <</page>>
 
 :: Hanbei03_Sit_2 {"position":"1375,1750","size":"100,100"}
@@ -1350,9 +1317,7 @@
 생각보다 나쁘지 않더군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_Sit_3_Beat]]
-</div>
+<<continueTo "Hanbei03_Sit_3_Beat">>
 <</page>>
 
 :: Hanbei03_Sit_2_Beat {"position":"0,0","size":"100,100"}
@@ -1365,22 +1330,19 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_Sit_2]]
-</div>
+<<continueTo "Hanbei03_Sit_2">>
 <</page>>
 
 :: Hanbei03_Sit_3 {"position":"1375,1875","size":"100,100"}
 <<page>>
+<<set $hanbeiProgress = 3>>
 <<talk "hanbei" "한베">>
 아.
 오해는 하지 말게.
 대련 안 해서 좋다는 말이야.
 <</talk>>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return][$hanbeiProgress = 3]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei03_Sit_3_Beat {"position":"0,0","size":"100,100"}
@@ -1395,9 +1357,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_Sit_3]]
-</div>
+<<continueTo "Hanbei03_Sit_3">>
 <</page>>
 
 :: Hanbei03_Sit_Beat {"position":"0,0","size":"100,100"}
@@ -1408,9 +1368,7 @@
 
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei03_Sit]]
-</div>
+<<continueTo "Hanbei03_Sit">>
 <</page>>
 
 :: Hanbei03_Sit_ui2 {"position":"0,0","size":"100,100"}
@@ -1419,9 +1377,7 @@
 뭐가?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei03_Sit_2_Beat]]
-</div>
+<<continueTo "Hanbei03_Sit_2_Beat">>
 <</page>>
 
 :: Hanbei_Loop {"position":"1300,350","size":"100,100"}
@@ -1429,7 +1385,7 @@
 황폐한 절의 마른 흙 위로 바람이 지나간다.
 
 불사자의 몸을 가진 사내가 검을 짚고 너를 바라본다.
-<div class="choice-box">[[계속->Hanbei_Loop_Talk]]</div>
+<<continueTo "Hanbei_Loop_Talk">>
 <</page>>
 
 :: Hanbei_Loop_Talk {"position":"1175,350","size":"100,100"}
@@ -1439,9 +1395,7 @@
 오늘도 날은 잘 드는가?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_Loop_Choices]]
-</div>
+<<continueTo "Hanbei_Loop_Choices">>
 <</page>>
 
 :: Hanbei_Loop_Choices {"position":"1175,390","size":"100,100"}
@@ -1476,18 +1430,128 @@
 그 익숙함이,
 오늘은 조금 멀리 남았다.</div>
 
-<div class="choice-box">[[돌아간다->Temple_Return]]</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_Sake {"position":"1675,1475","size":"100,100"}
 <<page>>
-<<talk "wolf" "늑대">>
-…함께 마시겠나.
-<</talk>>
+<<set $currentRoute = "hanbei">>
+<<set $hanbeiSakeSeen = true>>
+<<set $traceSharedDrink = true>>
+<<set $recordBookNewBond = true>>
 
-<div class="choice-box">
-[[계속->Hanbei_Sake_반응_Beat]]
+<div class="narration-screen">
+  <div class="narration narration-block">한베는 품 안에서 작은 술병을 꺼냈다.
+
+언제부터 가지고 있었는지,
+늑대는 알 수 없었다.
+
+“마실 텐가?”
+
+늑대는 술병을 보았다.
+
+한베는 웃었다.
+
+“독은 아닐세.
+독이어도 내 쪽은 별일 없겠지만.”
+
+그 말은 너무 쉽게 나왔다.</div>
 </div>
+
+<<recordNotice "bond">>
+<<continueTo "Hanbei_Sake_Choice">>
+<</page>>
+
+:: Hanbei_Sake_Choice {"position":"1675,1500","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">한베가 술병을 내민다.
+
+술 냄새가 낡은 처마 밑으로 번진다.</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "받는다" "Hanbei_Sake_Accept">>
+      <<choiceTo "거절한다" "Hanbei_Sake_Refuse">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Hanbei_Sake_Accept {"position":"1675,1525","size":"100,100"}
+<<page>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<clampStats>>
+
+<div class="narration-screen">
+  <div class="narration narration-block">늑대는 술병을 받았다.
+
+한베의 손이 아주 잠깐 멈췄다.
+
+“자네도 가끔은,
+사람 흉내를 내는군.”
+
+늑대는 술을 마셨다.
+
+목이 뜨거웠다.
+숨이 한 번 늦게 들어왔다.
+
+살아 있는 것처럼.</div>
+</div>
+
+<<continueTo "Hanbei_End_QuietDay">>
+<</page>>
+
+:: Hanbei_Sake_Refuse {"position":"1675,1550","size":"100,100"}
+<<page>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+  <div class="narration narration-block">늑대는 술병을 받지 않았다.
+
+“그럴 줄 알았네.”
+
+한베는 혼자 술을 마셨다.
+
+“그래도 권해보는 건,
+아직 내가 완전히 썩지는 않았다는 뜻이겠지.”
+
+늑대는 대답하지 않았다.
+한베도 더 권하지 않았다.</div>
+</div>
+
+<<continueTo "Hanbei_End_QuietDay">>
+<</page>>
+
+:: Hanbei_End_QuietDay {"position":"1675,1575","size":"100,100"}
+<<page>>
+<<set $endingHanbeiQuietDaySeen = true>>
+<<set $hanbeiDone = true>>
+<<set $completedHanbei = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<<qualifiedCharacterEnding "hanbei">>
+
+<div class="narration narration-full short-beat">[End. 그냥 온 날]
+
+그날 늑대는
+한베를 베지 않았다.
+
+한베도
+다시 베어 달라 말하지 않았다.
+
+둘은 한동안
+같은 처마 아래에 있었다.
+
+검은 뽑히지 않았다.
+
+그것만으로도,
+그날은 다른 날이었다.</div>
+
+<<recordNotice "ending">>
+<<continueTo "Temple">>
 <</page>>
 
 :: Hanbei_Sake_반응 {"position":"1625,1600","size":"100,100"}
@@ -1497,9 +1561,7 @@
 자네가 그런 말을 할 줄은 몰랐군.
 <</talk>>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_04_Sake {"position":"1675,1725","size":"100,100"}
@@ -1515,9 +1577,7 @@
 다만 오늘은, 곁에 작은 술병이 놓여 있었다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_02]]
-</div>
+<<continueTo "Hanbei_04_Sake_02">>
 <</page>>
 
 :: Hanbei_04_Sake_02 {"position":"1700,1725","size":"100,100"}
@@ -1526,9 +1586,7 @@
 왔는가, 늑대.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_03]]
-</div>
+<<continueTo "Hanbei_04_Sake_03">>
 <</page>>
 
 :: Hanbei_04_Sake_03 {"position":"1725,1725","size":"100,100"}
@@ -1538,9 +1596,7 @@
 뭐, 베이는 맛은 없겠지만 말이네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Beat01]]
-</div>
+<<continueTo "Hanbei_04_Sake_Beat01">>
 <</page>>
 
 :: Hanbei_04_Sake_Beat01 {"position":"1750,1725","size":"100,100"}
@@ -1552,9 +1608,7 @@
 그 소리는 이상하게도, 이 황폐한 절에 잘 어울렸다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_04]]
-</div>
+<<continueTo "Hanbei_04_Sake_04">>
 <</page>>
 
 :: Hanbei_04_Sake_04 {"position":"1775,1725","size":"100,100"}
@@ -1563,9 +1617,7 @@
 술인가.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_05]]
-</div>
+<<continueTo "Hanbei_04_Sake_05">>
 <</page>>
 
 :: Hanbei_04_Sake_05 {"position":"1800,1725","size":"100,100"}
@@ -1575,9 +1627,7 @@
 좋은 술인지는 모르겠네만.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_06]]
-</div>
+<<continueTo "Hanbei_04_Sake_06">>
 <</page>>
 
 :: Hanbei_04_Sake_06 {"position":"1825,1725","size":"100,100"}
@@ -1586,9 +1636,7 @@
 자네는 술을 마시면 어떠한가?
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_07]]
-</div>
+<<continueTo "Hanbei_04_Sake_07">>
 <</page>>
 
 :: Hanbei_04_Sake_07 {"position":"1850,1725","size":"100,100"}
@@ -1597,9 +1645,7 @@
 모른다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_08]]
-</div>
+<<continueTo "Hanbei_04_Sake_08">>
 <</page>>
 
 :: Hanbei_04_Sake_08 {"position":"1875,1725","size":"100,100"}
@@ -1608,9 +1654,7 @@
 하하. 자네답군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Beat02]]
-</div>
+<<continueTo "Hanbei_04_Sake_Beat02">>
 <</page>>
 
 :: Hanbei_04_Sake_Beat02 {"position":"1900,1725","size":"100,100"}
@@ -1622,9 +1666,7 @@
 그러나 그 웃음 뒤에, 잠깐 빈틈 같은 것이 있었다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_09]]
-</div>
+<<continueTo "Hanbei_04_Sake_09">>
 <</page>>
 
 :: Hanbei_04_Sake_09 {"position":"1925,1725","size":"100,100"}
@@ -1633,9 +1675,7 @@
 난 도통 모르겠더군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_10]]
-</div>
+<<continueTo "Hanbei_04_Sake_10">>
 <</page>>
 
 :: Hanbei_04_Sake_10 {"position":"1950,1725","size":"100,100"}
@@ -1644,9 +1684,7 @@
 취하는 법을 잊어버려서.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Beat03]]
-</div>
+<<continueTo "Hanbei_04_Sake_Beat03">>
 <</page>>
 
 :: Hanbei_04_Sake_Beat03 {"position":"1975,1725","size":"100,100"}
@@ -1658,9 +1696,7 @@
 가끔 너무 오래 살아남은 말처럼 들렸다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Choice]]
-</div>
+<<continueTo "Hanbei_04_Sake_Choice">>
 <</page>>
 
 :: Hanbei_04_Sake_Choice {"position":"2000,1725","size":"100,100"}
@@ -1671,6 +1707,7 @@
   <<set $hanbeiLove += 2>>
   <<set $sharedSake_hanbei = true>>
   <<set $traceSharedDrink = true>>
+  <<set $hanbeiSakeSeen = true>>
   <<clampStats>>
 <</link>>
 
@@ -1696,9 +1733,7 @@
 그 안의 술은, 오래된 절의 밤처럼 흐렸다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Accept_02]]
-</div>
+<<continueTo "Hanbei_04_Sake_Accept_02">>
 <</page>>
 
 :: Hanbei_04_Sake_Accept_02 {"position":"2025,1725","size":"100,100"}
@@ -1708,9 +1743,7 @@
 받는가.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Accept_03]]
-</div>
+<<continueTo "Hanbei_04_Sake_Accept_03">>
 <</page>>
 
 :: Hanbei_04_Sake_Accept_03 {"position":"2050,1725","size":"100,100"}
@@ -1719,9 +1752,7 @@
 받았다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Accept_04]]
-</div>
+<<continueTo "Hanbei_04_Sake_Accept_04">>
 <</page>>
 
 :: Hanbei_04_Sake_Accept_04 {"position":"2075,1725","size":"100,100"}
@@ -1731,9 +1762,7 @@
 그럼 됐네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Accept_Beat]]
-</div>
+<<continueTo "Hanbei_04_Sake_Accept_Beat">>
 <</page>>
 
 :: Hanbei_04_Sake_Accept_Beat {"position":"2100,1725","size":"100,100"}
@@ -1745,9 +1774,7 @@
 마치 빈 잔 하나가, 뜻밖에도 무겁게 놓인 것처럼.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_04_Sake_Refuse {"position":"1800,1850","size":"100,100"}
@@ -1759,9 +1786,7 @@
 별일 아니라는 듯 제 몫의 술을 기울였다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Refuse_02]]
-</div>
+<<continueTo "Hanbei_04_Sake_Refuse_02">>
 <</page>>
 
 :: Hanbei_04_Sake_Refuse_02 {"position":"2025,1850","size":"100,100"}
@@ -1771,9 +1796,7 @@
 자네는 참, 빈틈이 없군.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Refuse_03]]
-</div>
+<<continueTo "Hanbei_04_Sake_Refuse_03">>
 <</page>>
 
 :: Hanbei_04_Sake_Refuse_03 {"position":"2050,1850","size":"100,100"}
@@ -1782,9 +1805,7 @@
 필요 없다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Refuse_04]]
-</div>
+<<continueTo "Hanbei_04_Sake_Refuse_04">>
 <</page>>
 
 :: Hanbei_04_Sake_Refuse_04 {"position":"2075,1850","size":"100,100"}
@@ -1794,9 +1815,7 @@
 필요 없는 것도 많지.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Refuse_Beat]]
-</div>
+<<continueTo "Hanbei_04_Sake_Refuse_Beat">>
 <</page>>
 
 :: Hanbei_04_Sake_Refuse_Beat {"position":"2100,1850","size":"100,100"}
@@ -1808,9 +1827,7 @@
 말은 조금 비었다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_04_Sake_Look {"position":"1800,1975","size":"100,100"}
@@ -1823,9 +1840,7 @@
 그 아래에 숨은 표정을 보려 했다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Look_02]]
-</div>
+<<continueTo "Hanbei_04_Sake_Look_02">>
 <</page>>
 
 :: Hanbei_04_Sake_Look_02 {"position":"2025,1975","size":"100,100"}
@@ -1835,9 +1850,7 @@
 무슨 일인가.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Look_03]]
-</div>
+<<continueTo "Hanbei_04_Sake_Look_03">>
 <</page>>
 
 :: Hanbei_04_Sake_Look_03 {"position":"2050,1975","size":"100,100"}
@@ -1846,9 +1859,7 @@
 아니다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Look_04]]
-</div>
+<<continueTo "Hanbei_04_Sake_Look_04">>
 <</page>>
 
 :: Hanbei_04_Sake_Look_04 {"position":"2075,1975","size":"100,100"}
@@ -1857,9 +1868,7 @@
 아닌 얼굴은 아닌데 말일세.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_04_Sake_Look_Beat]]
-</div>
+<<continueTo "Hanbei_04_Sake_Look_Beat">>
 <</page>>
 
 :: Hanbei_04_Sake_Look_Beat {"position":"2100,1975","size":"100,100"}
@@ -1869,9 +1878,7 @@
 손끝은 아주 잠깐 마스크 근처에서 멈췄다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_05_Mask {"position":"1925,1725","size":"100,100"}
@@ -1926,9 +1933,7 @@
 상처를 더듬을 때보다 조심스럽게.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_05_Mask_Choices]]
-</div>
+<<continueTo "Hanbei_05_Mask_Choices">>
 <</page>>
 
 :: Hanbei_05_Mask_Choices {"position":"1925,1760","size":"100,100"}
@@ -1979,9 +1984,7 @@
 그러나 비어 있지는 않았다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_05_Mask_Touch {"position":"2050,1850","size":"100,100"}
@@ -2045,9 +2048,7 @@
 그 얼굴은 도망가지 않았다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_05_Mask_BackAway {"position":"2050,1975","size":"100,100"}
@@ -2081,9 +2082,7 @@
 조금 전보다 멀어진 것을 알았다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_06_Immortality {"position":"2175,1725","size":"100,100"}
@@ -2127,9 +2126,7 @@
 끝이라는 것이 부럽네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_06_Immortality_Choices]]
-</div>
+<<continueTo "Hanbei_06_Immortality_Choices">>
 <</page>>
 
 :: Hanbei_06_Immortality_Choices {"position":"2175,1760","size":"100,100"}
@@ -2186,9 +2183,7 @@
 아주 오래 지친 사람처럼 보였다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_06_Immortality_AskDeath {"position":"2300,1850","size":"100,100"}
@@ -2222,9 +2217,7 @@
 죽음보다 오래 남은 것들이 있었다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_06_Immortality_Silence {"position":"2300,1975","size":"100,100"}
@@ -2259,9 +2252,7 @@
 이번에는 혼자 남은 소리는 아니었다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_07_DawnTrainingGround {"position":"2425,1725","size":"100,100"}
@@ -2323,9 +2314,7 @@
 손은 아직 검을 기억하고 있었다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_07_DawnTrainingGround_Choices]]
-</div>
+<<continueTo "Hanbei_07_DawnTrainingGround_Choices">>
 <</page>>
 
 :: Hanbei_07_DawnTrainingGround_Choices {"position":"2425,1760","size":"100,100"}
@@ -2388,9 +2377,7 @@
 늑대도 더 말하지 않았다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_07_DawnTrainingGround_DontKnow {"position":"2550,1850","size":"100,100"}
@@ -2434,9 +2421,7 @@
 새벽빛이 그의 마스크 가장자리에 닿았다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_07_DawnTrainingGround_Kuro {"position":"2550,1975","size":"100,100"}
@@ -2474,9 +2459,7 @@
 방금 한 말을 거두는 침묵은 아니었다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_07_DawnTrainingGround_Silence {"position":"2550,2100","size":"100,100"}
@@ -2513,9 +2496,7 @@
 이 새벽은 평소와 달랐다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_08_MortalBlade {"position":"2675,1725","size":"100,100"}
@@ -2691,9 +2672,7 @@
 생각했다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Hanbei_09_FinalChoice {"position":"2800,1725","size":"100,100"}
@@ -2714,9 +2693,7 @@
 늑대는 그 앞에 섰다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk01]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk01">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk01 {"position":"2850,1725","size":"100,100"}
@@ -2725,9 +2702,7 @@
 왔는가.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk01_Wolf]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk01_Wolf">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk01_Wolf {"position":"2875,1725","size":"100,100"}
@@ -2736,9 +2711,7 @@
 왔다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk01_End]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk01_End">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk01_End {"position":"2900,1725","size":"100,100"}
@@ -2748,9 +2721,7 @@
 대련하러 왔느냐고.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Beat01]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Beat01">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Beat01 {"position":"2925,1725","size":"100,100"}
@@ -2762,9 +2733,7 @@
 그 웃음은 예전보다 조용했다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk02]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk02">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk02 {"position":"2950,1725","size":"100,100"}
@@ -2773,9 +2742,7 @@
 자네는 베고 싶지 않다고 했지.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk02_Wolf]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk02_Wolf">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk02_Wolf {"position":"2975,1725","size":"100,100"}
@@ -2784,9 +2751,7 @@
 그렇다.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk02_MortalBlade]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk02_MortalBlade">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk02_MortalBlade {"position":"3000,1725","size":"100,100"}
@@ -2796,9 +2761,7 @@
 그 검을 얻게 될지도 모르네.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk02_Silence]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk02_Silence">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk02_Silence {"position":"3025,1725","size":"100,100"}
@@ -2807,9 +2770,7 @@
 …
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Talk02_Question]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Talk02_Question">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Talk02_Question {"position":"3050,1725","size":"100,100"}
@@ -2819,9 +2780,7 @@
 무엇을 하겠는가.
 <</talk>>
 
-<div class="choice-box">
-[[계속->Hanbei_09_FinalChoice_Choices]]
-</div>
+<<continueTo "Hanbei_09_FinalChoice_Choices">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Choices {"position":"3075,1725","size":"100,100"}
@@ -2851,7 +2810,7 @@
 그저 아주 천천히,
 기다려도 되는 사람처럼 숨을 내쉬었다.</div>
 
-<div class="choice-box">[[계속->Ending_Hanbei]]</div>
+<<continueTo "Ending_Hanbei">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Mercy_Result {"position":"3200,1850","size":"100,100"}
@@ -2865,7 +2824,7 @@
 언젠가 끝날 대련이,
 두 사람 사이에 놓였다.</div>
 
-<div class="choice-box">[[계속->BadEnd_Hanbei_Mercy]]</div>
+<<continueTo "BadEnd_Hanbei_Mercy">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Silence_Result {"position":"3200,1975","size":"100,100"}
@@ -2876,7 +2835,7 @@
 오래 기다리는 일에는 익숙한 사람처럼,
 그는 곁의 빈자리를 그대로 두었다.</div>
 
-<div class="choice-box">[[계속->Ending_Hanbei_Silence]]</div>
+<<continueTo "Ending_Hanbei_Silence">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Sword_Result {"position":"3200,2100","size":"100,100"}
@@ -2890,7 +2849,7 @@
 한베는 죽지 않는다.
 그 생각이 잠시 너무 쉽게 지나갔다.</div>
 
-<div class="choice-box">[[계속->BadEnd_Hanbei_Sword]]</div>
+<<continueTo "BadEnd_Hanbei_Sword">>
 <</page>>
 
 :: Hanbei_Sake_반응_Beat {"position":"0,0","size":"100,100"}
@@ -2900,9 +2859,7 @@
 조용히 받아들었다.
 </div>
 
-<div class="choice-box">
-[[계속->Hanbei_Sake_반응]]
-</div>
+<<continueTo "Hanbei_Sake_반응">>
 <</page>>
 
 :: Hanbei_Training {"position":"1650,1225","size":"100,100"}
@@ -2911,7 +2868,7 @@
 
 죽지 못하는 무사는 몇 번이고 쓰러지고,
 몇 번이고 다시 일어났다.
-<div class="choice-box">[[계속->Hanbei_Training_반응]]</div>
+<<continueTo "Hanbei_Training_반응">>
 <</page>>
 
 :: Hanbei_Training_반응 {"position":"1650,1375","size":"100,100"}
@@ -2920,7 +2877,5 @@
 좋아. 그 감각이다.
 <</talk>>
 
-<div class="choice-box">
-[[황폐한 절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>

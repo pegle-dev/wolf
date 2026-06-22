@@ -7,7 +7,9 @@
 :: Go_Genichiro {"position":"2050,1725","size":"100,100"}
 <<set $currentRoute = "genichiro">>
 
-<<if not $genichiroGateSeen>>
+<<if not $genichiroArrowEventSeen and not $genichiroGateSeen>>
+  <<goto "Genichiro_ArrowIntro">>
+<<elseif not $genichiroGateSeen>>
   <<goto "Genichiro_01_Gate">>
 <<elseif not $genichiroRooftopSeen>>
   <<goto "Genichiro_02_Rooftop">>
@@ -26,6 +28,125 @@
 <<else>>
   <<goto "Genichiro_AfterEnding">>
 <</if>>
+
+:: Genichiro_ArrowIntro {"position":"2175,1600","size":"100,100"}
+<<page>>
+<<set $currentRoute = "genichiro">>
+<div class="narration-screen">
+<div class="narration narration-block">성문 앞이었다.
+
+바람은 낮게 불고,
+문루 위의 그림자는 움직이지 않았다.
+
+늑대는 한 걸음 나아갔다.
+
+그 순간,
+공기가 가늘게 찢어졌다.</div>
+</div>
+
+<<continueTo "Genichiro_ArrowChoice">>
+<</page>>
+
+:: Genichiro_ArrowChoice {"position":"2300,1600","size":"100,100"}
+<<page>>
+<<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+<div class="choice-screen timed-choice-screen genichiro-arrow-choice-screen">
+<div class="choice-prompt genichiro-arrow-choice-prompt">화살이 날아온다.
+
+눈으로 쫓기에는 너무 빠르다.</div>
+
+<<run setup.startTimedChoiceBar && setup.startTimedChoiceBar(5, "BadEnd_GenichiroArrow")>>
+
+<div class="global-choice-layer genichiro-arrow-choice-layer">
+  <div class="timed-choice-stack">
+    <div class="genichiro-arrow-tension-ui timed-choice-bar-ui">
+      <div class="first-death-tension-label">반응</div>
+      <div class="genichiro-arrow-tension-bar timed-choice-bar-track">
+        <div class="genichiro-arrow-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
+      </div>
+    </div>
+
+    <div class="global-choice-box genichiro-arrow-choice-box">
+      <<link "왼쪽으로 구른다">>
+        <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+        <<goto "Genichiro_ArrowDodge">>
+      <</link>>
+      <<link "패링한다">>
+        <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+        <<goto "Genichiro_ArrowParry">>
+      <</link>>
+    </div>
+  </div>
+</div>
+</div>
+<</page>>
+
+:: Genichiro_ArrowDodge {"position":"2425,1600","size":"100,100"}
+<<page>>
+<<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+<<set $genichiroArrowEventSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 왼쪽으로 굴렀다.
+
+화살은 조금 전까지 늑대가 서 있던 자리에 박혔다.
+오래된 돌 틈이 깊게 갈라졌다.
+
+문루 위에서 누군가가 활을 내렸다.
+
+겐이치로였다.
+
+그는 늑대를 내려다보고 있었다.</div>
+</div>
+
+<<continueTo "Genichiro_01_Gate">>
+<</page>>
+
+:: Genichiro_ArrowParry {"position":"2550,1600","size":"100,100"}
+<<page>>
+<<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+<<set $genichiroArrowEventSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">검이 올라갔다.
+
+화살촉이 칼날에 부딪혀,
+짧은 불꽃을 냈다.
+
+늑대의 손목이 조금 밀렸다.
+그러나 몸은 물러서지 않았다.
+
+문루 위에서 겐이치로가 활을 내렸다.</div>
+</div>
+
+<<continueTo "Genichiro_01_Gate">>
+<</page>>
+
+:: BadEnd_GenichiroArrow {"position":"2675,1600","size":"100,100"}
+<<page>>
+<<run setup.clearTimedChoice && setup.clearTimedChoice()>>
+<<set $anyEndingSeen = true>>
+<<set $badEndGenichiroArrowSeen = true>>
+<<set $recordBookUnlocked = true>>
+<<set $recordBookNewEnding = true>>
+<div class="ending-text">
+[Bad End. 성문 앞의 화살]
+
+늑대는 움직이지 못했다.
+
+몸이 늦은 것은 아니었다.
+명령이 없었다.
+
+화살은 그 짧은 빈틈을 지나,
+늑대의 숨을 성문 앞에 못박았다.
+</div>
+
+<<recordNotice "ending">>
+
+<<continueTo "Temple">>
+<</page>>
 
 :: Genichiro_EndingRouter {"position":"2050,2850","size":"100,100"}
 <<if $shura >= 8>>
@@ -58,7 +179,7 @@
 늑대는 멀리서 그를 보았다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_01_Gate_Beat02]]</div>
+<<continueTo "Genichiro_01_Gate_Beat02">>
 <</page>>
 
 :: Genichiro_01_Gate_Beat02 {"position":"2300,1725","size":"100,100"}
@@ -74,7 +195,7 @@
 늑대는 그 무게를 알았다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_01_Gate_Choice]]</div>
+<<continueTo "Genichiro_01_Gate_Choice">>
 <</page>>
 
 :: Genichiro_01_Gate_Choice {"position":"2425,1725","size":"100,100"}
@@ -110,7 +231,7 @@
 또 왔나.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Talk02]]</div>
+<<continueTo "Genichiro_02_Rooftop_Talk02">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Talk02 {"position":"2300,1875","size":"100,100"}
@@ -119,7 +240,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Talk03]]</div>
+<<continueTo "Genichiro_02_Rooftop_Talk03">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Talk03 {"position":"2425,1875","size":"100,100"}
@@ -129,7 +250,7 @@
 늘 그랬듯이.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Talk04]]</div>
+<<continueTo "Genichiro_02_Rooftop_Talk04">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Talk04 {"position":"2550,1875","size":"100,100"}
@@ -138,7 +259,7 @@
 비켜라.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Talk05]]</div>
+<<continueTo "Genichiro_02_Rooftop_Talk05">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Talk05 {"position":"2675,1875","size":"100,100"}
@@ -147,7 +268,7 @@
 비켜서면, 그대는 어디로 가는가.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Talk06]]</div>
+<<continueTo "Genichiro_02_Rooftop_Talk06">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Talk06 {"position":"2800,1875","size":"100,100"}
@@ -156,7 +277,7 @@
 쿠로님께.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Talk07]]</div>
+<<continueTo "Genichiro_02_Rooftop_Talk07">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Talk07 {"position":"2925,1875","size":"100,100"}
@@ -165,7 +286,7 @@
 그렇겠지.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_02_Rooftop_Choice]]</div>
+<<continueTo "Genichiro_02_Rooftop_Choice">>
 <</page>>
 
 :: Genichiro_02_Rooftop_Choice {"position":"3050,1875","size":"100,100"}
@@ -205,7 +326,7 @@
 망설임 없는 속도였다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Beat02]]</div>
+<<continueTo "Genichiro_03_FullDuel_Beat02">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Beat02 {"position":"2300,2025","size":"100,100"}
@@ -221,7 +342,7 @@
 대신 칼이 말했다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Beat03]]</div>
+<<continueTo "Genichiro_03_FullDuel_Beat03">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Beat03 {"position":"2425,2025","size":"100,100"}
@@ -236,7 +357,7 @@
 서로는 물러서지 않았다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Beat04]]</div>
+<<continueTo "Genichiro_03_FullDuel_Beat04">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Beat04 {"position":"2550,2025","size":"100,100"}
@@ -256,7 +377,7 @@
 겐이치로가 먼저 늑대를 밀어냈다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Talk01]]</div>
+<<continueTo "Genichiro_03_FullDuel_Talk01">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Talk01 {"position":"2675,2025","size":"100,100"}
@@ -265,7 +386,7 @@
 그만.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Talk02]]</div>
+<<continueTo "Genichiro_03_FullDuel_Talk02">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Talk02 {"position":"2800,2025","size":"100,100"}
@@ -274,7 +395,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Talk03]]</div>
+<<continueTo "Genichiro_03_FullDuel_Talk03">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Talk03 {"position":"2925,2025","size":"100,100"}
@@ -283,7 +404,7 @@
 지금은 아니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_03_FullDuel_Choice]]</div>
+<<continueTo "Genichiro_03_FullDuel_Choice">>
 <</page>>
 
 :: Genichiro_03_FullDuel_Choice {"position":"3050,2025","size":"100,100"}
@@ -324,7 +445,7 @@
 그 옆에는 술병이 하나 놓여 있었다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Talk01]]</div>
+<<continueTo "Genichiro_04_MoonSake_Talk01">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Talk01 {"position":"2300,2175","size":"100,100"}
@@ -333,7 +454,7 @@
 마실 텐가.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Talk02]]</div>
+<<continueTo "Genichiro_04_MoonSake_Talk02">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Talk02 {"position":"2425,2175","size":"100,100"}
@@ -342,7 +463,7 @@
 임무 중이다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Talk03]]</div>
+<<continueTo "Genichiro_04_MoonSake_Talk03">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Talk03 {"position":"2550,2175","size":"100,100"}
@@ -351,7 +472,7 @@
 알고 있다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Beat01]]</div>
+<<continueTo "Genichiro_04_MoonSake_Beat01">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Beat01 {"position":"2675,2175","size":"100,100"}
@@ -360,7 +481,7 @@
 늑대는 술병을 보았다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Talk04]]</div>
+<<continueTo "Genichiro_04_MoonSake_Talk04">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Talk04 {"position":"2800,2175","size":"100,100"}
@@ -369,7 +490,7 @@
 독은 아니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Talk05]]</div>
+<<continueTo "Genichiro_04_MoonSake_Talk05">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Talk05 {"position":"2925,2175","size":"100,100"}
@@ -378,7 +499,7 @@
 그런 뜻이 아니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Talk06]]</div>
+<<continueTo "Genichiro_04_MoonSake_Talk06">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Talk06 {"position":"3050,2175","size":"100,100"}
@@ -387,7 +508,7 @@
 그런 뜻으로 들었다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Beat02]]</div>
+<<continueTo "Genichiro_04_MoonSake_Beat02">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Beat02 {"position":"3175,2175","size":"100,100"}
@@ -401,7 +522,7 @@
 그러나 그 침묵은 이전보다 덜 차가웠다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_04_MoonSake_Choice]]</div>
+<<continueTo "Genichiro_04_MoonSake_Choice">>
 <</page>>
 
 :: Genichiro_04_MoonSake_Choice {"position":"3300,2175","size":"100,100"}
@@ -439,7 +560,7 @@
 옷자락은 찢어졌고, 걸음은 평소보다 조금 무거웠다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk01]]</div>
+<<continueTo "Genichiro_05_Wound_Talk01">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk01 {"position":"2300,2325","size":"100,100"}
@@ -448,7 +569,7 @@
 무슨 일이 있었나.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk02]]</div>
+<<continueTo "Genichiro_05_Wound_Talk02">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk02 {"position":"2425,2325","size":"100,100"}
@@ -457,7 +578,7 @@
 아무 일도.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk03]]</div>
+<<continueTo "Genichiro_05_Wound_Talk03">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk03 {"position":"2550,2325","size":"100,100"}
@@ -466,7 +587,7 @@
 그 꼴로?
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk04]]</div>
+<<continueTo "Genichiro_05_Wound_Talk04">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk04 {"position":"2675,2325","size":"100,100"}
@@ -475,7 +596,7 @@
 임무다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Beat01]]</div>
+<<continueTo "Genichiro_05_Wound_Beat01">>
 <</page>>
 
 :: Genichiro_05_Wound_Beat01 {"position":"2800,2325","size":"100,100"}
@@ -487,7 +608,7 @@
 그리고 그 피가 누구를 위해 흘렀는지도 알았다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk05]]</div>
+<<continueTo "Genichiro_05_Wound_Talk05">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk05 {"position":"2925,2325","size":"100,100"}
@@ -496,7 +617,7 @@
 그 꼴로도 돌아가는가.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk06]]</div>
+<<continueTo "Genichiro_05_Wound_Talk06">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk06 {"position":"3050,2325","size":"100,100"}
@@ -505,7 +626,7 @@
 돌아가야 한다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk07]]</div>
+<<continueTo "Genichiro_05_Wound_Talk07">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk07 {"position":"3175,2325","size":"100,100"}
@@ -514,7 +635,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Talk08]]</div>
+<<continueTo "Genichiro_05_Wound_Talk08">>
 <</page>>
 
 :: Genichiro_05_Wound_Talk08 {"position":"3300,2325","size":"100,100"}
@@ -524,7 +645,7 @@
 그대는 그런 자였지.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_05_Wound_Choice]]</div>
+<<continueTo "Genichiro_05_Wound_Choice">>
 <</page>>
 
 :: Genichiro_05_Wound_Choice {"position":"3425,2325","size":"100,100"}
@@ -560,7 +681,7 @@
 난 아시나를 잃는 게 두렵다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk02]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk02">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk02 {"position":"2300,2475","size":"100,100"}
@@ -569,7 +690,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk03]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk03">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk03 {"position":"2425,2475","size":"100,100"}
@@ -578,7 +699,7 @@
 우습나.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk04]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk04">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk04 {"position":"2550,2475","size":"100,100"}
@@ -587,7 +708,7 @@
 아니다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk05]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk05">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk05 {"position":"2675,2475","size":"100,100"}
@@ -597,7 +718,7 @@
 내게는 나라가 있다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk06]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk06">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk06 {"position":"2800,2475","size":"100,100"}
@@ -607,7 +728,7 @@
 나도 돌아갈 수밖에 없다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk07]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk07">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk07 {"position":"2925,2475","size":"100,100"}
@@ -616,7 +737,7 @@
 알고 있다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Talk08]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Talk08">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Talk08 {"position":"3050,2475","size":"100,100"}
@@ -625,7 +746,7 @@
 그 말이 더 잔인하군.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_06_AshinaConfession_Choice]]</div>
+<<continueTo "Genichiro_06_AshinaConfession_Choice">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession_Choice {"position":"3175,2475","size":"100,100"}
@@ -659,7 +780,7 @@
 돌아가라.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk02]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk02">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk02 {"position":"2300,2625","size":"100,100"}
@@ -668,7 +789,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk03]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk03">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk03 {"position":"2425,2625","size":"100,100"}
@@ -677,7 +798,7 @@
 그대의 주군에게로.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk04]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk04">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk04 {"position":"2550,2625","size":"100,100"}
@@ -686,7 +807,7 @@
 알고 있다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk05]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk05">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk05 {"position":"2675,2625","size":"100,100"}
@@ -695,7 +816,7 @@
 그럼 가라.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Beat01]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Beat01">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Beat01 {"position":"2800,2625","size":"100,100"}
@@ -706,7 +827,7 @@
 겐이치로의 눈이 가늘어졌다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk06]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk06">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk06 {"position":"2925,2625","size":"100,100"}
@@ -715,7 +836,7 @@
 왜 남는가.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk07]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk07">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk07 {"position":"3050,2625","size":"100,100"}
@@ -724,7 +845,7 @@
 모르겠다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk08]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk08">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk08 {"position":"3175,2625","size":"100,100"}
@@ -733,7 +854,7 @@
 거짓말을 못 하는군.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk09]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk09">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk09 {"position":"3300,2625","size":"100,100"}
@@ -742,7 +863,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Beat02]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Beat02">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Beat02 {"position":"3425,2625","size":"100,100"}
@@ -752,7 +873,7 @@
 그 힘은 강했다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk10]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk10">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk10 {"position":"3550,2625","size":"100,100"}
@@ -761,7 +882,7 @@
 후회하게 될지도 모른다.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk11]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk11">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk11 {"position":"3675,2625","size":"100,100"}
@@ -770,7 +891,7 @@
 그렇다 해도.
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Talk12]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Talk12">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Talk12 {"position":"3800,2625","size":"100,100"}
@@ -779,7 +900,7 @@
 그대는 참으로…
 <</talk>>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Beat03]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Beat03">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Beat03 {"position":"3925,2625","size":"100,100"}
@@ -793,7 +914,7 @@
 그러나 늑대는 그 자리에 남아 있었다.
 </div>
 
-<div class="choice-box">[[계속->Genichiro_07_DoNotReturn_Choice]]</div>
+<<continueTo "Genichiro_07_DoNotReturn_Choice">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn_Choice {"position":"4050,2625","size":"100,100"}
@@ -832,6 +953,7 @@
 <<set $genichiroGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
+<<qualifiedCharacterEnding "genichiro">>
 
 <div class="narration">
 성은 무너지고 있었다.
@@ -845,7 +967,7 @@
 늑대는 그 뒤에 섰다.
 </div>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_02]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_02">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_02 {"position":"2300,2775","size":"100,100"}
@@ -854,7 +976,7 @@
 아직 늦지 않았다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_03]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_03">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_03 {"position":"2425,2775","size":"100,100"}
@@ -863,7 +985,7 @@
 …
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_04]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_04">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_04 {"position":"2550,2775","size":"100,100"}
@@ -872,7 +994,7 @@
 돌아가라.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_05]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_05">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_05 {"position":"2675,2775","size":"100,100"}
@@ -881,7 +1003,7 @@
 돌아가지 않는다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_06]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_06">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_06 {"position":"2800,2775","size":"100,100"}
@@ -890,7 +1012,7 @@
 그대의 주군은 어찌하고.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_07]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_07">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_07 {"position":"2925,2775","size":"100,100"}
@@ -899,7 +1021,7 @@
 주군은 버리지 않는다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_08]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_08">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_08 {"position":"3050,2775","size":"100,100"}
@@ -908,7 +1030,7 @@
 그럼 왜 여기에 있나.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_09]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_09">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_09 {"position":"3175,2775","size":"100,100"}
@@ -918,7 +1040,7 @@
 혼자 보게 두고 싶지 않았다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_Beat01]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_Beat01">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_Beat01 {"position":"3300,2775","size":"100,100"}
@@ -929,7 +1051,7 @@
 한참 뒤, 그가 말했다.
 </div>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_10]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_10">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_10 {"position":"3425,2775","size":"100,100"}
@@ -938,7 +1060,7 @@
 후회할 것이다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_11]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_11">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_11 {"position":"3550,2775","size":"100,100"}
@@ -947,7 +1069,7 @@
 그럴지도 모른다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_12]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_12">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_12 {"position":"3675,2775","size":"100,100"}
@@ -956,7 +1078,7 @@
 그래도 남는가.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_13]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_13">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_13 {"position":"3800,2775","size":"100,100"}
@@ -965,7 +1087,7 @@
 남는다.
 <</talk>>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_Beat02]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_Beat02">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_Beat02 {"position":"3925,2775","size":"100,100"}
@@ -976,7 +1098,7 @@
 이번에는 밀어내기 위해서가 아니었다.
 </div>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_Beat03]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_Beat03">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_Beat03 {"position":"4050,2775","size":"100,100"}
@@ -995,7 +1117,7 @@
 무너지는 성 위에 함께 서 있었다.
 </div>
 
-<div class="choice-box">[[계속->Ending_Genichiro_SettingMoonCastle_End]]</div>
+<<continueTo "Ending_Genichiro_SettingMoonCastle_End">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle_End {"position":"4175,2775","size":"100,100"}
@@ -1011,10 +1133,8 @@
 <<set $completedGenichiro = true>>
 <<set $genichiroGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<set $secondLoopUnlocked = true>>
-<<set $sculptorUnlocked = true>>
-<<set $emmaEventUnlocked = true>>
 <<markEndingSeen>>
+<<qualifiedCharacterEnding "genichiro">>
 
 <div class="narration">성 위의 달은 기울어 있었다.
 
@@ -1056,7 +1176,7 @@
 같은 달 아래에 있었으나,
 두 사람은 서로 다른 길을 향해 서 있었다.</div>
 
-<div class="choice-box continue-row">[[계속->Ending_Genichiro_SameMoon_End]]</div>
+<<continueTo "Ending_Genichiro_SameMoon_End">>
 <</page>>
 
 :: Ending_Genichiro_SameMoon_End {"position":"2300,2925","size":"100,100"}
@@ -1072,10 +1192,8 @@
 <<set $completedGenichiro = true>>
 <<set $genichiroGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<set $secondLoopUnlocked = true>>
-<<set $sculptorUnlocked = true>>
-<<set $emmaEventUnlocked = true>>
 <<markEndingSeen>>
+<<qualifiedCharacterEnding "genichiro">>
 
 <div class="narration">그 뒤로도 성은 무너지지 않았다.
 
@@ -1115,7 +1233,7 @@
 
 그 둘은 이상할 만큼 닮아 있었다.</div>
 
-<div class="choice-box continue-row">[[계속->Ending_Genichiro_Footprints_End]]</div>
+<<continueTo "Ending_Genichiro_Footprints_End">>
 <</page>>
 
 :: Ending_Genichiro_Footprints_End {"position":"2300,3075","size":"100,100"}
@@ -1131,9 +1249,6 @@
 <<set $completedGenichiro = true>>
 <<set $badEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<set $secondLoopUnlocked = true>>
-<<set $sculptorUnlocked = true>>
-<<set $emmaEventUnlocked = true>>
 <<markEndingSeen>>
 
 <div class="narration">성문은 닫혔다.
@@ -1175,7 +1290,7 @@
 그리고 어느 날부터,
 늑대도 더 이상 돌아갈 곳을 떠올리지 않았다.</div>
 
-<div class="choice-box continue-row">[[계속->BadEnd_Genichiro_SinkingCastle_End]]</div>
+<<continueTo "BadEnd_Genichiro_SinkingCastle_End">>
 <</page>>
 
 :: BadEnd_Genichiro_SinkingCastle_End {"position":"2300,3225","size":"100,100"}
@@ -1191,9 +1306,6 @@
 <<set $completedGenichiro = true>>
 <<set $badEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<set $secondLoopUnlocked = true>>
-<<set $sculptorUnlocked = true>>
-<<set $emmaEventUnlocked = true>>
 <<markEndingSeen>>
 
 <div class="narration">번개가 떨어졌다.
@@ -1239,7 +1351,7 @@
 검이었는지,
 겐이치로는 끝내 알지 못했다.</div>
 
-<div class="choice-box continue-row">[[계속->BadEnd_Genichiro_LightningWolf_End]]</div>
+<<continueTo "BadEnd_Genichiro_LightningWolf_End">>
 <</page>>
 
 :: BadEnd_Genichiro_LightningWolf_End {"position":"2300,3375","size":"100,100"}
@@ -1255,9 +1367,6 @@
 <<set $completedGenichiro = true>>
 <<set $badEndingSeen = true>>
 <<set $anyEndingSeen = true>>
-<<set $secondLoopUnlocked = true>>
-<<set $sculptorUnlocked = true>>
-<<set $emmaEventUnlocked = true>>
 <<markEndingSeen>>
 
 <div class="narration">늑대는 무릎을 꿇었다.
@@ -1308,7 +1417,7 @@
 지키는 자가 아니라
 무릎 꿇는 법만 기억하는 그림자였다.</div>
 
-<div class="choice-box continue-row">[[계속->BadEnd_Genichiro_KneelingCastle_End]]</div>
+<<continueTo "BadEnd_Genichiro_KneelingCastle_End">>
 <</page>>
 
 :: BadEnd_Genichiro_KneelingCastle_End {"position":"2300,3525","size":"100,100"}
@@ -1329,7 +1438,5 @@
 아직 열이 남아 있는 것 같았다.
 </div>
 
-<div class="choice-box">
-[[절로 돌아간다->Temple_Return]]
-</div>
+<<continueTo "Temple_Return">>
 <</page>>

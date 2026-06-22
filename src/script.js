@@ -17,6 +17,173 @@
     return el;
   }
 
+  setup.i18n = setup.i18n || {
+    ko: {
+      continue: '계속.',
+      journal: '기록장',
+      journalButton: '기록장',
+      journalSubtitle: '남겨진 결말과 흔적을 살핀다.',
+      endings: '엔딩',
+      dreams: '꿈',
+      bonds: '인연',
+      traces: '흔적',
+      close: '닫는다',
+      daySuffix: '일째',
+      day: '낮',
+      evening: '저녁',
+      night: '밤',
+      recordNewEnding: '기록장에 새로운 결말이 남았다.',
+      recordNewTrace: '기록장에 새로운 흔적이 남았다.',
+      recordNewDream: '기록장에 새로운 꿈이 남았다.',
+      recordNewBond: '기록장에 새로운 인연이 남았다.',
+      recordSomethingRemains: '기록장에 무언가가 남아 있다.',
+      dangerNotice: '늑대는 위험한 예감을 느낀다…',
+      isolationNotice: '늑대는 고독을 느낀다…',
+      shuraNotice: '늑대의 손이 먼저 검을 찾는다…',
+      bondNotice: '누군가의 목소리가 늑대를 붙잡는다…',
+      lockedEnding: '아직 남지 않은 결말이다.',
+      lockedDream: '아직 남지 않은 꿈이다.',
+      lockedBond: '아직 남지 않은 기억이다.',
+      lockedTrace: '아직 남지 않은 흔적이다.'
+    },
+    ja: {
+      continue: '続ける',
+      journal: '記録帳',
+      journalButton: '記録帳',
+      journalSubtitle: '残された結末と痕跡をたどる。',
+      endings: '結末',
+      dreams: '夢',
+      bonds: '縁',
+      traces: '痕跡',
+      close: '閉じる',
+      daySuffix: '日目',
+      day: '昼',
+      evening: '夕',
+      night: '夜',
+      recordNewEnding: '記録帳に新しい結末が残った。',
+      recordNewTrace: '記録帳に新しい痕跡が残った。',
+      recordNewDream: '記録帳に新しい夢が残った。',
+      recordNewBond: '記録帳に新しい縁が残った。',
+      recordSomethingRemains: '記録帳に何かが残っている。',
+      dangerNotice: '狼は危うい気配を感じる…',
+      isolationNotice: '狼は孤独を感じる…',
+      shuraNotice: '狼の手が先に刀を探す…',
+      bondNotice: '誰かの声が狼をつなぎ止める…',
+      lockedEnding: 'まだ残されていない結末だ。',
+      lockedDream: 'まだ残されていない夢だ。',
+      lockedBond: 'まだ残されていない記憶だ。',
+      lockedTrace: 'まだ残されていない痕跡だ。'
+    },
+    en: {
+      continue: 'Continue',
+      journal: 'Journal',
+      journalButton: 'Journal',
+      journalSubtitle: 'Review the endings and traces left behind.',
+      endings: 'Endings',
+      dreams: 'Dreams',
+      bonds: 'Bonds',
+      traces: 'Traces',
+      close: 'Close',
+      daySuffix: 'day',
+      day: 'Day',
+      evening: 'Evening',
+      night: 'Night',
+      recordNewEnding: 'A new ending has been recorded.',
+      recordNewTrace: 'A new trace has been recorded.',
+      recordNewDream: 'A new dream has been recorded.',
+      recordNewBond: 'A new bond has been recorded.',
+      recordSomethingRemains: 'Something remains in the journal.',
+      dangerNotice: 'Wolf senses danger…',
+      isolationNotice: 'Wolf feels solitude…',
+      shuraNotice: "Wolf's hand reaches for the blade first…",
+      bondNotice: "Someone's voice holds Wolf back…",
+      lockedEnding: 'An ending not yet recorded.',
+      lockedDream: 'A dream not yet remembered.',
+      lockedBond: 'A memory not yet formed.',
+      lockedTrace: 'A trace not yet left behind.'
+    },
+    zhHans: {
+      continue: '继续',
+      journal: '记录簿',
+      journalButton: '记录簿',
+      journalSubtitle: '查看留下的结局与痕迹。',
+      endings: '结局',
+      dreams: '梦',
+      bonds: '缘',
+      traces: '痕迹',
+      close: '关闭',
+      daySuffix: '日',
+      day: '白昼',
+      evening: '傍晚',
+      night: '夜晚',
+      recordNewEnding: '记录簿中留下了新的结局。',
+      recordNewTrace: '记录簿中留下了新的痕迹。',
+      recordNewDream: '记录簿中留下了新的梦。',
+      recordNewBond: '记录簿中留下了新的缘。',
+      recordSomethingRemains: '记录簿中似乎留下了什么。',
+      dangerNotice: '狼感到危险的预兆…',
+      isolationNotice: '狼感到孤独…',
+      shuraNotice: '狼的手先一步寻找刀柄…',
+      bondNotice: '某人的声音拉住了狼…',
+      lockedEnding: '尚未留下的结局。',
+      lockedDream: '尚未留下的梦。',
+      lockedBond: '尚未留下的记忆。',
+      lockedTrace: '尚未留下的痕迹。'
+    },
+    zhHant: {
+      continue: '繼續',
+      journal: '記錄簿',
+      journalButton: '記錄簿',
+      journalSubtitle: '查看留下的結局與痕跡。',
+      endings: '結局',
+      dreams: '夢',
+      bonds: '緣',
+      traces: '痕跡',
+      close: '關閉',
+      daySuffix: '日',
+      day: '白晝',
+      evening: '傍晚',
+      night: '夜晚',
+      recordNewEnding: '記錄簿中留下了新的結局。',
+      recordNewTrace: '記錄簿中留下了新的痕跡。',
+      recordNewDream: '記錄簿中留下了新的夢。',
+      recordNewBond: '記錄簿中留下了新的緣。',
+      recordSomethingRemains: '記錄簿中似乎留下了什麼。',
+      dangerNotice: '狼感到危險的預兆…',
+      isolationNotice: '狼感到孤獨…',
+      shuraNotice: '狼的手先一步尋找刀柄…',
+      bondNotice: '某人的聲音拉住了狼…',
+      lockedEnding: '尚未留下的結局。',
+      lockedDream: '尚未留下的夢。',
+      lockedBond: '尚未留下的記憶。',
+      lockedTrace: '尚未留下的痕跡。'
+    }
+  };
+
+  setup.t = function (key) {
+    var variables = State.variables || {};
+    var lang = variables.language || 'ko';
+    var table = setup.i18n[lang] || setup.i18n.ko || {};
+    var fallback = setup.i18n.ko || {};
+
+    return table[key] || fallback[key] || key;
+  };
+
+  setup.getDayLabel = function () {
+    var variables = State.variables || {};
+    var day = Number(variables.day);
+    var displayDay = isFinite(day) && day > 0 ? day : 1;
+    var time = String(variables.timeOfDay || 'day');
+    var timeKey = time === 'night' || time === '밤' ? 'night' : (time === 'evening' || time === '저녁' ? 'evening' : 'day');
+    var lang = variables.language || 'ko';
+
+    if (lang === 'en') {
+      return setup.t(timeKey) + ' ' + displayDay;
+    }
+
+    return displayDay + setup.t('daySuffix') + ' / ' + setup.t(timeKey);
+  };
+
   function getSceneBgClass(passageName) {
     var name = String(passageName || '');
 
@@ -38,7 +205,7 @@
     if (/^Hidden_Rebirth_Temple/.test(name)) {
       return 'bg-black';
     }
-    if (/^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth)/.test(name)) {
+    if (/^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth)/.test(name) || name === 'Hanbei_End_QuietDay') {
       return 'bg-black';
     }
     if (/^Hanbei/.test(name)) {
@@ -65,7 +232,7 @@
     if (/^Kuro/.test(name)) {
       return 'bg-room';
     }
-    if (/^Genichiro_01_Gate/.test(name)) {
+    if (/^(Genichiro_01_Gate|Genichiro_Arrow)/.test(name)) {
       return 'bg-ashina-gate';
     }
     if (/^Genichiro/.test(name)) {
@@ -87,7 +254,7 @@
     if (/^(TrueEnd_Sculptor|TrueEnding_Sculptor|EndingTrue_Sculptor)/.test(name)) {
       return '';
     }
-    if (/^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth|Dream)/.test(name)) {
+    if (/^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth|Dream)/.test(name) || name === 'Hanbei_End_QuietDay') {
       return '';
     }
 
@@ -135,17 +302,234 @@
   function shouldShowDayDisplay(passageName) {
     var name = String(passageName || '');
 
-    return !/^(Intro|Ending_|BadEnd_|Hidden_Rebirth|Debug_)/.test(name);
+    return !(/^(Intro|Ending_|BadEnd_|Hidden_Rebirth|Debug_)/.test(name) || name === 'Hanbei_End_QuietDay');
   }
 
-  function makeDayDisplay() {
+  function isRecordBookHiddenPassage(passageName) {
+    var name = String(passageName || '');
+
+    return (
+      /^Intro_Dream/.test(name) ||
+      name === 'Intro_Wake' ||
+      /^Intro/.test(name) ||
+      /^BadEnd_/.test(name) ||
+      /^Ending_/.test(name) ||
+      name === 'Hanbei_End_QuietDay' ||
+      /^Hidden_Rebirth/.test(name) ||
+      /^Debug/.test(name) ||
+      name === 'Start' ||
+      name.indexOf('RecordBook') !== -1
+    );
+  }
+
+  setup.isRecordBookHiddenPassage = function () {
+    return isRecordBookHiddenPassage(State.passage || '');
+  };
+
+  setup.ensureRecordBookVariables = function () {
     var variables = State.variables || {};
-    var day = Number(variables.day);
-    var displayDay = isFinite(day) && day > 0 ? day : 1;
+    var defaults = {
+      recordBookOpen: false,
+      recordBookTab: 'endings',
+      recordBookUnlocked: false,
+      recordBookFirstOpened: false,
+      recordBookNewEnding: false,
+      recordBookNewTrace: false,
+      recordBookNewDream: false,
+      recordBookNewBond: false,
+      language: 'ko',
+      dreamNoSwordSeen: false,
+      dreamCordSeen: false,
+      dreamNoNameSeen: false,
+      dreamNoSwordUnlocked: false,
+      dreamCordUnlocked: false,
+      dreamNoNameUnlocked: false,
+      returnEventPending: false,
+      hanbeiJustVisitedSeen: false,
+      hanbeiSakeSeen: false,
+      endingHanbeiQuietDaySeen: false,
+      genichiroArrowEventSeen: false,
+      badEndGenichiroArrowSeen: false,
+      traceNightArrowSeen: false,
+      traceNightCordSeen: false,
+      traceNightHandMovesSeen: false,
+      traceNightWrongNameSeen: false,
+      traceNightBloodScentSeen: false,
+      traceFirstDream: false
+    };
+
+    Object.keys(defaults).forEach(function (key) {
+      if (typeof variables[key] === 'undefined' || variables[key] === null) {
+        variables[key] = defaults[key];
+      }
+    });
+  };
+
+  function hasNewRecordBookEntry() {
+    var variables = State.variables || {};
+
+    return (
+      variables.recordBookNewEnding === true ||
+      variables.recordBookNewTrace === true ||
+      variables.recordBookNewDream === true ||
+      variables.recordBookNewBond === true
+    );
+  }
+
+  function canAccessRecordBook() {
+    var variables = State.variables || {};
+
+    return variables.recordBookUnlocked === true || variables.debugMode === true;
+  }
+
+  function clearRecordBookNewFlags() {
+    var variables = State.variables || {};
+
+    variables.recordBookNewEnding = false;
+    variables.recordBookNewTrace = false;
+    variables.recordBookNewDream = false;
+    variables.recordBookNewBond = false;
+  }
+
+  function refreshRecordBookOpenButtons() {
+    var label = hasNewRecordBookEntry() ? setup.t('journalButton') + ' *' : setup.t('journalButton');
+
+    document.querySelectorAll('.recordbook-open-button a').forEach(function (link) {
+      link.textContent = label;
+    });
+  }
+
+  function makeRecordBookOpenButton() {
+    var wrapper = makeEl('div', 'recordbook-open-button');
+    var link = makeEl('a', '', hasNewRecordBookEntry() ? setup.t('journalButton') + ' *' : setup.t('journalButton'));
+
+    link.href = '#';
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      setup.openRecordBookOverlay('endings');
+    });
+
+    wrapper.appendChild(link);
+    return wrapper;
+  }
+
+  function removeRecordBookOverlay() {
+    document.querySelectorAll('.recordbook-dim, .recordbook-panel').forEach(function (el) {
+      el.remove();
+    });
+  }
+
+  function renderRecordBookOverlay() {
+    var stage = document.querySelector('.wolf-page');
+
+    setup.ensureRecordBookVariables();
+    removeRecordBookOverlay();
+
+    if (!stage || !(State.variables && State.variables.recordBookOpen === true)) {
+      return;
+    }
+
+    wikiInto(stage, '<<include "RecordBookOverlay">>');
+  }
+
+  setup.openRecordBookOverlay = function (tab) {
+    setup.ensureRecordBookVariables();
+
+    if (isRecordBookHiddenPassage(State.passage || '')) {
+      return;
+    }
+    if (!canAccessRecordBook()) {
+      return;
+    }
+
+    State.variables.recordBookOpen = true;
+    State.variables.recordBookTab = tab || State.variables.recordBookTab || 'endings';
+    State.variables.recordBookFirstOpened = true;
+    clearRecordBookNewFlags();
+    if (setup.clearToasts) {
+      setup.clearToasts();
+    }
+    refreshRecordBookOpenButtons();
+    renderRecordBookOverlay();
+  };
+
+  setup.closeRecordBookOverlay = function () {
+    setup.ensureRecordBookVariables();
+    State.variables.recordBookOpen = false;
+    removeRecordBookOverlay();
+  };
+
+  setup.switchRecordBookTab = function (tab) {
+    setup.ensureRecordBookVariables();
+    if (!canAccessRecordBook()) {
+      return;
+    }
+
+    State.variables.recordBookOpen = true;
+    State.variables.recordBookTab = tab || 'endings';
+    renderRecordBookOverlay();
+  };
+
+  setup.ensureToastLayer = function () {
+    var layer = document.getElementById('wolf-toast-layer');
+    var root = setup.getGameRoot ? setup.getGameRoot() : (document.querySelector('#passages > .passage:last-child') || document.querySelector('#passages') || document.body);
+
+    if (!layer) {
+      layer = makeEl('div', 'wolf-toast-layer');
+      layer.id = 'wolf-toast-layer';
+    }
+
+    (root || document.body).appendChild(layer);
+    return layer;
+  };
+
+  setup.clearToasts = function () {
+    document.querySelectorAll('.wolf-toast-layer').forEach(function (layer) {
+      layer.textContent = '';
+    });
+  };
+
+  setup.showToast = function (message, type) {
+    var variables = State.variables || {};
+
+    if (!message || variables.recordBookOpen === true) {
+      return;
+    }
+
+    window.setTimeout(function () {
+      var currentVariables = State.variables || {};
+      var layer;
+      var item;
+
+      if (currentVariables.recordBookOpen === true) {
+        return;
+      }
+
+      layer = setup.ensureToastLayer();
+      item = makeEl('div', 'wolf-toast', message);
+
+      if (type) {
+        item.classList.add('wolf-toast-' + String(type));
+      }
+
+      layer.appendChild(item);
+
+      window.setTimeout(function () {
+        item.classList.add('is-leaving');
+      }, 1800);
+
+      window.setTimeout(function () {
+        if (item && item.parentNode) {
+          item.parentNode.removeChild(item);
+        }
+      }, 2600);
+    }, 0);
+  };
+
+  function makeDayDisplay() {
     var wrapper = makeEl('div', 'day-display');
 
-    wrapper.appendChild(makeEl('div', 'day-display-day', 'DAY ' + displayDay));
-    wrapper.appendChild(makeEl('div', 'day-display-time', getTimeOfDayLabel(variables.timeOfDay)));
+    wrapper.appendChild(makeEl('div', 'day-display-day', setup.getDayLabel()));
 
     return wrapper;
   }
@@ -247,7 +631,10 @@
     var name = String(passageName || '');
     var classes = [];
 
-    if (/^Intro/.test(name)) {
+    if (/^Intro_Dream/.test(name) || name === 'Intro_Wake') {
+      classes.push('intro-dream-screen');
+    }
+    else if (/^Intro/.test(name)) {
       classes.push('intro-screen', 'intro-sequence-page', 'sequence-accumulate');
     }
     if (name === 'Ending_ReturnToStart') {
@@ -259,7 +646,7 @@
     else if (/^Ending_Hidden_Rebirth/.test(name)) {
       classes.push('ending-screen', 'hidden-ending-sequence', 'final-still-sequence');
     }
-    else if (/^Ending_/.test(name)) {
+    else if (/^Ending_/.test(name) || name === 'Hanbei_End_QuietDay') {
       classes.push('ending-screen', 'ending-sequence', 'sequence-vanish');
     }
     else if (/^Hidden_Rebirth_Voices/.test(name)) {
@@ -301,7 +688,7 @@
       var links = Array.prototype.filter.call(el.querySelectorAll('a'), function (link) {
         return link.textContent.trim() !== '';
       });
-      if (links.length === 1 && links[0].textContent.trim() === '계속') {
+      if (links.length === 1 && /^(계속|계속\.)$/.test(links[0].textContent.trim())) {
         el.classList.add('next-only');
         el.classList.add('wolf-next-button');
         if (
@@ -339,6 +726,9 @@
     if (!stage.classList.contains('intro-screen')) {
       return;
     }
+    if (stage.classList.contains('intro-dream-screen')) {
+      return;
+    }
 
     var lines = Array.prototype.slice.call(text.querySelectorAll('.intro-sequence .intro-line'));
     var lineStep = 900;
@@ -350,6 +740,10 @@
     });
 
     Array.prototype.forEach.call(text.querySelectorAll('.choice-box.intro-continue'), function (choice) {
+      choice.style.animationDelay = choiceDelay + 'ms';
+    });
+
+    Array.prototype.forEach.call(text.querySelectorAll('.global-continue-layer'), function (choice) {
       choice.style.animationDelay = choiceDelay + 'ms';
     });
   }
@@ -663,12 +1057,26 @@
       setup.wolfLastBgClass = bgClass;
       setup.wolfLastWasNightInterlude = isNightInterlude;
 
+      document.documentElement.classList.toggle('wolf-intro-active', stage.classList.contains('intro-screen'));
+      document.body.classList.toggle('wolf-intro-active', stage.classList.contains('intro-screen'));
+
+      if (setup.ensureRecordBookVariables) {
+        setup.ensureRecordBookVariables();
+      }
       stage.appendChild(box);
       if (location) {
         stage.insertBefore(location, box);
       }
       if (dayDisplay) {
         stage.insertBefore(dayDisplay, box);
+      }
+      if (
+        !isRecordBookHiddenPassage(passageName) &&
+        State.variables &&
+        canAccessRecordBook() &&
+        !(State.variables && State.variables.recordBookOpen === true)
+      ) {
+        stage.appendChild(makeRecordBookOpenButton());
       }
       box.appendChild(text);
 
@@ -677,6 +1085,9 @@
       markStoryChoiceLayer(text, passageName);
       markLayout(stage, text);
       applyIntroSequenceTiming(stage, text);
+      if (State.variables && State.variables.recordBookOpen === true) {
+        wikiInto(stage, '<<include "RecordBookOverlay">>');
+      }
 
       this.output.appendChild(stage);
 
@@ -806,6 +1217,165 @@ setup.wolfStatLimits = WOLF_STAT_LIMITS;
 setup.wolfClampStats = wolfClampStats;
 window.WolfClampStats = wolfClampStats;
 
+setup.ensureBondVariables = function () {
+  var variables = State.variables || {};
+  var defaults = {
+    hanbeiAffection : 0,
+    hanbeiConflict : 0,
+    kuroAffection : 0,
+    kuroConflict : 0,
+    genichiroAffection : 0,
+    genichiroConflict : 0,
+    sculptorAffection : 0,
+    sculptorConflict : 0,
+    isshinAffection : 0,
+    isshinConflict : 0,
+    emmaAffection : 0,
+    emmaConflict : 0
+  };
+
+  Object.keys(defaults).forEach(function (key) {
+    if (variables[key] === undefined || variables[key] === null) {
+      variables[key] = defaults[key];
+    }
+  });
+};
+
+setup.getBond = function (character) {
+  var variables = State.variables || {};
+  var key = String(character || '');
+  var affection = Number(variables[key + 'Affection']) || 0;
+  var conflict = Number(variables[key + 'Conflict']) || 0;
+
+  return affection + conflict;
+};
+
+setup.getTotalBond = function () {
+  return ['hanbei', 'kuro', 'genichiro', 'sculptor', 'isshin', 'emma'].reduce(function (total, character) {
+    return total + setup.getBond(character);
+  }, 0);
+};
+
+setup.ensureDreamRiskVariables = function () {
+  if (setup.ensureRecordBookVariables) {
+    setup.ensureRecordBookVariables();
+  }
+};
+
+if (typeof Macro !== 'undefined' && (!Macro.has || !Macro.has('continueTo'))) {
+  Macro.add('continueTo', {
+    handler: function () {
+      var target = this.args[0];
+      var marker;
+
+      if (!target || typeof target !== 'string') {
+        return this.error('continueTo requires a target passage name.');
+      }
+
+      marker = document.createElement('span');
+      marker.className = 'continue-marker';
+      marker.dataset.continueTarget = target;
+      this.output.appendChild(marker);
+    }
+  });
+}
+
+setup.ensureGlobalContinueLayer = function () {
+  var layer = document.getElementById('wolf-global-continue-layer');
+  var button;
+  var root = setup.getGameRoot ? setup.getGameRoot() : (document.querySelector('#passages > .passage:last-child') || document.querySelector('#passages') || document.body);
+
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.id = 'wolf-global-continue-layer';
+    layer.className = 'wolf-global-continue-layer';
+
+    button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'wolf-global-continue-button';
+    button.textContent = setup.t ? setup.t('continue') : '계속.';
+
+    layer.appendChild(button);
+  }
+
+  (root || document.body).appendChild(layer);
+  return layer;
+};
+
+setup.getGameRoot = function () {
+  return (
+    document.querySelector('#passages > .passage:last-child') ||
+    document.querySelector('#passages > .passage') ||
+    document.querySelector('#passages') ||
+    document.querySelector('#story') ||
+    document.body
+  );
+};
+
+setup.updateGlobalContinue = function () {
+  var root = setup.getGameRoot ? setup.getGameRoot() : document;
+  var layer = setup.ensureGlobalContinueLayer();
+  var button = layer.querySelector('.wolf-global-continue-button');
+  var marker = root.querySelector ? root.querySelector('.continue-marker') : document.querySelector('.continue-marker');
+  var target = marker ? marker.dataset.continueTarget : '';
+
+  if (!button) {
+    return;
+  }
+
+  button.textContent = setup.t ? setup.t('continue') : '계속.';
+
+  if (!target) {
+    layer.classList.remove('is-visible');
+    button.onclick = null;
+    return;
+  }
+
+  if (typeof Story !== 'undefined' && Story.has && !Story.has(target)) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] Invalid continue target:', target);
+    }
+    layer.classList.remove('is-visible');
+    button.onclick = null;
+    return;
+  }
+
+  layer.classList.add('is-visible');
+  button.onclick = function () {
+    Engine.play(target);
+  };
+};
+
+setup.rollNightRisk = function (threshold) {
+  var target = Number(threshold) || 7;
+  var bondBonus = Math.min(4, Math.max(0, setup.getTotalBond ? setup.getTotalBond() : 0));
+  var roll = Math.floor(Math.random() * 10) + 1 + bondBonus;
+
+  return roll >= target;
+};
+
+setup.getBondShape = function (character) {
+  var variables = State.variables || {};
+  var key = String(character || '');
+  var affection = Number(variables[key + 'Affection']) || 0;
+  var conflict = Number(variables[key + 'Conflict']) || 0;
+
+  if (affection >= 4 && conflict >= 4) {
+    return '깊은 인연';
+  }
+  if (affection > conflict) {
+    return '애정이 앞서는 인연';
+  }
+  if (conflict > affection) {
+    return '갈등이 앞서는 인연';
+  }
+  if (affection + conflict > 0) {
+    return '아직 정해지지 않은 인연';
+  }
+
+  return '인연 없음';
+};
+
 if (Macro.has('clampStats')) {
   Macro.delete('clampStats');
 }
@@ -824,7 +1394,7 @@ function wolfUpdateRouteUnlocks() {
     variables.nightPatrolUnlocked = true;
   }
 
-  if (variables.anyEndingSeen === true) {
+  if (variables.qualifiedCharacterEndingSeen === true) {
     variables.secondLoopUnlocked = true;
     variables.secondRoutesUnlocked = true;
     variables.sculptorUnlocked = true;
@@ -854,10 +1424,43 @@ function wolfMarkEndingSeen() {
   wolfUpdateRouteUnlocks();
 }
 
+function wolfMarkQualifiedCharacterEnding(character) {
+  var variables = State.variables || {};
+  var key = String(character || '').toLowerCase();
+  var flagMap = {
+    hanbei: 'hanbeiQualifiedEndingSeen',
+    kuro: 'kuroQualifiedEndingSeen',
+    genichiro: 'genichiroQualifiedEndingSeen',
+    sculptor: 'sculptorQualifiedEndingSeen',
+    isshin: 'isshinQualifiedEndingSeen'
+  };
+  var flag = flagMap[key];
+  var count = Number(variables.qualifiedCharacterEndingCount);
+
+  if (!flag) {
+    return;
+  }
+
+  variables.qualifiedCharacterEndingSeen = true;
+  variables.secondLoopUnlocked = true;
+  variables.secondRoutesUnlocked = true;
+  variables.sculptorUnlocked = true;
+  variables.emmaEventUnlocked = true;
+
+  if (variables[flag] !== true) {
+    variables[flag] = true;
+    variables.qualifiedCharacterEndingCount = isFinite(count) ? count + 1 : 1;
+  }
+
+  wolfUpdateRouteUnlocks();
+}
+
 setup.wolfUpdateRouteUnlocks = wolfUpdateRouteUnlocks;
 setup.wolfMarkEndingSeen = wolfMarkEndingSeen;
+setup.wolfMarkQualifiedCharacterEnding = wolfMarkQualifiedCharacterEnding;
 window.WolfUpdateRouteUnlocks = wolfUpdateRouteUnlocks;
 window.WolfMarkEndingSeen = wolfMarkEndingSeen;
+window.WolfMarkQualifiedCharacterEnding = wolfMarkQualifiedCharacterEnding;
 
 if (Macro.has('updateRouteUnlocks')) {
   Macro.delete('updateRouteUnlocks');
@@ -876,6 +1479,115 @@ if (Macro.has('markEndingSeen')) {
 Macro.add('markEndingSeen', {
   handler : function () {
     wolfMarkEndingSeen();
+  }
+});
+
+if (Macro.has('qualifiedCharacterEnding')) {
+  Macro.delete('qualifiedCharacterEnding');
+}
+
+Macro.add('qualifiedCharacterEnding', {
+  handler : function () {
+    wolfMarkQualifiedCharacterEnding(this.args[0]);
+  }
+});
+
+function wolfClearTimedChoice() {
+  if (setup.timedChoiceTimer) {
+    window.clearInterval(setup.timedChoiceTimer);
+    setup.timedChoiceTimer = null;
+  }
+  if (setup.timedChoiceFrame) {
+    window.cancelAnimationFrame(setup.timedChoiceFrame);
+    setup.timedChoiceFrame = null;
+  }
+
+  setup.timedChoiceTarget = null;
+}
+
+function wolfUpdateTimedChoiceCountdown(remaining) {
+  var el = document.querySelector('[data-timed-choice-countdown]');
+
+  if (el) {
+    el.textContent = String(Math.max(0, remaining));
+  }
+}
+
+function wolfStartTimedChoice(seconds, targetPassage) {
+  var remaining = Number(seconds);
+  var target = String(targetPassage || '');
+
+  wolfClearTimedChoice();
+
+  if (!isFinite(remaining) || remaining <= 0 || !target) {
+    return;
+  }
+
+  remaining = Math.ceil(remaining);
+  setup.timedChoiceTarget = target;
+  wolfUpdateTimedChoiceCountdown(remaining);
+
+  setup.timedChoiceTimer = window.setInterval(function () {
+    remaining -= 1;
+    wolfUpdateTimedChoiceCountdown(remaining);
+
+    if (remaining <= 0) {
+      wolfClearTimedChoice();
+      Engine.play(target);
+    }
+  }, 1000);
+}
+
+function wolfStartTimedChoiceBar(seconds, targetPassage) {
+  var totalMs = Number(seconds) * 1000;
+  var target = String(targetPassage || '');
+  var startTime = 0;
+
+  wolfClearTimedChoice();
+
+  if (!isFinite(totalMs) || totalMs <= 0 || !target) {
+    return;
+  }
+
+  setup.timedChoiceTarget = target;
+
+  function update(now) {
+    var elapsed;
+    var remainingRatio;
+    var bar;
+
+    if (!startTime) {
+      startTime = now;
+    }
+
+    elapsed = now - startTime;
+    remainingRatio = Math.max(0, 1 - (elapsed / totalMs));
+    bar = document.querySelector('[data-timed-choice-bar]');
+
+    if (bar) {
+      bar.style.transform = 'scaleX(' + remainingRatio + ')';
+    }
+
+    if (remainingRatio <= 0) {
+      wolfClearTimedChoice();
+      Engine.play(target);
+      return;
+    }
+
+    setup.timedChoiceFrame = window.requestAnimationFrame(update);
+  }
+
+  setup.timedChoiceFrame = window.requestAnimationFrame(update);
+}
+
+setup.startTimedChoice = wolfStartTimedChoice;
+setup.startTimedChoiceBar = wolfStartTimedChoiceBar;
+setup.clearTimedChoice = wolfClearTimedChoice;
+window.WolfClearTimedChoice = wolfClearTimedChoice;
+
+$(document).on(':passageend', function () {
+  if (!document.querySelector('[data-timed-choice-countdown]') && !document.querySelector('[data-timed-choice-bar]')) {
+    wolfClearTimedChoice();
   }
 });
 
@@ -1109,7 +1821,12 @@ function wolfEscapeHtml(value) {
       return null;
     }
 
-    return target.closest('.page-stage.sequence-vanish .choice-box a, .page-stage.final-still-sequence .choice-box a');
+    return target.closest(
+      '.page-stage.sequence-vanish .choice-box a, ' +
+      '.page-stage.sequence-vanish .global-continue-button a, ' +
+      '.page-stage.final-still-sequence .choice-box a, ' +
+      '.page-stage.final-still-sequence .global-continue-button a'
+    );
   }
 
   function shouldLetBrowserHandle(event, link) {
@@ -1332,6 +2049,9 @@ function wolfHasPassage(passageName) {
 function wolfUpdateOuterUI() {
   wolfEnsureOuterUI();
   wolfClampStats();
+  if (setup.ensureBondVariables) {
+    setup.ensureBondVariables();
+  }
   applyStoredStatusHidden();
 
   var canGoBack = State.length > 1 && State.passage !== 'Start';
@@ -1342,37 +2062,70 @@ function wolfUpdateOuterUI() {
   $('.outer-passage-name').text(State.passage || '');
 
   var vars = State.variables || {};
-  var keys = [
-    'day',
-    'timeOfDay',
-    'currentRoute',
-    'hanbeiProgress',
-    'hanbeiLove',
-    'kuroProgress',
-    'kuroLove',
-    'genichiroProgress',
-    'genichiroLove',
-    'sculptorProgress',
-    'sculptorLove',
-    'isshinProgress',
-    'isshinLove',
-    'isolation',
-    'danger',
-    'shura',
-    'anyEndingSeen',
-    'secondLoopUnlocked',
-    'shuraUnlocked'
+  function debugValue(key) {
+    if (vars[key] === undefined || vars[key] === null) {
+      return 0;
+    }
+    return vars[key];
+  }
+
+  var rows = [
+    { key : 'day', value : vars.day },
+    { key : 'timeOfDay', value : vars.timeOfDay },
+    { key : 'language', value : vars.language || 'ko' },
+    { key : 'currentRoute', value : vars.currentRoute },
+    { key : 'totalBond', value : setup.getTotalBond ? setup.getTotalBond() : 0 },
+    { key : 'hanbeiProgress', value : debugValue('hanbeiProgress') },
+    { key : 'hanbeiBond', value : setup.getBond ? setup.getBond('hanbei') : 0 },
+    { key : 'hanbeiAffection', value : debugValue('hanbeiAffection') },
+    { key : 'hanbeiConflict', value : debugValue('hanbeiConflict') },
+    { key : 'hanbeiJustVisitedSeen', value : debugValue('hanbeiJustVisitedSeen') },
+    { key : 'hanbeiSakeSeen', value : debugValue('hanbeiSakeSeen') },
+    { key : 'endingHanbeiQuietDaySeen', value : debugValue('endingHanbeiQuietDaySeen') },
+    { key : 'kuroProgress', value : debugValue('kuroProgress') },
+    { key : 'kuroBond', value : setup.getBond ? setup.getBond('kuro') : 0 },
+    { key : 'kuroAffection', value : debugValue('kuroAffection') },
+    { key : 'kuroConflict', value : debugValue('kuroConflict') },
+    { key : 'genichiroProgress', value : debugValue('genichiroProgress') },
+    { key : 'genichiroBond', value : setup.getBond ? setup.getBond('genichiro') : 0 },
+    { key : 'genichiroAffection', value : debugValue('genichiroAffection') },
+    { key : 'genichiroConflict', value : debugValue('genichiroConflict') },
+    { key : 'sculptorProgress', value : debugValue('sculptorProgress') },
+    { key : 'sculptorBond', value : setup.getBond ? setup.getBond('sculptor') : 0 },
+    { key : 'sculptorAffection', value : debugValue('sculptorAffection') },
+    { key : 'sculptorConflict', value : debugValue('sculptorConflict') },
+    { key : 'isshinProgress', value : debugValue('isshinProgress') },
+    { key : 'isshinBond', value : setup.getBond ? setup.getBond('isshin') : 0 },
+    { key : 'isshinAffection', value : debugValue('isshinAffection') },
+    { key : 'isshinConflict', value : debugValue('isshinConflict') },
+    { key : 'emmaBond', value : setup.getBond ? setup.getBond('emma') : 0 },
+    { key : 'emmaAffection', value : debugValue('emmaAffection') },
+    { key : 'emmaConflict', value : debugValue('emmaConflict') },
+    { key : 'isolation', value : vars.isolation },
+    { key : 'danger', value : vars.danger },
+    { key : 'shura', value : vars.shura },
+    { key : 'freedom', value : debugValue('freedom') },
+    { key : 'recordBookUnlocked', value : debugValue('recordBookUnlocked') },
+    { key : 'anyEndingSeen', value : vars.anyEndingSeen },
+    { key : 'qualifiedCharacterEndingSeen', value : debugValue('qualifiedCharacterEndingSeen') },
+    { key : 'qualifiedCharacterEndingCount', value : debugValue('qualifiedCharacterEndingCount') },
+    { key : 'secondLoopUnlocked', value : vars.secondLoopUnlocked },
+    { key : 'sculptorUnlocked', value : debugValue('sculptorUnlocked') },
+    { key : 'emmaEventUnlocked', value : debugValue('emmaEventUnlocked') },
+    { key : 'isshinUnlocked', value : debugValue('isshinUnlocked') },
+    { key : 'shuraUnlocked', value : vars.shuraUnlocked },
+    { key : 'recordBookNewBond', value : debugValue('recordBookNewBond') }
   ];
 
-  if (!keys.length) {
+  if (!rows.length) {
     $('.outer-vars-list').html('<div class="outer-var-empty">변수 없음</div>');
     return;
   }
 
-  var html = keys.map(function (key) {
+  var html = rows.map(function (row) {
     return '<div class="outer-var-row">' +
-      '<span class="outer-var-key">$' + wolfEscapeHtml(key) + '</span>' +
-      '<span class="outer-var-value">' + wolfEscapeHtml(wolfFormatDebugValue(key, vars[key])) + '</span>' +
+      '<span class="outer-var-key">$' + wolfEscapeHtml(row.key) + '</span>' +
+      '<span class="outer-var-value">' + wolfEscapeHtml(wolfFormatDebugValue(row.key, row.value)) + '</span>' +
     '</div>';
   }).join('');
 
@@ -1390,7 +2143,23 @@ function wolfUpdateOuterUI() {
     { label : '엔딩 테스트', passage : 'Debug_Endings' }
   ];
 
+  var languageButtons = [
+    { label: 'KO', lang: 'ko' },
+    { label: 'JA', lang: 'ja' },
+    { label: 'EN', lang: 'en' },
+    { label: '简', lang: 'zhHans' },
+    { label: '繁', lang: 'zhHant' }
+  ];
+  var languageHtml = '<div class="debug-language-switcher"><span>언어:</span>' +
+    languageButtons.map(function (item) {
+      var active = (vars.language || 'ko') === item.lang ? ' is-active' : '';
+      return '<button type="button" class="outer-language-button' + active + '" data-dev-language="' +
+        wolfEscapeHtml(item.lang) + '">' + wolfEscapeHtml(item.label) + '</button>';
+    }).join('') +
+    '</div>';
+
   var jumpHtml = '<div class="outer-dev-jumps-title">DEV PANEL</div>' +
+    languageHtml +
     jumps.map(function (jump) {
       var disabled = wolfHasPassage(jump.passage) ? '' : ' is-disabled';
       return '<button type="button" class="outer-dev-jump' + disabled + '" data-dev-jump="' +
@@ -1407,12 +2176,18 @@ $(document).on(':passagerender :passageend', function (event) {
   wolfClampStats();
   wolfUpdateOuterUI();
   applyStoredStatusHidden();
+  if (setup.updateGlobalContinue) {
+    setup.updateGlobalContinue();
+  }
 });
 
 $(document).ready(function () {
   wolfClampStats();
   wolfUpdateOuterUI();
   applyStoredStatusHidden();
+  if (setup.updateGlobalContinue) {
+    setup.updateGlobalContinue();
+  }
 });
 
 $(document).on('click', '[data-game-back]', function (event) {
@@ -1434,4 +2209,13 @@ $(document).on('click', '[data-dev-jump]', function (event) {
   if (wolfHasPassage(passage)) {
     Engine.play(passage);
   }
+});
+
+$(document).on('click', '[data-dev-language]', function (event) {
+  event.preventDefault();
+
+  if (!wolfIsDebugMode()) return;
+
+  State.variables.language = $(this).attr('data-dev-language') || 'ko';
+  Engine.play(State.passage);
 });
