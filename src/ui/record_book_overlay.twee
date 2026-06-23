@@ -56,12 +56,18 @@
 <<if $hanbeiGoodEndingSeen>><<set _seen += 2>><</if>>
 <<if $hanbeiMercyEndingSeen>><<set _seen += 1>><</if>>
 <<if $hanbeiSwordBadEndingSeen>><<set _seen += 1>><</if>>
+<<if $endingHanbeiTrueSeen>><<set _seen += 1>><</if>>
+<<if $endingHanbeiWorstSeen>><<set _seen += 1>><</if>>
 <<if $kuroGoodEndingSeen>><<set _seen += 1>><</if>>
 <<if $kuroBadLastOrderSeen>><<set _seen += 1>><</if>>
 <<if $kuroBadTeahouseSeen>><<set _seen += 1>><</if>>
+<<if $endingKuroTrueSeen>><<set _seen += 1>><</if>>
+<<if $endingKuroWorstSeen>><<set _seen += 1>><</if>>
 <<if $genichiroGoodEndingSeen>><<set _seen += 1>><</if>>
 <<if $endingGenichiroSameMoonSeen>><<set _seen += 1>><</if>>
 <<if $endingGenichiroFootprintsSeen>><<set _seen += 1>><</if>>
+<<if $endingGenichiroTrueSeen>><<set _seen += 1>><</if>>
+<<if $endingGenichiroWorstSeen>><<set _seen += 1>><</if>>
 <<if $badEndGenichiroArrowSeen>><<set _seen += 1>><</if>>
 <<if $badEndGenichiroSinkingCastleSeen>><<set _seen += 1>><</if>>
 <<if $badEndGenichiroLightningWolfSeen>><<set _seen += 1>><</if>>
@@ -81,16 +87,22 @@
 <<if $shuraEndingSeen>><<set _seen += 1>><</if>>
 <<if $hiddenRevivalDone>><<set _seen += 1>><</if>>
 
-<div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 28</span></div>
+<div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 34</span></div>
 <div class="recordbook-list">
   <div class="recordbook-item <<if not $badEndFirstDeathSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndFirstDeathSeen>>[Bad End. 첫 번째 죽음]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndFirstDeathSeen>>쿠로를 구하려다 늑대는 처음으로 죽었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $endingHanbeiQuietDaySeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHanbeiQuietDaySeen>>[End. 그냥 온 날]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHanbeiQuietDaySeen>>한베와 검을 뽑지 않은 시간을 보냈다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $hanbeiGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiGoodEndingSeen>>[End. 그냥 온 날] / [End. 곁에 앉은 침묵]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiGoodEndingSeen>>한베와 검을 뽑지 않는 시간을 남겼다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $hanbeiMercyEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiMercyEndingSeen>>[Bad End. 끝나는 대련]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiMercyEndingSeen>>끝을 바라는 약속을 받아들였다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $hanbeiSwordBadEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiSwordBadEndingSeen>>[Bad End. 불사를 베는 연습]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiSwordBadEndingSeen>>대련은 끝까지 대련으로 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingHanbeiTrueSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHanbeiTrueSeen>>[True End. 사는 연습]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHanbeiTrueSeen>>죽지 않는 법이 아니라 사는 법을 조금 배웠다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingHanbeiWorstSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHanbeiWorstSeen>>[Worst End. 죽지 않는 무기]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHanbeiWorstSeen>>불사는 죽음을 아무렇지 않게 쓰는 힘이 되었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $kuroGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroGoodEndingSeen>>[End. 주인 없는 길]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $kuroGoodEndingSeen>>주군과 닌자라는 이름 너머의 길을 보았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($kuroBadLastOrderSeen or $kuroBadTeahouseSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroBadLastOrderSeen or $kuroBadTeahouseSeen>>[Bad End. 쿠로의 그림자]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $kuroBadLastOrderSeen or $kuroBadTeahouseSeen>>명령과 약속 사이에서 돌아오지 못한 길.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingKuroTrueSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingKuroTrueSeen>>[True End. 명령이 아닌 곁]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingKuroTrueSeen>>명령을 기다리지 않고 쿠로의 곁에 섰다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingKuroWorstSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingKuroWorstSeen>>[Worst End. 무거운 명령]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingKuroWorstSeen>>쿠로는 늑대의 삶까지 손에 올려 받았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($genichiroGoodEndingSeen or $endingGenichiroSameMoonSeen or $endingGenichiroFootprintsSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroGoodEndingSeen or $endingGenichiroSameMoonSeen or $endingGenichiroFootprintsSeen>>[End. 아시나의 달]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $genichiroGoodEndingSeen or $endingGenichiroSameMoonSeen or $endingGenichiroFootprintsSeen>>겐이치로와 같은 성, 같은 달 아래에 섰다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingGenichiroTrueSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingGenichiroTrueSeen>>[True End. 거울의 반대편]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingGenichiroTrueSeen>>닮았음을 인정했지만 같은 길에 갇히지 않았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $endingGenichiroWorstSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingGenichiroWorstSeen>>[Worst End. 철의 호위]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingGenichiroWorstSeen>>지킨다는 명분이 쿠로의 뜻마저 가두었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $badEndGenichiroArrowSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndGenichiroArrowSeen>>[Bad End. 성문 앞의 화살]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndGenichiroArrowSeen>>성문 앞에서 늑대는 움직이지 못했다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($badEndGenichiroSinkingCastleSeen or $badEndGenichiroLightningWolfSeen or $badEndGenichiroKneelingCastleSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndGenichiroSinkingCastleSeen or $badEndGenichiroLightningWolfSeen or $badEndGenichiroKneelingCastleSeen>>[Bad End. 꺾이지 않는 성]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndGenichiroSinkingCastleSeen or $badEndGenichiroLightningWolfSeen or $badEndGenichiroKneelingCastleSeen>>성은 무너졌고, 검은 다른 이름으로 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $sculptorGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $sculptorGoodEndingSeen>>[End. 남겨진 불상]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $sculptorGoodEndingSeen>>불상 곁에 남은 것은 벌이 아니라 기억이었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
