@@ -660,22 +660,28 @@ body.wolf-intro-active .outer-dev-ui {
 ========================= */
 
 .title-screen {
+  position: relative;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding-top: 46px;
+  padding: 0;
   background: #000;
   color: var(--text);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   overflow: hidden;
 }
 
+.title-main {
+  position: absolute;
+  top: calc(22% - 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 82vw);
+  text-align: center;
+}
+
 .game-title {
-  font-size: 100px;
+  font-size: clamp(48px, 7.6vw, 80px);
   line-height: 1;
   color: #fff;
   letter-spacing: 0.14em;
@@ -683,61 +689,84 @@ body.wolf-intro-active .outer-dev-ui {
 }
 
 .game-subtitle-en {
-  font-size: 24px;
+  font-size: 16px;
+  line-height: 1.35;
   color: #888;
-  letter-spacing: 0.22em;
-  margin: 18px 0 0;
+  letter-spacing: 0.14em;
+  margin: 8px 0 0;
+}
+
+.title-start-block {
+  position: absolute;
+  top: calc(53% - 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(620px, 78vw);
+  text-align: center;
 }
 
 .game-tagline {
-  font-size: 20px;
-  color: #aaa;
-  letter-spacing: 0.04em;
-  margin: 62px 0 0;
+  font-size: 18px;
+  line-height: 1.65;
+  color: rgba(206, 202, 194, 0.72);
+  letter-spacing: 0.06em;
+  margin: 0 0 18px;
 }
 
 .title-menu {
-  font-size: 22px;
-  text-align: left;
-  margin-top: 18px;
-  margin-bottom: 3.2em;
+  font-size: 18px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: 8px;
 }
 
 .title-menu-item {
   margin: 0;
   padding: 0;
-  line-height: 1.25;
+  line-height: 1.4;
 }
 
 .title-menu-item:first-child {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .title-menu a {
+  position: relative;
   display: inline-block;
   width: fit-content;
   margin: 0;
-  color: #fff;
-  text-decoration: none;
-  border-bottom: 1px solid #666;
+  padding: 4px 0 4px 18px;
+  color: rgba(206, 202, 194, 0.76) !important;
+  text-decoration: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  letter-spacing: 0.05em;
 }
 
 .title-menu a::before {
-  content: "▶ ";
-  color: #aaa;
+  content: "▸";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(160, 154, 144, 0.66);
+  font-size: 0.86em;
+  line-height: 1;
 }
 
 .title-menu a:hover {
-  color: #000;
-  background: #fff;
+  color: rgba(238, 235, 228, 0.96) !important;
+  background: transparent !important;
+  text-shadow: 0 0 8px rgba(238, 235, 228, 0.18);
 }
 
 .title-menu a:hover::before {
-  color: #000;
+  color: rgba(238, 235, 228, 0.86);
 }
 
 .final-intro {
@@ -1042,8 +1071,8 @@ body.wolf-intro-active .outer-dev-ui {
 ========================= */
 
 :root {
-  /* 0.86 추천. 더 작게 보고 싶으면 0.80으로 변경. */
-  --ui-scale: 0.86;
+  /* 게임 전체 표시 크기. 브라우저 안에서 한 화면에 들어오도록 0.90 기준으로 유지. */
+  --ui-scale: 0.9;
 }
 
 /* 게임 전체를 같은 비율로 축소해서 작은 브라우저에서도 한 화면에 잘 보이게 함. */
@@ -1491,12 +1520,15 @@ body.wolf-intro-active .outer-dev-ui {
   --bg-nightpatrol-04: url('assets/backgrounds/NightPatrol04.png');
   --bg-nightpatrol-05: url('assets/backgrounds/NightPatrol05.png');
   --bg-night: url('assets/backgrounds/Night.png');
+  --bg-night02: url('assets/backgrounds/Night02.png');
   --bg-room: url('assets/backgrounds/Room01.png');
   --bg-ashina-gate: url('assets/backgrounds/AshinaGate.png');
   --bg-ashina: url('assets/backgrounds/AshinaTower.png');
   --bg-intro: url('assets/backgrounds/Intro.png');
   --bg-dawn: url('assets/backgrounds/Dawn.png');
   --bg-true: url('assets/backgrounds/True.png');
+  --bg-danger: url('assets/backgrounds/Danger.png');
+  --bg-badend: url('assets/backgrounds/BadEnd.png');
   --bg-overlay: rgba(0, 0, 0, 0.30);
 
   --narration-pad-top: 30px;
@@ -1539,6 +1571,10 @@ body.wolf-intro-active .outer-dev-ui {
   --scene-bg: var(--bg-night);
 }
 
+.page-stage.bg-night02 {
+  --scene-bg: var(--bg-night02);
+}
+
 .page-stage.bg-room {
   --scene-bg: var(--bg-room);
 }
@@ -1557,6 +1593,14 @@ body.wolf-intro-active .outer-dev-ui {
 
 .page-stage.bg-true {
   --scene-bg: var(--bg-true);
+}
+
+.page-stage.bg-danger {
+  --scene-bg: var(--bg-danger);
+}
+
+.page-stage.bg-badend {
+  --scene-bg: var(--bg-badend);
 }
 
 .page-stage.bg-black {
@@ -2148,6 +2192,10 @@ body.wolf-intro-active .outer-dev-ui {
   --scene-bg: var(--bg-night);
 }
 
+.wolf-page.bg-night02 {
+  --scene-bg: var(--bg-night02);
+}
+
 .wolf-page.bg-room {
   --scene-bg: var(--bg-room);
 }
@@ -2167,6 +2215,14 @@ body.wolf-intro-active .outer-dev-ui {
 
 .wolf-page.bg-true {
   --scene-bg: var(--bg-true);
+}
+
+.wolf-page.bg-danger {
+  --scene-bg: var(--bg-danger);
+}
+
+.wolf-page.bg-badend {
+  --scene-bg: var(--bg-badend);
 }
 
 .wolf-page.same-bg,
@@ -3075,7 +3131,6 @@ body,
 .game-title {
   font-family: 'WolfMainTitle', serif !important;
   font-weight: 650;
-  letter-spacing: 0.08em;
 }
 
 .game-subtitle-en,
@@ -3690,38 +3745,40 @@ body,
 
 .wolf-toast-layer {
   position: absolute;
-  left: 50%;
-  bottom: 72px;
-  z-index: 6400;
+  top: 74px;
+  right: 32px;
+  left: auto;
+  bottom: auto;
+  z-index: 6800;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 6px;
-  width: min(520px, 72vw);
-  transform: translateX(-50%);
+  width: min(360px, 42vw);
+  transform: none;
   pointer-events: none;
 }
 
 .wolf-toast {
   max-width: 100%;
-  padding: 6px 14px;
+  padding: 5px 10px;
   box-sizing: border-box;
   color: rgba(206, 202, 194, 0.72);
-  background: rgba(8, 8, 8, 0.58);
-  border-top: 1px solid rgba(160, 154, 144, 0.28);
-  border-bottom: 1px solid rgba(160, 154, 144, 0.28);
-  font-size: 13px;
-  line-height: 1.45;
+  background: rgba(8, 8, 8, 0.62);
+  border-top: 1px solid rgba(160, 154, 144, 0.22);
+  border-bottom: 1px solid rgba(160, 154, 144, 0.22);
+  font-size: 12px;
+  line-height: 1.4;
   letter-spacing: 0.04em;
-  text-align: center;
+  text-align: right;
   opacity: 0;
-  transform: translateY(6px);
-  animation: wolfToastIn 360ms ease forwards;
+  transform: translateY(-4px);
+  animation: wolfToastIn 320ms ease forwards;
   user-select: none;
 }
 
 .wolf-toast.is-leaving {
-  animation: wolfToastOut 700ms ease forwards;
+  animation: wolfToastOut 620ms ease forwards;
 }
 
 .wolf-toast-record,
@@ -3741,10 +3798,20 @@ body,
   color: rgba(218, 210, 206, 0.78);
 }
 
+.wolf-toast-stat {
+  color: rgba(206, 202, 194, 0.72);
+}
+
+.recordbook-open .wolf-toast-layer,
+.recordbook-panel ~ .wolf-toast-layer,
+.recordbook-overlay ~ .wolf-toast-layer {
+  display: none !important;
+}
+
 @keyframes wolfToastIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(-4px);
   }
 
   to {
@@ -3761,7 +3828,7 @@ body,
 
   to {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(-4px);
   }
 }
 
@@ -4854,6 +4921,11 @@ body,
   pointer-events: auto;
 }
 
+.hanbei-narration .narration,
+.hanbei-narration .narration-block {
+  line-height: 1.62 !important;
+}
+
 .page-stage.no-talk:not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .page-text > .narration,
 .page-stage.no-talk:not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .page-text > .narration-full,
 .wolf-page.narration-only:not(.ending-screen):not(.ending-return-stage):not(.temple-hub) .wolf-content > .narration,
@@ -4969,7 +5041,7 @@ body,
   left: 0 !important;
   top: 0 !important;
   display: block !important;
-  width: 100% !important;
+  width: 100%;
   height: 100% !important;
   transform-origin: center center !important;
   transform: scaleX(1);
@@ -5079,7 +5151,7 @@ body,
   left: 0 !important;
   top: 0 !important;
   display: block !important;
-  width: 100% !important;
+  width: 100%;
   height: 100% !important;
   min-height: 100% !important;
   transform-origin: center center !important;
@@ -5203,13 +5275,72 @@ body,
   left: 0 !important;
   top: 0 !important;
   display: block !important;
-  width: 100% !important;
+  width: 100%;
   height: 100% !important;
   opacity: 1 !important;
   visibility: visible !important;
   transform-origin: center center !important;
   transform: scaleX(1);
   background: rgba(206, 202, 194, 0.58) !important;
+}
+
+.first-death-choice-screen .timed-choice-bar-fill,
+.first-death-choice-screen .first-death-tension-fill {
+  animation: none !important;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 180ms linear;
+}
+
+/* Timed choice compact layout final override */
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  height: auto !important;
+  min-height: 0 !important;
+  align-items: flex-end !important;
+}
+
+.timed-choice-screen .timed-choice-stack,
+.first-death-choice-screen .timed-choice-stack,
+.genichiro-arrow-choice-screen .timed-choice-stack {
+  height: auto !important;
+  min-height: 0 !important;
+  align-self: center !important;
+  flex: 0 0 auto !important;
+}
+
+.timed-choice-screen .global-choice-box,
+.first-death-choice-screen .global-choice-box,
+.genichiro-arrow-choice-screen .global-choice-box {
+  height: auto !important;
+  min-height: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+/* Timed choice compact layout guard */
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  height: auto !important;
+  min-height: 0 !important;
+  align-items: flex-end !important;
+}
+
+.timed-choice-screen .timed-choice-stack,
+.first-death-choice-screen .timed-choice-stack,
+.genichiro-arrow-choice-screen .timed-choice-stack {
+  height: auto !important;
+  min-height: 0 !important;
+  align-self: center !important;
+  flex: 0 0 auto !important;
+}
+
+.timed-choice-screen .global-choice-box,
+.first-death-choice-screen .global-choice-box,
+.genichiro-arrow-choice-screen .global-choice-box {
+  height: auto !important;
+  min-height: 0 !important;
+  flex: 0 0 auto !important;
 }
 
 .timed-choice-screen .global-choice-box {
@@ -5413,6 +5544,23 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 .recordbook-item-desc,
 .recordbook-section-title {
   white-space: normal !important;
+}
+
+.recordbook-bond-card .recordbook-item-title {
+  margin-bottom: 5px !important;
+}
+
+.recordbook-bond-card .recordbook-item-desc {
+  line-height: 1.55 !important;
+}
+
+.recordbook-bond-total,
+.recordbook-bond-detail {
+  color: rgba(190, 186, 178, 0.68) !important;
+}
+
+.recordbook-bond-shape {
+  color: rgba(156, 150, 140, 0.52) !important;
 }
 
 .recordbook-page,
@@ -5769,4 +5917,497 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 .story-choice-box:has(a:hover) {
   border-top-color: rgba(160, 154, 144, 0.42) !important;
   border-bottom-color: rgba(160, 154, 144, 0.42) !important;
+}
+
+/* Timed choice bar final visibility guard */
+.timed-choice-screen .timed-choice-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.timed-choice-screen .timed-choice-bar-ui,
+.timed-choice-screen .first-death-tension-ui,
+.timed-choice-screen .genichiro-arrow-tension-ui,
+.timed-choice-screen .genichiro-arrow-timer {
+  position: relative !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: min(320px, 50vw) !important;
+  min-width: 180px !important;
+  height: auto !important;
+  min-height: 17px !important;
+  margin: 0 auto 5px !important;
+  padding: 0 !important;
+  z-index: 10 !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+.timed-choice-screen .timed-choice-bar-track,
+.timed-choice-screen .first-death-tension-track,
+.timed-choice-screen .first-death-tension-bar,
+.timed-choice-screen .genichiro-arrow-tension-bar,
+.timed-choice-screen .genichiro-arrow-timer-track {
+  position: relative !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: 7px !important;
+  min-height: 7px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background: rgba(210, 206, 198, 0.14) !important;
+  border: 1px solid rgba(210, 206, 198, 0.24) !important;
+}
+
+.timed-choice-screen .timed-choice-bar-fill,
+.timed-choice-screen .first-death-tension-fill,
+.timed-choice-screen .genichiro-arrow-tension-fill,
+.timed-choice-screen .genichiro-arrow-timer-fill {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100%;
+  height: 100% !important;
+  transform-origin: center center !important;
+  transform: scaleX(1);
+  background: rgba(206, 202, 194, 0.58) !important;
+}
+
+/* Final overlap fix: keep prompts and choices in separate vertical zones. */
+.choice-screen .choice-prompt {
+  top: 64px !important;
+  max-height: 30% !important;
+  line-height: 1.65 !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer {
+  bottom: 92px !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.first-death-choice-screen .choice-prompt,
+.genichiro-arrow-choice-screen .choice-prompt {
+  top: 56px !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  bottom: 116px !important;
+  top: auto !important;
+}
+
+.global-choice-box,
+.story-choice-box {
+  gap: 3px !important;
+}
+
+.global-choice-box a,
+.story-choice-box a {
+  font-size: 16px !important;
+  line-height: 1.42 !important;
+}
+
+/* Choice layer z-index guard for separated NightPatrol/NightRisk screens. */
+.choice-screen .choice-prompt {
+  z-index: 20 !important;
+}
+
+.choice-screen .global-choice-layer {
+  z-index: 50 !important;
+}
+
+.choice-screen .global-choice-box {
+  position: relative !important;
+  z-index: 51 !important;
+}
+
+/* First death Bad End presentation */
+.badend-screen {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #000;
+  overflow: hidden;
+}
+
+.badend-narration {
+  position: absolute;
+  top: 26%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 82vw);
+  text-align: center;
+  color: rgba(190, 186, 178, 0.66);
+  font-size: 23px;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  white-space: pre-line;
+  z-index: 2;
+}
+
+.badend-title,
+.badend-label {
+  position: absolute;
+  left: 50%;
+  bottom: 132px;
+  transform: translateX(-50%);
+  width: min(760px, 84vw);
+  text-align: center;
+  color: rgba(232, 229, 222, 0.86);
+  font-size: 29px;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  z-index: 3;
+}
+
+/* Temple hub choices: one column up to 3 choices, two columns from 4 choices. */
+.temple-choice-box {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+.page-stage.temple-hub.no-talk .temple-choice-box,
+.wolf-page.temple-hub.narration-only .temple-choice-box,
+.temple-choice-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  width: fit-content !important;
+  max-width: min(760px, 82vw) !important;
+  min-width: 0 !important;
+  padding: 7px 24px 8px !important;
+}
+
+.page-stage.temple-hub.no-talk .temple-choice-box.is-two-column,
+.wolf-page.temple-hub.narration-only .temple-choice-box.is-two-column,
+.temple-choice-box.is-two-column {
+  display: grid !important;
+  grid-template-columns: repeat(2, max-content) !important;
+  column-gap: 36px !important;
+  row-gap: 4px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.temple-choice-box a {
+  display: block !important;
+  width: auto !important;
+  max-width: 280px !important;
+  padding-left: 20px !important;
+  white-space: nowrap !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Recordbook compact collection list */
+.recordbook-content {
+  padding: 0 20px 18px !important;
+}
+
+.recordbook-summary {
+  margin: 0 0 5px !important;
+  padding: 2px 0 5px !important;
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+  color: rgba(190, 186, 178, 0.56) !important;
+  border-bottom: 1px solid rgba(210, 206, 198, 0.06) !important;
+}
+
+.recordbook-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.recordbook-item {
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 6px 10px !important;
+  box-sizing: border-box !important;
+  background: rgba(255, 255, 255, 0.012) !important;
+  border: 1px solid rgba(210, 206, 198, 0.055) !important;
+}
+
+.recordbook-item-title {
+  margin: 0 0 2px !important;
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.035em !important;
+  color: rgba(232, 229, 222, 0.86) !important;
+}
+
+.recordbook-item-desc {
+  margin: 0 !important;
+  font-size: 11.5px !important;
+  line-height: 1.32 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  color: rgba(180, 176, 168, 0.58) !important;
+}
+
+.recordbook-item.locked {
+  background: rgba(255, 255, 255, 0.006) !important;
+  border-color: rgba(210, 206, 198, 0.035) !important;
+}
+
+.recordbook-item.locked .recordbook-item-title {
+  color: rgba(160, 156, 148, 0.42) !important;
+}
+
+.recordbook-item.locked .recordbook-item-desc {
+  color: rgba(150, 146, 138, 0.34) !important;
+}
+
+.recordbook-section-title {
+  margin: 7px 0 2px !important;
+  padding: 0 !important;
+  font-size: 11.5px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(190, 186, 178, 0.46) !important;
+}
+
+.recordbook-section-title:first-child {
+  margin-top: 0 !important;
+}
+
+.recordbook-bond-card .recordbook-item-title {
+  margin-bottom: 2px !important;
+}
+
+.recordbook-bond-card .recordbook-item-desc {
+  line-height: 1.32 !important;
+}
+
+.recordbook-bond-total,
+.recordbook-bond-detail {
+  color: rgba(190, 186, 178, 0.64) !important;
+}
+
+.recordbook-bond-shape {
+  color: rgba(156, 150, 140, 0.48) !important;
+}
+
+/* Recordbook readability pass: brighter ink, still muted. */
+.recordbook-panel {
+  background: rgba(18, 18, 18, 0.97) !important;
+  border-color: rgba(220, 216, 208, 0.18) !important;
+  color: rgba(232, 229, 222, 0.9) !important;
+}
+
+.recordbook-content {
+  background: rgba(24, 24, 24, 0.72) !important;
+  scrollbar-color: rgba(100, 98, 92, 0.88) rgba(16, 16, 16, 0.98) !important;
+}
+
+.recordbook-summary {
+  color: rgba(205, 200, 190, 0.68) !important;
+  border-bottom-color: rgba(220, 216, 208, 0.10) !important;
+}
+
+.recordbook-tabs a,
+.recordbook-tab {
+  color: rgba(205, 200, 190, 0.62) !important;
+}
+
+.recordbook-tabs a:hover,
+.recordbook-tab:hover {
+  color: rgba(235, 231, 224, 0.82) !important;
+}
+
+.recordbook-tab.active {
+  color: rgba(245, 242, 235, 0.94) !important;
+}
+
+.recordbook-tab.active::after {
+  background: rgba(235, 231, 224, 0.62) !important;
+}
+
+.recordbook-item {
+  background: rgba(255, 255, 255, 0.032) !important;
+  border-color: rgba(220, 216, 208, 0.11) !important;
+}
+
+.recordbook-item:hover {
+  background: rgba(255, 255, 255, 0.045) !important;
+  border-color: rgba(220, 216, 208, 0.16) !important;
+}
+
+.recordbook-item-title {
+  font-size: 13.5px !important;
+  line-height: 1.28 !important;
+  color: rgba(242, 238, 230, 0.92) !important;
+}
+
+.recordbook-item-desc {
+  font-size: 12px !important;
+  line-height: 1.34 !important;
+  color: rgba(205, 200, 190, 0.72) !important;
+}
+
+.recordbook-item.locked {
+  background: rgba(255, 255, 255, 0.018) !important;
+  border-color: rgba(220, 216, 208, 0.07) !important;
+}
+
+.recordbook-item.locked .recordbook-item-title {
+  color: rgba(180, 176, 168, 0.55) !important;
+}
+
+.recordbook-item.locked .recordbook-item-desc {
+  color: rgba(170, 166, 158, 0.48) !important;
+}
+
+.recordbook-bond-total,
+.recordbook-bond-detail {
+  color: rgba(205, 200, 190, 0.72) !important;
+}
+
+.recordbook-bond-shape {
+  color: rgba(176, 170, 160, 0.58) !important;
+}
+
+.recordbook-content::-webkit-scrollbar-track {
+  background: rgba(16, 16, 16, 0.98) !important;
+}
+
+.recordbook-content::-webkit-scrollbar-thumb {
+  background: rgba(100, 98, 92, 0.88) !important;
+  border: 2px solid rgba(16, 16, 16, 0.98) !important;
+}
+
+.recordbook-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 124, 116, 0.92) !important;
+}
+
+/* Unified scene background rules.
+   JS assigns bg-danger/bg-badend by passage name; :has() remains only as a
+   future-safe fallback for timed-choice passages that have not been mapped yet. */
+.page-stage.bg-danger,
+.wolf-page.bg-danger,
+.page-stage:has(.timed-choice-screen) {
+  --scene-bg: var(--bg-danger) !important;
+  --bg-overlay: rgba(0, 0, 0, 0.38) !important;
+  background: #000 !important;
+}
+
+.page-stage.bg-danger::before,
+.wolf-page.bg-danger::before,
+.page-stage:has(.timed-choice-screen)::before {
+  display: block !important;
+  background-image: var(--bg-danger) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  filter: brightness(0.72) contrast(1.06) !important;
+  opacity: 1 !important;
+}
+
+.page-stage.bg-danger::after,
+.wolf-page.bg-danger::after,
+.page-stage:has(.timed-choice-screen)::after {
+  display: block !important;
+  background: rgba(0, 0, 0, 0.38) !important;
+  opacity: 1 !important;
+}
+
+.timed-choice-screen {
+  background: transparent !important;
+}
+
+.timed-choice-screen > * {
+  position: relative;
+  z-index: 2;
+}
+
+.page-stage.bg-badend,
+.wolf-page.bg-badend {
+  --scene-bg: var(--bg-badend) !important;
+  --bg-overlay: rgba(0, 0, 0, 0.48) !important;
+  background: #000 !important;
+}
+
+.page-stage.bg-badend::before,
+.wolf-page.bg-badend::before {
+  display: block !important;
+  background-image: var(--bg-badend) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  filter: brightness(0.62) contrast(1.04) !important;
+  opacity: 1 !important;
+}
+
+.page-stage.bg-badend::after,
+.wolf-page.bg-badend::after {
+  display: block !important;
+  background: rgba(0, 0, 0, 0.46) !important;
+  opacity: 1 !important;
+}
+
+.badend-screen {
+  background: transparent !important;
+}
+
+.badend-screen > * {
+  z-index: 2;
+}
+
+.badend-screen .badend-narration {
+  position: absolute !important;
+  top: 26% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  color: rgba(190, 186, 178, 0.66) !important;
+  font-size: 23px !important;
+  line-height: 1.85 !important;
+  z-index: 2 !important;
+}
+
+.badend-screen .badend-title,
+.badend-screen .badend-label {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 132px !important;
+  transform: translateX(-50%) !important;
+  width: min(760px, 84vw) !important;
+  color: rgba(232, 229, 222, 0.86) !important;
+  font-size: 29px !important;
+  line-height: 1.25 !important;
+  z-index: 3 !important;
 }

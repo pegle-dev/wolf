@@ -9,20 +9,23 @@
 
 :: Kuro_Router {"position":"2225,925","size":"100,100"}
 <<set $currentRoute = "kuro">>
+<<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 
-<<if not $kuroReadingSeen>>
-  <<goto "Kuro_01_Reading">>
-<<elseif not $kuroTeaSeen>>
+<<if not ($kuroTeaSeen || false)>>
   <<goto "Kuro_02_Tea">>
-<<elseif not $kuroSitBesideSeen>>
+<<elseif not ($kuroMidConflictSeen || false) and ((setup.getBond && setup.getBond("kuro") >= 2) or (($kuroAffection || 0) + ($kuroConflict || 0)) >= 2 or ($kuroOrderLanguageSeen || false) or ($kuroLove || 0) >= 3)>>
+  <<goto "Kuro_MidConflict">>
+<<elseif not ($kuroReadingSeen || false)>>
+  <<goto "Kuro_01_Reading">>
+<<elseif not ($kuroSitBesideSeen || false)>>
   <<goto "Kuro_03_SitBeside">>
-<<elseif not $kuroWaitingSeen>>
+<<elseif not ($kuroWaitingSeen || false)>>
   <<goto "Kuro_04_Waiting">>
-<<elseif not $kuroWishSeen>>
+<<elseif not ($kuroWishSeen || false)>>
   <<goto "Kuro_05_Wish">>
-<<elseif not $kuroNameSeen>>
+<<elseif not ($kuroNameSeen || false)>>
   <<goto "Kuro_06_Name">>
-<<elseif $kuroDone>>
+<<elseif ($kuroDone || false)>>
   <<goto "Kuro_AfterEnding">>
 <<else>>
   <<goto "Kuro_07_FinalChoice">>
@@ -246,6 +249,7 @@
 
 <<link "명령을 따른다" "Kuro_01_Reading_Order_Result">>
   <<set $kuroLove += 1>>
+  <<set $kuroOrderLanguageSeen = true>>
   <<clampStats>>
 <</link>>
 </div>
@@ -297,19 +301,20 @@
   <<set $kuroAffection = ($kuroAffection || 0) + 1>>
   <<set $kuroLove = Math.max(($kuroLove || 0), ($kuroAffection || 0))>>
   <<set $recordBookNewBond = true>>
+  <<run setup.showToast && setup.showToast("쿠로 애정 +1", "bond")>>
 <</if>>
 <<set $kuroTeaSeen = true>>
 <<clampStats>>
 
 <div class="narration">
-찻잔에서는 김이 올랐다.
+작은 찻잔 두 개가 놓여 있었다.
 
-쿠로는 말없이 차를 따랐다.
+쿠로는 제 몫의 잔을 들고,
+늑대 쪽을 바라보았다.
+
 늑대는 말없이 잔을 받았다.
 
-작은 방은 조용했다.
-너무 조용해서,
-찻물이 잔을 채우는 소리까지 들렸다.
+찻물은 옅었고, 따뜻했다.
 </div>
 
 <<if _kuroTeaNewBond>>
@@ -322,7 +327,7 @@
 :: Kuro_02_Tea_Talk01 {"position":"2475,950","size":"100,100"}
 <<page>>
 <<talk "kuro" "쿠로">>
-오늘은 간식이 없어서 섭섭한가?
+간식이 없어서 섭섭한가?
 <</talk>>
 
 <<continueTo "Kuro_02_Tea_Talk02">>
@@ -350,8 +355,9 @@
 <<page>>
 <div class="narration">
 쿠로는 찻잔을 들었다.
+조금 웃었다.
 
-그러나 바로 마시지는 않았다.
+늑대는 대답하지 않고 차를 들었다.
 </div>
 
 <<continueTo "Kuro_02_Tea_Talk05">>
@@ -378,7 +384,7 @@
 :: Kuro_02_Tea_Talk07 {"position":"3225,950","size":"100,100"}
 <<page>>
 <<talk "kuro" "쿠로">>
-기둥이 무너질 때를 기억하나.
+기둥이 무너질 때.
 <</talk>>
 
 <<continueTo "Kuro_02_Tea_Talk08">>
@@ -386,9 +392,9 @@
 
 :: Kuro_02_Tea_Talk08 {"position":"3350,950","size":"100,100"}
 <<page>>
-<<talk "wolf" "늑대">>
-기억합니다.
-<</talk>>
+<div class="narration">
+늑대의 손이 찻잔 위에서 멈췄다.
+</div>
 
 <<continueTo "Kuro_02_Tea_Beat">>
 <</page>>
@@ -407,7 +413,16 @@
 :: Kuro_02_Tea_Talk09 {"position":"3600,950","size":"100,100"}
 <<page>>
 <<talk "kuro" "쿠로">>
-그대가 나를 위해 몸을 날렸을 때,
+그대가 나를 위해
+몸을 날렸을 때.
+<</talk>>
+
+<<continueTo "Kuro_02_Tea_Talk09b">>
+<</page>>
+
+:: Kuro_02_Tea_Talk09b {"position":"3650,950","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
 나는 어쩐지 화가 났다네.
 <</talk>>
 
@@ -448,9 +463,7 @@
 <<page>>
 <<talk "kuro" "쿠로">>
 그대는 늘 그렇게 할 것이다.
-나를 밀쳐내고,
-나보다 먼저 다치고,
-그것을 당연한 일처럼 여길 것이다.
+내가 다치지 않도록.
 <</talk>>
 
 <<continueTo "Kuro_02_Tea_Talk13">>
@@ -469,8 +482,7 @@
 <<page>>
 <<talk "kuro" "쿠로">>
 그래.
-
-그래서 화가 났다.
+그래서 화가 났던 것일지도 모르겠군.
 <</talk>>
 
 <<continueTo "Kuro_02_Tea_Beat03">>
@@ -704,6 +716,7 @@
 
 <<link "명령을 기다린다" "Kuro_03_SitBeside_Command_Result">>
   <<set $kuroLove += 1>>
+  <<set $kuroOrderLanguageSeen = true>>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
@@ -744,6 +757,348 @@
 그것이 오히려 더 오래 남았다.</div>
 
 <<continueTo "Temple_Return">>
+<</page>>
+
+:: Kuro_MidConflict {"position":"2350,1180","size":"100,100"}
+<<page>>
+<<run setup.ensureBondVariables && setup.ensureBondVariables()>>
+<<set $kuroMidConflictSeen = true>>
+<<set $currentRoute = "kuro">>
+
+<div class="narration">
+밤.
+
+쿠로의 방 안에는 작은 등불 하나만 켜져 있었다.
+
+책은 펼쳐져 있었다.
+하지만 책장은 넘어가지 않았다.
+
+늑대가 문 앞에 섰다.</div>
+
+<<continueTo "Kuro_MidConflict_Talk01">>
+<</page>>
+
+:: Kuro_MidConflict_Talk01 {"position":"2475,1180","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+부르셨습니까.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Talk02">>
+<</page>>
+
+:: Kuro_MidConflict_Talk02 {"position":"2600,1180","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+오늘은 그 말부터 하지 말아줘.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q1">>
+<</page>>
+
+:: Kuro_MidConflict_Q1 {"position":"2725,1180","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">쿠로가 등불 너머에서 조용히 묻는다.<br>지금 네 말은, 명령을 기다리는 말이야?</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "명령이라면 따르겠습니다." "Kuro_MidConflict_Q1_Command">>
+      <<choiceTo "부탁이라면 듣겠습니다." "Kuro_MidConflict_Q1_Request">>
+      <<choiceTo "잘 모르겠습니다." "Kuro_MidConflict_Q1_DontKnow">>
+      <<choiceTo "……" "Kuro_MidConflict_Q1_Silence">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Kuro_MidConflict_Q1_Command {"position":"2850,1130","size":"100,100"}
+<<page>>
+<<set $kuroAskedCommand = ($kuroAskedCommand || 0) + 1>>
+<<talk "kuro" "쿠로">>
+<<if ($kuroAskedCommand || 0) >= 2>>
+또 명령이구나.
+나는 네게 명령하지 않고는 아무 말도 건넬 수 없는 걸까.
+<<else>>
+그것도 명령으로 받아들이는구나.
+고치라는 말도 아니야.
+<</if>>
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q2">>
+<</page>>
+
+:: Kuro_MidConflict_Q1_Request {"position":"2850,1180","size":"100,100"}
+<<page>>
+<<set $kuroHeardRequest = true>>
+<<talk "kuro" "쿠로">>
+부탁.
+그래. 그 말이 조금 더 낫다.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q2">>
+<</page>>
+
+:: Kuro_MidConflict_Q1_DontKnow {"position":"2850,1230","size":"100,100"}
+<<page>>
+<<set $kuroHeardDontKnow = true>>
+<<talk "kuro" "쿠로">>
+그래.
+그 말은 네 말 같아.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q2">>
+<</page>>
+
+:: Kuro_MidConflict_Q1_Silence {"position":"2850,1280","size":"100,100"}
+<<page>>
+<<set $kuroStayedSilent = ($kuroStayedSilent || 0) + 1>>
+<<talk "kuro" "쿠로">>
+대답하기 어렵구나.
+그럼 더 작게 물어볼게.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q2">>
+<</page>>
+
+:: Kuro_MidConflict_Q2 {"position":"3100,1180","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">쿠로가 책 위에 손을 얹는다.<br>내가 틀렸을 때, 너는 어떻게 할 거야?</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "그래도 따릅니다." "Kuro_MidConflict_Q2_Follow">>
+      <<choiceTo "막겠습니다." "Kuro_MidConflict_Q2_Stop">>
+      <<choiceTo "모르겠습니다." "Kuro_MidConflict_Q2_DontKnow">>
+      <<choiceTo "……" "Kuro_MidConflict_Q2_Silence">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Kuro_MidConflict_Q2_Follow {"position":"3225,1130","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그 말이 제일 무서워.
+내가 틀렸을 때조차 네가 따르겠다면,
+나는 어디서 멈춰야 하지?
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Kuro_MidConflict_Q2_Stop {"position":"3225,1180","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+……
+그래.
+그건 처음으로 나를 지키는 말처럼 들렸어.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Kuro_MidConflict_Q2_DontKnow {"position":"3225,1230","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+모른다고 말해줘서 고마워.
+모른다면, 같이 생각할 수 있어.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Kuro_MidConflict_Q2_Silence {"position":"3225,1280","size":"100,100"}
+<<page>>
+<<set $kuroStayedSilent = ($kuroStayedSilent || 0) + 1>>
+<<talk "kuro" "쿠로">>
+네가 대답하지 못하는 질문을
+내가 너무 늦게 했구나.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Kuro_MidConflict_Q3_Talk01 {"position":"3475,1180","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+나는 네게 명령하고 싶지 않아.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q3_Talk02">>
+<</page>>
+
+:: Kuro_MidConflict_Q3_Talk02 {"position":"3600,1180","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+나를 지키는 것과,
+나한테 모든 걸 맡기는 건 달라.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Q3_Talk03">>
+<</page>>
+
+:: Kuro_MidConflict_Q3_Talk03 {"position":"3725,1180","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+나는 네 주군이야.
+하지만 그것만으로 있고 싶지는 않아.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_Choice">>
+<</page>>
+
+:: Kuro_MidConflict_Choice {"position":"4350,1180","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">명령이 없어도, 쿠로의 곁에 있을 수 있을까.</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "저는…… 무엇을 바라야 하는지 모릅니다." "Kuro_MidConflict_DontKnow">>
+      <<choiceTo "주군께서 원치 않으셔도, 저는 따릅니다." "Kuro_MidConflict_ObeyAnyway">>
+      <<choiceTo "명령해주십시오." "Kuro_MidConflict_OrderMe">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow {"position":"4475,1130","size":"100,100"}
+<<page>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $kuroConflict = ($kuroConflict || 0) + 1>>
+<<set $kuroLove = Math.max(($kuroLove || 0), ($kuroAffection || 0))>>
+<<set $isolation = ($isolation || 0) - 1>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("쿠로와의 인연이 깊어졌다.", "bond")>>
+<<run setup.showToast && setup.showToast("늑대는 명령이 없는 자리를 두려워했다.", "bond")>>
+
+<<talk "wolf" "늑대">>
+저는……
+무엇을 바라야 하는지 모릅니다.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_DontKnow_02">>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow_02 {"position":"4600,1130","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그럼 죽는 법 말고,
+사는 법부터 같이 배우자.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_DontKnow_03">>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow_03 {"position":"4725,1130","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+이건 명령이 아니야.
+부탁이야.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_DontKnow_04">>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow_04 {"position":"4850,1130","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+내 곁에 있어줘.
+주군의 곁이 아니라,
+나의 곁에.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_DontKnow_05">>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow_05 {"position":"4975,1130","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+예.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_DontKnow_06">>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow_06 {"position":"5100,1130","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 잠시 입을 다물었다.</div>
+
+<<continueTo "Kuro_MidConflict_DontKnow_07">>
+<</page>>
+
+:: Kuro_MidConflict_DontKnow_07 {"position":"5225,1130","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그러겠다.
+<</talk>>
+
+<<continueTo "Kuro_04_Waiting">>
+<</page>>
+
+:: Kuro_MidConflict_ObeyAnyway {"position":"4475,1180","size":"100,100"}
+<<page>>
+<<set $kuroConflict = ($kuroConflict || 0) + 1>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("쿠로 갈등 +1", "bond")>>
+<<run setup.showToast && setup.showToast("쿠로는 늑대의 충성 너머에 닿지 못했다.", "bond")>>
+
+<<talk "wolf" "늑대">>
+주군께서 원치 않으셔도,
+저는 따릅니다.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_ObeyAnyway_02">>
+<</page>>
+
+:: Kuro_MidConflict_ObeyAnyway_02 {"position":"4600,1180","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그래.
+그럼 오늘은 여기까지 하자.
+<</talk>>
+
+<<continueTo "Kuro_04_Waiting">>
+<</page>>
+
+:: Kuro_MidConflict_OrderMe {"position":"4475,1230","size":"100,100"}
+<<page>>
+<<set $kuroConflict = ($kuroConflict || 0) + 2>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $kuroOrderLanguageSeen = true>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("쿠로 갈등 +2", "bond")>>
+<<run setup.showToast && setup.showToast("그 말은 부탁이 아니라 도망이었다.", "shura")>>
+
+<<talk "wolf" "늑대">>
+명령해주십시오.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_OrderMe_02">>
+<</page>>
+
+:: Kuro_MidConflict_OrderMe_02 {"position":"4600,1230","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그건 부탁이 아니야.
+도망이야.
+<</talk>>
+
+<<continueTo "Kuro_MidConflict_OrderMe_03">>
+<</page>>
+
+:: Kuro_MidConflict_OrderMe_03 {"position":"4725,1230","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대.
+나한테 네 삶을 숨기지 마.
+<</talk>>
+
+<<continueTo "Kuro_04_Waiting">>
 <</page>>
 
 :: Kuro_04_Waiting {"position":"2350,1250","size":"100,100"}

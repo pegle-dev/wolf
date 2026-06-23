@@ -17,7 +17,7 @@
 
 :: Intro_Dream_01_Choice {"position":"1685,125","size":"100,100"}
 <<page>>
-<div class="choice-screen">
+<div class="choice-screen intro-choice-screen black-stage">
 <div class="choice-prompt intro-dream-choice-prompt">울지 않는 어린아이가 있다.</div>
 
 <div class="global-choice-layer debug-force-choice">
@@ -75,7 +75,7 @@
 
 :: Intro_Dream_02_Choice {"position":"1935,125","size":"100,100"}
 <<page>>
-<div class="choice-screen">
+<div class="choice-screen intro-choice-screen black-stage">
 <div class="choice-prompt intro-dream-choice-prompt">상처입은 허수아비가
 절 밖에 서 있다.</div>
 
@@ -131,7 +131,7 @@
 
 :: Intro_Dream_03_Choice {"position":"2185,125","size":"100,100"}
 <<page>>
-<div class="choice-screen">
+<div class="choice-screen intro-choice-screen black-stage">
 <div class="choice-prompt intro-dream-choice-prompt">고귀한 어린 아이의 뒷모습이
 점점 멀어져 간다.</div>
 
@@ -185,11 +185,9 @@
 
 :: Intro_Dream_04_Choice {"position":"2435,125","size":"100,100"}
 <<page>>
-<div class="choice-screen">
-<div class="choice-prompt intro-dream-choice-prompt">불에 타는 성이다.
-
-누군가가 아직,
-그 안에 있다.</div>
+<div class="choice-screen intro-choice-screen black-stage">
+<div class="choice-prompt intro-dream-choice-prompt">불에 타는 성 안에서
+누군가가 늑대를 부른다.</div>
 
 <div class="global-choice-layer debug-force-choice">
   <div class="global-choice-box">

@@ -1,6 +1,67 @@
 :: NightPatrol_Random {"position":"2000,925","size":"100,100"}
 <<goto "NightPatrol_Start">>
 
+:: NightPatrol_LocationChoice {"position":"2075,875","size":"100,100"}
+<<page>>
+<<run setup.ensureBondVariables && setup.ensureBondVariables()>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">오늘 밤, 어디를 살필까.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "황폐한 절 주변" "NightPatrol_Place_Temple">>
+<<choiceTo "물가" "NightPatrol_Place_Water">>
+<<choiceTo "아시나 성 아래" "NightPatrol_Place_AshinaUnder">>
+<<choiceTo "버려진 전장" "NightPatrol_Place_Battlefield">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: NightPatrol_Place_Temple {"position":"2200,875","size":"100,100"}
+<<set $nightPatrolPlace = "temple">>
+<<set _event = random(1, 3)>>
+<<if _event == 1>>
+  <<goto "NightPatrol_Temple_Hanbei">>
+<<elseif _event == 2>>
+  <<goto "NightPatrol_Temple_KuroTrace">>
+<<else>>
+  <<goto "NightPatrol_Temple_ShuraHint">>
+<</if>>
+
+:: NightPatrol_Place_Water {"position":"2200,925","size":"100,100"}
+<<set $nightPatrolPlace = "water">>
+<<set _event = random(1, 3)>>
+<<if _event == 1>>
+  <<goto "NightPatrol_Water_KuroTrace">>
+<<elseif _event == 2>>
+  <<goto "NightPatrol_Water_Arrow">>
+<<else>>
+  <<goto "NightPatrol_Water_Reflection">>
+<</if>>
+
+:: NightPatrol_Place_AshinaUnder {"position":"2200,975","size":"100,100"}
+<<set $nightPatrolPlace = "ashina_under">>
+<<set _event = random(1, 3)>>
+<<if _event == 1>>
+  <<goto "NightPatrol_AshinaUnder_Genichiro">>
+<<elseif _event == 2>>
+  <<goto "NightPatrol_AshinaUnder_KuroTrace">>
+<<else>>
+  <<goto "NightPatrol_AshinaUnder_Patrol">>
+<</if>>
+
+:: NightPatrol_Place_Battlefield {"position":"2200,1025","size":"100,100"}
+<<set $nightPatrolPlace = "battlefield">>
+<<set _event = random(1, 3)>>
+<<if _event == 1>>
+  <<goto "NightPatrol_Battlefield_Hanbei">>
+<<elseif _event == 2>>
+  <<goto "NightPatrol_Battlefield_ShuraHint">>
+<<else>>
+  <<goto "NightPatrol_Battlefield_SculptorTrace">>
+<</if>>
+
 :: NightPatrol_Roll {"position":"2125,925","size":"100,100"}
 <<set $nightPatrolActive = true>>
 <<set $nightPatrolUsedToday = true>>
@@ -101,6 +162,310 @@
 <<continueTo "Night_PatrolEnd">>
 <</page>>
 
+:: NightPatrol_Temple_Hanbei {"position":"2325,875","size":"100,100"}
+<<page>>
+<<set $nightMetHanbei = true>>
+<<set $traceNightTempleHanbeiSeen = true>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">황폐한 절 뒤편에서,
+나무칼이 낮게 허공을 갈랐다.
+
+한베는 늑대를 보고 손을 들었다.
+
+밤에도 연습인가.
+그는 웃었지만,
+눈은 웃지 않았다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_KuroTrace {"position":"2450,875","size":"100,100"}
+<<page>>
+<<set $nightFoundKuroTrace = true>>
+<<set $traceNightTempleKuroTraceSeen = true>>
+<<set $kuroConflict = ($kuroConflict || 0) + 1>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">처마 아래에 작은 발자국이 남아 있었다.
+
+쿠로의 것은 아니었다.
+하지만 쿠로의 방을 향해 있었다.
+
+늑대는 한동안 그 자리에 섰다.
+지킨다는 말이,
+늦을 때가 있다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_ShuraHint {"position":"2575,875","size":"100,100"}
+<<page>>
+<<set $nightSawShuraHint = true>>
+<<set $shuraHintSeen = true>>
+<<set $traceNightTempleShuraHintSeen = true>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">불상 앞에 검집 자국이 있었다.
+
+누군가가 오래 서 있었다.
+혹은 늑대 자신이,
+기억하지 못하는 밤에 그랬다.
+
+손이 칼자루를 찾았다.
+늑대는 손을 멈췄다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_KuroTrace {"position":"2325,925","size":"100,100"}
+<<page>>
+<<set $nightFoundKuroTrace = true>>
+<<set $traceNightWaterKuroTraceSeen = true>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물가에 작은 종이 조각이 젖어 있었다.
+
+글자는 거의 번졌다.
+그러나 쿠로가 쓰는 먹의 냄새가 남아 있었다.
+
+늑대는 그것을 접어 품에 넣었다.
+젖은 종이는 쉽게 찢어지지 않았다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_Arrow {"position":"2450,925","size":"100,100"}
+<<page>>
+<<set $traceNightWaterArrowSeen = true>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물살에 부러진 화살 하나가 걸려 있었다.
+
+날은 아직 새것이었다.
+누군가 오늘 밤에도 성 아래를 겨누고 있다.
+
+늑대는 화살촉을 손가락으로 눌렀다.
+피는 나지 않았다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_Reflection {"position":"2575,925","size":"100,100"}
+<<page>>
+<<set $nightSawShuraHint = true>>
+<<set $traceNightWaterReflectionSeen = true>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물 위에 늑대의 얼굴이 떠 있었다.
+
+등 뒤에는 아무도 없었다.
+그런데 물속의 얼굴은,
+누군가를 벤 뒤처럼 고요했다.
+
+늑대는 물을 흐렸다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_AshinaUnder_Genichiro {"position":"2325,975","size":"100,100"}
+<<page>>
+<<set $nightMetGenichiro = true>>
+<<set $traceNightAshinaGenichiroSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">성 아래 망루에 사람이 서 있었다.
+
+겐이치로였다.
+
+그는 활을 들지 않았다.
+늑대도 검을 뽑지 않았다.
+
+둘 사이로 밤바람만 지나갔다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_AshinaUnder_KuroTrace {"position":"2450,975","size":"100,100"}
+<<page>>
+<<set $nightFoundKuroTrace = true>>
+<<set $traceNightAshinaKuroTraceSeen = true>>
+<<set $kuroConflict = ($kuroConflict || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">성 아래 돌계단에 천 조각이 걸려 있었다.
+
+쿠로의 옷감과 닮아 있었다.
+닮았을 뿐일 수도 있었다.
+
+늑대는 그것을 버리지 못했다.
+확신 없는 흔적이 더 무거울 때가 있다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_AshinaUnder_Patrol {"position":"2575,975","size":"100,100"}
+<<page>>
+<<set $traceNightAshinaPatrolSeen = true>>
+<<set $danger = ($danger || 0) + 2>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">순찰병 셋이 지나갔다.
+
+발소리는 맞지 않았다.
+두려움이 먼저 걷고,
+사람이 뒤따랐다.
+
+늑대는 지붕 위에 엎드린 채
+그들이 지나가기를 기다렸다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_Hanbei {"position":"2325,1025","size":"100,100"}
+<<page>>
+<<set $nightMetHanbei = true>>
+<<set $traceNightBattlefieldHanbeiSeen = true>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">버려진 전장 한가운데,
+한베가 시체처럼 누워 있었다.
+
+늑대가 다가가자 그가 눈을 떴다.
+
+놀랐나?
+한베는 웃으려 했지만,
+그 밤에는 잘 되지 않았다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_ShuraHint {"position":"2450,1025","size":"100,100"}
+<<page>>
+<<set $nightSawShuraHint = true>>
+<<set $shuraHintSeen = true>>
+<<set $traceNightBattlefieldShuraSeen = true>>
+<<set $shura = ($shura || 0) + 2>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">전장에는 아직 열이 남아 있었다.
+
+불은 꺼졌는데,
+검은 식지 않았다.
+
+늑대는 아무도 베지 않았다.
+그런데 손목 안쪽이,
+베고 난 뒤처럼 가벼웠다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_SculptorTrace {"position":"2575,1025","size":"100,100"}
+<<page>>
+<<set $traceNightBattlefieldSculptorSeen = true>>
+<<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">부서진 의수 부품 하나가 흙 속에 박혀 있었다.
+
+낡았지만,
+관리된 흔적이 있었다.
+
+조각가가 보았다면
+아무 말 없이 주워 갔을 것이다.
+늑대는 그럴 수 없었다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
 :: NightRisk_Arrow {"position":"2400,600","size":"100,100"}
 <<page>>
 <<set $traceNightArrowSeen = true>>
@@ -121,7 +486,7 @@
 
 :: NightRisk_Arrow_Choice {"position":"2525,600","size":"100,100"}
 <<page>>
-<div class="choice-screen">
+<div class="choice-screen night-patrol-choice-screen">
 <div class="choice-prompt">화살이 날아온다.</div>
 
 <div class="global-choice-layer">
@@ -545,6 +910,7 @@
 <<set $kuroLove = Math.max(($kuroLove || 0), ($kuroAffection || 0))>>
 <<set $danger = ($danger || 0) + 1>>
 <<clampStats>>
+<<run setup.showToast && setup.showToast("쿠로 애정 +1", "bond")>>
 
 <div class="narration-screen">
 <div class="narration narration-block">늑대는 냄새를 따라갔다.
@@ -612,7 +978,16 @@
 곧 바람뿐이 되었다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol01_Low_Choice">>
+<</page>>
+
+:: NightPatrol01_Low_Choice {"position":"2375,800","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">돌계단 위쪽에서 발소리가 난 듯하다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "귀를 기울인다" "NightPatrol01_Low_Listen_Result">>
   <<set $isolation -= 1>>
   <<clampStats>>
@@ -622,6 +997,8 @@
   <<set $helpRefusedCount += 1>>
   <<clampStats>>
 <</link>>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -636,7 +1013,16 @@
 위쪽 어둠에서 무언가가 숨을 삼켰다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol01_Mid_Choice">>
+<</page>>
+
+:: NightPatrol01_Mid_Choice {"position":"2500,800","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">계단 옆 벽에 손자국이 남아 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "올라가 본다" "NightPatrol01_Mid_Climb_Result">>
   <<set $danger += 1>>
   <<set $isolation -= 1>>
@@ -651,6 +1037,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol01_High {"position":"2550,800","size":"100,100"}
@@ -664,7 +1052,16 @@
 도망치려는 대신 눈을 감았다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol01_High_Choice">>
+<</page>>
+
+:: NightPatrol01_High_Choice {"position":"2625,800","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">계단 위에 병사가 쓰러져 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "숨이 붙어 있는지 확인한다" "NightPatrol01_High_CheckBreath_Result">>
   <<set $danger += 1>>
   <<set $isolation -= 1>>
@@ -682,6 +1079,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol02_Low {"position":"2300,950","size":"100,100"}
@@ -695,7 +1094,16 @@
 문은 안쪽에서 대답하듯 삐걱였다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol02_Low_Choice">>
+<</page>>
+
+:: NightPatrol02_Low_Choice {"position":"2375,950","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">문턱에 작은 신발 한 짝이 놓여 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "신발을 문 안쪽에 놓아둔다" "NightPatrol02_Low_PlaceShoes_Result">>
   <<set $isolation -= 1>>
   <<clampStats>>
@@ -704,6 +1112,8 @@
   <<set $helpRefusedCount += 1>>
   <<clampStats>>
 <</link>>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -718,7 +1128,16 @@
 그 소리는 칼이 뽑히는 소리보다도 작았다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol02_Mid_Choice">>
+<</page>>
+
+:: NightPatrol02_Mid_Choice {"position":"2500,950","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">문 안쪽에서 작은 숨소리가 들린다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "물러난다" "NightPatrol02_Mid_BackAway_Result">>
   <<set $isolation -= 1>>
   <<clampStats>>
@@ -732,6 +1151,8 @@
   <<set $helpRefusedCount += 1>>
   <<clampStats>>
 <</link>>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -747,7 +1168,16 @@
 칼끝은 떨리고 있었다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol02_High_Choice">>
+<</page>>
+
+:: NightPatrol02_High_Choice {"position":"2625,950","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">굶주린 자가 곡식과 칼을 쥐고 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "곡식은 두고 가라 한다" "NightPatrol02_High_LeaveGrain_Result">>
   <<set $danger += 1>>
   <<set $isolation -= 1>>
@@ -764,6 +1194,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol03_Low {"position":"2300,1100","size":"100,100"}
@@ -778,16 +1210,33 @@
 습관처럼.
 </div>
 
-<div class="choice-box">
-<<link "조용히 지나간다" "NightPatrol03_Low_PassQuiet_Result">>
+<<continueTo "NightPatrol03_Low_Choice">>
+<</page>>
+
+:: NightPatrol03_Low_Choice {"position":"2375,1100","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">성 밑의 통로에 무언가 남아 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<div class="global-choice-item">
+<<link "조용히 지나간다">>
   <<set $danger -= 1>>
   <<set $helpRefusedCount += 1>>
   <<clampStats>>
+  <<goto "NightPatrol03_Low_PassQuiet_Result">>
 <</link>>
-<<link "흔적을 살핀다" "NightPatrol03_Low_InspectTrace_Result">>
+</div>
+<div class="global-choice-item">
+<<link "흔적을 살핀다">>
   <<set $danger += 1>>
   <<clampStats>>
+  <<goto "NightPatrol03_Low_InspectTrace_Result">>
 <</link>>
+</div>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -802,7 +1251,16 @@
 내일 아침 누가 죽을지에 대해 이야기하고 있었다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol03_Mid_Choice">>
+<</page>>
+
+:: NightPatrol03_Mid_Choice {"position":"2500,1100","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">병사 둘이 내일 아침의 죽음을 말한다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "듣고 지나간다" "NightPatrol03_Mid_ListenPass_Result">>
   <<set $danger += 1>>
   <<set $helpRefusedCount += 1>>
@@ -818,6 +1276,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol03_High {"position":"2550,1100","size":"100,100"}
@@ -832,7 +1292,16 @@
 늑대의 몸은 생각보다 먼저 움직였다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol03_High_Choice">>
+<</page>>
+
+:: NightPatrol03_High_Choice {"position":"2625,1100","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">어둠 속에서 칼끝이 튀어나온다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "팔만 꺾어 제압한다" "NightPatrol03_High_Restrain_Result">>
   <<set $danger += 1>>
   <<set $isolation -= 1>>
@@ -849,6 +1318,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol04_Low {"position":"2300,1250","size":"100,100"}
@@ -862,7 +1333,16 @@
 그 소리는 사람의 숨처럼 들렸다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol04_Low_Choice">>
+<</page>>
+
+:: NightPatrol04_Low_Choice {"position":"2375,1250","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">숲의 숨소리가 사람처럼 들린다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "잠시 멈춰 선다" "NightPatrol04_Low_Pause_Result">>
   <<set $isolation -= 1>>
   <<clampStats>>
@@ -872,6 +1352,8 @@
   <<set $helpRefusedCount += 1>>
   <<clampStats>>
 <</link>>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -886,7 +1368,16 @@
 누군가의 거친 손을 떠올렸다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol04_Mid_Choice">>
+<</page>>
+
+:: NightPatrol04_Mid_Choice {"position":"2500,1250","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">나무 밑에 작은 불상 조각이 놓여 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "불상 조각을 주워 둔다" "NightPatrol04_Mid_PickBuddha_Result">>
   <<set $isolation -= 1>>
   <<clampStats>>
@@ -902,6 +1393,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol04_High {"position":"2550,1250","size":"100,100"}
@@ -916,7 +1409,16 @@
 늑대는 칼자루에 손을 얹었다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol04_High_Choice">>
+<</page>>
+
+:: NightPatrol04_High_Choice {"position":"2625,1250","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">웃음소리가 늑대의 목소리처럼 들린다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "손을 뗀다" "NightPatrol04_High_LetGo_Result">>
   <<set $shura -= 1>>
   <<set $isolation -= 1>>
@@ -932,6 +1434,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol05_Low {"position":"2300,1400","size":"100,100"}
@@ -945,7 +1449,16 @@
 누군가 아직 불을 끄지 못하고 있었다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol05_Low_Choice">>
+<</page>>
+
+:: NightPatrol05_Low_Choice {"position":"2375,1400","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">멀리, 아직 꺼지지 않은 불빛이 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "불빛을 바라본다" "NightPatrol05_Low_WatchLight_Result">>
   <<set $isolation -= 1>>
   <<clampStats>>
@@ -953,6 +1466,8 @@
 <<link "길을 따라 걷는다" "NightPatrol05_Low_WalkRoad_Result">>
   <<clampStats>>
 <</link>>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -967,7 +1482,16 @@
 그저 길을 비켜 앉았다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol05_Mid_Choice">>
+<</page>>
+
+:: NightPatrol05_Mid_Choice {"position":"2500,1400","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">길가의 사람이 이름을 부르지 않고 비켜 앉는다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "지나치기 전에 묻는다" "NightPatrol05_Mid_Ask_Result">>
   <<set $isolation -= 1>>
   <<set $danger += 1>>
@@ -983,6 +1507,8 @@
   <<clampStats>>
 <</link>>
 </div>
+</div>
+</div>
 <</page>>
 
 :: NightPatrol05_High {"position":"2550,1400","size":"100,100"}
@@ -996,7 +1522,16 @@
 누군가 쓰러진 이를 짓밟고 지나갔다.
 </div>
 
-<div class="choice-box">
+<<continueTo "NightPatrol05_High_Choice">>
+<</page>>
+
+:: NightPatrol05_High_Choice {"position":"2625,1400","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">거리 끝에서 불길이 오른다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<link "쓰러진 이를 끌어낸다" "NightPatrol05_High_PullOut_Result">>
   <<set $danger += 2>>
   <<set $isolation -= 1>>
@@ -1011,6 +1546,8 @@
   <<set $danger += 2>>
   <<clampStats>>
 <</link>>
+</div>
+</div>
 </div>
 <</page>>
 

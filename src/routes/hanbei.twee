@@ -6,7 +6,7 @@
 <<set $currentRoute = "hanbei">>
 <<set $hanbeiProgress = Math.max(($hanbeiProgress || 0), 1)>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">한베는 낡은 기둥에 등을 기대고 있었다.
 
 늑대가 다가가자,
@@ -45,8 +45,9 @@
 <<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
 <<set $recordBookNewBond = true>>
 <<clampStats>>
+<<run setup.showToast && setup.showToast("한베 애정 +1", "bond")>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">“그냥 왔다.”
 
 한베가 눈을 떴다.
@@ -77,8 +78,9 @@
 <</if>>
 <<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
 <<clampStats>>
+<<run setup.showToast && setup.showToast("한베 갈등 +1", "bond")>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">“대련하러 왔다.”
 
 “그렇겠지.”
@@ -106,8 +108,9 @@
 <<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
 <<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
 <<clampStats>>
+<<run setup.showToast && setup.showToast("한베 애정 +1 · 갈등 +1", "bond")>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">“확인하러 왔다.”
 
 “내가 아직 죽지 않았는지?”
@@ -132,7 +135,7 @@
 
 :: Hanbei_DuelShort {"position":"775,975","size":"100,100"}
 <<page>>
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">검과 검이 짧게 부딪쳤다.
 
 한베는 쓰러졌다가,
@@ -452,6 +455,7 @@
 <<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
 <<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
 <<set $recordBookNewBond = true>>
+<<run setup.showToast && setup.showToast("한베 애정 +1", "bond")>>
 <</if>>
 <div class="narration">
 
@@ -670,10 +674,372 @@
 그런 얼굴 하고.
 <</talk>>
 
-<div class="choice-box">
+<<continueTo "Hanbei_MidConflict_Gate">>
+<</page>>
+
+:: Hanbei_MidConflict_Gate {"position":"1225,940","size":"100,100"}
+<<if not ($hanbeiMidConflictSeen || false) and (($hanbeiProgress || 0) >= 1) and (($hanbeiAffection || 0) >= 2 or ($hanbeiLove || 0) >= 2 or ($hanbeiConflict || 0) >= 1)>>
+  <<goto "Hanbei_MidConflict">>
+<<else>>
+  <<goto "Hanbei02_3_Choice">>
+<</if>>
+
+:: Hanbei_MidConflict {"position":"1225,945","size":"100,100"}
+<<page>>
+<<run setup.ensureBondVariables && setup.ensureBondVariables()>>
+<<set $hanbeiMidConflictSeen = true>>
+<<set $currentRoute = "hanbei">>
+
+<div class="narration-screen hanbei-narration">
+  <div class="narration narration-block">황폐한 절 뒤뜰.
+
+검이 다시 부딪쳤다.
+
+처음에는 평소와 같았다.
+한베는 가볍게 웃었고,
+늑대는 말없이 검을 받았다.
+
+한 번.
+두 번.
+
+늑대는 맞아도 물러나지 않았다.
+몸을 버리듯 앞으로 들어왔다.
+
+세 번째 검이 닿기 전에,
+한베가 검을 멈췄다.</div>
+</div>
+
+<<continueTo "Hanbei_MidConflict_Talk01">>
+<</page>>
+
+:: Hanbei_MidConflict_Talk01 {"position":"1250,945","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그만.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Talk02">>
+<</page>>
+
+:: Hanbei_MidConflict_Talk02 {"position":"1275,945","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+아직 끝나지 않았다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Talk03">>
+<</page>>
+
+:: Hanbei_MidConflict_Talk03 {"position":"1300,945","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+끝났네.
+내가 끝냈다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q1">>
+<</page>>
+
+:: Hanbei_MidConflict_Q1 {"position":"1325,945","size":"100,100"}
+<<page>>
+<div class="choice-screen hanbei-choice-screen">
+  <div class="choice-prompt">한베가 검을 멈춘 채 묻는다.<br>아파?</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "문제없다." "Hanbei_MidConflict_Q1_Fine">>
+      <<choiceTo "아프다." "Hanbei_MidConflict_Q1_Hurts">>
+      <<choiceTo "대련을 계속한다." "Hanbei_MidConflict_Q1_Continue">>
+      <<choiceTo "……" "Hanbei_MidConflict_Q1_Silence">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Hanbei_MidConflict_Q1_Fine {"position":"1350,920","size":"100,100"}
+<<page>>
+<<set $hanbeiSaidFine = ($hanbeiSaidFine || 0) + 1>>
+<<talk "hanbei" "한베">>
+<<if ($hanbeiSaidFine || 0) >= 2>>
+또 문제없다네.
+그 말, 이제 네 입버릇으로 등록해도 되겠다.
+<<else>>
+문제없다는 말 금지.
+네가 그 말 할 때마다 진짜 문제가 생기거든.
+<</if>>
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q2">>
+<</page>>
+
+:: Hanbei_MidConflict_Q1_Hurts {"position":"1350,970","size":"100,100"}
+<<page>>
+<<set $hanbeiAdmittedPain = true>>
+<<talk "hanbei" "한베">>
+……
+그래.
+그거면 됐어.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q2">>
+<</page>>
+
+:: Hanbei_MidConflict_Q1_Continue {"position":"1350,1020","size":"100,100"}
+<<page>>
+<<set $hanbeiPushedTraining = true>>
+<<talk "hanbei" "한베">>
+싫어.
+오늘은 내가 그만두는 쪽이다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q2">>
+<</page>>
+
+:: Hanbei_MidConflict_Q1_Silence {"position":"1350,1070","size":"100,100"}
+<<page>>
+<<set $hanbeiStayedSilent = ($hanbeiStayedSilent || 0) + 1>>
+<<talk "hanbei" "한베">>
+대답 안 하는 것도 대답이야.
+너, 정말 나쁜 버릇 들었다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q2">>
+<</page>>
+
+:: Hanbei_MidConflict_Q2 {"position":"1400,945","size":"100,100"}
+<<page>>
+<div class="choice-screen hanbei-choice-screen">
+  <div class="choice-prompt">한베가 검끝을 내린다.<br>죽는 게 무섭냐?</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "나는 닌자다." "Hanbei_MidConflict_Q2_Ninja">>
+      <<choiceTo "무섭지 않다." "Hanbei_MidConflict_Q2_NotAfraid">>
+      <<choiceTo "잘 모르겠다." "Hanbei_MidConflict_Q2_DontKnow">>
+      <<choiceTo "……" "Hanbei_MidConflict_Q2_Silence">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Hanbei_MidConflict_Q2_Ninja {"position":"1425,895","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그 말도 이제 지겹다.
+닌자면 아프지 않아도 되나?
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Hanbei_MidConflict_Q2_NotAfraid {"position":"1425,945","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+거짓말은 좀 더 잘해라.
+무섭지 않은 사람은 그렇게 빨리 대답하지 않아.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Hanbei_MidConflict_Q2_DontKnow {"position":"1425,995","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래.
+그 대답은 네 말 같네.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Hanbei_MidConflict_Q2_Silence {"position":"1425,1045","size":"100,100"}
+<<page>>
+<<set $hanbeiStayedSilent = ($hanbeiStayedSilent || 0) + 1>>
+<<talk "hanbei" "한베">>
+오래 걸리네.
+그럼 무섭긴 한 거다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk01">>
+<</page>>
+
+:: Hanbei_MidConflict_Q3_Talk01 {"position":"1475,920","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+나는 죽지 못해.
+자네는 죽고도 돌아와.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk02">>
+<</page>>
+
+:: Hanbei_MidConflict_Q3_Talk02 {"position":"1500,920","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+비슷해 보여도 달라.
+그러니 너무 쉽게 말하지 말게.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk03">>
+<</page>>
+
+:: Hanbei_MidConflict_Q3_Talk03 {"position":"1525,920","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아프면 아프다고 해.
+사람한테는 그런 말이 필요하다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Q3_Talk04">>
+<</page>>
+
+:: Hanbei_MidConflict_Q3_Talk04 {"position":"1550,920","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+자네가 나처럼 되지 않았으면 좋겠네.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Choice">>
+<</page>>
+
+:: Hanbei_MidConflict_Choice {"position":"1525,945","size":"100,100"}
+<<page>>
+<div class="choice-screen hanbei-choice-screen">
+  <div class="choice-prompt">한베가 웃지 못한 얼굴로 기다린다.</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "……미안하다." "Hanbei_MidConflict_Apologize">>
+      <<choiceTo "불사는 무기다." "Hanbei_MidConflict_Weapon">>
+      <<choiceTo "아픈 것은 익숙하다." "Hanbei_MidConflict_UsedToPain">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Hanbei_MidConflict_Apologize {"position":"1550,895","size":"100,100"}
+<<page>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<set $isolation = ($isolation || 0) - 1>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("한베와의 인연이 깊어졌다.", "bond")>>
+<<run setup.showToast && setup.showToast("늑대는 죽지 않는다는 말의 무게를 떠올렸다.", "bond")>>
+
+<<talk "wolf" "늑대">>
+……미안하다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Apologize_02">>
+<</page>>
+
+:: Hanbei_MidConflict_Apologize_02 {"position":"1575,895","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+사과까지 할 줄 알았냐.
+큰일이네. 내일 눈 오겠다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Apologize_03">>
+<</page>>
+
+:: Hanbei_MidConflict_Apologize_03 {"position":"1600,895","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래. 그럼 내가 좀 울었다고 치자.
+
+내일 다시 하자.
+대련 말고.
+사는 연습.
+<</talk>>
+
+<<continueTo "Hanbei02_3_Choice">>
+<</page>>
+
+:: Hanbei_MidConflict_Weapon {"position":"1550,945","size":"100,100"}
+<<page>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $hanbeiTrainingLocked = true>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("한베 갈등 +1", "bond")>>
+<<run setup.showToast && setup.showToast("늑대 안쪽에 차가운 것이 남았다.", "shura")>>
+
+<<talk "wolf" "늑대">>
+불사는 무기다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Weapon_02">>
+<</page>>
+
+:: Hanbei_MidConflict_Weapon_02 {"position":"1575,945","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래.
+그럼 오늘 대련은 끝이다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_Weapon_03">>
+<</page>>
+
+:: Hanbei_MidConflict_Weapon_03 {"position":"1600,945","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아직 움직일 수 있다는 게 문제라고,
+그 말을 하고 있잖아.
+<</talk>>
+
+<<continueTo "Hanbei02_3_Choice">>
+<</page>>
+
+:: Hanbei_MidConflict_UsedToPain {"position":"1550,995","size":"100,100"}
+<<page>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<set $danger = ($danger || 0) + 1>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("한베와의 인연이 깊어졌다.", "bond")>>
+<<run setup.showToast && setup.showToast("늑대는 익숙해지면 안 되는 것에 익숙해져 있다.", "danger")>>
+
+<<talk "wolf" "늑대">>
+아픈 것은 익숙하다.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_UsedToPain_02">>
+<</page>>
+
+:: Hanbei_MidConflict_UsedToPain_02 {"position":"1575,995","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+익숙해지면 안 되는 것도 있어.
+<</talk>>
+
+<<continueTo "Hanbei_MidConflict_UsedToPain_03">>
+<</page>>
+
+:: Hanbei_MidConflict_UsedToPain_03 {"position":"1600,995","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+특히 그런 건.
+<</talk>>
+
+<<continueTo "Hanbei02_3_Choice">>
+<</page>>
+
+:: Hanbei02_3_Choice {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="choice-screen hanbei-choice-screen">
+<div class="choice-prompt">한베는 늑대의 얼굴을 가만히 보았다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 [[다시 자세를 잡는다->Hanbei02_Fight_Beat][$hanbeiLove += 1]]
 [[괜찮나 본다->Hanbei02_Worry_Beat][$hanbeiLove +=  2]]
 [[아무 말도 하지 않는다->Hanbei02_Silent][$isolation += 1]]
+</div>
+</div>
 </div>
 <</page>>
 
@@ -1228,10 +1594,21 @@
 가끔은 이런 날도 있어야 하지 않겠나.
 <</talk>>
 
-<div class="choice-box">
+<<continueTo "Hanbei03_8_Choice">>
+<</page>>
+
+:: Hanbei03_8_Choice {"position":"0,0","size":"100,100"}
+<<page>>
+<div class="choice-screen hanbei-choice-screen">
+<div class="choice-prompt">한베가 늑대를 바라보고 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
 [[대련하자고 한다->Hanbei03_Fight][$hanbeiLove += 1]]
 [[그냥 앉아 있는다->Hanbei03_Sit_Beat][$hanbeiLove += 2]]
 [[떠난다->Hanbei03_Leave]]
+</div>
+</div>
 </div>
 <</page>>
 
@@ -1440,7 +1817,7 @@
 <<set $traceSharedDrink = true>>
 <<set $recordBookNewBond = true>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">한베는 품 안에서 작은 술병을 꺼냈다.
 
 언제부터 가지고 있었는지,
@@ -1483,8 +1860,9 @@
 <<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
 <<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
 <<clampStats>>
+<<run setup.showToast && setup.showToast("한베 애정 +1", "bond")>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">늑대는 술병을 받았다.
 
 한베의 손이 아주 잠깐 멈췄다.
@@ -1507,8 +1885,9 @@
 <<page>>
 <<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
 <<clampStats>>
+<<run setup.showToast && setup.showToast("한베 갈등 +1", "bond")>>
 
-<div class="narration-screen">
+<div class="narration-screen hanbei-narration">
   <div class="narration narration-block">늑대는 술병을 받지 않았다.
 
 “그럴 줄 알았네.”

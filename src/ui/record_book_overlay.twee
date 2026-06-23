@@ -140,22 +140,109 @@
 
 :: RecordBookOverlay_Bonds {"position":"1125,500","size":"100,100"}
 <<nobr>>
-<div class="recordbook-summary">누군가와 얽힌 기억들.</div>
-<div class="recordbook-list">
+<<run setup.ensureBondVariables && setup.ensureBondVariables()>>
+<<set _hanbeiKnown = $hanbeiJustVisitedSeen or (setup.getBond && setup.getBond("hanbei") > 0)>>
+<<set _kuroKnown = $kuroReadingSeen or $kuroWishSeen or $kuroTeaSeen or (setup.getBond && setup.getBond("kuro") > 0)>>
+<<set _genichiroKnown = $genichiroGateSeen or $genichiroMoonSakeSeen or $genichiroDoNotReturnSeen or (setup.getBond && setup.getBond("genichiro") > 0)>>
+<<set _sculptorKnown = $sculptorCarvingSeen or $sculptorFaceSeen or (setup.getBond && setup.getBond("sculptor") > 0)>>
+<<set _isshinKnown = $isshinFirstSakeSeen or $isshinReedFieldSeen or (setup.getBond && setup.getBond("isshin") > 0)>>
+<<set _shuraKnown = $shuraRouteUnlocked or $shuraUnlocked or $endingShuraSeen or $shuraEndingSeen>>
+<div class="recordbook-summary">누군가와 얽힌 기억들. <span>인연은 애정과 갈등이 함께 쌓인 흔적이다.</span></div>
+<div class="recordbook-section-title">인연 수치</div>
+<div class="recordbook-list recordbook-bond-list">
+  <<if _hanbeiKnown>>
+  <div class="recordbook-item recordbook-bond-card"><div class="recordbook-item-title">한베</div><div class="recordbook-item-desc"><span class="recordbook-bond-total">인연 <<print setup.getBond("hanbei")>></span><br><span class="recordbook-bond-detail">애정 <<print setup.getAffection("hanbei")>> · 갈등 <<print setup.getConflict("hanbei")>></span><br><span class="recordbook-bond-shape"><<print setup.getBondShape("hanbei")>></span></div></div>
+  <<else>>
+  <div class="recordbook-item recordbook-bond-card locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc">아직 마주하지 않았다.</div></div>
+  <</if>>
+  <<if _kuroKnown>>
+  <div class="recordbook-item recordbook-bond-card"><div class="recordbook-item-title">쿠로</div><div class="recordbook-item-desc"><span class="recordbook-bond-total">인연 <<print setup.getBond("kuro")>></span><br><span class="recordbook-bond-detail">애정 <<print setup.getAffection("kuro")>> · 갈등 <<print setup.getConflict("kuro")>></span><br><span class="recordbook-bond-shape"><<print setup.getBondShape("kuro")>></span></div></div>
+  <<else>>
+  <div class="recordbook-item recordbook-bond-card locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc">아직 마주하지 않았다.</div></div>
+  <</if>>
+  <<if _genichiroKnown>>
+  <div class="recordbook-item recordbook-bond-card"><div class="recordbook-item-title">겐이치로</div><div class="recordbook-item-desc"><span class="recordbook-bond-total">인연 <<print setup.getBond("genichiro")>></span><br><span class="recordbook-bond-detail">애정 <<print setup.getAffection("genichiro")>> · 갈등 <<print setup.getConflict("genichiro")>></span><br><span class="recordbook-bond-shape"><<print setup.getBondShape("genichiro")>></span></div></div>
+  <<else>>
+  <div class="recordbook-item recordbook-bond-card locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc">아직 마주하지 않았다.</div></div>
+  <</if>>
+  <<if _sculptorKnown>>
+  <div class="recordbook-item recordbook-bond-card"><div class="recordbook-item-title">조각가</div><div class="recordbook-item-desc"><span class="recordbook-bond-total">인연 <<print setup.getBond("sculptor")>></span><br><span class="recordbook-bond-detail">애정 <<print setup.getAffection("sculptor")>> · 갈등 <<print setup.getConflict("sculptor")>></span><br><span class="recordbook-bond-shape"><<print setup.getBondShape("sculptor")>></span></div></div>
+  <<else>>
+  <div class="recordbook-item recordbook-bond-card locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc">아직 마주하지 않았다.</div></div>
+  <</if>>
+  <<if _isshinKnown>>
+  <div class="recordbook-item recordbook-bond-card"><div class="recordbook-item-title">잇신</div><div class="recordbook-item-desc"><span class="recordbook-bond-total">인연 <<print setup.getBond("isshin")>></span><br><span class="recordbook-bond-detail">애정 <<print setup.getAffection("isshin")>> · 갈등 <<print setup.getConflict("isshin")>></span><br><span class="recordbook-bond-shape"><<print setup.getBondShape("isshin")>></span></div></div>
+  <<else>>
+  <div class="recordbook-item recordbook-bond-card locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc">아직 마주하지 않았다.</div></div>
+  <</if>>
+  <<if _shuraKnown>>
+  <div class="recordbook-item recordbook-bond-card"><div class="recordbook-item-title">내면의 수라</div><div class="recordbook-item-desc"><span class="recordbook-bond-total">인연 <<print setup.getBond("shura")>></span><br><span class="recordbook-bond-detail">애정 <<print setup.getAffection("shura")>> · 갈등 <<print setup.getConflict("shura")>></span><br><span class="recordbook-bond-shape"><<print setup.getBondShape("shura")>></span></div></div>
+  <<else>>
+  <div class="recordbook-item recordbook-bond-card locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc">아직 이름 붙지 않은 내면이다.</div></div>
+  <</if>>
+</div>
+<div class="recordbook-section-title">인연의 기억</div>
+<div class="recordbook-list recordbook-bond-memory-list">
   <div class="recordbook-section-title">한베</div>
-  <div class="recordbook-item <<if not $hanbeiJustVisitedSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiJustVisitedSeen>>그냥 온 날<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiJustVisitedSeen>>늑대는 검을 뽑지 않고 한베를 찾아갔다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-item <<if not ($hanbeiSakeSeen or $sharedSake_hanbei)>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiSakeSeen or $sharedSake_hanbei>>술잔을 나눈 날<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiSakeSeen or $sharedSake_hanbei>>늑대는 죽지 않는 무사가 건넨 술잔을 받았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-item <<if not $hanbeiMaskEventSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiMaskEventSeen>>가려진 얼굴<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiMaskEventSeen>>한베는 웃음 너머의 얼굴을 숨기지 않기 시작했다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-item <<if not $hanbeiImmortalityTalkSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiImmortalityTalkSeen>>끝나지 않는 몸<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $hanbeiImmortalityTalkSeen>>불사의 피로가 처음으로 말이 되었다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <<if $hanbeiJustVisitedSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">그냥 온 날</div><div class="recordbook-item-desc">늑대는 검을 뽑지 않고 한베를 찾아갔다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <<if $hanbeiSakeSeen or $sharedSake_hanbei>>
+  <div class="recordbook-item"><div class="recordbook-item-title">술잔을 나눈 날</div><div class="recordbook-item-desc">늑대는 죽지 않는 무사가 건넨 술잔을 받았다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <<if $hanbeiMaskEventSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">가려진 얼굴</div><div class="recordbook-item-desc">한베는 웃음 너머의 얼굴을 숨기지 않기 시작했다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <<if $hanbeiImmortalityTalkSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">끝나지 않는 몸</div><div class="recordbook-item-desc">불사의 피로가 처음으로 말이 되었다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
   <div class="recordbook-section-title">쿠로</div>
-  <div class="recordbook-item <<if not $kuroReadingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroReadingSeen>>책을 읽는 시간<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $kuroReadingSeen>>글을 읽는 기쁨이 조용히 남았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-item <<if not $kuroWishSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $kuroWishSeen>>명령이 아닌 부탁<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $kuroWishSeen>>주군의 말이 임무가 아닌 바람으로 들렸다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <<if $kuroReadingSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">책을 읽는 시간</div><div class="recordbook-item-desc">글을 읽는 기쁨이 조용히 남았다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <<if $kuroTeaSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">찻잔 위의 침묵</div><div class="recordbook-item-desc">쿠로는 늑대가 자신을 위해 죽는 것을 당연하게 여기지 않았다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <<if $kuroWishSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">명령이 아닌 부탁</div><div class="recordbook-item-desc">주군의 말이 임무가 아닌 바람으로 들렸다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
   <div class="recordbook-section-title">겐이치로</div>
-  <div class="recordbook-item <<if not $genichiroMoonSakeSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroMoonSakeSeen>>같은 달<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $genichiroMoonSakeSeen>>성 위의 달 아래서, 적의 이름이 조금 달라졌다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-item <<if not $genichiroDoNotReturnSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $genichiroDoNotReturnSeen>>돌아가지 마라<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $genichiroDoNotReturnSeen>>붙잡힌 말은 명령보다 오래 남았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-section-title">조각가 / 잇신</div>
-  <div class="recordbook-item <<if not $sculptorFaceSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $sculptorFaceSeen>>깎이지 않는 얼굴<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $sculptorFaceSeen>>불상들 사이에 남은 얼굴을 보았다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
-  <div class="recordbook-item <<if not $isshinReedFieldSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinReedFieldSeen>>갈대밭의 사람<<else>>???<</if>></div><div class="recordbook-item-desc"><<if $isshinReedFieldSeen>>검사의 웃음과 죽음의 거리가 가까워졌다.<<else>><<print setup.t("lockedBond")>><</if>></div></div>
+  <<if $genichiroMoonSakeSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">같은 달</div><div class="recordbook-item-desc">성 위의 달 아래서, 적의 이름이 조금 달라졌다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <<if $genichiroDoNotReturnSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">돌아가지 마라</div><div class="recordbook-item-desc">붙잡힌 말은 명령보다 오래 남았다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <div class="recordbook-section-title">조각가</div>
+  <<if $sculptorFaceSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">깎이지 않는 얼굴</div><div class="recordbook-item-desc">불상들 사이에 남은 얼굴을 보았다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
+  <div class="recordbook-section-title">잇신</div>
+  <<if $isshinReedFieldSeen>>
+  <div class="recordbook-item"><div class="recordbook-item-title">갈대밭의 사람</div><div class="recordbook-item-desc">검사의 웃음과 죽음의 거리가 가까워졌다.</div></div>
+  <<else>>
+  <div class="recordbook-item locked"><div class="recordbook-item-title">???</div><div class="recordbook-item-desc"><<print setup.t("lockedBond")>></div></div>
+  <</if>>
 </div>
 <</nobr>>
 

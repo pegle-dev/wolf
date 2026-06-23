@@ -187,11 +187,20 @@
   function getSceneBgClass(passageName) {
     var name = String(passageName || '');
 
+    if (/^(FirstDeath_Choices|Genichiro_ArrowChoice)$/.test(name)) {
+      return 'bg-danger';
+    }
+    if (/^BadEnd_/.test(name)) {
+      return 'bg-badend';
+    }
     if (/^Intro/.test(name)) {
       return 'bg-black';
     }
     if (/^Dream/.test(name)) {
       return 'bg-black';
+    }
+    if (name === 'Temple_Return') {
+      return 'bg-night02';
     }
     if (isNightInterludePassage(name)) {
       return 'bg-night';
@@ -205,7 +214,10 @@
     if (/^Hidden_Rebirth_Temple/.test(name)) {
       return 'bg-black';
     }
-    if (/^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth)/.test(name) || name === 'Hanbei_End_QuietDay') {
+    if (/^FirstDeath_/.test(name)) {
+      return 'bg-black';
+    }
+    if (/^(Ending_|Hidden_Rebirth_Voices|Ending_Hidden_Rebirth)/.test(name) || name === 'Hanbei_End_QuietDay') {
       return 'bg-black';
     }
     if (/^Hanbei/.test(name)) {
@@ -274,6 +286,8 @@
         return '성 아래 거리';
       case 'bg-night':
         return '밤의 길';
+      case 'bg-night02':
+        return '밤의 절';
       case 'bg-room':
         return '낡은 서고';
       case 'bg-ashina-gate':
@@ -614,6 +628,8 @@
         return 'bg-night-patrol-05';
       case 'bg-night':
         return 'bg-night';
+      case 'bg-night02':
+        return 'bg-night02';
       case 'bg-ashina-gate':
         return 'bg-ashina-gate';
       case 'bg-ashina':
@@ -1228,7 +1244,9 @@ setup.ensureBondVariables = function () {
     isshinAffection : 0,
     isshinConflict : 0,
     emmaAffection : 0,
-    emmaConflict : 0
+    emmaConflict : 0,
+    shuraAffection : 0,
+    shuraConflict : 0
   };
 
   Object.keys(defaults).forEach(function (key) {
@@ -1245,6 +1263,20 @@ setup.getBond = function (character) {
   var conflict = Number(variables[key + 'Conflict']) || 0;
 
   return affection + conflict;
+};
+
+setup.getAffection = function (character) {
+  var variables = State.variables || {};
+  var key = String(character || '');
+
+  return Number(variables[key + 'Affection']) || 0;
+};
+
+setup.getConflict = function (character) {
+  var variables = State.variables || {};
+  var key = String(character || '');
+
+  return Number(variables[key + 'Conflict']) || 0;
 };
 
 setup.getTotalBond = function () {
@@ -1307,7 +1339,7 @@ setup.hasAutosave = function () {
         Save.browser &&
         Save.browser.auto &&
         typeof Save.browser.auto.has === 'function') {
-      return Save.browser.auto.has(0);
+      return Save.browser.auto.has();
     }
   } catch (error) {
     if (window.console && console.warn) {
@@ -1324,7 +1356,7 @@ setup.deleteAutosave = function () {
         Save.browser &&
         Save.browser.auto &&
         typeof Save.browser.auto.delete === 'function') {
-      Save.browser.auto.delete(0);
+      Save.browser.auto.delete();
     }
   } catch (error) {
     if (window.console && console.warn) {
@@ -1357,7 +1389,7 @@ setup.continueAutosave = function () {
         typeof Save.browser.auto.load === 'function') {
       setup._wolfContinuingAutosave = true;
       wolfSetSessionFlag('wolf.continuingAutosave');
-      Save.browser.auto.load(0);
+      Save.browser.auto.load();
       return;
     }
   } catch (error) {
@@ -1694,6 +1726,7 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
     var elapsed;
     var remainingRatio;
     var bar;
+    var passageEl;
 
     if (!startTime) {
       startTime = now;
@@ -1701,12 +1734,13 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
 
     elapsed = now - startTime;
     remainingRatio = Math.max(0, 1 - (elapsed / totalMs));
-    bar = document.querySelector(
-      '[data-timed-choice-bar], ' +
-      '.timed-choice-bar-fill, ' +
-      '.first-death-tension-fill, ' +
-      '.genichiro-arrow-tension-fill, ' +
-      '.genichiro-arrow-timer-fill'
+    passageEl = document.querySelector('.passage');
+    bar = passageEl && (
+      passageEl.querySelector('[data-timed-choice-bar]') ||
+      passageEl.querySelector('.timed-choice-bar-fill') ||
+      passageEl.querySelector('.first-death-tension-fill') ||
+      passageEl.querySelector('.genichiro-arrow-tension-fill') ||
+      passageEl.querySelector('.genichiro-arrow-timer-fill')
     );
 
     if (bar) {
@@ -1730,10 +1764,35 @@ setup.startTimedChoiceBar = wolfStartTimedChoiceBar;
 setup.clearTimedChoice = wolfClearTimedChoice;
 window.WolfClearTimedChoice = wolfClearTimedChoice;
 
-$(document).on(':passageend', function () {
-  if (!document.querySelector('[data-timed-choice-countdown]') && !document.querySelector('[data-timed-choice-bar]')) {
-    wolfClearTimedChoice();
+function wolfEnsureFirstDeathTimedChoice(attempt) {
+  var bar = document.querySelector('.first-death-choice-screen [data-timed-choice-bar]');
+  var isRunning = setup.timedChoiceTarget === 'FirstDeath_Timeout' && setup.timedChoiceFrame;
+
+  if (bar) {
+    if (!isRunning) {
+      wolfStartTimedChoiceBar(5, 'FirstDeath_Timeout');
+    }
+    return;
   }
+
+  if ((attempt || 0) < 10) {
+    window.setTimeout(function () {
+      wolfEnsureFirstDeathTimedChoice((attempt || 0) + 1);
+    }, 50);
+  }
+}
+
+$(document).on(':passagerender :passageend :passagedisplay', function () {
+  window.setTimeout(function () {
+    if (document.querySelector('.first-death-choice-screen [data-timed-choice-bar]')) {
+      wolfEnsureFirstDeathTimedChoice();
+      return;
+    }
+
+    if (!document.querySelector('[data-timed-choice-countdown]') && !document.querySelector('[data-timed-choice-bar]')) {
+      wolfClearTimedChoice();
+    }
+  }, 0);
 });
 
 function getStoredStatusHidden() {
@@ -2329,12 +2388,23 @@ $(document).on(':passagestart', function () {
   }
 });
 
+function wolfUpdateTempleChoiceColumns(root) {
+  var scope = root && root.querySelectorAll ? root : document;
+
+  scope.querySelectorAll('.temple-choice-box').forEach(function (box) {
+    var choices = box.querySelectorAll('a');
+
+    box.classList.toggle('is-two-column', choices.length > 3);
+  });
+}
+
 $(document).on(':passagerender :passageend', function (event) {
   if (window.WolfTrimNarrationWhitespace) {
     window.WolfTrimNarrationWhitespace(event && event.content ? event.content : document);
   }
   wolfClampStats();
   wolfUpdateOuterUI();
+  wolfUpdateTempleChoiceColumns(event && event.content ? event.content : document);
   applyStoredStatusHidden();
   if (setup.updateGlobalContinue) {
     setup.updateGlobalContinue();
@@ -2365,6 +2435,7 @@ $(document).on(':passagedisplay', function () {
 $(document).ready(function () {
   wolfClampStats();
   wolfUpdateOuterUI();
+  wolfUpdateTempleChoiceColumns(document);
   applyStoredStatusHidden();
   if (setup.updateGlobalContinue) {
     setup.updateGlobalContinue();

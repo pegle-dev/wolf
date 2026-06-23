@@ -2,7 +2,7 @@
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
 <<set $firstDeathIntroDone = true>>
-<div class="narration-screen">
+<div class="narration-screen black-stage">
 <div class="narration narration-block">아직 해가 완전히 들기도 전,
 낡은 기둥 하나가 낮게 울었다.
 
@@ -17,23 +17,39 @@
 :: FirstDeath_Choices {"position":"2875,125","size":"100,100"}
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-<div class="choice-screen timed-choice-screen first-death-choice-screen urgent-choice-shake">
+<div class="choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake">
 <div class="choice-prompt first-death-choice-prompt"><div class="urgent-shake-inner">기둥이 무너진다.
 쿠로가 그 아래에 있다.</div></div>
 
 <<run setup.startTimedChoiceBar && setup.startTimedChoiceBar(5, "FirstDeath_Timeout")>>
+<<timed 1s>>
+  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 20% 0 0)', 'important'); })>>
+<<next 1s>>
+  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 40% 0 0)', 'important'); })>>
+<<next 1s>>
+  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 60% 0 0)', 'important'); })>>
+<<next 1s>>
+  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 80% 0 0)', 'important'); })>>
+<<next 800ms>>
+  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 100% 0 0)', 'important'); })>>
+<</timed>>
+<<timed 5s>>
+  <<if passage() is "FirstDeath_Choices">>
+    <<goto "FirstDeath_Timeout">>
+  <</if>>
+<</timed>>
 
-<div class="global-choice-layer first-death-choice-layer">
-  <div class="urgent-shake-inner">
-    <div class="timed-choice-stack">
-      <div class="first-death-tension-ui timed-choice-bar-ui">
-        <div class="first-death-tension-label">반응</div>
-        <div class="first-death-tension-bar timed-choice-bar-track">
-          <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
-        </div>
+<div class="global-choice-layer first-death-choice-layer" style="position:absolute !important; display:block !important; left:50% !important; top:auto !important; bottom:116px !important; transform:translateX(-50%) !important; height:auto !important; min-height:0 !important;">
+  <div class="timed-choice-stack" style="height:auto !important; min-height:0 !important; flex:0 0 auto !important; align-self:center !important;"><<nobr>>
+    <div class="first-death-tension-ui timed-choice-bar-ui">
+      <div class="first-death-tension-label">반응</div>
+      <div class="first-death-tension-track first-death-tension-bar timed-choice-bar-track">
+        <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
       </div>
+    </div>
 
-      <div class="global-choice-box first-death-choice-box">
+    <div class="urgent-shake-inner">
+      <div class="global-choice-box first-death-choice-box" style="height:auto !important; min-height:0 !important; flex:0 0 auto !important;">
         <<link "쿠로를 밀쳐낸다">>
           <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
           <<goto "FirstDeath_PushKuro">>
@@ -48,6 +64,7 @@
         <</link>>
       </div>
     </div>
+  <</nobr>>
   </div>
 </div>
 </div>
@@ -147,12 +164,14 @@
 <<set $anyEndingSeen = true>>
 <<set $badEndingSeen = true>>
 <<markEndingSeen>>
-<div class="narration">[Bad End. 첫 번째 죽음]
-
-늑대는 쿠로를 구했다.
+<div class="badend-screen black-stage">
+<div class="badend-narration">늑대는 쿠로를 구했다.
 
 그리고,
 그 자리에서 죽었다.</div>
+
+<div class="badend-title">[Bad End. 첫 번째 죽음]</div>
+</div>
 
 <<continueTo "FirstDeath_Record">>
 <</page>>
@@ -169,7 +188,5 @@
 
 황폐한 절이다.</div>
 
-<div class="choice-box continue-row">
-[[눈을 뜬다->Temple]]
-</div>
+<<continueTo "Temple">>
 <</page>>

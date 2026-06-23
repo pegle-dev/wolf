@@ -7,7 +7,7 @@
 <<run setup.showToast && setup.showToast(setup.t("recordSomethingRemains"), "record")>>
 <</if>>
 
-<div class="choice-box temple-hub-choices">
+<div class="choice-box temple-hub-choices temple-choice-box">
 <<include "Temple_Choices">>
 </div>
 <</page>>
@@ -269,7 +269,7 @@
   <<set $nightPatrolJustFinished = false>>
   <<set $currentMode = "nightPatrol">>
   <<set $timeOfDay = "night">>
-  <<goto "NightPatrol_Roll">>
+  <<goto "NightPatrol_LocationChoice">>
 <</if>>
 
 :: NightPatrol {"position":"2000,825","size":"100,100"}
