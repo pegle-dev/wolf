@@ -1,8 +1,12 @@
 :: NightPatrol_Random {"position":"2000,925","size":"100,100"}
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "night">>
 <<goto "NightPatrol_Start">>
 
 :: NightPatrol_LocationChoice {"position":"2075,875","size":"100,100"}
 <<page>>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "night">>
 <<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 <div class="choice-screen night-patrol-choice-screen">
 <div class="choice-prompt">오늘 밤, 어디를 살필까.</div>
@@ -135,6 +139,7 @@
 <<goto "AdvanceDay">>
 
 :: NightRisk_Router {"position":"2250,650","size":"100,100"}
+<<set $timeOfDay = "night">>
 <<set $traceFirstNightPatrol = true>>
 <<set $returnEventPending = true>>
 <<set _risk = random(1, 5)>>
@@ -1994,6 +1999,8 @@
 
 :: NightRest {"position":"1800,975","size":"100,100"}
 <<page>>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "night">>
 <div class="narration">늑대는 잠시 눈을 감았다.
 휴식이라 부르기엔 짧고,
 잠이라 부르기엔 얕았다.
@@ -2004,5 +2011,5 @@
 <<set $danger = Math.max(0, $danger - 1)>>
 <<clampStats>>
 
-<<continueTo "Temple">>
+<<continueTo "Temple_AfterNight">>
 <</page>>

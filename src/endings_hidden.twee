@@ -234,5 +234,5 @@
 <<set $hiddenRevivalDone = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 돌아갈 길]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 돌아갈 길]</div>
 <</page>>

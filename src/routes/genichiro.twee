@@ -6,8 +6,13 @@
 
 :: Go_Genichiro {"position":"2050,1725","size":"100,100"}
 <<set $currentRoute = "genichiro">>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 
-<<if not $genichiroArrowEventSeen and not $genichiroGateSeen>>
+<<if ($dayCount || $day || 1) < 5>>
+  <<goto "Genichiro_NotYet">>
+<<elseif not $genichiroReturnNoticeSeen and not $genichiroArrowEventSeen and not $genichiroGateSeen>>
+  <<goto "Genichiro_ReturnNotice">>
+<<elseif not $genichiroArrowEventSeen and not $genichiroGateSeen>>
   <<goto "Genichiro_ArrowIntro">>
 <<elseif not $genichiroGateSeen>>
   <<goto "Genichiro_01_Gate">>
@@ -30,6 +35,42 @@
 <<else>>
   <<goto "Genichiro_AfterEnding">>
 <</if>>
+
+:: Genichiro_NotYet {"position":"2050,1550","size":"100,100"}
+<<page>>
+<<set $timeOfDay = "day">>
+<div class="narration-screen">
+<div class="narration narration-block">성 쪽은 아직 조용했다.
+
+먼 바람만이
+무너진 담 너머를 지나갔다.</div>
+</div>
+
+<<continueTo "Temple">>
+<</page>>
+
+:: Genichiro_ReturnNotice {"position":"2175,1550","size":"100,100"}
+<<if $genichiroReturnNoticeSeen>>
+  <<goto "Genichiro_ArrowIntro">>
+<</if>>
+<<page>>
+<<set $genichiroReturnNoticeSeen = true>>
+<<set $timeOfDay = "day">>
+<div class="narration-screen scene-bg-temple">
+<div class="narration narration-block">며칠째,
+성 쪽의 바람이 달랐다.
+
+먼 곳에서 돌아온 발소리들이
+무너진 담과 길 위에 낮게 깔렸다.
+
+전투를 끝낸 아시나의 대장군 부대가
+성으로 돌아온 듯했다.
+
+늑대는 성문 쪽을 보았다.</div>
+</div>
+
+<<continueTo "Genichiro_ArrowIntro">>
+<</page>>
 
 :: Genichiro_ArrowIntro {"position":"2175,1600","size":"100,100"}
 <<page>>
@@ -1126,7 +1167,7 @@
 
 :: Ending_Genichiro_SettingMoonCastle_End {"position":"4175,2775","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[End. 달이 지는 성]</div>
+<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[Day End. 달이 지는 성]</div>
 <</page>>
 
 :: Ending_Genichiro_SameMoon {"position":"2175,2925","size":"100,100"}
@@ -1185,7 +1226,7 @@
 
 :: Ending_Genichiro_SameMoon_End {"position":"2300,2925","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 같은 달을 등지고]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 같은 달을 등지고]</div>
 <</page>>
 
 :: Ending_Genichiro_Footprints {"position":"2175,3075","size":"100,100"}
@@ -1242,7 +1283,7 @@
 
 :: Ending_Genichiro_Footprints_End {"position":"2300,3075","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 성에 남은 발자국]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 성에 남은 발자국]</div>
 <</page>>
 
 :: BadEnd_Genichiro_SinkingCastle {"position":"2175,3225","size":"100,100"}

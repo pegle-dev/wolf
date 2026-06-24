@@ -701,7 +701,7 @@
 
 :: Ending_Sculptor_LeftBehindBuddha_End {"position":"3250,1650","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 남겨진 불상]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 남겨진 불상]</div>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace {"position":"2500,1825","size":"100,100"}

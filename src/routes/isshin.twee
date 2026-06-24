@@ -639,7 +639,7 @@
 
 :: Ending_Isshin_ReedSake_End {"position":"3150,1750","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[End. 갈대밭의 술자리]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 갈대밭의 술자리]</div>
 <</page>>
 
 :: BadEnd_Isshin_EmptyCup {"position":"2400,1925","size":"100,100"}

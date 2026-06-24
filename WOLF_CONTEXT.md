@@ -955,3 +955,10 @@ Wolf는 앞으로 이렇게 가야 한다.
 그리고 늑대는,
 다시 절로 돌아온다.
 ```
+## Event Time Routers
+
+- 낮 이벤트: `Temple` 또는 `DayEvent_Router`에서 발생한다. 인물, 절, 관계, 일상 중심이며 위험/죽음/꿈 이벤트는 넣지 않는다.
+- 밤 이벤트: `Temple_Return` 이후 발생한다. `NightPatrol_Random`, `NightRisk_*`, `NightRest`, `Dream_Router`/`Dream_*`가 여기에 속하며 위험, 꿈, 고독, 수라 전조를 담당한다.
+- 귀환 이벤트: 밤 행동 후 `Temple_AfterNight`와 `ReturnEvent_Router`에서 발생한다. 다음 낮으로 돌아가기 전의 짧은 관찰/보상 컷이며 변수 변화는 거의 두지 않는다.
+- `$timeOfDay` 값은 `day`, `night`, `dream`, `dawn`을 사용한다. `Temple`은 `day`, `Temple_Return`/밤정찰은 `night`, 꿈 내부는 `dream`, 귀환 라우터는 `dawn`으로 둔다.
+- `$dayCount`는 밤 행동과 귀환 이벤트가 끝난 뒤 `ReturnToTempleNextDay`에서 증가한다. 1일째에는 한베 초반/기본 밤정찰/기본 귀환 컷만 열고, 쿠로 차 이벤트는 2일째 이후, 엠마/조각가 계열은 3일째 이후, 잇신/수라 전조 계열은 5일째 이후로 늦춘다.

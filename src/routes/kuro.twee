@@ -9,9 +9,12 @@
 
 :: Kuro_Router {"position":"2225,925","size":"100,100"}
 <<set $currentRoute = "kuro">>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 
-<<if not ($kuroTeaSeen || false)>>
+<<if ($dayCount || $day || 1) < 2>>
+  <<goto "Kuro_NotYet">>
+<<elseif not ($kuroTeaSeen || false)>>
   <<goto "Kuro_02_Tea">>
 <<elseif not ($kuroMidConflictSeen || false) and ((setup.getBond && setup.getBond("kuro") >= 2) or (($kuroAffection || 0) + ($kuroConflict || 0)) >= 2 or ($kuroOrderLanguageSeen || false) or ($kuroLove || 0) >= 3)>>
   <<goto "Kuro_MidConflict">>
@@ -30,6 +33,17 @@
 <<else>>
   <<goto "Kuro_07_FinalChoice">>
 <</if>>
+
+:: Kuro_NotYet {"position":"2225,1025","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">쿠로의 방은 조용했다.
+
+아직 불빛이 들기 전이었다.</div>
+</div>
+
+<<continueTo "Temple">>
+<</page>>
 
 :: Kuro_01_Reading {"position":"2350,800","size":"100,100"}
 <<page>>
@@ -1802,7 +1816,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_End {"position":"3850,1725","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[End. 주인 없는 길]</div>
+<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[Day End. 주인 없는 길]</div>
 <</page>>
 
 :: BadEnd_Kuro_LastOrder {"position":"2350,1875","size":"100,100"}

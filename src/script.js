@@ -32,6 +32,8 @@
       day: '낮',
       evening: '저녁',
       night: '밤',
+      dawn: '새벽',
+      dream: '꿈',
       recordNewEnding: '기록장에 새로운 결말이 남았다.',
       recordNewTrace: '기록장에 새로운 흔적이 남았다.',
       recordNewDream: '기록장에 새로운 꿈이 남았다.',
@@ -60,6 +62,8 @@
       day: '昼',
       evening: '夕',
       night: '夜',
+      dawn: '明け方',
+      dream: '夢',
       recordNewEnding: '記録帳に新しい結末が残った。',
       recordNewTrace: '記録帳に新しい痕跡が残った。',
       recordNewDream: '記録帳に新しい夢が残った。',
@@ -88,6 +92,8 @@
       day: 'Day',
       evening: 'Evening',
       night: 'Night',
+      dawn: 'Dawn',
+      dream: 'Dream',
       recordNewEnding: 'A new ending has been recorded.',
       recordNewTrace: 'A new trace has been recorded.',
       recordNewDream: 'A new dream has been recorded.',
@@ -116,6 +122,8 @@
       day: '白昼',
       evening: '傍晚',
       night: '夜晚',
+      dawn: '黎明',
+      dream: '梦',
       recordNewEnding: '记录簿中留下了新的结局。',
       recordNewTrace: '记录簿中留下了新的痕迹。',
       recordNewDream: '记录簿中留下了新的梦。',
@@ -144,6 +152,8 @@
       day: '白晝',
       evening: '傍晚',
       night: '夜晚',
+      dawn: '黎明',
+      dream: '夢',
       recordNewEnding: '記錄簿中留下了新的結局。',
       recordNewTrace: '記錄簿中留下了新的痕跡。',
       recordNewDream: '記錄簿中留下了新的夢。',
@@ -172,9 +182,10 @@
   setup.getDayLabel = function () {
     var variables = State.variables || {};
     var day = Number(variables.day);
-    var displayDay = isFinite(day) && day > 0 ? day : 1;
+    var dayCount = Number(variables.dayCount);
+    var displayDay = isFinite(dayCount) && dayCount > 0 ? dayCount : (isFinite(day) && day > 0 ? day : 1);
     var time = String(variables.timeOfDay || 'day');
-    var timeKey = time === 'night' || time === '밤' ? 'night' : (time === 'evening' || time === '저녁' ? 'evening' : 'day');
+    var timeKey = time === 'dream' || time === '꿈' ? 'dream' : (time === 'dawn' || time === '새벽' ? 'dawn' : (time === 'night' || time === '밤' ? 'night' : (time === 'evening' || time === '저녁' ? 'evening' : 'day')));
     var lang = variables.language || 'ko';
 
     if (lang === 'en') {
@@ -303,6 +314,10 @@
 
   function getTimeOfDayLabel(timeOfDay) {
     switch (String(timeOfDay || 'day')) {
+      case 'dream':
+        return '꿈';
+      case 'dawn':
+        return '새벽';
       case 'night':
         return '밤';
       case 'evening':
@@ -377,6 +392,25 @@
         variables[key] = defaults[key];
       }
     });
+  };
+
+  setup.ensureTimeVariables = function () {
+    var variables = State.variables || {};
+    var day = Number(variables.day);
+    var dayCount = Number(variables.dayCount);
+
+    if (!isFinite(day) || day < 1) {
+      variables.day = 1;
+      day = 1;
+    }
+
+    if (!isFinite(dayCount) || dayCount < 1) {
+      variables.dayCount = day;
+    }
+
+    if (typeof variables.timeOfDay === 'undefined' || variables.timeOfDay === null) {
+      variables.timeOfDay = 'day';
+    }
   };
 
   function hasNewRecordBookEntry() {

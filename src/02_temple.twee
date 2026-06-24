@@ -1,5 +1,7 @@
 :: Temple {"position":"1525,450","size":"100,100"}
 <<page>>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "day">>
 <<include "Temple_Description">>
 <<include "Temple_CharacterEcho">>
 
@@ -112,6 +114,7 @@
 <</if>>
 <</if>>
 
+<<if ($dayCount || $day || 1) >= 2>>
 <<if $kuroProgress == 0>>
 <<if $kuroLove >= 3>>
 [[쿠로님에게로 간다->Kuro_Router]]
@@ -125,12 +128,14 @@
 [[주군에게로 간다->Kuro_Router]]
 <</if>>
 <</if>>
+<</if>>
 
+<<if ($dayCount || $day || 1) >= 5>>
 <<if $genichiroProgress == 0>>
 <<if $genichiroLove >= 3>>
-[[겐이치로공에게 간다->Genichiro01]]
+[[겐이치로공에게 간다->Genichiro_ReturnNotice]]
 <<else>>
-[[아시나 성의 대장군에게 간다->Genichiro01]]
+[[아시나 성의 대장군에게 간다->Genichiro_ReturnNotice]]
 <</if>>
 <<else>>
 <<if $genichiroLove >= 3>>
@@ -139,8 +144,9 @@
 [[아시나 성의 대장군에게 간다->Genichiro]]
 <</if>>
 <</if>>
+<</if>>
 
-<<if $secondLoopUnlocked or $sculptorUnlocked>>
+<<if ($dayCount || $day || 1) >= 3 and ($secondLoopUnlocked or $sculptorUnlocked)>>
 <<if $sculptorLove >= 3>>
 [[조각가 곁으로 간다->Sculptor_Router]]
 <<else>>
@@ -148,11 +154,11 @@
 <</if>>
 <</if>>
 
-<<if $secondLoopUnlocked and $emmaEventUnlocked and not $emmaIntroducedIsshin>>
+<<if ($dayCount || $day || 1) >= 3 and $secondLoopUnlocked and $emmaEventUnlocked and not $emmaIntroducedIsshin>>
 [[엠마와 이야기한다->Emma_IntroduceIsshin]]
 <</if>>
 
-<<if $isshinUnlocked>>
+<<if ($dayCount || $day || 1) >= 5 and $isshinUnlocked>>
 <<if $isshinLove >= 3>>
 [[잇신님을 찾아간다->Isshin_Router]]
 <<else>>
@@ -160,8 +166,12 @@
 <</if>>
 <</if>>
 
-<<if $shuraUnlocked and $shura >= 13>>
+<<if ($dayCount || $day || 1) >= 5 and $shuraUnlocked and $shura >= 13>>
 [[아무도 만나지 않는다->Shura]]
+<</if>>
+
+<<if $timeOfDay == "day">>
+[[절을 둘러본다->DayEvent_Router]]
 <</if>>
 
 <<if $timeOfDay == "day" and not $nightPatrolActive>>
@@ -169,27 +179,37 @@
 <</if>>
 
 :: AdvanceDay {"position":"1800,725","size":"100,100"}
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "dawn">>
+<<set $currentMode = "temple">>
+<<set $nightPatrolActive = false>>
+<<set $nightPatrolJustFinished = false>>
+<<set $returnEventPending = true>>
+<<goto "Temple_AfterNight">>
+
+:: ReturnToTempleNextDay {"position":"1950,625","size":"100,100"}
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<if not $dayAdvancedToday>>
-  <<set $day += 1>>
+  <<set $dayCount = ($dayCount || $day || 1) + 1>>
+  <<set $day = $dayCount>>
   <<set $timeOfDay = "day">>
-  <<set $currentMode = "temple">>
-  <<set $nightPatrolActive = false>>
   <<set $dayAdvancedToday = true>>
-  <<set $dayEndReturn = true>>
-  <<run $dayLog.push("Day " + $day)>>
+  <<run $dayLog.push("Day " + $dayCount)>>
 <</if>>
 <<goto "StartNewDay">>
 
 :: StartNewDay {"position":"1925,725","size":"100,100"}
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<set $dayAdvancedToday = false>>
 <<set $timeOfDay = "day">>
+<<set $dayCount = $day>>
 <<set $nightPatrolActive = false>>
 <<set $nightPatrolUsedToday = false>>
 <<set $currentMode = "temple">>
 <<if $day >= 2>>
   <<set $nightPatrolUnlocked = true>>
 <</if>>
-<<if $day >= 3 and $secondLoopUnlocked>>
+<<if $dayCount >= 3 and $secondLoopUnlocked>>
   <<set $emmaEventUnlocked = true>>
 <</if>>
 <<if $nightPatrolJustFinished>>
@@ -203,6 +223,7 @@
 <<goto "ReturnToTempleHub">>
 
 :: ReturnToTempleHub {"position":"2175,725","size":"100,100"}
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<set $timeOfDay = "day">>
 <<set $currentMode = "temple">>
 <<set $nightPatrolActive = false>>
@@ -217,14 +238,20 @@
 
 :: Temple_AfterNight {"position":"1825,625","size":"100,100"}
 <<page>>
-새벽이 가까워진다.
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "dawn">>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 절로 돌아왔다.
 
+밤은 아직 완전히 가시지 않았다.</div>
+</div>
 
 <<continueTo "ReturnEvent_Router">>
 <</page>>
 
 :: Temple_Return {"position":"2025,1200","size":"100,100"}
 <<page>>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<updateRouteUnlocks>>
 <<set $sceneCount += 1>>
 <<set $returnTo = "Temple_Return">>
@@ -254,6 +281,7 @@
 [[밤 정찰을 나선다->NightPatrol_Random]]
 <</if>>
 [[잠든다->Dream_Router]]
+[[절에 머문다->ReturnEvent_Router]]
 </div>
 <</page>>
 
@@ -279,6 +307,7 @@
 <<goto "Sleep_Roll">>
 
 :: Sleep_Roll {"position":"1800,875","size":"100,100"}
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<set $timeOfDay = "night">>
 <<set $currentMode = "sleep">>
 <<set $nightPatrolActive = false>>

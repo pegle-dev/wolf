@@ -1,5 +1,6 @@
 :: DreamRouter {"position":"2050,975","size":"100,100"}
-<<set $timeOfDay = "night">>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $timeOfDay = "dream">>
 <<set $currentMode = "sleep">>
 <<set $nightPatrolActive = false>>
 <<set $nightPatrolJustFinished = false>>

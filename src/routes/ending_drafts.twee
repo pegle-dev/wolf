@@ -179,7 +179,7 @@
 
 죽음을 아무렇지 않게 쓰는 자가 되는 것이었다.</div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Worst End. 죽지 않는 무기]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 죽지 않는 무기]</div>
 <</page>>
 
 :: Ending_Kuro_True_NotCommand {"position":"6000,2500","size":"100,100"}
@@ -354,7 +354,7 @@
 늑대는 기다린다.
 쿠로가 다음 명령을 내릴 때까지.</div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Worst End. 무거운 명령]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 무거운 명령]</div>
 <</page>>
 
 :: Ending_Genichiro_True_MirrorSide {"position":"6200,2500","size":"100,100"}
@@ -688,5 +688,5 @@
 이미 오래전에
 자신의 말을 잃었기 때문이다.</div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Worst End. 철의 호위]</div>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 철의 호위]</div>
 <</page>>
