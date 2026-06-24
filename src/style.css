@@ -6549,3 +6549,122 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     text-shadow: 0 0 10px rgba(110, 18, 14, 0.34);
   }
 }
+
+/* Final unified choice contract.
+   Intro choices also use this path; debug-force-choice no longer gets a
+   separate fixed/top layout that can collide with the prompt. */
+.choice-screen .choice-prompt,
+.choice-screen .intro-dream-choice-prompt {
+  top: 64px !important;
+  line-height: 1.65 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer,
+.choice-screen .global-choice-layer.debug-force-choice,
+.page-stage.intro-dream-screen .global-choice-layer,
+.wolf-page.intro-dream-screen .global-choice-layer {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 64px !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  max-width: min(720px, 82vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  z-index: 50 !important;
+}
+
+.global-choice-box,
+.story-choice-box,
+.choice-screen .global-choice-box,
+.choice-screen .story-choice-box,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 6px 20px 7px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  pointer-events: auto !important;
+}
+
+.global-choice-box a,
+.story-choice-box a,
+.choice-screen .global-choice-box a,
+.choice-screen .story-choice-box a,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box a {
+  position: relative !important;
+  display: block !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: min(82vw, 680px) !important;
+  margin: 0 !important;
+  padding: 3px 0 4px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.42 !important;
+  letter-spacing: 0.035em !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  color: rgba(206, 202, 194, 0.76) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.global-choice-box a::before,
+.story-choice-box a::before,
+.choice-screen .global-choice-box a::before,
+.choice-screen .story-choice-box a::before,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box a::before {
+  content: "▸" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: rgba(160, 154, 144, 0.66) !important;
+  font-size: 0.86em !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+}
+
+.global-choice-box:hover,
+.story-choice-box:hover,
+.global-choice-box:has(a:hover),
+.story-choice-box:has(a:hover) {
+  border-top-color: rgba(160, 154, 144, 0.42) !important;
+  border-bottom-color: rgba(160, 154, 144, 0.42) !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  bottom: 88px !important;
+}
