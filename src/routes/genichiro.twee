@@ -18,8 +18,12 @@
   <<goto "Genichiro_01_Gate">>
 <<elseif not $genichiroRooftopSeen>>
   <<goto "Genichiro_02_Rooftop">>
+<<elseif not ($genichiroWatchPostSeen || false)>>
+  <<goto "Genichiro_02b_WatchPost">>
 <<elseif not $genichiroFullDuelSeen>>
   <<goto "Genichiro_03_FullDuel">>
+<<elseif not ($genichiroAfterDuelSeen || false)>>
+  <<goto "Genichiro_03b_AfterDuelDistance">>
 <<elseif not $genichiroMoonSakeSeen>>
   <<goto "Genichiro_04_MoonSake">>
 <<elseif not ($genichiroMidConflictSeen || false) and (((($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 2) or (($genichiroLove || 0) >= 2)) and (($danger || 0) >= 3)>>
@@ -195,6 +199,10 @@
 :: Genichiro_EndingRouter {"position":"2050,2850","size":"100,100"}
 <<if $shura >= 8>>
   <<goto "BadEnd_Genichiro_LightningWolf">>
+<<elseif ($genichiroMidConflictSeen || false) and (($genichiroConflict || 0) >= 3 or ($genichiroLogicSeed || false)) and (($wolfProtectsAgainstWill || 0) >= 2 or ($ironGuardFlag || false) or ($genichiroWorstReady || false) or (($missionObedienceCount || 0) >= 3 and ($freedom || 0) <= 1))>>
+  <<goto "Ending_Genichiro_Worst_IronGuard">>
+<<elseif ($genichiroMidConflictSeen || false) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4 or ($genichiroLove || 0) >= 5) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
+  <<goto "Ending_Genichiro_True_MirrorSide">>
 <<elseif $genichiroLove >= 5 and $isolation >= 8>>
   <<goto "BadEnd_Genichiro_SinkingCastle">>
 <<elseif $freedom <= 1 and $missionObedienceCount >= 3>>
@@ -354,6 +362,115 @@
 </div>
 <</page>>
 
+:: Genichiro_02b_WatchPost {"position":"2175,1950","size":"100,100"}
+<<page>>
+<<set $currentRoute = "genichiro">>
+<<set $genichiroProgress = Math.max($genichiroProgress, 2)>>
+<<set $genichiroWatchPostSeen = true>>
+
+<div class="narration">
+성벽 위의 초소에는 불이 없었다.
+
+겐이치로는 활을 들고 있었다.
+그러나 시위는 당기지 않았다.
+
+늑대의 손은 검자루에 닿아 있었다.
+
+둘 사이에는,
+화살 하나가 날아올 만큼의 거리와
+칼 하나가 닿을 만큼의 침묵이 있었다.
+</div>
+
+<<continueTo "Genichiro_02b_WatchPost_Talk01">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Talk01 {"position":"2300,1950","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+지나가라.
+<</talk>>
+
+<<continueTo "Genichiro_02b_WatchPost_Talk02">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Talk02 {"position":"2425,1950","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+비키는 건가.
+<</talk>>
+
+<<continueTo "Genichiro_02b_WatchPost_Talk03">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Talk03 {"position":"2550,1950","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+오늘은 베지 않을 뿐이다.
+<</talk>>
+
+<<continueTo "Genichiro_02b_WatchPost_Talk04">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Talk04 {"position":"2675,1950","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+명령인가.
+<</talk>>
+
+<<continueTo "Genichiro_02b_WatchPost_Talk05">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Talk05 {"position":"2800,1950","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+경고다.
+
+등을 보이지 마라.
+<</talk>>
+
+<<continueTo "Genichiro_02b_WatchPost_Beat01">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Beat01 {"position":"2925,1950","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 지나갔다.
+
+겐이치로는 쏘지 않았다.
+
+늑대도 돌아서지 않았다.
+
+등을 맡긴 것은 아니었다.
+다만,
+서로가 아직 베지 않았다는 사실만 남았다.
+</div>
+
+<<continueTo "Genichiro_02b_WatchPost_Choice">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Choice {"position":"3050,1950","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "등을 보이지 않는다" "Temple_Return">>
+  <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+  <<set $genichiroLove = Math.max(($genichiroLove || 0), (($genichiroAffection || 0) + ($genichiroConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "그를 지나친다" "Temple_Return">>
+  <<set $genichiroAffection = ($genichiroAffection || 0) + 1>>
+  <<set $genichiroLove = Math.max(($genichiroLove || 0), (($genichiroAffection || 0) + ($genichiroConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "활을 본다" "Temple_Return">>
+  <<set $danger = ($danger || 0) + 1>>
+  <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
 :: Genichiro_03_FullDuel {"position":"2175,2025","size":"100,100"}
 <<page>>
 <<set $currentRoute = "genichiro">>
@@ -476,6 +593,110 @@
 </div>
 <</page>>
 
+:: Genichiro_03b_AfterDuelDistance {"position":"2175,2100","size":"100,100"}
+<<page>>
+<<set $currentRoute = "genichiro">>
+<<set $genichiroProgress = Math.max($genichiroProgress, 3)>>
+<<set $genichiroAfterDuelSeen = true>>
+<<set $genichiroCloseBladeSeen = true>>
+
+<div class="narration">
+싸움이 끝난 뒤에도,
+둘은 바로 물러서지 않았다.
+
+겐이치로의 손등에서 피가 떨어졌다.
+늑대의 손목에도 같은 붉은 선이 있었다.
+
+누가 먼저 베었는지는 분명했다.
+누가 먼저 멈췄는지는 분명하지 않았다.
+</div>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Talk01">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Talk01 {"position":"2300,2100","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+보지 마라.
+<</talk>>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Talk02">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Talk02 {"position":"2425,2100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+베인 곳이다.
+<</talk>>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Talk03">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Talk03 {"position":"2550,2100","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+네가 벤 곳이지.
+<</talk>>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Beat01">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Beat01 {"position":"2675,2100","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 대답하지 않았다.
+
+겐이치로도 피를 닦지 않았다.
+
+상처는 얕았다.
+그러나 얕은 상처일수록,
+누가 남겼는지 오래 보였다.
+</div>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Talk04">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Talk04 {"position":"2800,2100","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+다음에는 더 깊이 베어라.
+<</talk>>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Talk05">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Talk05 {"position":"2925,2100","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+필요하다면.
+<</talk>>
+
+<<continueTo "Genichiro_03b_AfterDuelDistance_Choice">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Choice {"position":"3050,2100","size":"100,100"}
+<<page>>
+<div class="choice-box">
+<<link "상처를 보아 둔다" "Temple_Return">>
+  <<set $genichiroAffection = ($genichiroAffection || 0) + 1>>
+  <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+  <<set $genichiroSawWound = true>>
+  <<set $genichiroLove = Math.max(($genichiroLove || 0), (($genichiroAffection || 0) + ($genichiroConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "검을 닦는다" "Temple_Return">>
+  <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "먼저 돌아선다" "Temple_Return">>
+  <<set $isolation = ($isolation || 0) + 1>>
+  <<clampStats>>
+<</link>>
+</div>
+<</page>>
+
 :: Genichiro_04_MoonSake {"position":"2175,2175","size":"100,100"}
 <<page>>
 <<set $currentRoute = "genichiro">>
@@ -563,7 +784,9 @@
 둘은 말없이 술을 마셨다.
 
 아시나의 밤은 차가웠다.
-그러나 그 침묵은 이전보다 덜 차가웠다.
+
+겐이치로가 먼저 잔을 내려놓지 않았다.
+늑대도 먼저 일어서지 않았다.
 </div>
 
 <<continueTo "Genichiro_04_MoonSake_Choice">>
@@ -722,7 +945,7 @@
 <<set $genichiroFearHeard = true>>
 
 <<talk "genichiro" "겐이치로">>
-난 아시나를 잃는 게 두렵다.
+아시나가 무너지는 소리를 들은 적 있나.
 <</talk>>
 
 <<continueTo "Genichiro_06_AshinaConfession_Talk02">>
@@ -740,7 +963,7 @@
 :: Genichiro_06_AshinaConfession_Talk03 {"position":"2425,2475","size":"100,100"}
 <<page>>
 <<talk "genichiro" "겐이치로">>
-우습나.
+나는 들었다.
 <</talk>>
 
 <<continueTo "Genichiro_06_AshinaConfession_Talk04">>
@@ -749,7 +972,7 @@
 :: Genichiro_06_AshinaConfession_Talk04 {"position":"2550,2475","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
-아니다.
+…
 <</talk>>
 
 <<continueTo "Genichiro_06_AshinaConfession_Talk05">>
@@ -787,7 +1010,7 @@
 :: Genichiro_06_AshinaConfession_Talk08 {"position":"3050,2475","size":"100,100"}
 <<page>>
 <<talk "genichiro" "겐이치로">>
-그 말이 더 잔인하군.
+그래서 네 침묵이 거슬린다.
 <</talk>>
 
 <<continueTo "Genichiro_06_AshinaConfession_Choice">>
@@ -1768,6 +1991,7 @@
 :: Genichiro_MidConflict_Q2_Different {"position":"4650,3575","size":"100,100"}
 <<page>>
 <<set $genichiroDeniedSame = true>>
+<<set $genichiroMirrorRecognized = true>>
 <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
 <<clampStats>>
 <<talk "wolf" "늑대">>
@@ -1810,6 +2034,7 @@
 :: Genichiro_MidConflict_Q2_Same {"position":"4650,3625","size":"100,100"}
 <<page>>
 <<set $genichiroAdmittedSame = true>>
+<<set $genichiroMirrorRecognized = true>>
 <<set $genichiroAffection = ($genichiroAffection || 0) + 1>>
 <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
 <<set $genichiroLove = Math.max(($genichiroLove || 0), ($genichiroAffection || 0))>>
@@ -1888,6 +2113,7 @@
 :: Genichiro_MidConflict_Q2_Silent {"position":"4650,3675","size":"100,100"}
 <<page>>
 <<set $genichiroStayedSilent = ($genichiroStayedSilent || 0) + 1>>
+<<set $genichiroLogicSeed = true>>
 <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
 <<clampStats>>
 <<talk "genichiro" "겐이치로">>
