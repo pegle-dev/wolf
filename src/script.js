@@ -607,6 +607,22 @@
     return setup.ensureEndingMetaVariables().count;
   };
 
+  setup.ensurePortraitVariables = function () {
+    var variables = State.variables || {};
+
+    if (!variables.characterPortraits || typeof variables.characterPortraits !== 'object' || Array.isArray(variables.characterPortraits)) {
+      variables.characterPortraits = {};
+    }
+    if (!variables.seenPortraitTransitions || typeof variables.seenPortraitTransitions !== 'object' || Array.isArray(variables.seenPortraitTransitions)) {
+      variables.seenPortraitTransitions = {};
+    }
+
+    return {
+      characterPortraits: variables.characterPortraits,
+      seenPortraitTransitions: variables.seenPortraitTransitions
+    };
+  };
+
   setup.ensureEventCooldowns = function () {
     var variables = State.variables || {};
     var cooldowns = variables.eventCooldowns;
@@ -1365,6 +1381,103 @@
     return WOLF_PORTRAIT_FILES[portraitKey] || '';
   }
 
+  function resolveCharacterPortraitVariant(character, nextPortrait) {
+    var base = normalizePortraitName(character);
+    var key = normalizePortraitName(nextPortrait || 'default');
+    var aliasMap = {
+      kuro: {
+        default: 'kuro',
+        closer: 'kuro_like',
+        close: 'kuro_like',
+        like: 'kuro_like',
+        bad: 'kuro_bad'
+      },
+      hanbei: {
+        default: 'hanbei',
+        concern: 'hanbei_like',
+        closer: 'hanbei_like',
+        like: 'hanbei_like',
+        bad: 'hanbei_bad'
+      },
+      genichiro: {
+        default: 'genichiro',
+        tense: 'genichiro_bad',
+        sharp: 'genichiro_bad',
+        like: 'genichiro_like',
+        bad: 'genichiro_bad'
+      }
+    };
+    var directKey = base && key && key !== 'default' ? base + '_' + key : base;
+    var resolved = aliasMap[base] && aliasMap[base][key];
+
+    if (resolved && hasPortraitKey(resolved)) {
+      return resolved;
+    }
+    if (hasPortraitKey(directKey)) {
+      return directKey;
+    }
+    if (hasPortraitKey(key)) {
+      return key;
+    }
+    if (hasPortraitKey(base)) {
+      return base;
+    }
+
+    return '';
+  }
+
+  function getPortraitBaseKey(requestedPortrait, resolvedPortrait) {
+    var requested = String(requestedPortrait || '').trim();
+    var resolved = String(resolvedPortrait || '').trim();
+    var base = requested ? normalizePortraitName(requested.split(':')[0]) : '';
+
+    if (base && WOLF_BASE_PORTRAITS[base]) {
+      return base;
+    }
+
+    return resolved.replace(/_(bad|like|danger|isolation|shura_end|shura_on|true)$/i, '');
+  }
+
+  setup.getPortraitSrc = function (character, portraitKey) {
+    var resolved = resolveCharacterPortraitVariant(character, portraitKey);
+
+    return resolved ? getPortraitPath(resolved) : '';
+  };
+
+  setup.changeCharacterPortrait = function (character, nextPortrait, toastMessage) {
+    var state = setup.ensurePortraitVariables ? setup.ensurePortraitVariables() : null;
+    var base = normalizePortraitName(character);
+    var resolved = resolveCharacterPortraitVariant(base, nextPortrait);
+    var previous;
+    var transitionKey;
+
+    if (!state || !base || !resolved) {
+      return false;
+    }
+
+    previous = state.characterPortraits[base] || base;
+    state.characterPortraits[base] = resolved;
+    transitionKey = base + ':' + resolved;
+
+    if (state.seenPortraitTransitions[transitionKey] === true) {
+      return false;
+    }
+
+    state.seenPortraitTransitions[transitionKey] = true;
+    setup.pendingPortraitTransition = {
+      character: base,
+      from: previous,
+      to: resolved,
+      key: transitionKey
+    };
+
+    if (toastMessage && setup.showToast) {
+      setup.showToast(toastMessage, 'bond');
+    }
+
+    return true;
+  };
+
   Macro.add('page', {
     tags : null,
     handler : function () {
@@ -1451,8 +1564,34 @@
     handler : function () {
       var requestedPortrait = this.args.length > 0 ? String(this.args[0] || '') : '';
       var portrait = requestedPortrait ? resolvePortraitKey(requestedPortrait) : '';
-      var portraitPath = portrait ? getPortraitPath(portrait) : '';
+      var portraitBase = portrait ? getPortraitBaseKey(requestedPortrait, portrait) : '';
+      setup.wolfLastPortraitByBase = setup.wolfLastPortraitByBase || {};
+      var portraitState = setup.ensurePortraitVariables ? setup.ensurePortraitVariables() : null;
+      var requestedHasManualVariant = requestedPortrait.indexOf(':') !== -1;
+      var storedPortrait = portraitBase && portraitState ? portraitState.characterPortraits[portraitBase] : '';
+      var pendingTransition = setup.pendingPortraitTransition;
+      var transitionKey;
+      var previousPortrait;
+      var previousPortraitPath;
+      var changedPortrait;
+      var portraitPath;
       var speaker = this.args.length > 1 ? String(this.args[1] || '') : '';
+
+      if (portraitBase && storedPortrait && storedPortrait !== portraitBase && hasPortraitKey(storedPortrait) && !requestedHasManualVariant) {
+        portrait = storedPortrait;
+      }
+
+      if (
+        portraitBase &&
+        pendingTransition &&
+        pendingTransition.character === portraitBase &&
+        pendingTransition.to &&
+        hasPortraitKey(pendingTransition.to)
+      ) {
+        portrait = pendingTransition.to;
+      }
+
+      portraitPath = portrait ? getPortraitPath(portrait) : '';
 
       var row = makeEl('div', 'talk-row ' + (portrait ? 'has-portrait' : 'no-portrait'));
       if (portrait) {
@@ -1461,9 +1600,48 @@
 
       if (portrait) {
         var portraitBox = makeEl('div', 'talk-portrait-box');
+        previousPortrait = portraitBase ? (setup.wolfLastPortraitByBase[portraitBase] || (portraitState && portraitState.characterPortraits[portraitBase])) : '';
+        if (
+          portraitBase &&
+          pendingTransition &&
+          pendingTransition.character === portraitBase &&
+          pendingTransition.to === portrait
+        ) {
+          previousPortrait = pendingTransition.from || previousPortrait;
+        }
+        previousPortraitPath = previousPortrait ? getPortraitPath(previousPortrait) : '';
+        transitionKey = portraitBase && portrait ? portraitBase + ':' + portrait : '';
+        changedPortrait = !!(
+          previousPortrait &&
+          previousPortrait !== portrait &&
+          previousPortraitPath &&
+          transitionKey &&
+          portraitState &&
+          portraitState.seenPortraitTransitions[transitionKey] !== true
+        );
+        if (
+          !changedPortrait &&
+          pendingTransition &&
+          pendingTransition.character === portraitBase &&
+          pendingTransition.to === portrait &&
+          previousPortrait &&
+          previousPortrait !== portrait &&
+          previousPortraitPath
+        ) {
+          changedPortrait = true;
+        }
         var img = document.createElement('img');
-        img.className = 'portrait';
+        img.className = 'portrait' + (changedPortrait ? ' portrait-current is-portrait-change' : '');
         img.src = portraitPath || ('assets/portraits/' + portrait + '.png');
+        if (changedPortrait) {
+          var previousImg = document.createElement('img');
+          previousImg.className = 'portrait portrait-previous';
+          previousImg.src = previousPortraitPath;
+          previousImg.alt = '';
+          previousImg.setAttribute('aria-hidden', 'true');
+          portraitBox.classList.add('is-portrait-changing');
+          portraitBox.appendChild(previousImg);
+        }
         if (!portraitPath && window.console && console.warn) {
           console.warn('[Wolf] Missing portrait key:', requestedPortrait, 'resolved as:', portrait);
         }
@@ -1474,6 +1652,15 @@
         }, { once : true });
         portraitBox.appendChild(img);
         row.appendChild(portraitBox);
+        if (portraitBase) {
+          setup.wolfLastPortraitByBase[portraitBase] = portrait;
+          if (portraitState) {
+            portraitState.characterPortraits[portraitBase] = portrait;
+            if (changedPortrait && transitionKey) {
+              portraitState.seenPortraitTransitions[transitionKey] = true;
+            }
+          }
+        }
       }
       else {
         row.appendChild(makeEl('div', 'talk-portrait-box is-empty'));
@@ -2770,6 +2957,9 @@ $(document).on(':passagerender :passageend', function (event) {
   if (setup.ensureEndingMetaVariables) {
     setup.ensureEndingMetaVariables();
   }
+  if (setup.ensurePortraitVariables) {
+    setup.ensurePortraitVariables();
+  }
   wolfClampStats();
   wolfUpdateOuterUI();
   wolfUpdateTempleChoiceColumns(event && event.content ? event.content : document);
@@ -2797,6 +2987,12 @@ $(document).on(':passagedisplay', function () {
 
   if (setup.saveAutosave) {
     setup.saveAutosave();
+  }
+
+  if (setup.pendingPortraitTransition) {
+    window.setTimeout(function () {
+      setup.pendingPortraitTransition = null;
+    }, 1100);
   }
 });
 

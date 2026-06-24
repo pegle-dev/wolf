@@ -530,6 +530,7 @@ body.wolf-intro-active .outer-dev-ui {
   align-items: flex-end;
   justify-content: flex-end;
   overflow: hidden;
+  position: relative;
 }
 
 .talk-portrait-box.is-empty {
@@ -546,6 +547,26 @@ body.wolf-intro-active .outer-dev-ui {
   object-position: right bottom;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+}
+
+.talk-portrait-box.is-portrait-changing .portrait {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.portrait-previous {
+  opacity: 1;
+  z-index: 1;
+}
+
+.portrait-current {
+  z-index: 2;
+}
+
+.portrait-current.is-portrait-change {
+  opacity: 0;
+  animation: wolfPortraitChangeFade 980ms ease forwards;
 }
 
 .talk-panel-wrap {
@@ -935,6 +956,7 @@ body.wolf-intro-active .outer-dev-ui {
   align-items: flex-end;
   justify-content: flex-end;
   overflow: visible;
+  position: relative;
 }
 
 .portrait {
@@ -3745,17 +3767,17 @@ body,
 
 .wolf-toast-layer {
   position: absolute;
-  top: 74px;
-  right: 32px;
-  left: auto;
-  bottom: auto;
+  top: 118px !important;
+  right: 32px !important;
+  left: auto !important;
+  bottom: auto !important;
   z-index: 6800;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
   width: min(360px, 42vw);
-  transform: none;
+  transform: none !important;
   pointer-events: none;
 }
 
@@ -3829,6 +3851,22 @@ body,
   to {
     opacity: 0;
     transform: translateY(-4px);
+  }
+}
+
+@keyframes wolfPortraitChangeFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-current.is-portrait-change {
+    animation-duration: 1ms;
   }
 }
 

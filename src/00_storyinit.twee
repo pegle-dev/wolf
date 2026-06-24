@@ -67,6 +67,8 @@
 <<set $eventCooldowns to {}>>
 <<set $lastReturnEvent to "">>
 <<set $lastDayEvent to "">>
+<<set $characterPortraits to {}>>
+<<set $seenPortraitTransitions to {}>>
 
 /* 아이템/이벤트 플래그 */
 <<set $hasSake to false>>

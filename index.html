@@ -636,6 +636,7 @@ body.wolf-intro-active .outer-dev-ui {
   align-items: flex-end;
   justify-content: flex-end;
   overflow: hidden;
+  position: relative;
 }
 
 .talk-portrait-box.is-empty {
@@ -652,6 +653,26 @@ body.wolf-intro-active .outer-dev-ui {
   object-position: right bottom;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+}
+
+.talk-portrait-box.is-portrait-changing .portrait {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.portrait-previous {
+  opacity: 1;
+  z-index: 1;
+}
+
+.portrait-current {
+  z-index: 2;
+}
+
+.portrait-current.is-portrait-change {
+  opacity: 0;
+  animation: wolfPortraitChangeFade 980ms ease forwards;
 }
 
 .talk-panel-wrap {
@@ -1041,6 +1062,7 @@ body.wolf-intro-active .outer-dev-ui {
   align-items: flex-end;
   justify-content: flex-end;
   overflow: visible;
+  position: relative;
 }
 
 .portrait {
@@ -3851,17 +3873,17 @@ body,
 
 .wolf-toast-layer {
   position: absolute;
-  top: 74px;
-  right: 32px;
-  left: auto;
-  bottom: auto;
+  top: 118px !important;
+  right: 32px !important;
+  left: auto !important;
+  bottom: auto !important;
   z-index: 6800;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
   width: min(360px, 42vw);
-  transform: none;
+  transform: none !important;
   pointer-events: none;
 }
 
@@ -3935,6 +3957,22 @@ body,
   to {
     opacity: 0;
     transform: translateY(-4px);
+  }
+}
+
+@keyframes wolfPortraitChangeFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-current.is-portrait-change {
+    animation-duration: 1ms;
   }
 }
 
@@ -7226,6 +7264,22 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     return setup.ensureEndingMetaVariables().count;
   };
 
+  setup.ensurePortraitVariables = function () {
+    var variables = State.variables || {};
+
+    if (!variables.characterPortraits || typeof variables.characterPortraits !== 'object' || Array.isArray(variables.characterPortraits)) {
+      variables.characterPortraits = {};
+    }
+    if (!variables.seenPortraitTransitions || typeof variables.seenPortraitTransitions !== 'object' || Array.isArray(variables.seenPortraitTransitions)) {
+      variables.seenPortraitTransitions = {};
+    }
+
+    return {
+      characterPortraits: variables.characterPortraits,
+      seenPortraitTransitions: variables.seenPortraitTransitions
+    };
+  };
+
   setup.ensureEventCooldowns = function () {
     var variables = State.variables || {};
     var cooldowns = variables.eventCooldowns;
@@ -7984,6 +8038,103 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     return WOLF_PORTRAIT_FILES[portraitKey] || '';
   }
 
+  function resolveCharacterPortraitVariant(character, nextPortrait) {
+    var base = normalizePortraitName(character);
+    var key = normalizePortraitName(nextPortrait || 'default');
+    var aliasMap = {
+      kuro: {
+        default: 'kuro',
+        closer: 'kuro_like',
+        close: 'kuro_like',
+        like: 'kuro_like',
+        bad: 'kuro_bad'
+      },
+      hanbei: {
+        default: 'hanbei',
+        concern: 'hanbei_like',
+        closer: 'hanbei_like',
+        like: 'hanbei_like',
+        bad: 'hanbei_bad'
+      },
+      genichiro: {
+        default: 'genichiro',
+        tense: 'genichiro_bad',
+        sharp: 'genichiro_bad',
+        like: 'genichiro_like',
+        bad: 'genichiro_bad'
+      }
+    };
+    var directKey = base && key && key !== 'default' ? base + '_' + key : base;
+    var resolved = aliasMap[base] && aliasMap[base][key];
+
+    if (resolved && hasPortraitKey(resolved)) {
+      return resolved;
+    }
+    if (hasPortraitKey(directKey)) {
+      return directKey;
+    }
+    if (hasPortraitKey(key)) {
+      return key;
+    }
+    if (hasPortraitKey(base)) {
+      return base;
+    }
+
+    return '';
+  }
+
+  function getPortraitBaseKey(requestedPortrait, resolvedPortrait) {
+    var requested = String(requestedPortrait || '').trim();
+    var resolved = String(resolvedPortrait || '').trim();
+    var base = requested ? normalizePortraitName(requested.split(':')[0]) : '';
+
+    if (base && WOLF_BASE_PORTRAITS[base]) {
+      return base;
+    }
+
+    return resolved.replace(/_(bad|like|danger|isolation|shura_end|shura_on|true)$/i, '');
+  }
+
+  setup.getPortraitSrc = function (character, portraitKey) {
+    var resolved = resolveCharacterPortraitVariant(character, portraitKey);
+
+    return resolved ? getPortraitPath(resolved) : '';
+  };
+
+  setup.changeCharacterPortrait = function (character, nextPortrait, toastMessage) {
+    var state = setup.ensurePortraitVariables ? setup.ensurePortraitVariables() : null;
+    var base = normalizePortraitName(character);
+    var resolved = resolveCharacterPortraitVariant(base, nextPortrait);
+    var previous;
+    var transitionKey;
+
+    if (!state || !base || !resolved) {
+      return false;
+    }
+
+    previous = state.characterPortraits[base] || base;
+    state.characterPortraits[base] = resolved;
+    transitionKey = base + ':' + resolved;
+
+    if (state.seenPortraitTransitions[transitionKey] === true) {
+      return false;
+    }
+
+    state.seenPortraitTransitions[transitionKey] = true;
+    setup.pendingPortraitTransition = {
+      character: base,
+      from: previous,
+      to: resolved,
+      key: transitionKey
+    };
+
+    if (toastMessage && setup.showToast) {
+      setup.showToast(toastMessage, 'bond');
+    }
+
+    return true;
+  };
+
   Macro.add('page', {
     tags : null,
     handler : function () {
@@ -8070,8 +8221,34 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     handler : function () {
       var requestedPortrait = this.args.length > 0 ? String(this.args[0] || '') : '';
       var portrait = requestedPortrait ? resolvePortraitKey(requestedPortrait) : '';
-      var portraitPath = portrait ? getPortraitPath(portrait) : '';
+      var portraitBase = portrait ? getPortraitBaseKey(requestedPortrait, portrait) : '';
+      setup.wolfLastPortraitByBase = setup.wolfLastPortraitByBase || {};
+      var portraitState = setup.ensurePortraitVariables ? setup.ensurePortraitVariables() : null;
+      var requestedHasManualVariant = requestedPortrait.indexOf(':') !== -1;
+      var storedPortrait = portraitBase && portraitState ? portraitState.characterPortraits[portraitBase] : '';
+      var pendingTransition = setup.pendingPortraitTransition;
+      var transitionKey;
+      var previousPortrait;
+      var previousPortraitPath;
+      var changedPortrait;
+      var portraitPath;
       var speaker = this.args.length > 1 ? String(this.args[1] || '') : '';
+
+      if (portraitBase && storedPortrait && storedPortrait !== portraitBase && hasPortraitKey(storedPortrait) && !requestedHasManualVariant) {
+        portrait = storedPortrait;
+      }
+
+      if (
+        portraitBase &&
+        pendingTransition &&
+        pendingTransition.character === portraitBase &&
+        pendingTransition.to &&
+        hasPortraitKey(pendingTransition.to)
+      ) {
+        portrait = pendingTransition.to;
+      }
+
+      portraitPath = portrait ? getPortraitPath(portrait) : '';
 
       var row = makeEl('div', 'talk-row ' + (portrait ? 'has-portrait' : 'no-portrait'));
       if (portrait) {
@@ -8080,9 +8257,48 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 
       if (portrait) {
         var portraitBox = makeEl('div', 'talk-portrait-box');
+        previousPortrait = portraitBase ? (setup.wolfLastPortraitByBase[portraitBase] || (portraitState && portraitState.characterPortraits[portraitBase])) : '';
+        if (
+          portraitBase &&
+          pendingTransition &&
+          pendingTransition.character === portraitBase &&
+          pendingTransition.to === portrait
+        ) {
+          previousPortrait = pendingTransition.from || previousPortrait;
+        }
+        previousPortraitPath = previousPortrait ? getPortraitPath(previousPortrait) : '';
+        transitionKey = portraitBase && portrait ? portraitBase + ':' + portrait : '';
+        changedPortrait = !!(
+          previousPortrait &&
+          previousPortrait !== portrait &&
+          previousPortraitPath &&
+          transitionKey &&
+          portraitState &&
+          portraitState.seenPortraitTransitions[transitionKey] !== true
+        );
+        if (
+          !changedPortrait &&
+          pendingTransition &&
+          pendingTransition.character === portraitBase &&
+          pendingTransition.to === portrait &&
+          previousPortrait &&
+          previousPortrait !== portrait &&
+          previousPortraitPath
+        ) {
+          changedPortrait = true;
+        }
         var img = document.createElement('img');
-        img.className = 'portrait';
+        img.className = 'portrait' + (changedPortrait ? ' portrait-current is-portrait-change' : '');
         img.src = portraitPath || ('assets/portraits/' + portrait + '.png');
+        if (changedPortrait) {
+          var previousImg = document.createElement('img');
+          previousImg.className = 'portrait portrait-previous';
+          previousImg.src = previousPortraitPath;
+          previousImg.alt = '';
+          previousImg.setAttribute('aria-hidden', 'true');
+          portraitBox.classList.add('is-portrait-changing');
+          portraitBox.appendChild(previousImg);
+        }
         if (!portraitPath && window.console && console.warn) {
           console.warn('[Wolf] Missing portrait key:', requestedPortrait, 'resolved as:', portrait);
         }
@@ -8093,6 +8309,15 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
         }, { once : true });
         portraitBox.appendChild(img);
         row.appendChild(portraitBox);
+        if (portraitBase) {
+          setup.wolfLastPortraitByBase[portraitBase] = portrait;
+          if (portraitState) {
+            portraitState.characterPortraits[portraitBase] = portrait;
+            if (changedPortrait && transitionKey) {
+              portraitState.seenPortraitTransitions[transitionKey] = true;
+            }
+          }
+        }
       }
       else {
         row.appendChild(makeEl('div', 'talk-portrait-box is-empty'));
@@ -9389,6 +9614,9 @@ $(document).on(':passagerender :passageend', function (event) {
   if (setup.ensureEndingMetaVariables) {
     setup.ensureEndingMetaVariables();
   }
+  if (setup.ensurePortraitVariables) {
+    setup.ensurePortraitVariables();
+  }
   wolfClampStats();
   wolfUpdateOuterUI();
   wolfUpdateTempleChoiceColumns(event && event.content ? event.content : document);
@@ -9416,6 +9644,12 @@ $(document).on(':passagedisplay', function () {
 
   if (setup.saveAutosave) {
     setup.saveAutosave();
+  }
+
+  if (setup.pendingPortraitTransition) {
+    window.setTimeout(function () {
+      setup.pendingPortraitTransition = null;
+    }, 1100);
   }
 });
 
@@ -9526,6 +9760,8 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $eventCooldowns to {}&gt;&gt;
 &lt;&lt;set $lastReturnEvent to &quot;&quot;&gt;&gt;
 &lt;&lt;set $lastDayEvent to &quot;&quot;&gt;&gt;
+&lt;&lt;set $characterPortraits to {}&gt;&gt;
+&lt;&lt;set $seenPortraitTransitions to {}&gt;&gt;
 
 /* 아이템/이벤트 플래그 */
 &lt;&lt;set $hasSake to false&gt;&gt;
