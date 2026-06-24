@@ -252,6 +252,15 @@
 <<talk "hanbei" "한베">>
 미안하네.
 <</talk>>
+<<continueTo "BadEnd_Hanbei_Mercy_05b">>
+<</page>>
+
+:: BadEnd_Hanbei_Mercy_05b {"position":"3760,900","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+이러면 내가,
+자네를 또 베는 손으로 쓰는 셈인데.
+<</talk>>
 <<continueTo "BadEnd_Hanbei_Mercy_06">>
 <</page>>
 

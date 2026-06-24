@@ -3054,6 +3054,107 @@
 <<continueTo "Temple_Return">>
 <</page>>
 
+:: Hanbei_08_PushAway {"position":"2725,1850","size":"100,100"}
+<<page>>
+<<set $currentRoute = "hanbei">>
+<<set $hanbeiProgress = Math.max($hanbeiProgress, 8)>>
+<<set $hanbeiPushAwaySeen = true>>
+
+<div class="narration">
+다음 날.
+
+한베는 훈련장에 없었다.
+
+검을 세워두던 자리에는,
+마른 흙만 평평하게 남아 있었다.
+</div>
+
+<<talk "wolf" "늑대">>
+한베.
+<</talk>>
+
+<div class="narration">
+대답은 절 뒤편에서 왔다.
+
+낡은 처마 아래,
+한베는 등을 돌린 채 앉아 있었다.
+검은 그의 곁에 없었다.
+</div>
+
+<<talk "hanbei" "한베">>
+돌아가게.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+어째서지.
+<</talk>>
+
+<<talk "hanbei" "한베">>
+자네가 내 부탁을 거절하지 못할 것 같아서.
+<</talk>>
+
+<div class="narration">
+한베는 웃지 않았다.
+
+그 침묵은,
+검보다 먼저 늑대를 밀어냈다.
+</div>
+
+<<talk "hanbei" "한베">>
+자네는 이미 충분히 많은 것을 베었네.
+내 끝까지 자네 손에 얹는 건,
+내가 할 일이 아니야.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+나는 가지 않는다.
+<</talk>>
+
+<<talk "hanbei" "한베">>
+늑대.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+검을 들러 온 것이 아니다.
+<</talk>>
+
+<div class="narration">
+늑대는 한베의 곁에 앉았다.
+
+한베가 밀어낸 만큼의 거리를,
+검이 아니라 무릎으로 좁혔다.
+</div>
+
+<<talk "wolf" "늑대">>
+오늘은 그냥 왔다.
+<</talk>>
+
+<div class="narration">
+한베는 오래 대답하지 않았다.
+
+그 오래 걸리는 침묵 속에서,
+처음으로 아무것도 끝나지 않았다.
+</div>
+
+<<talk "hanbei" "한베">>
+그 말,
+아직도 좀 무섭군.
+<</talk>>
+
+<<talk "wolf" "늑대">>
+그런가.
+<</talk>>
+
+<<talk "hanbei" "한베">>
+그래.
+무서운데.
+
+나쁘지는 않네.
+<</talk>>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
 :: Hanbei_09_FinalChoice {"position":"2800,1725","size":"100,100"}
 <<page>>
 <<set $currentRoute = "hanbei">>
@@ -3199,6 +3300,9 @@
 그 순간 한베의 웃음은 조금 가벼워졌다.
 가벼워졌기 때문에,
 오히려 더 무겁게 남았다.
+
+늑대는 또 하나의 끝을
+자신의 손에 얹었다.
 
 언젠가 끝날 대련이,
 두 사람 사이에 놓였다.</div>

@@ -83,6 +83,7 @@
 <<set $hanbeiDawnTrainingSeen to false>>
 <<set $hanbeiReasonAnswer to "">>
 <<set $hanbeiMortalBladeTalkSeen to false>>
+<<set $hanbeiPushAwaySeen to false>>
 <<set $hanbeiMercyRequest to false>>
 <<set $hanbeiMaskRemoved to false>>
 <<set $emmaIsshinIntroSeen to false>>

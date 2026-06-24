@@ -7,6 +7,8 @@
   <<goto "Hanbei_07_DawnTrainingGround">>
 <<elseif $hanbeiLove >= 8 and $hanbeiDawnTrainingSeen and not $hanbeiMortalBladeTalkSeen>>
   <<goto "Hanbei_08_MortalBlade">>
+<<elseif $hanbeiMortalBladeTalkSeen and not $hanbeiPushAwaySeen>>
+  <<goto "Hanbei_08_PushAway">>
 <<elseif $hanbeiMortalBladeTalkSeen>>
   <<goto "Hanbei_09_FinalChoice">>
 <<else>>
