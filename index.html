@@ -6517,6 +6517,106 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   line-height: 1.25 !important;
   z-index: 3 !important;
 }
+
+/* Final choice separation guard.
+   Keep choice prompts in the upper reading zone and push choices lower so
+   two-line prompts do not collide with the choice layer. */
+.choice-screen .choice-prompt {
+  top: 64px !important;
+  max-height: 34% !important;
+  overflow: hidden !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer {
+  top: auto !important;
+  bottom: 64px !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.first-death-choice-screen .choice-prompt,
+.genichiro-arrow-choice-screen .choice-prompt {
+  top: 56px !important;
+  max-height: 28% !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  top: auto !important;
+  bottom: 88px !important;
+}
+
+/* Choice structure contract:
+   prompt = top text, layer = positioning only, box = visible choice group. */
+.choice-screen .choice-prompt {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.global-choice-layer,
+.story-choice-layer,
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.global-choice-box,
+.story-choice-box,
+.choice-screen .global-choice-box,
+.choice-screen .story-choice-box {
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 6px 20px 7px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+.global-choice-box a,
+.story-choice-box a,
+.choice-screen .global-choice-box a,
+.choice-screen .story-choice-box a {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.timed-choice-screen .first-death-tension-label {
+  color: rgba(136, 28, 24, 0.72) !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-shadow: 0 0 8px rgba(92, 12, 10, 0.24) !important;
+  animation: wolfDangerGlyphPulse 2.4s ease-in-out infinite !important;
+}
+
+@keyframes wolfDangerGlyphPulse {
+  0%,
+  100% {
+    opacity: 0.46;
+    color: rgba(94, 18, 16, 0.58);
+    text-shadow: 0 0 4px rgba(72, 8, 8, 0.14);
+  }
+
+  48%,
+  56% {
+    opacity: 0.9;
+    color: rgba(150, 34, 28, 0.82);
+    text-shadow: 0 0 10px rgba(110, 18, 14, 0.34);
+  }
+}
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* Wolf UI macros: JS로 직접 정의해서 widget/_contents 꼬임을 피한다. */
 (function () {
   'use strict';
@@ -6534,6 +6634,99 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
       el.textContent = String(text);
     }
     return el;
+  }
+
+  var WOLF_ENDING_META_KEY = 'wolf.endingMeta.v1';
+
+  function wolfNormalizeBoolMap(value) {
+    var normalized = {};
+
+    if (Array.isArray(value)) {
+      value.forEach(function (item) {
+        var key = String(item || '').trim();
+
+        if (key) {
+          normalized[key] = true;
+        }
+      });
+      return normalized;
+    }
+
+    if (!value || typeof value !== 'object') {
+      return normalized;
+    }
+
+    Object.keys(value).forEach(function (key) {
+      key = String(key || '').trim();
+
+      if (key && value[key] === true) {
+        normalized[key] = true;
+      }
+    });
+
+    return normalized;
+  }
+
+  function wolfCountBoolMap(value) {
+    return Object.keys(wolfNormalizeBoolMap(value)).length;
+  }
+
+  function wolfReadEndingMeta() {
+    var raw;
+    var parsed;
+
+    try {
+      raw = window.localStorage.getItem(WOLF_ENDING_META_KEY);
+    } catch (error) {
+      return { seen: {}, count: 0 };
+    }
+
+    if (!raw) {
+      return { seen: {}, count: 0 };
+    }
+
+    try {
+      parsed = JSON.parse(raw);
+    } catch (error) {
+      return { seen: {}, count: 0 };
+    }
+
+    return {
+      seen: wolfNormalizeBoolMap(parsed && parsed.seen),
+      count: Math.max(0, Number(parsed && parsed.count) || 0)
+    };
+  }
+
+  function wolfWriteEndingMeta(meta) {
+    var seen = wolfNormalizeBoolMap(meta && meta.seen);
+    var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
+
+    try {
+      window.localStorage.setItem(WOLF_ENDING_META_KEY, JSON.stringify({
+        seen: seen,
+        count: count,
+        updatedAt: Date.now()
+      }));
+    } catch (error) {
+      if (window.console && console.warn) {
+        console.warn('[Wolf] ending meta save failed:', error);
+      }
+    }
+
+    return { seen: seen, count: count };
+  }
+
+  function wolfApplyEndingMetaToState(meta) {
+    var variables = State.variables || {};
+    var seen = wolfNormalizeBoolMap(meta && meta.seen);
+    var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
+
+    variables.endingSeenIds = seen;
+    variables.endingProgressCount = count;
+    variables.endingCount = count;
+    variables.anyEndingSeen = count > 0 || variables.anyEndingSeen === true;
+
+    return { seen: seen, count: count };
   }
 
   setup.i18n = setup.i18n || {
@@ -7002,6 +7195,35 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 
     setup.ensureSeenEvents()[key] = true;
     return true;
+  };
+
+  setup.ensureEndingMetaVariables = function () {
+    var variables = State.variables || {};
+    var persistent = wolfReadEndingMeta();
+    var stateSeen = wolfNormalizeBoolMap(variables.endingSeenIds);
+    var merged = {};
+    var count;
+
+    Object.keys(persistent.seen).forEach(function (endingId) {
+      merged[endingId] = true;
+    });
+    Object.keys(stateSeen).forEach(function (endingId) {
+      merged[endingId] = true;
+    });
+
+    count = Math.max(
+      wolfCountBoolMap(merged),
+      Number(persistent.count) || 0,
+      Number(variables.endingProgressCount) || 0,
+      Number(variables.endingCount) || 0
+    );
+
+    persistent = wolfWriteEndingMeta({ seen: merged, count: count });
+    return wolfApplyEndingMetaToState(persistent);
+  };
+
+  setup.getEndingProgressCount = function () {
+    return setup.ensureEndingMetaVariables().count;
   };
 
   setup.ensureEventCooldowns = function () {
@@ -8135,6 +8357,7 @@ setup.isAutosaveExcludedPassage = function (passageName) {
   return (
     name === 'Start' ||
     name === 'StoryInit' ||
+    name === 'Ending_ReturnToStart' ||
     name.indexOf('RecordBook') !== -1 ||
     /^Debug/.test(name)
   );
@@ -8311,11 +8534,31 @@ function wolfUpdateRouteUnlocks() {
   }
 }
 
-function wolfMarkEndingSeen() {
+function wolfMarkEndingSeen(endingId) {
   var variables = State.variables || {};
-  var endingCount = Number(variables.endingCount);
+  var key = String(endingId || State.passage || '').trim();
+  var meta;
+  var wasSeen;
+  var count;
 
-  variables.endingCount = isFinite(endingCount) ? endingCount + 1 : 1;
+  if (!key) {
+    key = 'unknown-ending';
+  }
+
+  meta = setup.ensureEndingMetaVariables ? setup.ensureEndingMetaVariables() : {
+    seen: wolfNormalizeBoolMap(variables.endingSeenIds),
+    count: Math.max(Number(variables.endingProgressCount) || 0, Number(variables.endingCount) || 0)
+  };
+  wasSeen = meta.seen[key] === true;
+
+  meta.seen[key] = true;
+  count = wasSeen
+    ? Math.max(Number(meta.count) || 0, wolfCountBoolMap(meta.seen))
+    : Math.max((Number(meta.count) || 0) + 1, wolfCountBoolMap(meta.seen));
+
+  meta = wolfWriteEndingMeta({ seen: meta.seen, count: count });
+  wolfApplyEndingMetaToState(meta);
+
   variables.anyEndingSeen = true;
   variables.traceFirstEnding = true;
 
@@ -8376,7 +8619,7 @@ if (Macro.has('markEndingSeen')) {
 
 Macro.add('markEndingSeen', {
   handler : function () {
-    wolfMarkEndingSeen();
+    wolfMarkEndingSeen(this.args[0]);
   }
 });
 
@@ -9143,6 +9386,9 @@ $(document).on(':passagerender :passageend', function (event) {
   if (setup.ensureEventCooldowns) {
     setup.ensureEventCooldowns();
   }
+  if (setup.ensureEndingMetaVariables) {
+    setup.ensureEndingMetaVariables();
+  }
   wolfClampStats();
   wolfUpdateOuterUI();
   wolfUpdateTempleChoiceColumns(event && event.content ? event.content : document);
@@ -9423,6 +9669,8 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $completedIsshin to false&gt;&gt;
 &lt;&lt;set $anyEndingSeen to false&gt;&gt;
 &lt;&lt;set $endingCount to 0&gt;&gt;
+&lt;&lt;set $endingProgressCount to 0&gt;&gt;
+&lt;&lt;set $endingSeenIds to {}&gt;&gt;
 &lt;&lt;set $badEndingSeen to false&gt;&gt;
 &lt;&lt;set $badEndFirstDeathSeen to false&gt;&gt;
 &lt;&lt;set $qualifiedCharacterEndingSeen to false&gt;&gt;
@@ -14286,7 +14534,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;div class=&quot;global-choice-layer first-death-choice-layer&quot;&gt;
   &lt;div class=&quot;timed-choice-stack&quot;&gt;&lt;&lt;nobr&gt;&gt;
     &lt;div class=&quot;first-death-tension-ui timed-choice-bar-ui&quot;&gt;
-      &lt;div class=&quot;first-death-tension-label&quot;&gt;반응&lt;/div&gt;
+      &lt;div class=&quot;first-death-tension-label&quot;&gt;危&lt;/div&gt;
       &lt;div class=&quot;first-death-tension-track first-death-tension-bar timed-choice-bar-track&quot;&gt;
         &lt;div class=&quot;first-death-tension-fill timed-choice-bar-fill&quot; data-timed-choice-bar&gt;&lt;/div&gt;
       &lt;/div&gt;
@@ -14499,7 +14747,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;div class=&quot;global-choice-layer genichiro-arrow-choice-layer&quot;&gt;
   &lt;div class=&quot;timed-choice-stack&quot;&gt;
     &lt;div class=&quot;genichiro-arrow-tension-ui timed-choice-bar-ui&quot;&gt;
-      &lt;div class=&quot;first-death-tension-label&quot;&gt;반응&lt;/div&gt;
+      &lt;div class=&quot;first-death-tension-label&quot;&gt;危&lt;/div&gt;
       &lt;div class=&quot;genichiro-arrow-tension-bar timed-choice-bar-track&quot;&gt;
         &lt;div class=&quot;genichiro-arrow-tension-fill timed-choice-bar-fill&quot; data-timed-choice-bar&gt;&lt;/div&gt;
       &lt;/div&gt;
@@ -14563,6 +14811,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;set $badEndGenichiroArrowSeen = true&gt;&gt;
 &lt;&lt;set $recordBookUnlocked = true&gt;&gt;
 &lt;&lt;set $recordBookNewEnding = true&gt;&gt;
+&lt;&lt;markEndingSeen&gt;&gt;
 &lt;div class=&quot;ending-text&quot;&gt;
 [Bad End. 성문 앞의 화살]
 

@@ -6411,3 +6411,103 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   line-height: 1.25 !important;
   z-index: 3 !important;
 }
+
+/* Final choice separation guard.
+   Keep choice prompts in the upper reading zone and push choices lower so
+   two-line prompts do not collide with the choice layer. */
+.choice-screen .choice-prompt {
+  top: 64px !important;
+  max-height: 34% !important;
+  overflow: hidden !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer {
+  top: auto !important;
+  bottom: 64px !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.first-death-choice-screen .choice-prompt,
+.genichiro-arrow-choice-screen .choice-prompt {
+  top: 56px !important;
+  max-height: 28% !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  top: auto !important;
+  bottom: 88px !important;
+}
+
+/* Choice structure contract:
+   prompt = top text, layer = positioning only, box = visible choice group. */
+.choice-screen .choice-prompt {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.global-choice-layer,
+.story-choice-layer,
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.global-choice-box,
+.story-choice-box,
+.choice-screen .global-choice-box,
+.choice-screen .story-choice-box {
+  width: fit-content !important;
+  max-width: min(720px, 78vw) !important;
+  margin: 0 auto !important;
+  padding: 6px 20px 7px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+.global-choice-box a,
+.story-choice-box a,
+.choice-screen .global-choice-box a,
+.choice-screen .story-choice-box a {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.timed-choice-screen .first-death-tension-label {
+  color: rgba(136, 28, 24, 0.72) !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-shadow: 0 0 8px rgba(92, 12, 10, 0.24) !important;
+  animation: wolfDangerGlyphPulse 2.4s ease-in-out infinite !important;
+}
+
+@keyframes wolfDangerGlyphPulse {
+  0%,
+  100% {
+    opacity: 0.46;
+    color: rgba(94, 18, 16, 0.58);
+    text-shadow: 0 0 4px rgba(72, 8, 8, 0.14);
+  }
+
+  48%,
+  56% {
+    opacity: 0.9;
+    color: rgba(150, 34, 28, 0.82);
+    text-shadow: 0 0 10px rgba(110, 18, 14, 0.34);
+  }
+}

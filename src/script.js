@@ -17,6 +17,99 @@
     return el;
   }
 
+  var WOLF_ENDING_META_KEY = 'wolf.endingMeta.v1';
+
+  function wolfNormalizeBoolMap(value) {
+    var normalized = {};
+
+    if (Array.isArray(value)) {
+      value.forEach(function (item) {
+        var key = String(item || '').trim();
+
+        if (key) {
+          normalized[key] = true;
+        }
+      });
+      return normalized;
+    }
+
+    if (!value || typeof value !== 'object') {
+      return normalized;
+    }
+
+    Object.keys(value).forEach(function (key) {
+      key = String(key || '').trim();
+
+      if (key && value[key] === true) {
+        normalized[key] = true;
+      }
+    });
+
+    return normalized;
+  }
+
+  function wolfCountBoolMap(value) {
+    return Object.keys(wolfNormalizeBoolMap(value)).length;
+  }
+
+  function wolfReadEndingMeta() {
+    var raw;
+    var parsed;
+
+    try {
+      raw = window.localStorage.getItem(WOLF_ENDING_META_KEY);
+    } catch (error) {
+      return { seen: {}, count: 0 };
+    }
+
+    if (!raw) {
+      return { seen: {}, count: 0 };
+    }
+
+    try {
+      parsed = JSON.parse(raw);
+    } catch (error) {
+      return { seen: {}, count: 0 };
+    }
+
+    return {
+      seen: wolfNormalizeBoolMap(parsed && parsed.seen),
+      count: Math.max(0, Number(parsed && parsed.count) || 0)
+    };
+  }
+
+  function wolfWriteEndingMeta(meta) {
+    var seen = wolfNormalizeBoolMap(meta && meta.seen);
+    var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
+
+    try {
+      window.localStorage.setItem(WOLF_ENDING_META_KEY, JSON.stringify({
+        seen: seen,
+        count: count,
+        updatedAt: Date.now()
+      }));
+    } catch (error) {
+      if (window.console && console.warn) {
+        console.warn('[Wolf] ending meta save failed:', error);
+      }
+    }
+
+    return { seen: seen, count: count };
+  }
+
+  function wolfApplyEndingMetaToState(meta) {
+    var variables = State.variables || {};
+    var seen = wolfNormalizeBoolMap(meta && meta.seen);
+    var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
+
+    variables.endingSeenIds = seen;
+    variables.endingProgressCount = count;
+    variables.endingCount = count;
+    variables.anyEndingSeen = count > 0 || variables.anyEndingSeen === true;
+
+    return { seen: seen, count: count };
+  }
+
   setup.i18n = setup.i18n || {
     ko: {
       continue: '계속.',
@@ -483,6 +576,35 @@
 
     setup.ensureSeenEvents()[key] = true;
     return true;
+  };
+
+  setup.ensureEndingMetaVariables = function () {
+    var variables = State.variables || {};
+    var persistent = wolfReadEndingMeta();
+    var stateSeen = wolfNormalizeBoolMap(variables.endingSeenIds);
+    var merged = {};
+    var count;
+
+    Object.keys(persistent.seen).forEach(function (endingId) {
+      merged[endingId] = true;
+    });
+    Object.keys(stateSeen).forEach(function (endingId) {
+      merged[endingId] = true;
+    });
+
+    count = Math.max(
+      wolfCountBoolMap(merged),
+      Number(persistent.count) || 0,
+      Number(variables.endingProgressCount) || 0,
+      Number(variables.endingCount) || 0
+    );
+
+    persistent = wolfWriteEndingMeta({ seen: merged, count: count });
+    return wolfApplyEndingMetaToState(persistent);
+  };
+
+  setup.getEndingProgressCount = function () {
+    return setup.ensureEndingMetaVariables().count;
   };
 
   setup.ensureEventCooldowns = function () {
@@ -1616,6 +1738,7 @@ setup.isAutosaveExcludedPassage = function (passageName) {
   return (
     name === 'Start' ||
     name === 'StoryInit' ||
+    name === 'Ending_ReturnToStart' ||
     name.indexOf('RecordBook') !== -1 ||
     /^Debug/.test(name)
   );
@@ -1792,11 +1915,31 @@ function wolfUpdateRouteUnlocks() {
   }
 }
 
-function wolfMarkEndingSeen() {
+function wolfMarkEndingSeen(endingId) {
   var variables = State.variables || {};
-  var endingCount = Number(variables.endingCount);
+  var key = String(endingId || State.passage || '').trim();
+  var meta;
+  var wasSeen;
+  var count;
 
-  variables.endingCount = isFinite(endingCount) ? endingCount + 1 : 1;
+  if (!key) {
+    key = 'unknown-ending';
+  }
+
+  meta = setup.ensureEndingMetaVariables ? setup.ensureEndingMetaVariables() : {
+    seen: wolfNormalizeBoolMap(variables.endingSeenIds),
+    count: Math.max(Number(variables.endingProgressCount) || 0, Number(variables.endingCount) || 0)
+  };
+  wasSeen = meta.seen[key] === true;
+
+  meta.seen[key] = true;
+  count = wasSeen
+    ? Math.max(Number(meta.count) || 0, wolfCountBoolMap(meta.seen))
+    : Math.max((Number(meta.count) || 0) + 1, wolfCountBoolMap(meta.seen));
+
+  meta = wolfWriteEndingMeta({ seen: meta.seen, count: count });
+  wolfApplyEndingMetaToState(meta);
+
   variables.anyEndingSeen = true;
   variables.traceFirstEnding = true;
 
@@ -1857,7 +2000,7 @@ if (Macro.has('markEndingSeen')) {
 
 Macro.add('markEndingSeen', {
   handler : function () {
-    wolfMarkEndingSeen();
+    wolfMarkEndingSeen(this.args[0]);
   }
 });
 
@@ -2623,6 +2766,9 @@ $(document).on(':passagerender :passageend', function (event) {
   }
   if (setup.ensureEventCooldowns) {
     setup.ensureEventCooldowns();
+  }
+  if (setup.ensureEndingMetaVariables) {
+    setup.ensureEndingMetaVariables();
   }
   wolfClampStats();
   wolfUpdateOuterUI();
