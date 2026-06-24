@@ -12,7 +12,7 @@
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 
-<<if ($dayCount || $day || 1) < 2>>
+<<if ($dayCount || $day || 1) < 2 or not ($badEndFirstDeathSeen || false)>>
   <<goto "Kuro_NotYet">>
 <<elseif not ($kuroTeaSeen || false)>>
   <<goto "Kuro_02_Tea">>

@@ -19625,7 +19625,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;run setup.ensureTimeVariables &amp;&amp; setup.ensureTimeVariables()&gt;&gt;
 &lt;&lt;run setup.ensureBondVariables &amp;&amp; setup.ensureBondVariables()&gt;&gt;
 
-&lt;&lt;if ($dayCount || $day || 1) &lt; 2&gt;&gt;
+&lt;&lt;if ($dayCount || $day || 1) &lt; 2 or not ($badEndFirstDeathSeen || false)&gt;&gt;
   &lt;&lt;goto &quot;Kuro_NotYet&quot;&gt;&gt;
 &lt;&lt;elseif not ($kuroTeaSeen || false)&gt;&gt;
   &lt;&lt;goto &quot;Kuro_02_Tea&quot;&gt;&gt;
