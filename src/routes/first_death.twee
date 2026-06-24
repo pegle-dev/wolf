@@ -17,30 +17,12 @@
 :: FirstDeath_Choices {"position":"2875,125","size":"100,100"}
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-<div class="choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake">
+<div class="choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake" data-timed-choice-seconds="5" data-timed-choice-target="FirstDeath_Timeout">
 <div class="choice-prompt first-death-choice-prompt"><div class="urgent-shake-inner">기둥이 무너진다.
 쿠로가 그 아래에 있다.</div></div>
 
-<<run setup.startTimedChoiceBar && setup.startTimedChoiceBar(5, "FirstDeath_Timeout")>>
-<<timed 1s>>
-  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 20% 0 0)', 'important'); })>>
-<<next 1s>>
-  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 40% 0 0)', 'important'); })>>
-<<next 1s>>
-  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 60% 0 0)', 'important'); })>>
-<<next 1s>>
-  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 80% 0 0)', 'important'); })>>
-<<next 800ms>>
-  <<run $('.first-death-choice-screen .timed-choice-bar-fill').each(function () { this.style.setProperty('clip-path', 'inset(0 100% 0 0)', 'important'); })>>
-<</timed>>
-<<timed 5s>>
-  <<if passage() is "FirstDeath_Choices">>
-    <<goto "FirstDeath_Timeout">>
-  <</if>>
-<</timed>>
-
-<div class="global-choice-layer first-death-choice-layer" style="position:absolute !important; display:block !important; left:50% !important; top:auto !important; bottom:116px !important; transform:translateX(-50%) !important; height:auto !important; min-height:0 !important;">
-  <div class="timed-choice-stack" style="height:auto !important; min-height:0 !important; flex:0 0 auto !important; align-self:center !important;"><<nobr>>
+<div class="global-choice-layer first-death-choice-layer">
+  <div class="timed-choice-stack"><<nobr>>
     <div class="first-death-tension-ui timed-choice-bar-ui">
       <div class="first-death-tension-label">반응</div>
       <div class="first-death-tension-track first-death-tension-bar timed-choice-bar-track">

@@ -93,12 +93,10 @@
 :: Genichiro_ArrowChoice {"position":"2300,1600","size":"100,100"}
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-<div class="choice-screen timed-choice-screen genichiro-arrow-choice-screen">
+<div class="choice-screen timed-choice-screen genichiro-arrow-choice-screen" data-timed-choice-seconds="5" data-timed-choice-target="BadEnd_GenichiroArrow">
 <div class="choice-prompt genichiro-arrow-choice-prompt">화살이 날아온다.
 
 눈으로 쫓기에는 너무 빠르다.</div>
-
-<<run setup.startTimedChoiceBar && setup.startTimedChoiceBar(5, "BadEnd_GenichiroArrow")>>
 
 <div class="global-choice-layer genichiro-arrow-choice-layer">
   <div class="timed-choice-stack">

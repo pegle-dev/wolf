@@ -400,19 +400,191 @@
     var variables = State.variables || {};
     var day = Number(variables.day);
     var dayCount = Number(variables.dayCount);
+    var normalizedDay;
+    var timeOfDay;
 
-    if (!isFinite(day) || day < 1) {
-      variables.day = 1;
-      day = 1;
+    if (isFinite(day) && day >= 1 && isFinite(dayCount) && dayCount >= 1) {
+      normalizedDay = Math.max(Math.floor(day), Math.floor(dayCount));
+    } else if (isFinite(dayCount) && dayCount >= 1) {
+      normalizedDay = Math.floor(dayCount);
+    } else if (isFinite(day) && day >= 1) {
+      normalizedDay = Math.floor(day);
+    } else {
+      normalizedDay = 1;
     }
 
-    if (!isFinite(dayCount) || dayCount < 1) {
-      variables.dayCount = day;
+    variables.day = normalizedDay;
+    variables.dayCount = normalizedDay;
+
+    timeOfDay = variables.timeOfDay;
+
+    if (timeOfDay === '낮') {
+      variables.timeOfDay = 'day';
+    } else if (timeOfDay === '밤') {
+      variables.timeOfDay = 'night';
+    } else if (timeOfDay === '새벽') {
+      variables.timeOfDay = 'dawn';
+    } else if (timeOfDay === '꿈') {
+      variables.timeOfDay = 'dream';
     }
 
     if (typeof variables.timeOfDay === 'undefined' || variables.timeOfDay === null) {
       variables.timeOfDay = 'day';
     }
+  };
+
+  setup.ensureSeenEvents = function () {
+    var variables = State.variables || {};
+    var seenEvents = variables.seenEvents;
+    var normalized = {};
+
+    if (Array.isArray(seenEvents)) {
+      seenEvents.forEach(function (eventId) {
+        eventId = String(eventId || '').trim();
+        if (eventId) {
+          normalized[eventId] = true;
+        }
+      });
+      variables.seenEvents = normalized;
+      return variables.seenEvents;
+    }
+
+    if (!seenEvents || typeof seenEvents !== 'object') {
+      variables.seenEvents = {};
+      return variables.seenEvents;
+    }
+
+    Object.keys(seenEvents).forEach(function (eventId) {
+      if (seenEvents[eventId] === true) {
+        normalized[eventId] = true;
+      }
+    });
+
+    variables.seenEvents = normalized;
+    return variables.seenEvents;
+  };
+
+  setup.hasSeenEvent = function (eventId) {
+    var key = String(eventId || '').trim();
+
+    if (!key) {
+      return false;
+    }
+
+    return setup.ensureSeenEvents()[key] === true;
+  };
+
+  setup.markSeenEvent = function (eventId) {
+    var key = String(eventId || '').trim();
+
+    if (!key) {
+      return false;
+    }
+
+    setup.ensureSeenEvents()[key] = true;
+    return true;
+  };
+
+  setup.ensureEventCooldowns = function () {
+    var variables = State.variables || {};
+    var cooldowns = variables.eventCooldowns;
+    var normalized = {};
+    var currentDay = Number(variables.dayCount || variables.day || 1);
+
+    if (!isFinite(currentDay) || currentDay < 1) {
+      currentDay = 1;
+    }
+
+    if (cooldowns && typeof cooldowns === 'object' && !Array.isArray(cooldowns)) {
+      Object.keys(cooldowns).forEach(function (eventId) {
+        var untilDay = Number(cooldowns[eventId]);
+
+        if (isFinite(untilDay) && untilDay >= currentDay) {
+          normalized[eventId] = Math.floor(untilDay);
+        }
+      });
+    }
+
+    variables.eventCooldowns = normalized;
+
+    if (typeof variables.lastReturnEvent !== 'string') {
+      variables.lastReturnEvent = '';
+    }
+    if (typeof variables.lastDayEvent !== 'string') {
+      variables.lastDayEvent = '';
+    }
+
+    return variables.eventCooldowns;
+  };
+
+  setup.isEventOnCooldown = function (eventId) {
+    var key = String(eventId || '').trim();
+    var variables = State.variables || {};
+    var cooldowns;
+    var currentDay;
+
+    if (!key) {
+      return false;
+    }
+
+    cooldowns = setup.ensureEventCooldowns();
+    currentDay = Number(variables.dayCount || variables.day || 1);
+
+    if (!isFinite(currentDay) || currentDay < 1) {
+      currentDay = 1;
+    }
+
+    return Number(cooldowns[key]) >= currentDay;
+  };
+
+  setup.setEventCooldown = function (eventId, days) {
+    var key = String(eventId || '').trim();
+    var cooldownDays = Number(days);
+    var variables = State.variables || {};
+    var currentDay = Number(variables.dayCount || variables.day || 1);
+
+    if (!key) {
+      return false;
+    }
+    if (!isFinite(currentDay) || currentDay < 1) {
+      currentDay = 1;
+    }
+    if (!isFinite(cooldownDays) || cooldownDays < 0) {
+      cooldownDays = 0;
+    }
+
+    setup.ensureEventCooldowns()[key] = Math.floor(currentDay + cooldownDays);
+    return true;
+  };
+
+  setup.canRouteEvent = function (kind, eventId) {
+    var variables = State.variables || {};
+    var key = String(eventId || '').trim();
+    var lastKey = String(kind || '') === 'day' ? 'lastDayEvent' : 'lastReturnEvent';
+
+    if (!key) {
+      return false;
+    }
+
+    setup.ensureEventCooldowns();
+
+    return variables[lastKey] !== key && !setup.isEventOnCooldown(key);
+  };
+
+  setup.markRoutedEvent = function (kind, eventId, cooldownDays) {
+    var variables = State.variables || {};
+    var key = String(eventId || '').trim();
+    var lastKey = String(kind || '') === 'day' ? 'lastDayEvent' : 'lastReturnEvent';
+
+    if (!key) {
+      return false;
+    }
+
+    setup.ensureEventCooldowns();
+    variables[lastKey] = key;
+    setup.setEventCooldown(key, cooldownDays);
+
+    return true;
   };
 
   function hasNewRecordBookEntry() {
@@ -1770,7 +1942,7 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
 
     elapsed = now - startTime;
     remainingRatio = Math.max(0, 1 - (elapsed / totalMs));
-    passageEl = document.querySelector('.passage');
+    passageEl = Array.prototype.slice.call(document.querySelectorAll('.passage')).pop() || document;
     bar = passageEl && (
       passageEl.querySelector('[data-timed-choice-bar]') ||
       passageEl.querySelector('.timed-choice-bar-fill') ||
@@ -1800,28 +1972,36 @@ setup.startTimedChoiceBar = wolfStartTimedChoiceBar;
 setup.clearTimedChoice = wolfClearTimedChoice;
 window.WolfClearTimedChoice = wolfClearTimedChoice;
 
-function wolfEnsureFirstDeathTimedChoice(attempt) {
-  var bar = document.querySelector('.first-death-choice-screen [data-timed-choice-bar]');
-  var isRunning = setup.timedChoiceTarget === 'FirstDeath_Timeout' && setup.timedChoiceFrame;
+function wolfEnsureTimedChoice(attempt) {
+  var passageEl = Array.prototype.slice.call(document.querySelectorAll('.passage')).pop() || document;
+  var screen = passageEl && passageEl.querySelector('.timed-choice-screen[data-timed-choice-target][data-timed-choice-seconds]');
+  var bar = screen && screen.querySelector('[data-timed-choice-bar]');
+  var target = screen && screen.getAttribute('data-timed-choice-target');
+  var seconds = screen && screen.getAttribute('data-timed-choice-seconds');
+  var isRunning = target && setup.timedChoiceTarget === target && setup.timedChoiceFrame;
+
+  if (!screen) {
+    return;
+  }
 
   if (bar) {
     if (!isRunning) {
-      wolfStartTimedChoiceBar(5, 'FirstDeath_Timeout');
+      wolfStartTimedChoiceBar(seconds, target);
     }
     return;
   }
 
   if ((attempt || 0) < 10) {
     window.setTimeout(function () {
-      wolfEnsureFirstDeathTimedChoice((attempt || 0) + 1);
+      wolfEnsureTimedChoice((attempt || 0) + 1);
     }, 50);
   }
 }
 
 $(document).on(':passagerender :passageend :passagedisplay', function () {
   window.setTimeout(function () {
-    if (document.querySelector('.first-death-choice-screen [data-timed-choice-bar]')) {
-      wolfEnsureFirstDeathTimedChoice();
+    if (document.querySelector('.timed-choice-screen[data-timed-choice-target][data-timed-choice-seconds]')) {
+      wolfEnsureTimedChoice();
       return;
     }
 
@@ -2437,6 +2617,12 @@ function wolfUpdateTempleChoiceColumns(root) {
 $(document).on(':passagerender :passageend', function (event) {
   if (window.WolfTrimNarrationWhitespace) {
     window.WolfTrimNarrationWhitespace(event && event.content ? event.content : document);
+  }
+  if (setup.ensureSeenEvents) {
+    setup.ensureSeenEvents();
+  }
+  if (setup.ensureEventCooldowns) {
+    setup.ensureEventCooldowns();
   }
   wolfClampStats();
   wolfUpdateOuterUI();

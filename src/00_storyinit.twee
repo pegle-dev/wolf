@@ -63,6 +63,10 @@
 <<set $dayEndReturn to false>>
 <<set $returnEventPending to false>>
 <<set $dayLog to []>>
+<<set $seenEvents to {}>>
+<<set $eventCooldowns to {}>>
+<<set $lastReturnEvent to "">>
+<<set $lastDayEvent to "">>
 
 /* 아이템/이벤트 플래그 */
 <<set $hasSake to false>>

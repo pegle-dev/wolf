@@ -6919,19 +6919,191 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     var variables = State.variables || {};
     var day = Number(variables.day);
     var dayCount = Number(variables.dayCount);
+    var normalizedDay;
+    var timeOfDay;
 
-    if (!isFinite(day) || day < 1) {
-      variables.day = 1;
-      day = 1;
+    if (isFinite(day) && day >= 1 && isFinite(dayCount) && dayCount >= 1) {
+      normalizedDay = Math.max(Math.floor(day), Math.floor(dayCount));
+    } else if (isFinite(dayCount) && dayCount >= 1) {
+      normalizedDay = Math.floor(dayCount);
+    } else if (isFinite(day) && day >= 1) {
+      normalizedDay = Math.floor(day);
+    } else {
+      normalizedDay = 1;
     }
 
-    if (!isFinite(dayCount) || dayCount < 1) {
-      variables.dayCount = day;
+    variables.day = normalizedDay;
+    variables.dayCount = normalizedDay;
+
+    timeOfDay = variables.timeOfDay;
+
+    if (timeOfDay === '낮') {
+      variables.timeOfDay = 'day';
+    } else if (timeOfDay === '밤') {
+      variables.timeOfDay = 'night';
+    } else if (timeOfDay === '새벽') {
+      variables.timeOfDay = 'dawn';
+    } else if (timeOfDay === '꿈') {
+      variables.timeOfDay = 'dream';
     }
 
     if (typeof variables.timeOfDay === 'undefined' || variables.timeOfDay === null) {
       variables.timeOfDay = 'day';
     }
+  };
+
+  setup.ensureSeenEvents = function () {
+    var variables = State.variables || {};
+    var seenEvents = variables.seenEvents;
+    var normalized = {};
+
+    if (Array.isArray(seenEvents)) {
+      seenEvents.forEach(function (eventId) {
+        eventId = String(eventId || '').trim();
+        if (eventId) {
+          normalized[eventId] = true;
+        }
+      });
+      variables.seenEvents = normalized;
+      return variables.seenEvents;
+    }
+
+    if (!seenEvents || typeof seenEvents !== 'object') {
+      variables.seenEvents = {};
+      return variables.seenEvents;
+    }
+
+    Object.keys(seenEvents).forEach(function (eventId) {
+      if (seenEvents[eventId] === true) {
+        normalized[eventId] = true;
+      }
+    });
+
+    variables.seenEvents = normalized;
+    return variables.seenEvents;
+  };
+
+  setup.hasSeenEvent = function (eventId) {
+    var key = String(eventId || '').trim();
+
+    if (!key) {
+      return false;
+    }
+
+    return setup.ensureSeenEvents()[key] === true;
+  };
+
+  setup.markSeenEvent = function (eventId) {
+    var key = String(eventId || '').trim();
+
+    if (!key) {
+      return false;
+    }
+
+    setup.ensureSeenEvents()[key] = true;
+    return true;
+  };
+
+  setup.ensureEventCooldowns = function () {
+    var variables = State.variables || {};
+    var cooldowns = variables.eventCooldowns;
+    var normalized = {};
+    var currentDay = Number(variables.dayCount || variables.day || 1);
+
+    if (!isFinite(currentDay) || currentDay < 1) {
+      currentDay = 1;
+    }
+
+    if (cooldowns && typeof cooldowns === 'object' && !Array.isArray(cooldowns)) {
+      Object.keys(cooldowns).forEach(function (eventId) {
+        var untilDay = Number(cooldowns[eventId]);
+
+        if (isFinite(untilDay) && untilDay >= currentDay) {
+          normalized[eventId] = Math.floor(untilDay);
+        }
+      });
+    }
+
+    variables.eventCooldowns = normalized;
+
+    if (typeof variables.lastReturnEvent !== 'string') {
+      variables.lastReturnEvent = '';
+    }
+    if (typeof variables.lastDayEvent !== 'string') {
+      variables.lastDayEvent = '';
+    }
+
+    return variables.eventCooldowns;
+  };
+
+  setup.isEventOnCooldown = function (eventId) {
+    var key = String(eventId || '').trim();
+    var variables = State.variables || {};
+    var cooldowns;
+    var currentDay;
+
+    if (!key) {
+      return false;
+    }
+
+    cooldowns = setup.ensureEventCooldowns();
+    currentDay = Number(variables.dayCount || variables.day || 1);
+
+    if (!isFinite(currentDay) || currentDay < 1) {
+      currentDay = 1;
+    }
+
+    return Number(cooldowns[key]) >= currentDay;
+  };
+
+  setup.setEventCooldown = function (eventId, days) {
+    var key = String(eventId || '').trim();
+    var cooldownDays = Number(days);
+    var variables = State.variables || {};
+    var currentDay = Number(variables.dayCount || variables.day || 1);
+
+    if (!key) {
+      return false;
+    }
+    if (!isFinite(currentDay) || currentDay < 1) {
+      currentDay = 1;
+    }
+    if (!isFinite(cooldownDays) || cooldownDays < 0) {
+      cooldownDays = 0;
+    }
+
+    setup.ensureEventCooldowns()[key] = Math.floor(currentDay + cooldownDays);
+    return true;
+  };
+
+  setup.canRouteEvent = function (kind, eventId) {
+    var variables = State.variables || {};
+    var key = String(eventId || '').trim();
+    var lastKey = String(kind || '') === 'day' ? 'lastDayEvent' : 'lastReturnEvent';
+
+    if (!key) {
+      return false;
+    }
+
+    setup.ensureEventCooldowns();
+
+    return variables[lastKey] !== key && !setup.isEventOnCooldown(key);
+  };
+
+  setup.markRoutedEvent = function (kind, eventId, cooldownDays) {
+    var variables = State.variables || {};
+    var key = String(eventId || '').trim();
+    var lastKey = String(kind || '') === 'day' ? 'lastDayEvent' : 'lastReturnEvent';
+
+    if (!key) {
+      return false;
+    }
+
+    setup.ensureEventCooldowns();
+    variables[lastKey] = key;
+    setup.setEventCooldown(key, cooldownDays);
+
+    return true;
   };
 
   function hasNewRecordBookEntry() {
@@ -8289,7 +8461,7 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
 
     elapsed = now - startTime;
     remainingRatio = Math.max(0, 1 - (elapsed / totalMs));
-    passageEl = document.querySelector('.passage');
+    passageEl = Array.prototype.slice.call(document.querySelectorAll('.passage')).pop() || document;
     bar = passageEl && (
       passageEl.querySelector('[data-timed-choice-bar]') ||
       passageEl.querySelector('.timed-choice-bar-fill') ||
@@ -8319,28 +8491,36 @@ setup.startTimedChoiceBar = wolfStartTimedChoiceBar;
 setup.clearTimedChoice = wolfClearTimedChoice;
 window.WolfClearTimedChoice = wolfClearTimedChoice;
 
-function wolfEnsureFirstDeathTimedChoice(attempt) {
-  var bar = document.querySelector('.first-death-choice-screen [data-timed-choice-bar]');
-  var isRunning = setup.timedChoiceTarget === 'FirstDeath_Timeout' && setup.timedChoiceFrame;
+function wolfEnsureTimedChoice(attempt) {
+  var passageEl = Array.prototype.slice.call(document.querySelectorAll('.passage')).pop() || document;
+  var screen = passageEl && passageEl.querySelector('.timed-choice-screen[data-timed-choice-target][data-timed-choice-seconds]');
+  var bar = screen && screen.querySelector('[data-timed-choice-bar]');
+  var target = screen && screen.getAttribute('data-timed-choice-target');
+  var seconds = screen && screen.getAttribute('data-timed-choice-seconds');
+  var isRunning = target && setup.timedChoiceTarget === target && setup.timedChoiceFrame;
+
+  if (!screen) {
+    return;
+  }
 
   if (bar) {
     if (!isRunning) {
-      wolfStartTimedChoiceBar(5, 'FirstDeath_Timeout');
+      wolfStartTimedChoiceBar(seconds, target);
     }
     return;
   }
 
   if ((attempt || 0) < 10) {
     window.setTimeout(function () {
-      wolfEnsureFirstDeathTimedChoice((attempt || 0) + 1);
+      wolfEnsureTimedChoice((attempt || 0) + 1);
     }, 50);
   }
 }
 
 $(document).on(':passagerender :passageend :passagedisplay', function () {
   window.setTimeout(function () {
-    if (document.querySelector('.first-death-choice-screen [data-timed-choice-bar]')) {
-      wolfEnsureFirstDeathTimedChoice();
+    if (document.querySelector('.timed-choice-screen[data-timed-choice-target][data-timed-choice-seconds]')) {
+      wolfEnsureTimedChoice();
       return;
     }
 
@@ -8957,6 +9137,12 @@ $(document).on(':passagerender :passageend', function (event) {
   if (window.WolfTrimNarrationWhitespace) {
     window.WolfTrimNarrationWhitespace(event && event.content ? event.content : document);
   }
+  if (setup.ensureSeenEvents) {
+    setup.ensureSeenEvents();
+  }
+  if (setup.ensureEventCooldowns) {
+    setup.ensureEventCooldowns();
+  }
   wolfClampStats();
   wolfUpdateOuterUI();
   wolfUpdateTempleChoiceColumns(event && event.content ? event.content : document);
@@ -9090,6 +9276,10 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $dayEndReturn to false&gt;&gt;
 &lt;&lt;set $returnEventPending to false&gt;&gt;
 &lt;&lt;set $dayLog to []&gt;&gt;
+&lt;&lt;set $seenEvents to {}&gt;&gt;
+&lt;&lt;set $eventCooldowns to {}&gt;&gt;
+&lt;&lt;set $lastReturnEvent to &quot;&quot;&gt;&gt;
+&lt;&lt;set $lastDayEvent to &quot;&quot;&gt;&gt;
 
 /* 아이템/이벤트 플래그 */
 &lt;&lt;set $hasSake to false&gt;&gt;
@@ -10326,6 +10516,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
    - Event_Emma_ShuraWarning
    - Event_Emma_InjuryCheck
 %/</tw-passagedata><tw-passagedata pid="101" name="DayEvent_Router" tags="" position="1700,550" size="100,100">&lt;&lt;run setup.ensureTimeVariables &amp;&amp; setup.ensureTimeVariables()&gt;&gt;
+&lt;&lt;run setup.ensureEventCooldowns &amp;&amp; setup.ensureEventCooldowns()&gt;&gt;
 &lt;&lt;set $timeOfDay = &quot;day&quot;&gt;&gt;
 
 &lt;&lt;if ($dayCount || $day || 1) &lt; 2&gt;&gt;
@@ -10333,11 +10524,12 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;set _roll = random(1, 3)&gt;&gt;
-&lt;&lt;if _roll == 1&gt;&gt;
+&lt;&lt;if _roll == 1 and setup.canRouteEvent(&quot;day&quot;, &quot;DayEvent_SilentTemple&quot;)&gt;&gt;
   &lt;&lt;goto &quot;DayEvent_SilentTemple&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
   &lt;&lt;goto &quot;DayEvent_None&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="102" name="DayEvent_None" tags="" position="1825,550" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;day&quot;, &quot;DayEvent_None&quot;, 0)&gt;&gt;
 &lt;&lt;set $timeOfDay = &quot;day&quot;&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;절은 조용했다.
@@ -10348,6 +10540,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 
 &lt;&lt;continueTo &quot;Temple&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="103" name="DayEvent_SilentTemple" tags="" position="1825,650" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;day&quot;, &quot;DayEvent_SilentTemple&quot;, 1)&gt;&gt;
 &lt;&lt;set $timeOfDay = &quot;day&quot;&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;낮의 절은 무너진 채로 가만히 있었다.
@@ -14086,30 +14279,12 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;continueTo &quot;FirstDeath_Choices&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="326" name="FirstDeath_Choices" tags="" position="2875,125" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;run setup.clearTimedChoice &amp;&amp; setup.clearTimedChoice()&gt;&gt;
-&lt;div class=&quot;choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake&quot;&gt;
+&lt;div class=&quot;choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake&quot; data-timed-choice-seconds=&quot;5&quot; data-timed-choice-target=&quot;FirstDeath_Timeout&quot;&gt;
 &lt;div class=&quot;choice-prompt first-death-choice-prompt&quot;&gt;&lt;div class=&quot;urgent-shake-inner&quot;&gt;기둥이 무너진다.
 쿠로가 그 아래에 있다.&lt;/div&gt;&lt;/div&gt;
 
-&lt;&lt;run setup.startTimedChoiceBar &amp;&amp; setup.startTimedChoiceBar(5, &quot;FirstDeath_Timeout&quot;)&gt;&gt;
-&lt;&lt;timed 1s&gt;&gt;
-  &lt;&lt;run $(&#39;.first-death-choice-screen .timed-choice-bar-fill&#39;).each(function () { this.style.setProperty(&#39;clip-path&#39;, &#39;inset(0 20% 0 0)&#39;, &#39;important&#39;); })&gt;&gt;
-&lt;&lt;next 1s&gt;&gt;
-  &lt;&lt;run $(&#39;.first-death-choice-screen .timed-choice-bar-fill&#39;).each(function () { this.style.setProperty(&#39;clip-path&#39;, &#39;inset(0 40% 0 0)&#39;, &#39;important&#39;); })&gt;&gt;
-&lt;&lt;next 1s&gt;&gt;
-  &lt;&lt;run $(&#39;.first-death-choice-screen .timed-choice-bar-fill&#39;).each(function () { this.style.setProperty(&#39;clip-path&#39;, &#39;inset(0 60% 0 0)&#39;, &#39;important&#39;); })&gt;&gt;
-&lt;&lt;next 1s&gt;&gt;
-  &lt;&lt;run $(&#39;.first-death-choice-screen .timed-choice-bar-fill&#39;).each(function () { this.style.setProperty(&#39;clip-path&#39;, &#39;inset(0 80% 0 0)&#39;, &#39;important&#39;); })&gt;&gt;
-&lt;&lt;next 800ms&gt;&gt;
-  &lt;&lt;run $(&#39;.first-death-choice-screen .timed-choice-bar-fill&#39;).each(function () { this.style.setProperty(&#39;clip-path&#39;, &#39;inset(0 100% 0 0)&#39;, &#39;important&#39;); })&gt;&gt;
-&lt;&lt;/timed&gt;&gt;
-&lt;&lt;timed 5s&gt;&gt;
-  &lt;&lt;if passage() is &quot;FirstDeath_Choices&quot;&gt;&gt;
-    &lt;&lt;goto &quot;FirstDeath_Timeout&quot;&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;
-
-&lt;div class=&quot;global-choice-layer first-death-choice-layer&quot; style=&quot;position:absolute !important; display:block !important; left:50% !important; top:auto !important; bottom:116px !important; transform:translateX(-50%) !important; height:auto !important; min-height:0 !important;&quot;&gt;
-  &lt;div class=&quot;timed-choice-stack&quot; style=&quot;height:auto !important; min-height:0 !important; flex:0 0 auto !important; align-self:center !important;&quot;&gt;&lt;&lt;nobr&gt;&gt;
+&lt;div class=&quot;global-choice-layer first-death-choice-layer&quot;&gt;
+  &lt;div class=&quot;timed-choice-stack&quot;&gt;&lt;&lt;nobr&gt;&gt;
     &lt;div class=&quot;first-death-tension-ui timed-choice-bar-ui&quot;&gt;
       &lt;div class=&quot;first-death-tension-label&quot;&gt;반응&lt;/div&gt;
       &lt;div class=&quot;first-death-tension-track first-death-tension-bar timed-choice-bar-track&quot;&gt;
@@ -14316,12 +14491,10 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;continueTo &quot;Genichiro_ArrowChoice&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="339" name="Genichiro_ArrowChoice" tags="" position="2300,1600" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;run setup.clearTimedChoice &amp;&amp; setup.clearTimedChoice()&gt;&gt;
-&lt;div class=&quot;choice-screen timed-choice-screen genichiro-arrow-choice-screen&quot;&gt;
+&lt;div class=&quot;choice-screen timed-choice-screen genichiro-arrow-choice-screen&quot; data-timed-choice-seconds=&quot;5&quot; data-timed-choice-target=&quot;BadEnd_GenichiroArrow&quot;&gt;
 &lt;div class=&quot;choice-prompt genichiro-arrow-choice-prompt&quot;&gt;화살이 날아온다.
 
 눈으로 쫓기에는 너무 빠르다.&lt;/div&gt;
-
-&lt;&lt;run setup.startTimedChoiceBar &amp;&amp; setup.startTimedChoiceBar(5, &quot;BadEnd_GenichiroArrow&quot;)&gt;&gt;
 
 &lt;div class=&quot;global-choice-layer genichiro-arrow-choice-layer&quot;&gt;
   &lt;div class=&quot;timed-choice-stack&quot;&gt;
@@ -21064,6 +21237,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
    스탯을 변화시키지 않는다.
    기록장에 남기지 않는다. %/
 &lt;&lt;run setup.ensureTimeVariables &amp;&amp; setup.ensureTimeVariables()&gt;&gt;
+&lt;&lt;run setup.ensureEventCooldowns &amp;&amp; setup.ensureEventCooldowns()&gt;&gt;
 &lt;&lt;set $timeOfDay = &quot;dawn&quot;&gt;&gt;
 &lt;&lt;set $returnEventPending = false&gt;&gt;
 
@@ -21096,22 +21270,24 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;else&gt;&gt;
 &lt;&lt;set _r = random(1, 100)&gt;&gt;
 
-&lt;&lt;if ($dayCount || $day || 1) &gt;= 5 and ($shura || 0) &gt;= 6 and _r &lt;= 35&gt;&gt;
+&lt;&lt;if ($dayCount || $day || 1) &gt;= 5 and ($shura || 0) &gt;= 6 and _r &lt;= 35 and setup.canRouteEvent(&quot;return&quot;, &quot;ReturnEvent_SilentTemple&quot;)&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_SilentTemple&quot;&gt;&gt;
-&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 3 and ($danger || 0) &gt;= 5 and _r &lt;= 45&gt;&gt;
+&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 3 and ($danger || 0) &gt;= 5 and _r &lt;= 45 and setup.canRouteEvent(&quot;return&quot;, &quot;ReturnEvent_EmmaLamp&quot;)&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_EmmaLamp&quot;&gt;&gt;
-&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 2 and ($kuroAffection || 0) &gt;= 1 and _r &lt;= 50&gt;&gt;
+&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 2 and ($kuroAffection || 0) &gt;= 1 and _r &lt;= 50 and setup.canRouteEvent(&quot;return&quot;, &quot;ReturnEvent_WatchKuro&quot;)&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_WatchKuro&quot;&gt;&gt;
-&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 2 and ($genichiroConflict || 0) &gt;= 1 and _r &lt;= 50&gt;&gt;
+&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 2 and ($genichiroConflict || 0) &gt;= 1 and _r &lt;= 50 and setup.canRouteEvent(&quot;return&quot;, &quot;ReturnEvent_ReedField&quot;)&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_ReedField&quot;&gt;&gt;
-&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 2 and ($hanbeiAffection || 0) &gt;= 1 and _r &lt;= 50&gt;&gt;
+&lt;&lt;elseif ($dayCount || $day || 1) &gt;= 2 and ($hanbeiAffection || 0) &gt;= 1 and _r &lt;= 50 and setup.canRouteEvent(&quot;return&quot;, &quot;ReturnEvent_HanbeiPretendSleep&quot;)&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_HanbeiPretendSleep&quot;&gt;&gt;
-&lt;&lt;elseif _r &lt;= 20&gt;&gt;
+&lt;&lt;elseif _r &lt;= 20 and setup.canRouteEvent(&quot;return&quot;, &quot;ReturnEvent_Chicken&quot;)&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_Chicken&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
   &lt;&lt;goto &quot;ReturnEvent_None&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="994" name="ReturnEvent_None" tags="" position="2925,650" size="100,100">&lt;&lt;goto &quot;ReturnToTempleNextDay&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="995" name="ReturnEvent_WatchKuro" tags="" position="2925,750" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="994" name="ReturnEvent_None" tags="" position="2925,650" size="100,100">&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_None&quot;, 0)&gt;&gt;
+&lt;&lt;goto &quot;ReturnToTempleNextDay&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="995" name="ReturnEvent_WatchKuro" tags="" position="2925,750" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_WatchKuro&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;황폐한 절로 돌아가는 길,
 늑대는 발을 멈췄다.
@@ -21130,6 +21306,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;ReturnToTempleNextDay&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="996" name="ReturnEvent_ReedField" tags="" position="2925,850" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_ReedField&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;갈대밭에 바람이 불고 있었다.
 
@@ -21146,6 +21323,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;ReturnToTempleNextDay&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="997" name="ReturnEvent_Chicken" tags="" position="2925,950" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_Chicken&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;절 앞마당에서 닭 한 마리가 튀어나왔다.
 
@@ -21161,6 +21339,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;ReturnToTempleNextDay&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="998" name="ReturnEvent_HanbeiPretendSleep" tags="" position="2925,1050" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_HanbeiPretendSleep&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;한베는 절 기둥에 기대어 앉아 있었다.
 
@@ -21178,6 +21357,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;ReturnToTempleNextDay&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="999" name="ReturnEvent_EmmaLamp" tags="" position="2925,1150" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_EmmaLamp&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;절 문 앞에 작은 등불이 놓여 있었다.
 
@@ -21192,6 +21372,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;ReturnToTempleNextDay&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1000" name="ReturnEvent_SilentTemple" tags="" position="2925,1250" size="100,100">&lt;&lt;page&gt;&gt;
+&lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_SilentTemple&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
 &lt;div class=&quot;narration narration-block&quot;&gt;절이 조용했다.
 
