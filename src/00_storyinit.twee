@@ -154,6 +154,7 @@
 <<set $kuroWaitingSeen to false>>
 <<set $kuroWishSeen to false>>
 <<set $kuroNameSeen to false>>
+<<set $kuroAlmostLostSeen to false>>
 <<set $kuroReadingJoySpoken to false>>
 <<set $kuroSweetHonest to false>>
 <<set $kuroSatBeside to false>>
