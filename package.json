@@ -1,0 +1,12 @@
+{
+  "name": "wolf-twine",
+  "private": true,
+  "scripts": {
+    "build": "TWEEGO_PATH=tools/tweego tools/tweego/tweego -o index.html src",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.0"
+  }
+}
