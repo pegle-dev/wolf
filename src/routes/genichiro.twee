@@ -107,6 +107,7 @@
     <div class="genichiro-arrow-tension-ui timed-choice-bar-ui">
       <div class="genichiro-arrow-tension-bar timed-choice-bar-track">
         <div class="genichiro-arrow-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
+        <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
       </div>
     </div>
 

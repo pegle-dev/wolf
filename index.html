@@ -6234,6 +6234,56 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   background: rgba(206, 202, 194, 0.58) !important;
 }
 
+/* =========================
+   Wolf Timed Choice Danger Mark
+   inside timer bar only
+   ========================= */
+
+.timed-choice-bar-track {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.timed-choice-bar-track .timed-choice-danger-mark {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 4 !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: rgba(238, 232, 220, 0.78) !important;
+  text-shadow:
+    0 0 4px rgba(238, 232, 220, 0.28),
+    0 0 8px rgba(160, 24, 18, 0.22);
+  font-family: "WolfNotoSerifKRBold", "Noto Serif KR", serif !important;
+  font-size: 7px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  opacity: 0.72;
+  animation: wolfTimerDangerMarkBlink 1050ms ease-in-out infinite;
+}
+
+@keyframes wolfTimerDangerMarkBlink {
+  0% {
+    opacity: 0.22;
+  }
+
+  45% {
+    opacity: 0.88;
+  }
+
+  100% {
+    opacity: 0.22;
+  }
+}
+
 .timed-choice-bar-fill.timer-pattern-linear {
   transition-timing-function: linear !important;
 }
@@ -15777,6 +15827,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
     &lt;div class=&quot;first-death-tension-ui timed-choice-bar-ui&quot;&gt;
       &lt;div class=&quot;first-death-tension-track first-death-tension-bar timed-choice-bar-track&quot;&gt;
         &lt;div class=&quot;first-death-tension-fill timed-choice-bar-fill&quot; data-timed-choice-bar&gt;&lt;/div&gt;
+        &lt;span class=&quot;timed-choice-danger-mark&quot; aria-hidden=&quot;true&quot;&gt;危&lt;/span&gt;
       &lt;/div&gt;
     &lt;/div&gt;
 
@@ -15993,6 +16044,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
     &lt;div class=&quot;genichiro-arrow-tension-ui timed-choice-bar-ui&quot;&gt;
       &lt;div class=&quot;genichiro-arrow-tension-bar timed-choice-bar-track&quot;&gt;
         &lt;div class=&quot;genichiro-arrow-tension-fill timed-choice-bar-fill&quot; data-timed-choice-bar&gt;&lt;/div&gt;
+        &lt;span class=&quot;timed-choice-danger-mark&quot; aria-hidden=&quot;true&quot;&gt;危&lt;/span&gt;
       &lt;/div&gt;
     &lt;/div&gt;
 

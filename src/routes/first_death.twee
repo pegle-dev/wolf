@@ -26,6 +26,7 @@
     <div class="first-death-tension-ui timed-choice-bar-ui">
       <div class="first-death-tension-track first-death-tension-bar timed-choice-bar-track">
         <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
+        <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
       </div>
     </div>
 
