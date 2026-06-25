@@ -2951,8 +2951,47 @@ function wolfFormatDebugValue(key, value) {
     }
   }
 
+  if ((key === 'danger' || key === 'isolation' || key === 'shura') &&
+    setup.getWolfStateLabel) {
+    return wolfFormatValue(value) + ' / ' + setup.getWolfStateLabel(key);
+  }
+
   return wolfFormatValue(value);
 }
+
+setup.getWolfStateLabel = function (type) {
+  var variables = State.variables || {};
+  var key = String(type || '').trim();
+  var value = Number(variables[key]);
+
+  if (!isFinite(value)) {
+    value = 0;
+  }
+
+  if (key === 'danger') {
+    if (value >= 8) return '죽음이 가깝다';
+    if (value >= 6) return '늘 불길하다';
+    if (value >= 4) return '위험이 느껴진다';
+    if (value >= 2) return '긴장 된다';
+    return '안전하다';
+  }
+
+  if (key === 'isolation') {
+    if (value >= 6) return '아무와도 이어져있지 않다';
+    if (value >= 4) return '깊이 외롭다';
+    if (value >= 2) return '조금 외롭다';
+    return '외롭지 않다';
+  }
+
+  if (key === 'shura') {
+    if (value >= 6) return '검에게 완전히 사로잡혔다';
+    if (value >= 4) return '검이 먼저 움직인다';
+    if (value >= 2) return '검끝이 흔들리다';
+    return '검을 제대로 쥐고 있다';
+  }
+
+  return '';
+};
 
 function wolfEnsureOuterUI() {
   if ($('.outer-dev-ui').length) return;
