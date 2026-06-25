@@ -1006,23 +1006,65 @@
 :: Genichiro_04_MoonSake_Choice {"position":"3300,2175","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "술을 받는다" "Temple_Return">>
+<<link "술을 받는다" "Genichiro_04_MoonSake_Accept_Result">>
   <<set $genichiroLove += 2>>
   <<set $danger += 1>>
   <<set $genichiroSharedSake = true>>
   <<clampStats>>
 <</link>>
 
-<<link "마시지 않는다" "Temple_Return">>
+<<link "마시지 않는다" "Genichiro_04_MoonSake_Refuse_Result">>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
 
-<<link "달을 본다" "Temple_Return">>
+<<link "달을 본다" "Genichiro_04_MoonSake_Moon_Result">>
   <<set $genichiroLove += 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_04_MoonSake_Accept_Result {"position":"3425,2175","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 잔을 받았다.
+
+술은 차가웠다.
+아시나의 밤과 같은 온도였다.
+
+겐이치로는 그가 마시는 것을 보지 않는 척했다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_04_MoonSake_Refuse_Result {"position":"3425,2225","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 잔을 받지 않았다.
+
+겐이치로는 억지로 권하지 않았다.
+
+술병의 입구만이,
+잠시 늑대 쪽을 향해 있었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_04_MoonSake_Moon_Result {"position":"3425,2275","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 달을 보았다.
+
+겐이치로도 같은 곳을 보았다.
+
+같은 달이었다.
+그러나 두 사람의 등 뒤에는 서로 다른 이름이 있었다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_05_Wound {"position":"2175,2325","size":"100,100"}
@@ -1129,23 +1171,65 @@
 :: Genichiro_05_Wound_Choice {"position":"3425,2325","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "돌아가야 한다고 말한다" "Temple_Return">>
+<<link "돌아가야 한다고 말한다" "Genichiro_05_Wound_Return_Result">>
   <<set $kuroLove += 1>>
   <<set $genichiroLove += 1>>
   <<clampStats>>
 <</link>>
 
-<<link "아무 일도 아니라고 한다" "Temple_Return">>
+<<link "아무 일도 아니라고 한다" "Genichiro_05_Wound_Nothing_Result">>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
 
-<<link "그의 시선을 피하지 않는다" "Temple_Return">>
+<<link "그의 시선을 피하지 않는다" "Genichiro_05_Wound_Look_Result">>
   <<set $genichiroLove += 2>>
   <<set $genichiroSawWound = true>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_05_Wound_Return_Result {"position":"3550,2325","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 다시 말했다.
+
+돌아가야 한다.
+
+겐이치로는 그 말을 막지 않았다.
+다만 피 묻은 걸음이 멀어지는 것을 보았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_05_Wound_Nothing_Result {"position":"3550,2375","size":"100,100"}
+<<page>>
+<div class="narration">
+아무 일도 아니라고 하기에는,
+피가 너무 많이 말라 있었다.
+
+겐이치로는 더 묻지 않았다.
+
+묻지 않아도 아는 일이 있었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_05_Wound_Look_Result {"position":"3550,2425","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 시선을 피하지 않았다.
+
+겐이치로의 눈이 상처에서 얼굴로 올라왔다.
+
+그는 늑대가 아직 서 있는 이유를,
+묻지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_06_AshinaConfession {"position":"2175,2475","size":"100,100"}
@@ -1230,22 +1314,64 @@
 :: Genichiro_06_AshinaConfession_Choice {"position":"3175,2475","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "알고 있다고 말한다" "Temple_Return">>
+<<link "알고 있다고 말한다" "Genichiro_06_AshinaConfession_Know_Result">>
   <<set $genichiroLove += 2>>
   <<clampStats>>
 <</link>>
 
-<<link "두렵냐고 묻는다" "Temple_Return">>
+<<link "두렵냐고 묻는다" "Genichiro_06_AshinaConfession_Fear_Result">>
   <<set $genichiroLove += 1>>
   <<clampStats>>
 <</link>>
 
-<<link "침묵한다" "Temple_Return">>
+<<link "침묵한다" "Genichiro_06_AshinaConfession_Silence_Result">>
   <<set $genichiroLove += 1>>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_06_AshinaConfession_Know_Result {"position":"3300,2475","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 알고 있다고 말했다.
+
+겐이치로는 고개를 돌렸다.
+
+알고 있다는 말은 위로가 아니었다.
+그래서 오히려 거짓이 적었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_06_AshinaConfession_Fear_Result {"position":"3300,2525","size":"100,100"}
+<<page>>
+<div class="narration">
+두렵냐는 말에,
+겐이치로는 바로 대답하지 않았다.
+
+바람이 성벽을 긁고 지나갔다.
+
+그는 그 소리를 듣는 사람처럼 서 있었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_06_AshinaConfession_Silence_Result {"position":"3300,2575","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 침묵했다.
+
+겐이치로는 그 침묵을 오래 보았다.
+
+그 안에 무엇이 비어 있는지,
+혹은 무엇이 차 있는지 재는 눈이었다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_07_DoNotReturn {"position":"2175,2625","size":"100,100"}
@@ -1398,21 +1524,21 @@
 :: Genichiro_07_DoNotReturn_Choice {"position":"4050,2625","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "돌아간다" "Temple_Return">>
+<<link "돌아간다" "Genichiro_07_DoNotReturn_Return_Result">>
   <<set $kuroLove += 1>>
   <<set $isolation += 1>>
   <<set $genichiroStayed = false>>
   <<clampStats>>
 <</link>>
 
-<<link "곁에 남는다" "Temple_Return">>
+<<link "곁에 남는다" "Genichiro_07_DoNotReturn_Stay_Result">>
   <<set $genichiroLove += 2>>
   <<set $danger += 1>>
   <<set $genichiroStayed = true>>
   <<clampStats>>
 <</link>>
 
-<<link "잡힌 팔을 빼지 않는다" "Temple_Return">>
+<<link "잡힌 팔을 빼지 않는다" "Genichiro_07_DoNotReturn_Held_Result">>
   <<set $genichiroLove += 2>>
   <<set $danger += 1>>
   <<set $shura += 1>>
@@ -1421,6 +1547,50 @@
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_07_DoNotReturn_Return_Result {"position":"4175,2625","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 돌아섰다.
+
+겐이치로의 손은 더 붙잡지 않았다.
+
+돌아갈 길은 아직 있었다.
+늑대는 그 길을 잃지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_07_DoNotReturn_Stay_Result {"position":"4175,2675","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 그 자리에 남았다.
+
+겐이치로는 놓으라고 말하지 않았다.
+붙잡으라고도 말하지 않았다.
+
+명령이 아닌 것이,
+처음으로 둘 사이에 놓였다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_07_DoNotReturn_Held_Result {"position":"4175,2725","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 잡힌 팔을 빼지 않았다.
+
+겐이치로의 손에 힘이 들어갔다.
+늑대의 손도 검자루에서 떨어지지 않았다.
+
+놓기에는 늦고,
+베기에는 가까운 거리였다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Ending_Genichiro_SettingMoonCastle {"position":"2175,2775","size":"100,100"}
