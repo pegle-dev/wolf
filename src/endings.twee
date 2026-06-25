@@ -424,7 +424,9 @@
 <<page>>
 <div class="ending-return-screen">
 <div class="choice-box">
-[[다시, 처음으로->Start]]
+<<link "다시, 처음으로">>
+  <<run setup.goTitleAfterEnding && setup.goTitleAfterEnding({ element: document.querySelector(".ending-return-screen") })>>
+<</link>>
 </div>
 </div>
 <</page>>

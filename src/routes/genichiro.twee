@@ -105,7 +105,6 @@
 <div class="global-choice-layer genichiro-arrow-choice-layer">
   <div class="timed-choice-stack">
     <div class="genichiro-arrow-tension-ui timed-choice-bar-ui">
-      <div class="first-death-tension-label">危</div>
       <div class="genichiro-arrow-tension-bar timed-choice-bar-track">
         <div class="genichiro-arrow-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
       </div>

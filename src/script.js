@@ -2093,8 +2093,80 @@ setup.continueAutosave = function () {
   wolfClearSessionFlag('wolf.continuingAutosave');
 };
 
+setup.getTitlePassageName = function () {
+  if (typeof Story !== 'undefined' && Story.has) {
+    if (Story.has('Title')) return 'Title';
+    if (Story.has('Start')) return 'Start';
+  }
+
+  return 'Start';
+};
+
 setup.isTitlePassage = function (passageName) {
-  return String(passageName || '') === 'Start';
+  return String(passageName || '') === (setup.getTitlePassageName ? setup.getTitlePassageName() : 'Start');
+};
+
+setup.ensureTitleTransitionVariables = function () {
+  var variables = State.variables || {};
+
+  if (typeof variables.titleSlowFadeIn === 'undefined' || variables.titleSlowFadeIn === null) {
+    variables.titleSlowFadeIn = false;
+  }
+
+  if (typeof variables.fromEndingToTitle === 'undefined' || variables.fromEndingToTitle === null) {
+    variables.fromEndingToTitle = false;
+  }
+};
+
+setup.clearEndingTitleTransitionClasses = function () {
+  try {
+    document.documentElement.classList.remove('wolf-ending-to-title');
+    document.body.classList.remove('wolf-ending-fade-out');
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] ending title transition cleanup failed:', error);
+    }
+  }
+};
+
+setup.goTitleAfterEnding = function (options) {
+  var target = setup.getTitlePassageName ? setup.getTitlePassageName() : 'Start';
+  var delay;
+  var element;
+
+  options = options || {};
+  delay = Number(options.delay) || 1050;
+  element = options.element || null;
+
+  if (setup.ensureTitleTransitionVariables) {
+    setup.ensureTitleTransitionVariables();
+  }
+
+  if (State.variables) {
+    State.variables.titleSlowFadeIn = true;
+    State.variables.fromEndingToTitle = true;
+  }
+
+  try {
+    document.documentElement.classList.add('wolf-ending-to-title');
+    document.body.classList.add('wolf-ending-fade-out');
+    if (element && element.classList) {
+      element.classList.add('is-leaving');
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] ending title transition class failed:', error);
+    }
+  }
+
+  if (setup._wolfEndingToTitleTimer) {
+    window.clearTimeout(setup._wolfEndingToTitleTimer);
+  }
+
+  setup._wolfEndingToTitleTimer = window.setTimeout(function () {
+    setup._wolfEndingToTitleTimer = null;
+    Engine.play(target);
+  }, delay);
 };
 
 setup.ensureEndingTitleBgmAudio = function (track) {
@@ -2939,6 +3011,7 @@ function wolfEscapeHtml(value) {
     }
 
     var passage = stamp.getAttribute('data-next');
+    var stage = stamp.closest ? stamp.closest('.page-stage.ending-screen') : null;
 
     if (!passage) {
       return;
@@ -2949,6 +3022,14 @@ function wolfEscapeHtml(value) {
 
     if (window.WolfPlayButtonSound) {
       window.WolfPlayButtonSound();
+    }
+
+    if (stage && passage === 'Ending_ReturnToStart') {
+      stage.classList.add('is-ending-to-title-exiting');
+      window.setTimeout(function () {
+        Engine.play(passage);
+      }, 950);
+      return;
     }
 
     Engine.play(passage);
@@ -3405,8 +3486,23 @@ $(document).on(':passagerender :passageend', function (event) {
 
 $(document).on(':passagedisplay', function () {
   if (setup.isTitlePassage && setup.isTitlePassage(State.passage)) {
+    if (setup.clearEndingTitleTransitionClasses) {
+      setup.clearEndingTitleTransitionClasses();
+    }
     if (setup.playEndingTitleBgm) {
       setup.playEndingTitleBgm();
+    }
+    if (State.variables && State.variables.titleSlowFadeIn) {
+      var titleScreen = document.querySelector('.title-screen');
+      if (titleScreen) {
+        titleScreen.classList.add('wolf-title-slow-fade-in');
+      }
+      window.setTimeout(function () {
+        if (State.variables) {
+          State.variables.titleSlowFadeIn = false;
+          State.variables.fromEndingToTitle = false;
+        }
+      }, 1600);
     }
   } else if (setup.stopEndingTitleBgm) {
     setup.stopEndingTitleBgm();

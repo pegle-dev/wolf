@@ -804,6 +804,53 @@ body.wolf-intro-active .outer-dev-ui {
   color: var(--text);
   text-align: center;
   overflow: hidden;
+  animation: wolfTitleSoftAppear 850ms ease-out both;
+}
+
+.title-screen.wolf-title-slow-fade-in {
+  animation: wolfTitleSlowFadeIn 1500ms ease-out both;
+}
+
+body.wolf-ending-fade-out #passages {
+  animation: wolfEndingFadeOut 1050ms ease-in forwards;
+}
+
+.page-stage.ending-screen.is-ending-to-title-exiting {
+  animation: wolfEndingFadeOut 950ms ease-in forwards !important;
+}
+
+@keyframes wolfTitleSoftAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wolfTitleSlowFadeIn {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes wolfEndingFadeOut {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(2px);
+  }
 }
 
 .title-main {
@@ -2646,7 +2693,7 @@ body.status-hidden .outer-dev-ui {
 }
 
 .ending-return-screen.is-leaving {
-  animation: wolf-ending-return-fade-out 700ms ease-in both;
+  animation: wolfEndingFadeOut 950ms ease-in both;
 }
 
 .page-stage.ending-return-stage {
@@ -3845,14 +3892,6 @@ body,
   margin: 0 auto 2px;
   pointer-events: none;
   user-select: none;
-}
-
-.first-death-tension-label {
-  margin-bottom: 6px;
-  color: rgba(210, 205, 194, 0.52);
-  font-size: 12px;
-  line-height: 1.2;
-  letter-spacing: 0.16em;
 }
 
 .timed-choice-bar-track,
@@ -5167,13 +5206,6 @@ body,
   pointer-events: none !important;
 }
 
-.first-death-tension-label {
-  display: block !important;
-  margin: 0 0 6px !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
 .first-death-tension-track,
 .first-death-tension-bar,
 .timed-choice-bar-track {
@@ -5261,19 +5293,6 @@ body,
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: none !important;
-}
-
-.timed-choice-screen .first-death-tension-label {
-  display: block !important;
-  margin: 0 0 6px !important;
-  padding: 0 !important;
-  color: rgba(210, 205, 194, 0.58) !important;
-  font-size: 12px !important;
-  line-height: 1.2 !important;
-  letter-spacing: 0.16em !important;
-  text-align: center !important;
-  opacity: 1 !important;
-  visibility: visible !important;
 }
 
 .timed-choice-screen .timed-choice-bar-track,
@@ -6637,31 +6656,6 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-}
-
-.timed-choice-screen .first-death-tension-label {
-  color: rgba(136, 28, 24, 0.72) !important;
-  font-size: 28px !important;
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
-  text-shadow: 0 0 8px rgba(92, 12, 10, 0.24) !important;
-  animation: wolfDangerGlyphPulse 2.4s ease-in-out infinite !important;
-}
-
-@keyframes wolfDangerGlyphPulse {
-  0%,
-  100% {
-    opacity: 0.46;
-    color: rgba(94, 18, 16, 0.58);
-    text-shadow: 0 0 4px rgba(72, 8, 8, 0.14);
-  }
-
-  48%,
-  56% {
-    opacity: 0.9;
-    color: rgba(150, 34, 28, 0.82);
-    text-shadow: 0 0 10px rgba(110, 18, 14, 0.34);
-  }
 }
 
 /* Final unified choice contract.
@@ -8924,8 +8918,80 @@ setup.continueAutosave = function () {
   wolfClearSessionFlag('wolf.continuingAutosave');
 };
 
+setup.getTitlePassageName = function () {
+  if (typeof Story !== 'undefined' && Story.has) {
+    if (Story.has('Title')) return 'Title';
+    if (Story.has('Start')) return 'Start';
+  }
+
+  return 'Start';
+};
+
 setup.isTitlePassage = function (passageName) {
-  return String(passageName || '') === 'Start';
+  return String(passageName || '') === (setup.getTitlePassageName ? setup.getTitlePassageName() : 'Start');
+};
+
+setup.ensureTitleTransitionVariables = function () {
+  var variables = State.variables || {};
+
+  if (typeof variables.titleSlowFadeIn === 'undefined' || variables.titleSlowFadeIn === null) {
+    variables.titleSlowFadeIn = false;
+  }
+
+  if (typeof variables.fromEndingToTitle === 'undefined' || variables.fromEndingToTitle === null) {
+    variables.fromEndingToTitle = false;
+  }
+};
+
+setup.clearEndingTitleTransitionClasses = function () {
+  try {
+    document.documentElement.classList.remove('wolf-ending-to-title');
+    document.body.classList.remove('wolf-ending-fade-out');
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] ending title transition cleanup failed:', error);
+    }
+  }
+};
+
+setup.goTitleAfterEnding = function (options) {
+  var target = setup.getTitlePassageName ? setup.getTitlePassageName() : 'Start';
+  var delay;
+  var element;
+
+  options = options || {};
+  delay = Number(options.delay) || 1050;
+  element = options.element || null;
+
+  if (setup.ensureTitleTransitionVariables) {
+    setup.ensureTitleTransitionVariables();
+  }
+
+  if (State.variables) {
+    State.variables.titleSlowFadeIn = true;
+    State.variables.fromEndingToTitle = true;
+  }
+
+  try {
+    document.documentElement.classList.add('wolf-ending-to-title');
+    document.body.classList.add('wolf-ending-fade-out');
+    if (element && element.classList) {
+      element.classList.add('is-leaving');
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] ending title transition class failed:', error);
+    }
+  }
+
+  if (setup._wolfEndingToTitleTimer) {
+    window.clearTimeout(setup._wolfEndingToTitleTimer);
+  }
+
+  setup._wolfEndingToTitleTimer = window.setTimeout(function () {
+    setup._wolfEndingToTitleTimer = null;
+    Engine.play(target);
+  }, delay);
 };
 
 setup.ensureEndingTitleBgmAudio = function (track) {
@@ -9770,6 +9836,7 @@ function wolfEscapeHtml(value) {
     }
 
     var passage = stamp.getAttribute('data-next');
+    var stage = stamp.closest ? stamp.closest('.page-stage.ending-screen') : null;
 
     if (!passage) {
       return;
@@ -9780,6 +9847,14 @@ function wolfEscapeHtml(value) {
 
     if (window.WolfPlayButtonSound) {
       window.WolfPlayButtonSound();
+    }
+
+    if (stage && passage === 'Ending_ReturnToStart') {
+      stage.classList.add('is-ending-to-title-exiting');
+      window.setTimeout(function () {
+        Engine.play(passage);
+      }, 950);
+      return;
     }
 
     Engine.play(passage);
@@ -10236,8 +10311,23 @@ $(document).on(':passagerender :passageend', function (event) {
 
 $(document).on(':passagedisplay', function () {
   if (setup.isTitlePassage && setup.isTitlePassage(State.passage)) {
+    if (setup.clearEndingTitleTransitionClasses) {
+      setup.clearEndingTitleTransitionClasses();
+    }
     if (setup.playEndingTitleBgm) {
       setup.playEndingTitleBgm();
+    }
+    if (State.variables && State.variables.titleSlowFadeIn) {
+      var titleScreen = document.querySelector('.title-screen');
+      if (titleScreen) {
+        titleScreen.classList.add('wolf-title-slow-fade-in');
+      }
+      window.setTimeout(function () {
+        if (State.variables) {
+          State.variables.titleSlowFadeIn = false;
+          State.variables.fromEndingToTitle = false;
+        }
+      }, 1600);
     }
   } else if (setup.stopEndingTitleBgm) {
     setup.stopEndingTitleBgm();
@@ -10530,6 +10620,8 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $endingSeenBoolMap to {}&gt;&gt;
 &lt;&lt;set $totalUniqueEndingsSeen to 0&gt;&gt;
 &lt;&lt;set $lastEndingBgmType to &quot;&quot;&gt;&gt;
+&lt;&lt;set $titleSlowFadeIn to false&gt;&gt;
+&lt;&lt;set $fromEndingToTitle to false&gt;&gt;
 &lt;&lt;set $badEndingSeen to false&gt;&gt;
 &lt;&lt;set $badEndFirstDeathSeen to false&gt;&gt;
 &lt;&lt;set $qualifiedCharacterEndingSeen to false&gt;&gt;
@@ -11346,7 +11438,9 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="Ending_ReturnToStart" tags="" position="5200,400" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;div class=&quot;ending-return-screen&quot;&gt;
 &lt;div class=&quot;choice-box&quot;&gt;
-[[다시, 처음으로-&gt;Start]]
+&lt;&lt;link &quot;다시, 처음으로&quot;&gt;&gt;
+  &lt;&lt;run setup.goTitleAfterEnding &amp;&amp; setup.goTitleAfterEnding({ element: document.querySelector(&quot;.ending-return-screen&quot;) })&gt;&gt;
+&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="Hidden_Rebirth_Voices" tags="" position="5200,1500" size="100,100">&lt;&lt;page&gt;&gt;
@@ -15401,7 +15495,6 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;div class=&quot;global-choice-layer first-death-choice-layer&quot;&gt;
   &lt;div class=&quot;timed-choice-stack&quot;&gt;&lt;&lt;nobr&gt;&gt;
     &lt;div class=&quot;first-death-tension-ui timed-choice-bar-ui&quot;&gt;
-      &lt;div class=&quot;first-death-tension-label&quot;&gt;危&lt;/div&gt;
       &lt;div class=&quot;first-death-tension-track first-death-tension-bar timed-choice-bar-track&quot;&gt;
         &lt;div class=&quot;first-death-tension-fill timed-choice-bar-fill&quot; data-timed-choice-bar&gt;&lt;/div&gt;
       &lt;/div&gt;
@@ -15618,7 +15711,6 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;div class=&quot;global-choice-layer genichiro-arrow-choice-layer&quot;&gt;
   &lt;div class=&quot;timed-choice-stack&quot;&gt;
     &lt;div class=&quot;genichiro-arrow-tension-ui timed-choice-bar-ui&quot;&gt;
-      &lt;div class=&quot;first-death-tension-label&quot;&gt;危&lt;/div&gt;
       &lt;div class=&quot;genichiro-arrow-tension-bar timed-choice-bar-track&quot;&gt;
         &lt;div class=&quot;genichiro-arrow-tension-fill timed-choice-bar-fill&quot; data-timed-choice-bar&gt;&lt;/div&gt;
       &lt;/div&gt;

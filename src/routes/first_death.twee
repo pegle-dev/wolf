@@ -24,7 +24,6 @@
 <div class="global-choice-layer first-death-choice-layer">
   <div class="timed-choice-stack"><<nobr>>
     <div class="first-death-tension-ui timed-choice-bar-ui">
-      <div class="first-death-tension-label">危</div>
       <div class="first-death-tension-track first-death-tension-bar timed-choice-bar-track">
         <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
       </div>
