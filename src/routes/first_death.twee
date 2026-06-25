@@ -17,7 +17,7 @@
 :: FirstDeath_Choices {"position":"2875,125","size":"100,100"}
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-<div class="choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake" data-timed-choice-seconds="5" data-timed-choice-target="FirstDeath_Timeout">
+<div class="choice-screen timed-choice-screen first-death-choice-screen black-stage urgent-choice-shake" data-timed-choice-seconds="5" data-timed-choice-target="FirstDeath_Timeout" data-timer-duration="5000" data-timer-pattern="sudden" data-timeout-target="FirstDeath_Timeout">
 <div class="choice-prompt first-death-choice-prompt"><div class="urgent-shake-inner">기둥이 무너진다.
 쿠로가 그 아래에 있다.</div></div>
 

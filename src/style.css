@@ -4050,10 +4050,80 @@ body,
 
 .outer-dev-ui,
 .outer-vars-panel,
+.wolf-player-status-panel,
 .status-panel,
 .debug-status-panel,
 .debug-status {
   z-index: 31000 !important;
+}
+
+.wolf-player-status-panel {
+  position: fixed;
+  right: 32px;
+  top: 132px;
+  width: min(310px, 34vw);
+  box-sizing: border-box;
+  padding: 12px 14px 13px;
+  color: rgba(224, 220, 212, 0.84);
+  background: rgba(10, 10, 10, 0.72);
+  border-top: 1px solid rgba(210, 206, 198, 0.18);
+  border-bottom: 1px solid rgba(210, 206, 198, 0.18);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 0s linear 220ms;
+}
+
+.wolf-player-status-panel.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: none;
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease,
+    visibility 0s;
+}
+
+.wolf-player-status-title {
+  margin: 0 0 9px;
+  color: rgba(242, 238, 230, 0.9);
+  font-family: "WolfNotoSerifKRBold", "WolfTitleKR", serif;
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+}
+
+.wolf-player-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.wolf-player-status-row {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0.035em;
+}
+
+.wolf-player-status-row span {
+  color: rgba(168, 164, 156, 0.62);
+}
+
+.wolf-player-status-row strong {
+  color: rgba(216, 211, 202, 0.82);
+  font-weight: 400;
+  text-align: right;
+  word-break: keep-all;
 }
 
 /* Unified text-only choice style. Excludes progress-only continue buttons. */
@@ -6056,6 +6126,47 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   transform-origin: center center !important;
   transform: scaleX(1);
   background: rgba(206, 202, 194, 0.58) !important;
+}
+
+.timed-choice-bar-fill.timer-pattern-linear {
+  transition-timing-function: linear !important;
+}
+
+.timed-choice-bar-fill.timer-pattern-accelerate {
+  transition-timing-function: cubic-bezier(0.65, 0, 1, 1) !important;
+}
+
+.timed-choice-bar-fill.timer-pattern-sudden {
+  transition-timing-function: cubic-bezier(0.8, 0, 1, 1) !important;
+}
+
+.timed-choice-bar-fill.timer-pattern-slow {
+  transition-timing-function: linear !important;
+}
+
+.timed-choice-bar-fill.timer-pattern-unstable {
+  transition-timing-function: linear !important;
+}
+
+.timed-choice-screen.timer-pattern-unstable .timed-choice-bar-track {
+  animation: wolfTimerUnstableTrack 900ms steps(2, end) infinite;
+}
+
+@keyframes wolfTimerUnstableTrack {
+  0% {
+    opacity: 0.72;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(1px);
+  }
+
+  100% {
+    opacity: 0.82;
+    transform: translateX(-1px);
+  }
 }
 
 /* Final overlap fix: keep prompts and choices in separate vertical zones. */

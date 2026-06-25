@@ -2689,6 +2689,104 @@ function wolfUpdateTimedChoiceCountdown(remaining) {
   }
 }
 
+function wolfGetTimerPatternConfig(pattern) {
+  var configs = {
+    linear: {
+      className: 'timer-pattern-linear',
+      easing: 'linear',
+      defaultDuration: 5000
+    },
+
+    accelerate: {
+      className: 'timer-pattern-accelerate',
+      easing: 'cubic-bezier(0.65, 0, 1, 1)',
+      defaultDuration: 4000
+    },
+
+    unstable: {
+      className: 'timer-pattern-unstable',
+      easing: 'linear',
+      defaultDuration: 6500
+    },
+
+    slow: {
+      className: 'timer-pattern-slow',
+      easing: 'linear',
+      defaultDuration: 9000
+    },
+
+    sudden: {
+      className: 'timer-pattern-sudden',
+      easing: 'cubic-bezier(0.8, 0, 1, 1)',
+      defaultDuration: 3500
+    }
+  };
+
+  return configs[String(pattern || 'linear')] || configs.linear;
+}
+
+function wolfGetTimedChoiceTarget(screen) {
+  return screen && (
+    screen.getAttribute('data-timeout-target') ||
+    screen.getAttribute('data-timed-choice-target') ||
+    ''
+  );
+}
+
+function wolfGetTimedChoiceDurationMs(screen, config) {
+  var duration = screen && Number(screen.getAttribute('data-timer-duration'));
+  var seconds = screen && Number(screen.getAttribute('data-timed-choice-seconds'));
+
+  if (isFinite(duration) && duration > 0) {
+    return duration;
+  }
+
+  if (isFinite(seconds) && seconds > 0) {
+    return seconds * 1000;
+  }
+
+  return Number(config && config.defaultDuration) || 5000;
+}
+
+function wolfApplyTimerPattern(screen, fill, config, durationMs) {
+  var patternClasses = [
+    'timer-pattern-linear',
+    'timer-pattern-accelerate',
+    'timer-pattern-unstable',
+    'timer-pattern-slow',
+    'timer-pattern-sudden'
+  ];
+
+  if (!screen || !fill || !config) {
+    return;
+  }
+
+  patternClasses.forEach(function (className) {
+    screen.classList.remove(className);
+    fill.classList.remove(className);
+  });
+
+  screen.classList.add(config.className);
+  fill.classList.add(config.className);
+  fill.dataset.timerDuration = String(durationMs);
+  fill.style.setProperty('--timer-duration', durationMs + 'ms');
+  fill.style.transitionTimingFunction = config.easing || 'linear';
+}
+
+function wolfApplyTimerPatternProgress(progress, pattern) {
+  var ratio = Math.max(0, Math.min(1, Number(progress) || 0));
+
+  if (pattern === 'accelerate') {
+    return ratio * ratio;
+  }
+
+  if (pattern === 'sudden') {
+    return ratio * ratio * ratio;
+  }
+
+  return ratio;
+}
+
 function wolfStartTimedChoice(seconds, targetPassage) {
   var remaining = Number(seconds);
   var target = String(targetPassage || '');
@@ -2714,9 +2812,12 @@ function wolfStartTimedChoice(seconds, targetPassage) {
   }, 1000);
 }
 
-function wolfStartTimedChoiceBar(seconds, targetPassage) {
-  var totalMs = Number(seconds) * 1000;
-  var target = String(targetPassage || '');
+function wolfStartTimedChoiceBar(seconds, targetPassage, pattern, screenEl) {
+  var screen = screenEl || null;
+  var config = wolfGetTimerPatternConfig(pattern || (screen && screen.getAttribute('data-timer-pattern')) || 'linear');
+  var totalMs = screen ? wolfGetTimedChoiceDurationMs(screen, config) : Number(seconds) * 1000;
+  var target = String(targetPassage || (screen && wolfGetTimedChoiceTarget(screen)) || '');
+  var patternName = String(pattern || (screen && screen.getAttribute('data-timer-pattern')) || 'linear');
   var startTime = 0;
 
   wolfClearTimedChoice();
@@ -2732,23 +2833,27 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
     var remainingRatio;
     var bar;
     var passageEl;
+    var progress;
 
     if (!startTime) {
       startTime = now;
     }
 
     elapsed = now - startTime;
-    remainingRatio = Math.max(0, 1 - (elapsed / totalMs));
+    progress = wolfApplyTimerPatternProgress(elapsed / totalMs, patternName);
+    remainingRatio = Math.max(0, 1 - progress);
     passageEl = Array.prototype.slice.call(document.querySelectorAll('.passage')).pop() || document;
-    bar = passageEl && (
-      passageEl.querySelector('[data-timed-choice-bar]') ||
-      passageEl.querySelector('.timed-choice-bar-fill') ||
-      passageEl.querySelector('.first-death-tension-fill') ||
-      passageEl.querySelector('.genichiro-arrow-tension-fill') ||
-      passageEl.querySelector('.genichiro-arrow-timer-fill')
+    screen = screen && document.documentElement.contains(screen) ? screen : passageEl && passageEl.querySelector('.timed-choice-screen');
+    bar = screen && (
+      screen.querySelector('[data-timed-choice-bar]') ||
+      screen.querySelector('.timed-choice-bar-fill') ||
+      screen.querySelector('.first-death-tension-fill') ||
+      screen.querySelector('.genichiro-arrow-tension-fill') ||
+      screen.querySelector('.genichiro-arrow-timer-fill')
     );
 
     if (bar) {
+      wolfApplyTimerPattern(screen, bar, config, totalMs);
       bar.style.transform = 'scaleX(' + remainingRatio + ')';
     }
 
@@ -2764,6 +2869,7 @@ function wolfStartTimedChoiceBar(seconds, targetPassage) {
   setup.timedChoiceFrame = window.requestAnimationFrame(update);
 }
 
+setup.getTimerPatternConfig = wolfGetTimerPatternConfig;
 setup.startTimedChoice = wolfStartTimedChoice;
 setup.startTimedChoiceBar = wolfStartTimedChoiceBar;
 setup.clearTimedChoice = wolfClearTimedChoice;
@@ -2771,10 +2877,11 @@ window.WolfClearTimedChoice = wolfClearTimedChoice;
 
 function wolfEnsureTimedChoice(attempt) {
   var passageEl = Array.prototype.slice.call(document.querySelectorAll('.passage')).pop() || document;
-  var screen = passageEl && passageEl.querySelector('.timed-choice-screen[data-timed-choice-target][data-timed-choice-seconds]');
+  var screen = passageEl && passageEl.querySelector('.timed-choice-screen[data-timeout-target], .timed-choice-screen[data-timed-choice-target]');
   var bar = screen && screen.querySelector('[data-timed-choice-bar]');
-  var target = screen && screen.getAttribute('data-timed-choice-target');
+  var target = wolfGetTimedChoiceTarget(screen);
   var seconds = screen && screen.getAttribute('data-timed-choice-seconds');
+  var pattern = screen && screen.getAttribute('data-timer-pattern') || 'linear';
   var isRunning = target && setup.timedChoiceTarget === target && setup.timedChoiceFrame;
 
   if (!screen) {
@@ -2783,7 +2890,7 @@ function wolfEnsureTimedChoice(attempt) {
 
   if (bar) {
     if (!isRunning) {
-      wolfStartTimedChoiceBar(seconds, target);
+      wolfStartTimedChoiceBar(seconds, target, pattern, screen);
     }
     return;
   }
@@ -2797,7 +2904,7 @@ function wolfEnsureTimedChoice(attempt) {
 
 $(document).on(':passagerender :passageend :passagedisplay', function () {
   window.setTimeout(function () {
-    if (document.querySelector('.timed-choice-screen[data-timed-choice-target][data-timed-choice-seconds]')) {
+    if (document.querySelector('.timed-choice-screen[data-timeout-target], .timed-choice-screen[data-timed-choice-target]')) {
       wolfEnsureTimedChoice();
       return;
     }
@@ -2844,6 +2951,60 @@ function applyStoredStatusHidden() {
   applyStatusHiddenClass(!wolfIsDebugMode() || getStoredStatusHidden());
 }
 
+function wolfEnsurePlayerStatusPanel() {
+  var panel = document.querySelector('.wolf-player-status-panel');
+
+  if (panel) {
+    return panel;
+  }
+
+  panel = document.createElement('div');
+  panel.className = 'wolf-player-status-panel';
+  panel.setAttribute('aria-label', '늑대 상태');
+  panel.setAttribute('aria-hidden', 'true');
+  panel.innerHTML =
+    '<div class="wolf-player-status-title">늑대</div>' +
+    '<div class="wolf-player-status-list">' +
+      '<div class="wolf-player-status-row"><span>위험</span><strong data-wolf-state-label="danger"></strong></div>' +
+      '<div class="wolf-player-status-row"><span>고독</span><strong data-wolf-state-label="isolation"></strong></div>' +
+      '<div class="wolf-player-status-row"><span>수라</span><strong data-wolf-state-label="shura"></strong></div>' +
+    '</div>';
+
+  document.body.appendChild(panel);
+  return panel;
+}
+
+function wolfUpdatePlayerStatusPanel() {
+  var panel = wolfEnsurePlayerStatusPanel();
+
+  if (!panel) {
+    return;
+  }
+
+  Array.prototype.forEach.call(panel.querySelectorAll('[data-wolf-state-label]'), function (el) {
+    var type = el.getAttribute('data-wolf-state-label') || '';
+    el.textContent = setup.getWolfStateLabel ? setup.getWolfStateLabel(type) : '';
+  });
+}
+
+function wolfSetPlayerStatusVisible(visible) {
+  var panel = wolfEnsurePlayerStatusPanel();
+
+  setup._wolfPlayerStatusVisible = !!visible;
+  wolfUpdatePlayerStatusPanel();
+
+  if (!panel) {
+    return;
+  }
+
+  panel.classList.toggle('is-visible', setup._wolfPlayerStatusVisible);
+  panel.setAttribute('aria-hidden', setup._wolfPlayerStatusVisible ? 'false' : 'true');
+}
+
+function wolfTogglePlayerStatusPanel() {
+  wolfSetPlayerStatusVisible(!setup._wolfPlayerStatusVisible);
+}
+
 function isTypingTarget(target) {
   if (!target) {
     return false;
@@ -2867,6 +3028,13 @@ $(document).on('keydown', function (event) {
   if (event.key === '[') {
     event.preventDefault();
     document.body.classList.toggle('dev-mode');
+  }
+
+  if (!event.altKey && !event.ctrlKey && !event.metaKey &&
+      (String(event.key || '').toLowerCase() === 's' || event.code === 'KeyS')) {
+    event.preventDefault();
+    wolfTogglePlayerStatusPanel();
+    return;
   }
 
   if (event.key === ']') {
@@ -3318,6 +3486,7 @@ function wolfUpdateOuterUI() {
     setup.ensureBondVariables();
   }
   applyStoredStatusHidden();
+  wolfUpdatePlayerStatusPanel();
 
   var canGoBack = State.length > 1 && State.passage !== 'Start';
   $('.outer-back-button')
