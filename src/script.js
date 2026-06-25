@@ -19,6 +19,27 @@
 
   var WOLF_ENDING_META_KEY = 'wolf.endingMeta.v1';
 
+  function wolfGetStoryVariable(key, fallback) {
+    var variables = State.variables || {};
+
+    try {
+      if (Object.prototype.hasOwnProperty.call(variables, key)) {
+        return variables[key];
+      }
+    } catch (error) {
+      return fallback;
+    }
+
+    return fallback;
+  }
+
+  function wolfSetStoryVariable(key, value) {
+    var variables = State.variables || {};
+
+    variables[key] = value;
+    return value;
+  }
+
   function wolfNormalizeBoolMap(value) {
     var normalized = {};
 
@@ -50,6 +71,28 @@
 
   function wolfCountBoolMap(value) {
     return Object.keys(wolfNormalizeBoolMap(value)).length;
+  }
+
+  function wolfEndingIdFromPassage(passageName) {
+    var name = String(passageName || '').trim();
+    var knownIds = {
+      BadEnd_FirstDeath: 'badend_first_death',
+      Hanbei_End_QuietDay: 'ending_hanbei_quiet_day',
+      BadEnd_GenichiroArrow: 'badend_genichiro_arrow'
+    };
+
+    if (!name) {
+      return '';
+    }
+    if (knownIds[name]) {
+      return knownIds[name];
+    }
+
+    return name
+      .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+      .replace(/[^A-Za-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '')
+      .toLowerCase();
   }
 
   function wolfReadEndingMeta() {
@@ -98,17 +141,22 @@
   }
 
   function wolfApplyEndingMetaToState(meta) {
-    var variables = State.variables || {};
     var seen = wolfNormalizeBoolMap(meta && meta.seen);
     var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
 
-    variables.endingSeenIds = seen;
-    variables.endingProgressCount = count;
-    variables.endingCount = count;
-    variables.anyEndingSeen = count > 0 || variables.anyEndingSeen === true;
+    wolfSetStoryVariable('endingSeenIds', seen);
+    wolfSetStoryVariable('endingSeenBoolMap', seen);
+    wolfSetStoryVariable('endingProgressCount', count);
+    wolfSetStoryVariable('totalUniqueEndingsSeen', count);
+    wolfSetStoryVariable('endingCount', count);
+    wolfSetStoryVariable('anyEndingSeen', count > 0 || wolfGetStoryVariable('anyEndingSeen', false) === true);
 
     return { seen: seen, count: count };
   }
+
+  setup.endingMetaKey = setup.endingMetaKey || WOLF_ENDING_META_KEY;
+  setup.loadEndingMeta = wolfReadEndingMeta;
+  setup.saveEndingMeta = wolfWriteEndingMeta;
 
   setup.i18n = setup.i18n || {
     ko: {
@@ -579,9 +627,9 @@
   };
 
   setup.ensureEndingMetaVariables = function () {
-    var variables = State.variables || {};
     var persistent = wolfReadEndingMeta();
-    var stateSeen = wolfNormalizeBoolMap(variables.endingSeenIds);
+    var stateSeen = wolfNormalizeBoolMap(wolfGetStoryVariable('endingSeenIds', {}));
+    var legacySeen = wolfNormalizeBoolMap(wolfGetStoryVariable('endingSeenBoolMap', {}));
     var merged = {};
     var count;
 
@@ -591,20 +639,37 @@
     Object.keys(stateSeen).forEach(function (endingId) {
       merged[endingId] = true;
     });
+    Object.keys(legacySeen).forEach(function (endingId) {
+      merged[endingId] = true;
+    });
 
     count = Math.max(
       wolfCountBoolMap(merged),
       Number(persistent.count) || 0,
-      Number(variables.endingProgressCount) || 0,
-      Number(variables.endingCount) || 0
+      Number(wolfGetStoryVariable('totalUniqueEndingsSeen', 0)) || 0,
+      Number(wolfGetStoryVariable('endingProgressCount', 0)) || 0,
+      Number(wolfGetStoryVariable('endingCount', 0)) || 0
     );
 
     persistent = wolfWriteEndingMeta({ seen: merged, count: count });
     return wolfApplyEndingMetaToState(persistent);
   };
 
+  setup.ensureEndingVariables = setup.ensureEndingMetaVariables;
+
   setup.getEndingProgressCount = function () {
     return setup.ensureEndingMetaVariables().count;
+  };
+
+  setup.getUniqueEndingCount = setup.getEndingProgressCount;
+
+  setup.recordEndingSeen = function (endingId) {
+    if (!endingId) {
+      return false;
+    }
+
+    wolfMarkEndingSeen(endingId);
+    return true;
   };
 
   setup.ensurePortraitVariables = function () {
@@ -2102,20 +2167,139 @@ function wolfUpdateRouteUnlocks() {
   }
 }
 
-function wolfMarkEndingSeen(endingId) {
+var WOLF_ENDING_META_KEY_RUNTIME = (setup && setup.endingMetaKey) || 'wolf.endingMeta.v1';
+
+function wolfGetStoryVariable(key, fallback) {
   var variables = State.variables || {};
-  var key = String(endingId || State.passage || '').trim();
+
+  try {
+    if (Object.prototype.hasOwnProperty.call(variables, key)) {
+      return variables[key];
+    }
+  } catch (error) {
+    return fallback;
+  }
+
+  return fallback;
+}
+
+function wolfSetStoryVariable(key, value) {
+  var variables = State.variables || {};
+
+  variables[key] = value;
+  return value;
+}
+
+function wolfNormalizeBoolMap(value) {
+  var normalized = {};
+
+  if (Array.isArray(value)) {
+    value.forEach(function (item) {
+      var key = String(item || '').trim();
+
+      if (key) {
+        normalized[key] = true;
+      }
+    });
+    return normalized;
+  }
+
+  if (!value || typeof value !== 'object') {
+    return normalized;
+  }
+
+  Object.keys(value).forEach(function (key) {
+    key = String(key || '').trim();
+
+    if (key && value[key] === true) {
+      normalized[key] = true;
+    }
+  });
+
+  return normalized;
+}
+
+function wolfCountBoolMap(value) {
+  return Object.keys(wolfNormalizeBoolMap(value)).length;
+}
+
+function wolfEndingIdFromPassage(passageName) {
+  var name = String(passageName || '').trim();
+  var knownIds = {
+    BadEnd_FirstDeath: 'badend_first_death',
+    Hanbei_End_QuietDay: 'ending_hanbei_quiet_day',
+    BadEnd_GenichiroArrow: 'badend_genichiro_arrow'
+  };
+
+  if (!name) {
+    return '';
+  }
+  if (knownIds[name]) {
+    return knownIds[name];
+  }
+
+  return name
+    .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+    .replace(/[^A-Za-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .toLowerCase();
+}
+
+function wolfWriteEndingMeta(meta) {
+  var seen = wolfNormalizeBoolMap(meta && meta.seen);
+  var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
+
+  try {
+    window.localStorage.setItem(WOLF_ENDING_META_KEY_RUNTIME, JSON.stringify({
+      seen: seen,
+      count: count,
+      updatedAt: Date.now()
+    }));
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] ending meta save failed:', error);
+    }
+  }
+
+  return { seen: seen, count: count };
+}
+
+function wolfApplyEndingMetaToState(meta) {
+  var seen = wolfNormalizeBoolMap(meta && meta.seen);
+  var count = Math.max(wolfCountBoolMap(seen), Number(meta && meta.count) || 0);
+
+  wolfSetStoryVariable('endingSeenIds', seen);
+  wolfSetStoryVariable('endingSeenBoolMap', seen);
+  wolfSetStoryVariable('endingProgressCount', count);
+  wolfSetStoryVariable('totalUniqueEndingsSeen', count);
+  wolfSetStoryVariable('endingCount', count);
+  wolfSetStoryVariable('anyEndingSeen', count > 0 || wolfGetStoryVariable('anyEndingSeen', false) === true);
+
+  return { seen: seen, count: count };
+}
+
+function wolfMarkEndingSeen(endingId) {
+  var key = String(endingId || '').trim();
   var meta;
   var wasSeen;
   var count;
+
+  if (!key) {
+    key = wolfEndingIdFromPassage(State.passage || '');
+  } else {
+    key = wolfEndingIdFromPassage(key);
+  }
 
   if (!key) {
     key = 'unknown-ending';
   }
 
   meta = setup.ensureEndingMetaVariables ? setup.ensureEndingMetaVariables() : {
-    seen: wolfNormalizeBoolMap(variables.endingSeenIds),
-    count: Math.max(Number(variables.endingProgressCount) || 0, Number(variables.endingCount) || 0)
+    seen: wolfNormalizeBoolMap(wolfGetStoryVariable('endingSeenIds', {})),
+    count: Math.max(
+      Number(wolfGetStoryVariable('endingProgressCount', 0)) || 0,
+      Number(wolfGetStoryVariable('endingCount', 0)) || 0
+    )
   };
   wasSeen = meta.seen[key] === true;
 
@@ -2127,8 +2311,8 @@ function wolfMarkEndingSeen(endingId) {
   meta = wolfWriteEndingMeta({ seen: meta.seen, count: count });
   wolfApplyEndingMetaToState(meta);
 
-  variables.anyEndingSeen = true;
-  variables.traceFirstEnding = true;
+  wolfSetStoryVariable('anyEndingSeen', true);
+  wolfSetStoryVariable('traceFirstEnding', true);
 
   wolfUpdateRouteUnlocks();
 }

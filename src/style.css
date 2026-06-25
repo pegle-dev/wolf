@@ -14,6 +14,14 @@
 }
 
 @font-face {
+  font-family: 'WolfNotoSerifKRBold';
+  src: url('assets/Font/NotoSerifKR-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'WolfTitleKR';
   src: url('assets/Font/ChosunSm.TTF') format('truetype');
   font-weight: 400;
@@ -6527,7 +6535,7 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 
 .timed-choice-screen .first-death-tension-label {
   color: rgba(136, 28, 24, 0.72) !important;
-  font-size: 14px !important;
+  font-size: 28px !important;
   line-height: 1 !important;
   letter-spacing: 0 !important;
   text-shadow: 0 0 8px rgba(92, 12, 10, 0.24) !important;
@@ -6667,4 +6675,51 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 .first-death-choice-screen .global-choice-layer,
 .genichiro-arrow-choice-screen .global-choice-layer {
   bottom: 88px !important;
+}
+
+/* Font-only title/choice override. Keep layout, spacing, and title screen intact. */
+.global-choice-box a,
+.story-choice-box a,
+.global-choice-item a,
+.temple-choice-box a,
+.choice-screen .global-choice-box a,
+.choice-screen .story-choice-box a,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box a,
+.global-choice-box a::before,
+.story-choice-box a::before,
+.global-choice-item a::before,
+.temple-choice-box a::before,
+.choice-screen .global-choice-box a::before,
+.choice-screen .story-choice-box a::before,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box a::before,
+.badend-title,
+.badend-label,
+.ending-title,
+.end-title,
+.ending-stamp,
+.recordbook-title,
+.recordbook-tab,
+.recordbook-tabs a,
+.recordbook-section-title,
+.recordbook-item-title,
+.recordbook-ending-title,
+.recordbook-dream-title,
+.recordbook-bond-title,
+.recordbook-trace-title,
+.status-title,
+.status-section-title,
+.debug-title {
+  font-family: 'WolfNotoSerifKRBold', 'WolfBodySerif', serif !important;
+  font-weight: 700 !important;
+}
+
+.title-screen .title-logo,
+.title-screen .game-title {
+  font-family: 'WolfMainTitle', serif !important;
+}
+
+.title-screen .title-menu a,
+.title-screen .title-start-copy,
+.title-screen .game-tagline {
+  font-family: 'WolfBodySerif', serif !important;
 }

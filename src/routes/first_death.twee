@@ -145,7 +145,7 @@
 <<set $recordBookNewTrace = true>>
 <<set $anyEndingSeen = true>>
 <<set $badEndingSeen = true>>
-<<markEndingSeen>>
+<<markEndingSeen "badend_first_death">>
 <div class="badend-screen black-stage">
 <div class="badend-narration">늑대는 쿠로를 구했다.
 

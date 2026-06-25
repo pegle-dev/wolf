@@ -72,4 +72,39 @@ test.describe('Wolf story smoke QA', () => {
     await expect(page.locator('.recordbook-content')).not.toContainText('Worst End');
     await expect(page.locator('.recordbook-content')).not.toContainText('Normal End');
   });
+
+  test('records the first death bad end without markEndingSeen macro errors', async ({ page }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+
+    await openStory(page);
+
+    await page.evaluate(() => {
+      window.SugarCube.Engine.play('BadEnd_FirstDeath');
+    });
+    await page.waitForFunction(() => window.SugarCube.State.passage === 'BadEnd_FirstDeath');
+
+    const passage = page.locator('#passages');
+
+    await expect(passage).toContainText('[Bad End. 첫 번째 죽음]');
+    await expect(passage).not.toContainText('cannot execute macro');
+    await expect(passage).not.toContainText('endingSeenBoolMap');
+    await expect(passage).not.toContainText('An error has occurred');
+
+    const endingMeta = await page.evaluate(() => {
+      const v = window.SugarCube.State.variables;
+      const stored = JSON.parse(window.localStorage.getItem('wolf.endingMeta.v1') || '{}');
+
+      return {
+        stateSeen: !!(v.endingSeenBoolMap && v.endingSeenBoolMap.badend_first_death),
+        totalUniqueEndingsSeen: v.totalUniqueEndingsSeen,
+        persistentSeen: !!(stored.seen && stored.seen.badend_first_death)
+      };
+    });
+
+    expect(endingMeta.stateSeen).toBe(true);
+    expect(endingMeta.totalUniqueEndingsSeen).toBeGreaterThanOrEqual(1);
+    expect(endingMeta.persistentSeen).toBe(true);
+    expect(pageErrors).toEqual([]);
+  });
 });

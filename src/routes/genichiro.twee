@@ -178,7 +178,7 @@
 <<set $badEndGenichiroArrowSeen = true>>
 <<set $recordBookUnlocked = true>>
 <<set $recordBookNewEnding = true>>
-<<markEndingSeen>>
+<<markEndingSeen "badend_genichiro_arrow">>
 <div class="ending-text">
 [Bad End. 성문 앞의 화살]
 
@@ -253,24 +253,67 @@
 :: Genichiro_01_Gate_Choice {"position":"2425,1725","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "그를 따라간다" "Temple_Return">>
+<<link "그를 따라간다" "Genichiro_01_Gate_Follow_Result">>
   <<set $genichiroLove += 1>>
   <<set $danger += 1>>
   <<set $genichiroFollowed = true>>
   <<clampStats>>
 <</link>>
 
-<<link "멀리서 지켜본다" "Temple_Return">>
+<<link "멀리서 지켜본다" "Genichiro_01_Gate_Watch_Result">>
   <<set $genichiroLove += 1>>
   <<clampStats>>
 <</link>>
 
-<<link "쿠로님께 돌아간다" "Temple_Return">>
+<<link "쿠로님께 돌아간다" "Genichiro_01_Gate_ReturnKuro_Result">>
   <<set $kuroLove += 1>>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_01_Gate_Follow_Result {"position":"2550,1725","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 거리를 두고 뒤따랐다.
+
+겐이치로는 돌아보지 않았다.
+그러나 걸음은 늦어지지 않았다.
+
+따라오고 있음을 알고 있는 걸음이었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_01_Gate_Watch_Result {"position":"2550,1775","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 그 자리에 남았다.
+
+성으로 돌아가는 등은 멀어졌다.
+피는 길 위에 남았다.
+
+적의 피였다.
+그러나 그 무게는 낯설지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_01_Gate_ReturnKuro_Result {"position":"2550,1825","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 등을 돌렸다.
+
+돌아가야 할 곳은 정해져 있었다.
+
+그런데도 성문 쪽 바람이,
+한동안 등 뒤에 남아 있었다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_02_Rooftop {"position":"2175,1875","size":"100,100"}
@@ -344,22 +387,64 @@
 :: Genichiro_02_Rooftop_Choice {"position":"3050,1875","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "침묵한다" "Temple_Return">>
+<<link "침묵한다" "Genichiro_02_Rooftop_Silence_Result">>
   <<set $genichiroLove += 1>>
   <<clampStats>>
 <</link>>
 
-<<link "그를 바라본다" "Temple_Return">>
+<<link "그를 바라본다" "Genichiro_02_Rooftop_Look_Result">>
   <<set $genichiroLove += 2>>
   <<set $genichiroLooked = true>>
   <<clampStats>>
 <</link>>
 
-<<link "떠난다" "Temple_Return">>
+<<link "떠난다" "Genichiro_02_Rooftop_Leave_Result">>
   <<set $isolation += 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_02_Rooftop_Silence_Result {"position":"3175,1875","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 대답하지 않았다.
+
+겐이치로도 더 묻지 않았다.
+
+침묵은 지나가는 바람처럼 둘 사이를 베고 갔다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_02_Rooftop_Look_Result {"position":"3175,1925","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 겐이치로를 보았다.
+
+활도, 검도, 갑옷도 아닌
+그 눈을 보았다.
+
+겐이치로의 입가가 움직였지만,
+웃음은 되지 못했다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_02_Rooftop_Leave_Result {"position":"3175,1975","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 떠났다.
+
+등 뒤에서 화살은 날아오지 않았다.
+
+그 사실이,
+이상하게 오래 남았다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_02b_WatchPost {"position":"2175,1950","size":"100,100"}
@@ -451,24 +536,66 @@
 :: Genichiro_02b_WatchPost_Choice {"position":"3050,1950","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "등을 보이지 않는다" "Temple_Return">>
+<<link "등을 보이지 않는다" "Genichiro_02b_WatchPost_NoBack_Result">>
   <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
   <<set $genichiroLove = Math.max(($genichiroLove || 0), (($genichiroAffection || 0) + ($genichiroConflict || 0)))>>
   <<clampStats>>
 <</link>>
 
-<<link "그를 지나친다" "Temple_Return">>
+<<link "그를 지나친다" "Genichiro_02b_WatchPost_Pass_Result">>
   <<set $genichiroAffection = ($genichiroAffection || 0) + 1>>
   <<set $genichiroLove = Math.max(($genichiroLove || 0), (($genichiroAffection || 0) + ($genichiroConflict || 0)))>>
   <<clampStats>>
 <</link>>
 
-<<link "활을 본다" "Temple_Return">>
+<<link "활을 본다" "Genichiro_02b_WatchPost_Bow_Result">>
   <<set $danger = ($danger || 0) + 1>>
   <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_02b_WatchPost_NoBack_Result {"position":"3175,1950","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 옆걸음으로 지나갔다.
+
+등은 보이지 않았다.
+
+겐이치로의 활도 끝내 움직이지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Pass_Result {"position":"3175,2000","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 그대로 지나쳤다.
+
+등 뒤의 기척은 사라지지 않았다.
+그러나 살기도 깊어지지 않았다.
+
+그것은 아직 믿음이 아니었다.
+다만 보류였다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Bow_Result {"position":"3175,2050","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 활을 보았다.
+
+시위는 비어 있었다.
+하지만 빈 시위도 사람을 멈추게 할 수 있다.
+
+겐이치로는 그것을 알고 있었다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_03_FullDuel {"position":"2175,2025","size":"100,100"}
@@ -571,13 +698,13 @@
 :: Genichiro_03_FullDuel_Choice {"position":"3050,2025","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "검을 거둔다" "Temple_Return">>
+<<link "검을 거둔다" "Genichiro_03_FullDuel_Sheathe_Result">>
   <<set $genichiroLove += 2>>
   <<set $genichiroDuelHeat = true>>
   <<clampStats>>
 <</link>>
 
-<<link "끝까지 겨눈다" "Temple_Return">>
+<<link "끝까지 겨눈다" "Genichiro_03_FullDuel_Aim_Result">>
   <<set $genichiroLove += 1>>
   <<set $danger += 1>>
   <<set $shura += 1>>
@@ -585,12 +712,54 @@
   <<clampStats>>
 <</link>>
 
-<<link "숨을 고른다" "Temple_Return">>
+<<link "숨을 고른다" "Genichiro_03_FullDuel_Breathe_Result">>
   <<set $genichiroLove += 1>>
   <<set $isolation -= 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_03_FullDuel_Sheathe_Result {"position":"3175,2025","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 검을 거두었다.
+
+겐이치로의 손도 늦게 내려갔다.
+
+베지 않은 것은 패배가 아니었다.
+아직 끝내지 않은 것에 가까웠다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_03_FullDuel_Aim_Result {"position":"3175,2075","size":"100,100"}
+<<page>>
+<div class="narration">
+칼끝은 끝까지 물러서지 않았다.
+
+겐이치로의 목 옆에 얇은 피가 맺혔다.
+
+그는 웃지 않았다.
+늑대도 베지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_03_FullDuel_Breathe_Result {"position":"3175,2125","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 숨을 골랐다.
+
+숨은 아직 자신의 것이었다.
+명령도, 살기도 아닌 짧은 간격.
+
+겐이치로는 그 틈을 보았다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_03b_AfterDuelDistance {"position":"2175,2100","size":"100,100"}
@@ -677,7 +846,7 @@
 :: Genichiro_03b_AfterDuelDistance_Choice {"position":"3050,2100","size":"100,100"}
 <<page>>
 <div class="choice-box">
-<<link "상처를 보아 둔다" "Temple_Return">>
+<<link "상처를 보아 둔다" "Genichiro_03b_AfterDuelDistance_Wound_Result">>
   <<set $genichiroAffection = ($genichiroAffection || 0) + 1>>
   <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
   <<set $genichiroSawWound = true>>
@@ -685,16 +854,58 @@
   <<clampStats>>
 <</link>>
 
-<<link "검을 닦는다" "Temple_Return">>
+<<link "검을 닦는다" "Genichiro_03b_AfterDuelDistance_Wipe_Result">>
   <<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
   <<clampStats>>
 <</link>>
 
-<<link "먼저 돌아선다" "Temple_Return">>
+<<link "먼저 돌아선다" "Genichiro_03b_AfterDuelDistance_Turn_Result">>
   <<set $isolation = ($isolation || 0) + 1>>
   <<clampStats>>
 <</link>>
 </div>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Wound_Result {"position":"3175,2100","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 상처의 위치를 기억했다.
+
+다음에 벨 곳을 정한 것은 아니었다.
+
+다만 겐이치로도 피를 흘린다는 사실이,
+검보다 오래 남았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Wipe_Result {"position":"3175,2150","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 검을 닦았다.
+
+피는 쉽게 지워졌다.
+
+손목에 남은 감각은,
+그보다 늦게 사라졌다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_Turn_Result {"position":"3175,2200","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대가 먼저 돌아섰다.
+
+이번에도 화살은 날아오지 않았다.
+
+겐이치로의 시선만이,
+등 뒤의 살처럼 남았다.
+</div>
+
+<<continueTo "Temple_Return">>
 <</page>>
 
 :: Genichiro_04_MoonSake {"position":"2175,2175","size":"100,100"}

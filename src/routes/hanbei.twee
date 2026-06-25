@@ -1910,7 +1910,7 @@
 <<set $hanbeiDone = true>>
 <<set $completedHanbei = true>>
 <<set $recordBookNewEnding = true>>
-<<markEndingSeen>>
+<<markEndingSeen "ending_hanbei_quiet_day">>
 <<qualifiedCharacterEnding "hanbei">>
 
 <div class="narration narration-full short-beat">[Day End. 그냥 온 날]
