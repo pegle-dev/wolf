@@ -7503,6 +7503,101 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     return true;
   };
 
+  setup.endingTitleBgmTracks = {
+    bad: {
+      id: 'BGM_End_Bad',
+      src: 'assets/audio/BGM_Bad_End.mp3'
+    },
+    broken: {
+      id: 'BGM_End_Broken',
+      src: 'assets/audio/BGM_End_Broken.mp3'
+    },
+    day: {
+      id: 'BGM_End_Day',
+      src: 'assets/audio/BGM_End_Day.mp3'
+    },
+    true: {
+      id: 'BGM_End_True',
+      src: 'assets/audio/BGM_End_True.mp3'
+    },
+    shura: {
+      id: 'BGM_End_Shura',
+      src: 'assets/audio/BGM_End_Shura.mp3'
+    }
+  };
+
+  setup.ensureEndingBgmVariables = function () {
+    if (typeof wolfGetStoryVariable('lastEndingBgmType') === 'undefined' ||
+        wolfGetStoryVariable('lastEndingBgmType') === null) {
+      wolfSetStoryVariable('lastEndingBgmType', '');
+    }
+  };
+
+  setup.setLastEndingBgmType = function (type) {
+    var allowed = ['bad', 'broken', 'day', 'true', 'shura'];
+
+    setup.ensureEndingBgmVariables();
+    type = String(type || '').trim().toLowerCase();
+
+    if (allowed.indexOf(type) === -1) {
+      if (window.console && console.warn) {
+        console.warn('[Wolf] invalid ending bgm type:', type);
+      }
+      return false;
+    }
+
+    wolfSetStoryVariable('lastEndingBgmType', type);
+    return true;
+  };
+
+  setup.clearLastEndingBgmType = function () {
+    setup.ensureEndingBgmVariables();
+    wolfSetStoryVariable('lastEndingBgmType', '');
+  };
+
+  setup.getEndingBgmTypeForId = function (endingId) {
+    var id = String(endingId || '').trim().toLowerCase();
+
+    if (!id) {
+      return '';
+    }
+    if (id.indexOf('shura') !== -1) {
+      return 'shura';
+    }
+    if (/(^|_)true($|_)/.test(id)) {
+      return 'true';
+    }
+    if (/(^|_)(broken|worst)($|_)/.test(id) ||
+        id.indexOf('immortal_weapon') !== -1 ||
+        id.indexOf('commandless_burden') !== -1 ||
+        id.indexOf('iron_guard') !== -1) {
+      return 'broken';
+    }
+    if (/^(badend|bad_end|bad_)/.test(id) || /(^|_)bad($|_)/.test(id)) {
+      return 'bad';
+    }
+    if (/^(ending_|hidden_rebirth|hanbei_end_quiet_day|ending_hanbei_quiet_day)/.test(id)) {
+      return 'day';
+    }
+
+    return '';
+  };
+
+  setup.getEndingTitleBgmTrack = function () {
+    var type;
+
+    setup.ensureEndingBgmVariables();
+    type = String(wolfGetStoryVariable('lastEndingBgmType', '') || '').trim().toLowerCase();
+
+    return setup.endingTitleBgmTracks[type] || null;
+  };
+
+  setup.getEndingTitleBgmId = function () {
+    var track = setup.getEndingTitleBgmTrack();
+
+    return track ? track.id : '';
+  };
+
   setup.ensurePortraitVariables = function () {
     var variables = State.variables || {};
 
@@ -8779,6 +8874,12 @@ setup.deleteAutosave = function () {
 };
 
 setup.startNewGame = function () {
+  if (setup.stopEndingTitleBgm) {
+    setup.stopEndingTitleBgm();
+  }
+  if (setup.clearLastEndingBgmType) {
+    setup.clearLastEndingBgmType();
+  }
   setup.deleteAutosave();
   setup._wolfStartNewGame = true;
   wolfSetSessionFlag('wolf.startNewGame');
@@ -8800,6 +8901,9 @@ setup.continueAutosave = function () {
         Save.browser &&
         Save.browser.auto &&
         typeof Save.browser.auto.load === 'function') {
+      if (setup.stopEndingTitleBgm) {
+        setup.stopEndingTitleBgm();
+      }
       setup._wolfContinuingAutosave = true;
       wolfSetSessionFlag('wolf.continuingAutosave');
       Save.browser.auto.load();
@@ -8813,6 +8917,100 @@ setup.continueAutosave = function () {
 
   setup._wolfContinuingAutosave = false;
   wolfClearSessionFlag('wolf.continuingAutosave');
+};
+
+setup.isTitlePassage = function (passageName) {
+  return String(passageName || '') === 'Start';
+};
+
+setup.ensureEndingTitleBgmAudio = function (track) {
+  var audio;
+
+  if (!track || !track.id || !track.src) {
+    return null;
+  }
+
+  setup._endingTitleBgmAudio = setup._endingTitleBgmAudio || {};
+  audio = setup._endingTitleBgmAudio[track.id];
+
+  if (!audio) {
+    audio = new Audio(track.src);
+    audio.loop = true;
+    audio.volume = 0.55;
+    audio.preload = 'auto';
+    setup._endingTitleBgmAudio[track.id] = audio;
+  }
+
+  return audio;
+};
+
+setup.stopEndingTitleBgm = function () {
+  var audioMap = setup._endingTitleBgmAudio || {};
+
+  Object.keys(audioMap).forEach(function (id) {
+    var audio = audioMap[id];
+
+    try {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    } catch (error) {
+      if (window.console && console.warn) {
+        console.warn('[Wolf] ending title bgm stop failed:', error);
+      }
+    }
+  });
+
+  setup._endingTitleBgmCurrentId = '';
+};
+
+setup.playEndingTitleBgm = function () {
+  var track = setup.getEndingTitleBgmTrack ? setup.getEndingTitleBgmTrack() : null;
+  var audio;
+  var promise;
+
+  if (!track) {
+    return false;
+  }
+
+  if (setup._endingTitleBgmCurrentId === track.id) {
+    audio = setup._endingTitleBgmAudio && setup._endingTitleBgmAudio[track.id];
+    if (audio && !audio.paused) {
+      return true;
+    }
+  }
+
+  setup.stopEndingTitleBgm();
+  audio = setup.ensureEndingTitleBgmAudio(track);
+
+  if (!audio) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] missing ending title bgm:', track.id);
+    }
+    return false;
+  }
+
+  setup._endingTitleBgmCurrentId = track.id;
+
+  try {
+    promise = audio.play();
+
+    if (promise && typeof promise.catch === 'function') {
+      promise.catch(function (error) {
+        if (window.console && console.warn) {
+          console.warn('[Wolf] ending title bgm play blocked:', error);
+        }
+      });
+    }
+  } catch (error) {
+    if (window.console && console.warn) {
+      console.warn('[Wolf] ending title bgm play failed:', error);
+    }
+    return false;
+  }
+
+  return true;
 };
 
 setup.isAutosaveExcludedPassage = function (passageName) {
@@ -9141,6 +9339,14 @@ function wolfMarkEndingSeen(endingId) {
 
   meta = wolfWriteEndingMeta({ seen: meta.seen, count: count });
   wolfApplyEndingMetaToState(meta);
+
+  if (setup.getEndingBgmTypeForId && setup.setLastEndingBgmType) {
+    var endingBgmType = setup.getEndingBgmTypeForId(key);
+
+    if (endingBgmType) {
+      setup.setLastEndingBgmType(endingBgmType);
+    }
+  }
 
   wolfSetStoryVariable('anyEndingSeen', true);
   wolfSetStoryVariable('traceFirstEnding', true);
@@ -10024,6 +10230,14 @@ $(document).on(':passagerender :passageend', function (event) {
 });
 
 $(document).on(':passagedisplay', function () {
+  if (setup.isTitlePassage && setup.isTitlePassage(State.passage)) {
+    if (setup.playEndingTitleBgm) {
+      setup.playEndingTitleBgm();
+    }
+  } else if (setup.stopEndingTitleBgm) {
+    setup.stopEndingTitleBgm();
+  }
+
   if (wolfHasSessionFlag('wolf.startNewGame') || setup._wolfStartNewGame) {
     wolfClearSessionFlag('wolf.startNewGame');
     setup._wolfStartNewGame = false;
@@ -10310,6 +10524,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $endingSeenIds to {}&gt;&gt;
 &lt;&lt;set $endingSeenBoolMap to {}&gt;&gt;
 &lt;&lt;set $totalUniqueEndingsSeen to 0&gt;&gt;
+&lt;&lt;set $lastEndingBgmType to &quot;&quot;&gt;&gt;
 &lt;&lt;set $badEndingSeen to false&gt;&gt;
 &lt;&lt;set $badEndFirstDeathSeen to false&gt;&gt;
 &lt;&lt;set $qualifiedCharacterEndingSeen to false&gt;&gt;
