@@ -708,6 +708,11 @@
     setup.ensureEndingBgmVariables();
     type = String(type || '').trim().toLowerCase();
 
+    if (!type) {
+      wolfSetStoryVariable('lastEndingBgmType', '');
+      return true;
+    }
+
     if (allowed.indexOf(type) === -1) {
       if (window.console && console.warn) {
         console.warn('[Wolf] invalid ending bgm type:', type);
