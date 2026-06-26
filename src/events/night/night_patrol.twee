@@ -1,7 +1,22 @@
 :: NightPatrol_Random {"position":"2000,925","size":"100,100"}
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<set $timeOfDay = "night">>
-<<goto "NightPatrol_Start">>
+<<set $nightPatrolActive = true>>
+<<set $nightPatrolUsedToday = true>>
+<<set $nightPatrolJustFinished = false>>
+<<set $currentMode = "nightPatrol">>
+<<set _place = random(1, 5)>>
+<<if _place == 1>>
+  <<goto "NightPatrol_Place_Temple">>
+<<elseif _place == 2>>
+  <<goto "NightPatrol_Place_Water">>
+<<elseif _place == 3>>
+  <<goto "NightPatrol_Place_AshinaUnder">>
+<<elseif _place == 4>>
+  <<goto "NightPatrol_Place_Battlefield">>
+<<else>>
+  <<goto "NightPatrol_Place_ReedField">>
+<</if>>
 
 :: NightPatrol_LocationChoice {"position":"2075,875","size":"100,100"}
 <<page>>
@@ -17,28 +32,61 @@
 <<choiceTo "물가" "NightPatrol_Place_Water">>
 <<choiceTo "아시나 성 아래" "NightPatrol_Place_AshinaUnder">>
 <<choiceTo "버려진 전장" "NightPatrol_Place_Battlefield">>
+<<choiceTo "갈대밭" "NightPatrol_Place_ReedField">>
+<<choiceTo "아무 곳이나 걷는다" "NightPatrol_Random">>
+<<choiceTo "돌아간다" "NightPatrol_Cancel">>
 </div>
 </div>
 </div>
 <</page>>
 
+:: NightPatrol_Cancel {"position":"2075,950","size":"100,100"}
+<<set $nightPatrolActive = false>>
+<<set $nightPatrolUsedToday = false>>
+<<set $nightPatrolJustFinished = false>>
+<<set $currentMode = "temple">>
+<<set $timeOfDay = "night">>
+<<goto "Temple_Return">>
+
 :: NightPatrol_Place_Temple {"position":"2200,875","size":"100,100"}
 <<set $nightPatrolPlace = "temple">>
-<<set _event = random(1, 3)>>
-<<if _event == 1>>
-  <<goto "NightPatrol_Temple_Hanbei">>
-<<elseif _event == 2>>
-  <<goto "NightPatrol_Temple_KuroTrace">>
+<<set $nightPatrolCount = ($nightPatrolCount || 0) + 1>>
+<<set $nightVisitedTemple = true>>
+<<set _roll = random(1, 100)>>
+<<if ($shura || 0) >= 3 and _roll <= 24>>
+  <<goto "NightPatrol_Temple_ShuraHand">>
+<<elseif _roll <= 16>>
+  <<goto "NightPatrol_Temple_HanbeiTrace">>
+<<elseif _roll <= 32>>
+  <<goto "NightPatrol_Temple_SculptorSound">>
+<<elseif _roll <= 48>>
+  <<goto "NightPatrol_Temple_EmmaMedicine">>
+<<elseif _roll <= 64>>
+  <<goto "NightPatrol_Temple_EmptyYard">>
+<<elseif _roll <= 82>>
+  <<goto "NightPatrol_Temple_RainUnderEaves">>
 <<else>>
-  <<goto "NightPatrol_Temple_ShuraHint">>
+  <<goto "NightPatrol_Temple_ShuraHand">>
 <</if>>
 
 :: NightPatrol_Place_Water {"position":"2200,925","size":"100,100"}
 <<set $nightPatrolPlace = "water">>
-<<set _event = random(1, 3)>>
-<<if _event == 1>>
-  <<goto "NightPatrol_Water_KuroTrace">>
-<<elseif _event == 2>>
+<<set $nightPatrolCount = ($nightPatrolCount || 0) + 1>>
+<<set $nightVisitedWater = true>>
+<<set _roll = random(1, 100)>>
+<<if ($hanbeiEchoSeen || $kuroEchoSeen || $genichiroEchoSeen || $sculptorEchoSeen || $isshinEchoSeen) and _roll <= 18>>
+  <<goto "NightPatrol_Water_EchoVoice">>
+<<elseif $kuroTeaSeen and _roll <= 34>>
+  <<goto "NightPatrol_Water_TeaScent">>
+<<elseif _roll <= 18>>
+  <<goto "NightPatrol_Water_KuroLantern">>
+<<elseif _roll <= 36>>
+  <<goto "NightPatrol_Water_HandReflection">>
+<<elseif _roll <= 54>>
+  <<goto "NightPatrol_Water_EmmaHerbs">>
+<<elseif _roll <= 72>>
+  <<goto "NightPatrol_Water_LateFace">>
+<<elseif _roll <= 88>>
   <<goto "NightPatrol_Water_Arrow">>
 <<else>>
   <<goto "NightPatrol_Water_Reflection">>
@@ -46,24 +94,65 @@
 
 :: NightPatrol_Place_AshinaUnder {"position":"2200,975","size":"100,100"}
 <<set $nightPatrolPlace = "ashina_under">>
-<<set _event = random(1, 3)>>
-<<if _event == 1>>
-  <<goto "NightPatrol_AshinaUnder_Genichiro">>
-<<elseif _event == 2>>
-  <<goto "NightPatrol_AshinaUnder_KuroTrace">>
+<<set $nightPatrolCount = ($nightPatrolCount || 0) + 1>>
+<<set $nightVisitedCastle = true>>
+<<set _roll = random(1, 100)>>
+<<if (($genichiroAffection || 0) + ($genichiroConflict || 0) >= 2 or ($nightGenichiroTraceCount || 0) >= 2) and _roll <= 25>>
+  <<goto "NightPatrol_Castle_GenichiroNear">>
+<<elseif _roll <= 16>>
+  <<goto "NightPatrol_Castle_Rumor">>
+<<elseif _roll <= 32>>
+  <<goto "NightPatrol_Castle_Gaze">>
+<<elseif _roll <= 48>>
+  <<goto "NightPatrol_Castle_Arrow">>
+<<elseif _roll <= 64>>
+  <<goto "NightPatrol_Castle_Lights">>
+<<elseif _roll <= 80>>
+  <<goto "NightPatrol_Castle_HeadlessRumor">>
 <<else>>
   <<goto "NightPatrol_AshinaUnder_Patrol">>
 <</if>>
 
 :: NightPatrol_Place_Battlefield {"position":"2200,1025","size":"100,100"}
 <<set $nightPatrolPlace = "battlefield">>
-<<set _event = random(1, 3)>>
-<<if _event == 1>>
-  <<goto "NightPatrol_Battlefield_Hanbei">>
-<<elseif _event == 2>>
-  <<goto "NightPatrol_Battlefield_ShuraHint">>
+<<set $nightPatrolCount = ($nightPatrolCount || 0) + 1>>
+<<set $nightVisitedBattlefield = true>>
+<<set _roll = random(1, 100)>>
+<<if ($shura || 0) >= 3 and _roll <= 25>>
+  <<goto "NightPatrol_Battlefield_ShuraPulse">>
+<<elseif _roll <= 16>>
+  <<goto "NightPatrol_Battlefield_Armor">>
+<<elseif _roll <= 32>>
+  <<goto "NightPatrol_Battlefield_InnerBlade">>
+<<elseif _roll <= 48>>
+  <<goto "NightPatrol_Battlefield_BreathingEnemy">>
+<<elseif _roll <= 64>>
+  <<goto "NightPatrol_Battlefield_IsshinLaugh">>
+<<elseif _roll <= 80>>
+  <<goto "NightPatrol_Battlefield_SculptorHand">>
 <<else>>
-  <<goto "NightPatrol_Battlefield_SculptorTrace">>
+  <<goto "NightPatrol_Battlefield_ShuraPulse">>
+<</if>>
+
+:: NightPatrol_Place_ReedField {"position":"2200,1075","size":"100,100"}
+<<set $nightPatrolPlace = "reedfield">>
+<<set $nightPatrolCount = ($nightPatrolCount || 0) + 1>>
+<<set $nightVisitedReedField = true>>
+<<set _roll = random(1, 100)>>
+<<if ($hanbeiEchoSeen || false) and ($kuroEchoSeen || false) and ($genichiroEchoSeen || false) and ($sculptorEchoSeen || false) and ($isshinEchoSeen || false) and not ($endingHiddenRememberSeen || false) and _roll <= 25>>
+  <<goto "NightPatrol_ReedField_HiddenRememberGate">>
+<<elseif _roll <= 16>>
+  <<goto "NightPatrol_ReedField_Walk">>
+<<elseif _roll <= 32>>
+  <<goto "NightPatrol_ReedField_Voices">>
+<<elseif _roll <= 48>>
+  <<goto "NightPatrol_ReedField_HeadlessSamurai">>
+<<elseif _roll <= 64>>
+  <<goto "NightPatrol_ReedField_OwlSteps">>
+<<elseif _roll <= 80>>
+  <<goto "NightPatrol_ReedField_NoOneCut">>
+<<else>>
+  <<goto "NightPatrol_ReedField_HiddenPath">>
 <</if>>
 
 :: NightPatrol_Roll {"position":"2125,925","size":"100,100"}
@@ -244,6 +333,215 @@
 <<continueTo "Night_PatrolEnd">>
 <</page>>
 
+:: NightPatrol_Temple_HanbeiTrace {"position":"2700,875","size":"100,100"}
+<<page>>
+<<set $nightFoundHanbeiTrace = true>>
+<<set $nightMetHanbeiCount = ($nightMetHanbeiCount || 0) + 1>>
+<<set $traceNightTempleHanbeiTraceSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">뒤뜰에는 아무도 없다.
+
+목검 하나가 벽에 기대어 있다.
+
+한베의 것이다.
+
+늑대는 그것을 한동안 본다.
+
+오늘은 아무도 베이지 않았다.
+
+<<if $hanbeiMidConflictSeen>>
+그 목검은,
+대련이 아니라 사는 연습을 떠올리게 했다.
+<</if>></div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_SculptorSound {"position":"2825,875","size":"100,100"}
+<<page>>
+<<set $nightFoundSculptorTrace = true>>
+<<set $sculptorTraceSeen = true>>
+<<set $traceNightTempleSculptorSoundSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">나무를 깎는 소리가 난다.
+
+한 번.
+두 번.
+세 번.
+
+늑대는 문 앞에 선다.
+
+안으로 들어가지는 않는다.
+
+그 소리는,
+검이 뼈를 치는 소리와 닮아 있었다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_EmmaMedicine {"position":"2950,875","size":"100,100"}
+<<page>>
+<<set $nightSawEmmaTrace = true>>
+<<set $traceNightTempleEmmaMedicineSeen = true>>
+<<set $emmaAffection = ($emmaAffection || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">처마 아래에 작은 약봉지가 놓여 있다.
+
+젖지 않게 천으로 감싸여 있다.
+
+누가 두고 갔는지는
+묻지 않아도 알 수 있었다.
+
+늑대는 그것을 집어 든다.
+
+손끝에 약 냄새가 남는다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_EmptyYard {"position":"3075,875","size":"100,100"}
+<<page>>
+<<set $nightTempleEmptyYardSeen = true>>
+<<set $traceNightTempleEmptyYardSeen = true>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">뒤뜰에는 아무도 없다.
+
+불도 없다.
+
+발소리도 없다.
+
+늑대가 한 걸음 움직이면,
+그 소리만이 따라온다.
+
+혼자라는 것은
+조용한 일이 아니었다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_RainUnderEaves {"position":"3200,875","size":"100,100"}
+<<page>>
+<<set $nightTempleRainSeen = true>>
+<<set $traceNightTempleRainSeen = true>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">처마 끝에서 물이 떨어진다.
+
+한 방울.
+
+늑대는 그것을 본다.
+
+다음 방울이 떨어지기 전까지,
+검자루에서 손을 떼지 못했다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_ShuraHand {"position":"3325,875","size":"100,100"}
+<<page>>
+<<set $shuraHintSeen = true>>
+<<set $nightSawShuraHint = true>>
+<<set $nightShuraHintCount = ($nightShuraHintCount || 0) + 1>>
+<<set $traceNightTempleShuraHandSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">불상방의 문은 닫혀 있다.
+
+그런데 손은 검으로 간다.
+
+이유는 늦게 온다.
+
+문은 적이 아니다.
+
+늑대는 그것을 알고 있다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "NightPatrol_Temple_ShuraHand_Choice">>
+<</page>>
+
+:: NightPatrol_Temple_ShuraHand_Choice {"position":"3450,875","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">문은 적이 아니다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "검에서 손을 뗀다" "NightPatrol_Temple_ShuraHand_Resist">>
+<<choiceTo "문을 벤다" "NightPatrol_Temple_ShuraHand_Cut" "shura-choice">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: NightPatrol_Temple_ShuraHand_Resist {"position":"3575,850","size":"100,100"}
+<<page>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검에서 손을 뗀다.
+
+문은 그대로 있다.
+
+그것만으로,
+오늘은 충분했다.</div>
+</div>
+
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Temple_ShuraHand_Cut {"position":"3575,900","size":"100,100"}
+<<page>>
+<<set $nightCutEmptyDoor = true>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 문을 벤다.
+
+나무가 갈라지는 소리가 난다.
+
+안에서는 아무도 나오지 않는다.
+
+아무도 없었다는 사실이,
+조금 늦게 도착했다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<stateNotice "danger">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
 :: NightPatrol_Water_KuroTrace {"position":"2325,925","size":"100,100"}
 <<page>>
 <<set $nightFoundKuroTrace = true>>
@@ -312,6 +610,171 @@
 
 <<stateNotice "shura">>
 <<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_KuroLantern {"position":"2700,925","size":"100,100"}
+<<page>>
+<<set $nightFoundKuroTrace = true>>
+<<set $nightFoundKuroTraceCount = ($nightFoundKuroTraceCount || 0) + 1>>
+<<set $kuroTraceSeen = true>>
+<<set $traceNightWaterKuroLanternSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물 위에 작은 등불이 떠 있다.
+
+늑대는 그것을 건져 올린다.
+
+쿠로의 방에서 보던 것과 닮았다.
+
+불은 거의 꺼져 있었지만,
+아직 따뜻했다.
+
+<<if $kuroTeaSeen>>
+등불에는 희미하게
+차 향이 남아 있었다.
+<</if>></div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_TeaScent {"position":"2825,925","size":"100,100"}
+<<page>>
+<<set $nightFoundKuroTrace = true>>
+<<set $nightFoundKuroTraceCount = ($nightFoundKuroTraceCount || 0) + 1>>
+<<set $traceNightWaterTeaScentSeen = true>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물가에는 아무도 없다.
+
+그런데 차 향이 난다.
+
+있을 수 없는 일이다.
+
+늑대는 잠시 숨을 멈춘다.
+
+향은 곧 사라진다.
+
+하지만 사라진 뒤에도,
+따뜻한 자리만 남는다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_HandReflection {"position":"2950,925","size":"100,100"}
+<<page>>
+<<set $nightSawReflection = true>>
+<<set $traceNightWaterHandReflectionSeen = true>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 물속을 본다.
+
+처음에는 아무것도 보이지 않는다.
+
+조금 뒤,
+검자루를 쥔 손만이 비친다.
+
+늑대는 손을 뗀다.
+
+물결이 늦게 흔들린다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_EmmaHerbs {"position":"3075,925","size":"100,100"}
+<<page>>
+<<set $nightSawEmmaTrace = true>>
+<<set $traceNightWaterEmmaHerbsSeen = true>>
+<<set $emmaAffection = ($emmaAffection || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물가에 약초가 씻겨 있다.
+
+가지런히 놓인 줄기가,
+누군가의 손길을 말하고 있었다.
+
+늑대는 그것을 건드리지 않는다.
+
+상처는 없었다.
+
+아니.
+
+보이지 않는 곳에 있었다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_LateFace {"position":"3200,925","size":"100,100"}
+<<page>>
+<<set $traceNightWaterLateFaceSeen = true>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $shuraHintSeen = true>>
+<<set $nightSawShuraHint = true>>
+<<set $nightShuraHintCount = ($nightShuraHintCount || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">물에 얼굴이 비친다.
+
+늑대는 움직이지 않는다.
+
+그런데 물속의 얼굴은,
+조금 늦게 눈을 든다.
+
+늑대는 검자루를 잡는다.
+
+물결이 모든 것을 지운다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Water_EchoVoice {"position":"3325,925","size":"100,100"}
+<<page>>
+<<set $nightHeardEchoVoices = true>>
+<<set $traceNightWaterEchoVoiceSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">멀리서 목소리가 들린다.
+
+<<if $kuroEchoSeen>>
+쿠로의 목소리 같았다.
+
+언젠가 똑같은 일이
+있었던 듯도 하군.
+
+<</if>>
+늑대는 대답하지 않는다.
+
+하지만 이번에는,
+듣지 못한 척하지도 않는다.</div>
+</div>
+
 <<recordNotice "trace">>
 <<continueTo "Night_PatrolEnd">>
 <</page>>
@@ -392,6 +855,177 @@
 <<continueTo "Night_PatrolEnd">>
 <</page>>
 
+:: NightPatrol_Castle_Rumor {"position":"2700,975","size":"100,100"}
+<<page>>
+<<set $nightHeardAshinaRumor = true>>
+<<set $genichiroTraceSeen = true>>
+<<set $traceNightCastleRumorSeen = true>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">병사들은 늑대를 보지 못한다.
+
+“아시나가 버틸 수 있을까.”
+
+“겐이치로 님께서 계신다.”
+
+그 말은 믿음처럼 들렸다.
+
+그리고,
+두려움처럼도 들렸다.</div>
+</div>
+
+<<stateNotice "danger">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Castle_Gaze {"position":"2825,975","size":"100,100"}
+<<page>>
+<<set $nightFeltGenichiroGaze = true>>
+<<set $nightGenichiroTraceCount = ($nightGenichiroTraceCount || 0) + 1>>
+<<set $traceNightCastleGazeSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">성벽 위에 누군가 서 있다.
+
+멀어서 얼굴은 보이지 않는다.
+
+하지만 늑대는 안다.
+
+그 시선은,
+칼보다 먼저 닿았다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Castle_Arrow {"position":"2950,975","size":"100,100"}
+<<page>>
+<<set $nightFoundGenichiroArrow = true>>
+<<set $nightGenichiroTraceCount = ($nightGenichiroTraceCount || 0) + 1>>
+<<set $traceNightCastleArrowSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">화살 하나가 기둥에 꽂혀 있다.
+
+오래된 것은 아니다.
+
+늑대는 깃을 본다.
+
+아시나의 것이다.
+
+경고였는지,
+인사였는지,
+늑대는 고르지 않는다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Castle_Lights {"position":"3075,975","size":"100,100"}
+<<page>>
+<<set $nightSawAshinaLights = true>>
+<<set $traceNightCastleLightsSeen = true>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">성에는 아직 불이 켜져 있다.
+
+하나.
+둘.
+셋.
+
+불빛은 살아 있는 사람의 수처럼 보이다가,
+곧 남은 전쟁의 수처럼 보였다.
+
+늑대는 어둠 속에 서 있다.
+
+어느 쪽에도 속하지 않은 채.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Castle_HeadlessRumor {"position":"3200,975","size":"100,100"}
+<<page>>
+<<set $nightHeardHeadlessSamuraiRumor = true>>
+<<set $genichiroBrokenForeshadowSeen = true>>
+<<set $traceNightCastleHeadlessRumorSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">병사 하나가 낮게 말했다.
+
+“갈대밭에 목 없는 무사가 나온다더군.”
+
+다른 병사가 웃었다.
+
+웃음은 금방 멎었다.
+
+아시나에서는,
+우스운 소문도 오래 웃지 못한다.
+
+늑대는 그 말을 기억하지 않으려 했다.
+
+하지만 기억은,
+검보다 조용히 남았다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Castle_GenichiroNear {"position":"3325,975","size":"100,100"}
+<<page>>
+<<set $nightMetGenichiro = true>>
+<<set $nightGenichiroTraceCount = ($nightGenichiroTraceCount || 0) + 1>>
+<<set $traceNightCastleGenichiroNearSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<set $recordBookNewBond = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">뒤에서 목소리가 들린다.
+
+겐이치로였다.
+
+남의 성 아래에서 듣는 말은
+달콤한가, 늑대.
+
+늑대는 돌아보지 않는다.
+
+비켜라.
+
+아직 아무것도 막지 않았다.
+
+비가 오기 전의 냄새가 난다.
+
+둘 사이에는,
+아직 뽑히지 않은 칼이 있었다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
 :: NightPatrol_Battlefield_Hanbei {"position":"2325,1025","size":"100,100"}
 <<page>>
 <<set $nightMetHanbei = true>>
@@ -469,6 +1103,494 @@
 <<recordNotice "trace">>
 <<recordNotice "bond">>
 <<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_Armor {"position":"2700,1025","size":"100,100"}
+<<page>>
+<<set $nightSawEmptyArmor = true>>
+<<set $shuraHintSeen = true>>
+<<set $nightSawShuraHint = true>>
+<<set $nightShuraHintCount = ($nightShuraHintCount || 0) + 1>>
+<<set $traceNightBattlefieldArmorSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">빈 갑옷 하나가 서 있다.
+
+안에는 아무도 없다.
+
+그런데 늑대의 손은,
+검을 뽑을 준비를 하고 있다.
+
+그것은 적이 아니다.
+
+늑대는 알고 있다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "NightPatrol_Battlefield_Armor_Choice">>
+<</page>>
+
+:: NightPatrol_Battlefield_Armor_Choice {"position":"2825,1025","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">빈 갑옷이 서 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "검을 거둔다" "NightPatrol_Battlefield_Sheathe">>
+<<choiceTo "벤다" "NightPatrol_Battlefield_CutArmor" "shura-choice">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: NightPatrol_Battlefield_Sheathe {"position":"2950,1000","size":"100,100"}
+<<page>>
+<<set $nightResistedShuraHint = true>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검에서 손을 뗀다.
+
+검집은 조용하다.
+
+그 조용함이,
+오늘은 조금 낯설다.</div>
+</div>
+
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_CutArmor {"position":"2950,1050","size":"100,100"}
+<<page>>
+<<set $nightCutEmptyArmor = true>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 빈 갑옷을 벤다.
+
+안에는 아무것도 없다.
+
+아무것도 없어서,
+베인 소리가 더 크게 난다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<stateNotice "danger">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_InnerBlade {"position":"3075,1025","size":"100,100"}
+<<page>>
+<<set $shuraHintSeen = true>>
+<<set $nightSawShuraHint = true>>
+<<set $nightHeardInnerBlade = true>>
+<<set $nightShuraHintCount = ($nightShuraHintCount || 0) + 1>>
+<<set $traceNightBattlefieldInnerBladeSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">칼소리를 따라가도,
+아무도 없다.
+
+소리는 늑대의 손 안에서 난다.
+
+늑대는 그것을 알아차리는 데
+조금 늦었다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_BreathingEnemy {"position":"3200,1025","size":"100,100"}
+<<page>>
+<<set $isshinShuraWarningSeen = true>>
+<<set $nightFoundIsshinTrace = true>>
+<<set $traceNightBattlefieldBreathingEnemySeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">쓰러진 병사가 숨을 쉰다.
+
+아주 작게.
+
+늑대의 검끝이 내려간다.
+
+그때,
+바람이 먼저 움직인다.
+
+누군가의 웃음소리가
+들린 듯했다.
+
+산 놈을 베어라.
+아니면 거둬라.
+
+늑대는 멈춘다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "NightPatrol_Battlefield_BreathingEnemy_Choice">>
+<</page>>
+
+:: NightPatrol_Battlefield_BreathingEnemy_Choice {"position":"3325,1025","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">숨은 아직 남아 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "검을 거둔다" "NightPatrol_Battlefield_Mercy">>
+<<choiceTo "끝낸다" "NightPatrol_Battlefield_FinishEnemy" "shura-choice">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: NightPatrol_Battlefield_Mercy {"position":"3450,1000","size":"100,100"}
+<<page>>
+<<set $isshinAffection = ($isshinAffection || 0) + 1>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<set $recordBookNewBond = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검을 거둔다.
+
+숨은 아직 남아 있다.
+
+그것이 이상하게,
+싸움보다 어려웠다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_FinishEnemy {"position":"3450,1050","size":"100,100"}
+<<page>>
+<<set $nightFinishedFallenEnemy = true>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검을 내린다.
+
+숨은 멎는다.
+
+늑대는 그것을 확인하지 않는다.
+
+확인할 필요가 없었다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<stateNotice "danger">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_IsshinLaugh {"position":"3575,1025","size":"100,100"}
+<<page>>
+<<set $nightFoundIsshinTrace = true>>
+<<set $isshinTraceSeen = true>>
+<<set $traceNightBattlefieldIsshinLaughSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">멀리서 웃음소리가 들린다.
+
+누구의 것인지 알 수 있다.
+
+늑대는 그쪽으로 가지 않는다.
+
+하지만 검에서 손을 뗀다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_SculptorHand {"position":"3700,1025","size":"100,100"}
+<<page>>
+<<set $nightFoundSculptorTrace = true>>
+<<set $sculptorHandAware = true>>
+<<set $traceNightBattlefieldSculptorHandSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">낡은 손 조각이 흙 속에
+반쯤 묻혀 있다.
+
+불상에서 떨어져 나온 것일지도 모른다.
+
+늑대는 그것을 집어 든다.
+
+나무 손은,
+검을 쥘 수 없었다.
+
+그래서인지,
+조금 가벼워 보였다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_ShuraPulse {"position":"3825,1025","size":"100,100"}
+<<page>>
+<<set $shuraHintSeen = true>>
+<<set $nightSawShuraHint = true>>
+<<set $nightShuraHintCount = ($nightShuraHintCount || 0) + 1>>
+<<set $traceNightBattlefieldShuraPulseSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">아무도 없다.
+
+그런데 검을 뽑고 싶다.
+
+이상한 일이다.
+
+적도 없고,
+명령도 없고,
+지켜야 할 것도 없다.
+
+그런데 손은 검자루에 가 있다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "NightPatrol_Battlefield_ShuraPulse_Choice">>
+<</page>>
+
+:: NightPatrol_Battlefield_ShuraPulse_Choice {"position":"3950,1025","size":"100,100"}
+<<page>>
+<div class="choice-screen night-patrol-choice-screen">
+<div class="choice-prompt">손은 검자루에 가 있다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<choiceTo "검을 놓는다" "NightPatrol_Battlefield_ShuraPulse_Release">>
+<<choiceTo "뽑는다" "NightPatrol_Battlefield_ShuraPulse_Draw" "shura-choice">>
+</div>
+</div>
+</div>
+<</page>>
+
+:: NightPatrol_Battlefield_ShuraPulse_Release {"position":"4075,1000","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 손을 편다.
+
+손바닥에는 검자루의 자국이 남아 있다.
+
+오늘은 그것만으로 끝났다.</div>
+</div>
+
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_Battlefield_ShuraPulse_Draw {"position":"4075,1050","size":"100,100"}
+<<page>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">검이 뽑힌다.
+
+소리는 없다.
+
+오히려,
+소리가 없어 더 나쁘다.</div>
+</div>
+
+<<stateNotice "shura">>
+<<stateNotice "danger">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_ReedField_Walk {"position":"2325,1075","size":"100,100"}
+<<page>>
+<<set $nightWalkedReedField = true>>
+<<set $traceNightReedFieldWalkSeen = true>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">갈대밭에 선다.
+
+바람이 분다.
+
+갈대는 한쪽으로 눕고,
+다시 일어난다.
+
+늑대는 그 사이를 걷는다.
+
+처음 오는 곳은 아니다.
+그런 생각이 들었다.</div>
+</div>
+
+<<stateNotice "isolation">>
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_ReedField_Voices {"position":"2450,1075","size":"100,100"}
+<<page>>
+<<set $nightHeardEchoVoices = true>>
+<<set $traceNightReedFieldVoicesSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">멀리서 목소리가 들린다.
+
+누구의 목소리인지는 알 수 없다.
+
+한 번 들었던 말 같기도 하고,
+아직 듣지 않은 말 같기도 하다.
+
+늑대는 대답하지 않는다.
+
+하지만 이번에는,
+듣지 못한 척하지도 않는다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_ReedField_HiddenPath {"position":"2575,1075","size":"100,100"}
+<<page>>
+<<set $nightFoundHiddenPath = true>>
+<<set $traceNightReedFieldHiddenPathSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">갈대 사이에 길이 있었다.
+
+오래전부터 있었던 길인지,
+방금 생긴 길인지는 알 수 없다.
+
+늑대는 한 걸음 들어갔다.
+
+바람이 등 뒤의 흔적을 지웠다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<if ($hanbeiEchoSeen || false) and ($kuroEchoSeen || false) and ($genichiroEchoSeen || false) and ($sculptorEchoSeen || false) and ($isshinEchoSeen || false) and not ($endingHiddenRememberSeen || false)>>
+  <<continueTo "Hidden_End_Remember">>
+<<else>>
+  <<continueTo "Night_PatrolEnd">>
+<</if>>
+<</page>>
+
+:: NightPatrol_ReedField_HeadlessSamurai {"position":"2700,1075","size":"100,100"}
+<<page>>
+<<set $nightSawHeadlessSamurai = true>>
+<<set $genichiroBrokenForeshadowSeen = true>>
+<<set $traceNightReedFieldHeadlessSamuraiSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">갈대 사이에 무언가 서 있다.
+
+낡은 갑옷.
+
+부러진 활.
+
+검을 쥔 손.
+
+하지만 목은 없다.
+
+늑대는 움직이지 않는다.
+
+무사는 천천히
+갈대 사이로 사라진다.
+
+대답할 입이 없기 때문인지,
+이미 오래전에 말을 잃었기 때문인지는
+알 수 없었다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_ReedField_OwlSteps {"position":"2825,1075","size":"100,100"}
+<<page>>
+<<set $nightFoundOwlTrace = true>>
+<<set $nightOwlTraceCount = ($nightOwlTraceCount || 0) + 1>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $traceNightReedFieldOwlStepsSeen = true>>
+<<set $recordBookNewTrace = true>>
+
+<div class="narration-screen">
+<div class="narration narration-block">갈대밭 너머에서 발소리가 난다.
+
+느긋하고,
+낮고,
+오래전에 배운 박자다.
+
+늑대는 돌아보지 않는다.
+
+돌아보라는 명은 없었다.
+
+목소리는 들리지 않는다.
+
+하지만 늑대는,
+무슨 말을 들을지 알고 있었다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_ReedField_NoOneCut {"position":"2950,1075","size":"100,100"}
+<<page>>
+<<set $nightNoOneCut = true>>
+<<set $traceNightReedFieldNoOneCutSeen = true>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<set $recordBookNewTrace = true>>
+<<clampStats>>
+
+<div class="narration-screen">
+<div class="narration narration-block">갈대가 흔들린다.
+
+늑대는 검을 뽑지 않는다.
+
+갈대는 베이지 않는다.
+
+그것만으로,
+오늘은 조금 달랐다.</div>
+</div>
+
+<<recordNotice "trace">>
+<<continueTo "Night_PatrolEnd">>
+<</page>>
+
+:: NightPatrol_ReedField_HiddenRememberGate {"position":"3075,1075","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">갈대밭이다.
+
+바람이 분다.
+
+그런데 이상하게,
+처음 오는 곳이 아니다.
+
+늑대는 걸음을 멈춘다.</div>
+</div>
+
+<<if ($hanbeiEchoSeen || false) and ($kuroEchoSeen || false) and ($genichiroEchoSeen || false) and ($sculptorEchoSeen || false) and ($isshinEchoSeen || false) and not ($endingHiddenRememberSeen || false)>>
+  <<continueTo "Hidden_End_Remember">>
+<<else>>
+  <<continueTo "Night_PatrolEnd">>
+<</if>>
 <</page>>
 
 :: NightRisk_Arrow {"position":"2400,600","size":"100,100"}

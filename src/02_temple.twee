@@ -279,7 +279,7 @@
 
 <div class="choice-box">
 <<if $nightPatrolUnlocked and not $nightPatrolUsedToday>>
-[[밤 정찰을 나선다->NightPatrol_Random]]
+[[밤 정찰을 나선다->NightPatrol_Start]]
 <</if>>
 [[잠든다->Dream_Router]]
 [[절에 머문다->ReturnEvent_Router]]
