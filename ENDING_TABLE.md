@@ -247,6 +247,21 @@ notes: 기록장에서는 [Bad End. 공통 실패의 흔적] 묶음에 포함된
 ```
 
 ```text
+id: Hidden_End_OwlsWolf_01 / Hidden_End_OwlsWolf_End
+title: Hidden Broken End. Owl’s Wolf
+type: Hidden Broken End
+character: common / owl
+seenVar: $endingHiddenOwlsWolfSeen
+recordVar: $recordEndingHiddenOwlsWolf
+qualified: false
+recordbook: true
+recordDesc: 늑대는 자유가 아니라, 오래된 손 안으로 돌아갔다.
+background: BadEnd.png / scene-bg-badend
+nextTarget: Ending_ReturnToStart
+notes: Shura End 조건이 충족되면 Shura가 우선한다. 조건은 owlVoice/father/mission obedience 총합, 고립, 위험, 도움 거절 총합을 함께 본다.
+```
+
+```text
 id: Hidden_Rebirth / hidden revival route
 title: Day End. 돌아갈 길
 type: End

@@ -759,6 +759,9 @@
 :: Hanbei_MidConflict_Q1_Fine {"position":"1350,920","size":"100,100"}
 <<page>>
 <<set $hanbeiSaidFine = ($hanbeiSaidFine || 0) + 1>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $refusedHelpCount = ($refusedHelpCount || 0) + 1>>
+<<set $helpRefusedCount = ($helpRefusedCount || 0) + 1>>
 <<talk "hanbei" "한베">>
 <<if ($hanbeiSaidFine || 0) >= 2>>
 또 문제없다네.

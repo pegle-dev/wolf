@@ -785,6 +785,9 @@
   <<set $sculptorHidWound = true>>
   <<set $sculptorWoundSeen = true>>
   <<set $sculptorProgress = Math.max($sculptorProgress, 2)>>
+  <<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+  <<set $refusedHelpCount = ($refusedHelpCount || 0) + 1>>
+  <<set $helpRefusedCount = ($helpRefusedCount || 0) + 1>>
   <<clampStats>>
 <</link>>
 

@@ -89,12 +89,13 @@
 <<if $badEmptyScabbardSeen>><<set _seen += 1>><</if>>
 <<if $badTamedWolfSeen>><<set _seen += 1>><</if>>
 <<if $badOwlWolfSeen>><<set _seen += 1>><</if>>
+<<if $endingHiddenOwlsWolfSeen or $recordEndingHiddenOwlsWolf>><<set _seen += 1>><</if>>
 <<if $badEndFirstDeathSeen>><<set _seen += 1>><</if>>
 <<if $endingHanbeiQuietDaySeen>><<set _seen += 1>><</if>>
 <<if $shuraEndingSeen or $endingShuraSeen>><<set _seen += 1>><</if>>
 <<if $hiddenRevivalDone or $endingHiddenRememberSeen>><<set _seen += 1>><</if>>
 
-<div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 34</span></div>
+<div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 35</span></div>
 <div class="recordbook-list">
   <div class="recordbook-item <<if not $badEndFirstDeathSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndFirstDeathSeen>>[Bad End. 첫 번째 죽음]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndFirstDeathSeen>>쿠로를 구하려다 늑대는 처음으로 죽었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $endingHanbeiQuietDaySeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHanbeiQuietDaySeen>>[Day End. 그냥 온 날]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHanbeiQuietDaySeen>>한베와 검을 뽑지 않은 시간을 보냈다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
@@ -119,6 +120,7 @@
   <div class="recordbook-item <<if not $isshinBadEmptyCupSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinBadEmptyCupSeen>>[Bad End. 빈 술잔]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isshinBadEmptyCupSeen>>끝내 들지 않은 잔이 비어 있었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $isshinBadSwordLaughSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinBadSwordLaughSeen>>[Broken End. 검만 남은 자]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isshinBadSwordLaughSeen>>검이 먼저 섰고 사람은 그 뒤에 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen>>[Bad End. 공통 실패의 흔적]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen>>고립과 위험이 늑대의 길을 덮었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($endingHiddenOwlsWolfSeen or $recordEndingHiddenOwlsWolf)>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHiddenOwlsWolfSeen or $recordEndingHiddenOwlsWolf>>[Hidden Broken End. Owl’s Wolf]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHiddenOwlsWolfSeen or $recordEndingHiddenOwlsWolf>>늑대는 자유가 아니라, 오래된 손 안으로 돌아갔다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($shuraEndingSeen or $endingShuraSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $shuraEndingSeen or $endingShuraSeen>>[Shura End. 마지막 선택지]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $shuraEndingSeen or $endingShuraSeen>>모든 이름이 멀어지고 마지막 선택지만 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($hiddenRevivalDone or $endingHiddenRememberSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHiddenRememberSeen>>[Hidden End. 기억한다]<<elseif $hiddenRevivalDone>>[Day End. 돌아갈 길]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHiddenRememberSeen>>여러 잔향 끝에서, 늑대는 검자루에서 손을 떼었다.<<elseif $hiddenRevivalDone>>검 없이도 걸어갈 수 있는 길이 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
 </div>

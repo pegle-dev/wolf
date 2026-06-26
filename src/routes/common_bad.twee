@@ -1,5 +1,8 @@
 :: CommonBadEndRouter {"position":"5600,900","size":"100,100"}
 <<set $commonBadPending = true>>
+<<set _shuraWarningSeen = (($sculptorShuraWarningSeen || false) or ($sculptorShuraPreludeSeen || false) or ($isshinShuraWarningSeen || false) or ($isshinShuraPreludeSeen || false))>>
+<<set _owlVoiceTotal = ($owlVoiceCount || 0) + ($fatherObedienceCount || 0) + ($missionObedienceCount || 0)>>
+<<set _refusedHelpTotal = ($refusedHelpCount || 0) + ($helpRefusedCount || 0)>>
 
 /% 공통 배드엔딩:
 danger / isolation / low freedom의 실패.
@@ -14,7 +17,12 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 수라 구출 이벤트로 강제 중단하지 않는다.
 %/
 
-<<if $isolation >= 12 and $danger >= 10 and $freedom <= 1 and $helpRefusedCount >= 3>>
+<<if ($shura || 0) >= 5 and ($shuraHintSeen || false) and _shuraWarningSeen>>
+  <<goto "Ending_Shura_LastChoice">>
+<<elseif _owlVoiceTotal >= 4 and ($isolation || 0) >= 5 and ($danger || 0) >= 4 and _refusedHelpTotal >= 2 and ($shura || 0) < 5 and not ($endingHiddenOwlsWolfSeen || false)>>
+  <<set $commonBadLevel = 4>>
+  <<goto "Hidden_End_OwlsWolf_01">>
+<<elseif $isolation >= 12 and $danger >= 10 and $freedom <= 1 and $helpRefusedCount >= 3>>
   <<set $commonBadLevel = 4>>
   <<goto "BadEnd_OwlWolf">>
 <<elseif $fatherObedienceCount >= 2 and $isolation >= 10>>
@@ -70,7 +78,11 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 <</if>>
 
 :: CommonBadEndRouter_NoRescue {"position":"5600,1200","size":"100,100"}
-<<if $commonBadLevel >= 4>>
+<<set _owlVoiceTotal = ($owlVoiceCount || 0) + ($fatherObedienceCount || 0) + ($missionObedienceCount || 0)>>
+<<set _refusedHelpTotal = ($refusedHelpCount || 0) + ($helpRefusedCount || 0)>>
+<<if _owlVoiceTotal >= 4 and ($isolation || 0) >= 5 and ($danger || 0) >= 4 and _refusedHelpTotal >= 2 and ($shura || 0) < 5 and not ($endingHiddenOwlsWolfSeen || false)>>
+  <<goto "Hidden_End_OwlsWolf_01">>
+<<elseif $commonBadLevel >= 4>>
   <<goto "BadEnd_OwlWolf">>
 <<elseif $commonBadLevel >= 3>>
   <<goto "BadEnd_TamedWolf">>
@@ -633,4 +645,298 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 :: BadEnd_OwlWolf_End {"position":"7950,1500","size":"100,100"}
 <<page>>
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 올빼미의 늑대]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_01 {"position":"5950,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+늑대는 어느 밤, 갑자기 사라졌다.
+
+임무가 버거워 도망쳤다는 소문이 돌았다.
+
+그의 어린 주군은,
+차라리 그러기를 바랐다.
+
+도망친 것이라면,
+살아 있다는 뜻이니까.
+
+며칠 뒤, 다른 소문이 돌았다.
+
+죽지 못하는 벌레에 대한 이야기였다.
+
+죽여도 죽여도 살아난다고 했다.
+그러나 잘린 부분은 낫지 않는다고 했다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_02]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_02 {"position":"6075,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+팔다리를 잃어도 죽지 못하고,
+눈을 잃어도 잠들지 못하고,
+목소리를 잃어도 비명을 멈추지 못하는.
+
+인간의 형상을 한 벌레에 대한 이야기였다.
+
+괴담이라기에는 너무 생생했다.
+
+마치 곁에서 직접 본 사람이,
+술자리에서 웃으며 떠드는 이야기 같았다.
+
+무엇보다,
+소문 속 남자의 외형이……
+
+그의 닌자와 닮아 있었다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_03]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_03 {"position":"6200,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+어두운 방.
+
+늑대는 혼자였다.
+
+찬 바닥에 누운 채,
+죽지 못해 숨을 쉬고 있었다.
+
+몸은 더 이상 예전처럼 움직이지 않았다.
+
+손은 검을 찾지 못했고,
+다리는 명령을 따라가지 못했다.
+
+하지만 숨은 이어졌다.
+
+그것이 벌인지,
+명령인지,
+축복인지 알 수 없었다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_04]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_04 {"position":"6325,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+이제 그에게 매일 찾아오는 사람은
+한 명뿐이었다.
+
+발소리가 들렸다.
+
+늑대는 눈을 떴다.
+
+아직 그 사람을 알아볼 수 있었다.
+
+아니.
+
+어쩌면 처음부터,
+그 사람만은 잊을 수 없도록 만들어졌는지도 모른다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_05]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_05 {"position":"6450,1750","size":"100,100"}
+<<page>>
+<<talk "owl" "올빼미">>
+아직 살아 있느냐.
+<</talk>>
+
+<div class="narration narration-full short-beat">
+낮고 느긋한 목소리.
+
+한때 늑대가
+절대 거역할 수 없었던 목소리.
+
+올빼미가 방 안으로 들어왔다.
+
+그는 늑대를 내려다보았다.
+
+그 눈에는 연민도,
+후회도 없었다.
+
+다만 오래된 도구를 확인하는 듯한
+익숙한 시선이 있었다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_06]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_06 {"position":"6575,1750","size":"100,100"}
+<<page>>
+<<talk "owl" "올빼미">>
+쓸모가 아주 없어진 것은 아니군.
+<</talk>>
+
+<div class="narration narration-full short-beat">
+늑대는 대답하지 않았다.
+
+대답할 말이 없었다.
+
+아니.
+
+대답하라는 명이 없었다.
+
+올빼미는 천천히 무릎을 꿇었다.
+
+그리고 늑대의 몸을 안아 올렸다.
+
+늑대의 몸은 가벼웠다.
+
+너무 가벼웠다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_07]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_07 {"position":"6700,1750","size":"100,100"}
+<<page>>
+<<talk "owl" "올빼미">>
+얌전히 나를 따랐다면,
+이런 꼴은 안 겪었을 것 아니냐.
+<</talk>>
+
+<div class="narration narration-full short-beat">
+꾸짖는 듯한 목소리였다.
+
+그런데 마지막에는,
+아주 희미하게 부드러웠다.
+
+적어도 늑대에게는 그렇게 들렸다.
+
+아아.
+
+역시 오늘도,
+당신이 와주었다.
+
+그래.
+
+그때도,
+당신이었다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_08]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_08 {"position":"6825,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+늑대는 힘없이 몸을 틀었다.
+
+그리고 올빼미의 가슴팍에
+얌전히 뺨을 묻었다.
+
+마치 오래전부터
+그렇게 배워 온 사람처럼.
+
+올빼미는 만족한 듯 웃었다.
+</div>
+
+<<talk "owl" "올빼미">>
+그래.
+<</talk>>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_End]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_End {"position":"6950,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+그 손이 늑대의 턱을 들어 올렸다.
+
+늑대는 저항하지 않았다.
+
+저항할 힘이 없어서가 아니었다.
+
+저항하라는 명을
+배운 적이 없었기 때문이다.
+
+늑대는 그 손에
+얌전히 턱을 맡겼다.
+
+마치 오래전부터
+그렇게 배운 사람처럼.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_End_02]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_End_02 {"position":"7075,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+올빼미는 늑대의 얼굴을 살폈다.
+
+눈.
+목.
+손.
+숨.
+
+망가진 부분을 하나씩 확인하듯.
+</div>
+
+<<talk "owl" "올빼미">>
+잘 배웠구나.
+<</talk>>
+
+<div class="narration narration-full short-beat">
+그 말에,
+늑대의 눈이 아주 조금 움직였다.
+
+칭찬이었다.
+
+아직도,
+그렇게 들렸다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_End_03]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_End_03 {"position":"7200,1750","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">
+이제 늑대에게 주인은 하나뿐이었다.
+
+그것이 오래전부터 정해진 일인지,
+이 방에서 새로 배운 일인지,
+늑대는 더 이상 구분하지 못했다.
+
+그는 도구도 아니었다.
+
+도구라면,
+아직 쓰일 수 있어야 했다.
+
+그는 버려진 것도 아니었다.
+
+버려졌다면,
+혼자 남았어야 했다.
+</div>
+
+<div class="choice-box">[[계속|Hidden_End_OwlsWolf_End_04]]</div>
+<</page>>
+
+:: Hidden_End_OwlsWolf_End_04 {"position":"7325,1750","size":"100,100"}
+<<page>>
+<<set $endingHiddenOwlsWolfSeen = true>>
+<<set $recordEndingHiddenOwlsWolf = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+
+<div class="narration narration-full short-beat">
+늑대는 올빼미의 품 안에서 숨을 쉬었다.
+
+죽지 못해서.
+
+명령받지 못해서.
+
+그리고 어쩌면,
+아직도 칭찬을 기다리고 있어서.
+</div>
+
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Hidden Broken End. Owl’s Wolf]</div>
 <</page>>

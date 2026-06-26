@@ -266,6 +266,9 @@
 <<link "명령을 따른다" "Kuro_01_Reading_Order_Result">>
   <<set $kuroLove += 1>>
   <<set $kuroOrderLanguageSeen = true>>
+  <<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+  <<set $obedienceCount = ($obedienceCount || 0) + 1>>
+  <<set $missionObedienceCount = ($missionObedienceCount || 0) + 1>>
   <<clampStats>>
 <</link>>
 </div>
@@ -742,6 +745,9 @@
   <<set $kuroLove += 1>>
   <<set $kuroOrderLanguageSeen = true>>
   <<set $isolation += 1>>
+  <<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+  <<set $obedienceCount = ($obedienceCount || 0) + 1>>
+  <<set $missionObedienceCount = ($missionObedienceCount || 0) + 1>>
   <<clampStats>>
 <</link>>
 </div>
@@ -839,6 +845,8 @@
 :: Kuro_MidConflict_Q1_Command {"position":"2850,1130","size":"100,100"}
 <<page>>
 <<set $kuroAskedCommand = ($kuroAskedCommand || 0) + 1>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $obedienceCount = ($obedienceCount || 0) + 1>>
 <<talk "kuro" "쿠로">>
 <<if ($kuroAskedCommand || 0) >= 2>>
 또 명령이구나.
@@ -903,6 +911,8 @@
 
 :: Kuro_MidConflict_Q2_Follow {"position":"3225,1130","size":"100,100"}
 <<page>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $obedienceCount = ($obedienceCount || 0) + 1>>
 <<talk "kuro" "쿠로">>
 그 말이 제일 무서워.
 내가 틀렸을 때조차 네가 따르겠다면,
@@ -1067,6 +1077,9 @@
 <<page>>
 <<set $kuroConflict = ($kuroConflict || 0) + 1>>
 <<set $isolation = ($isolation || 0) + 1>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $obedienceCount = ($obedienceCount || 0) + 1>>
+<<set $missionObedienceCount = ($missionObedienceCount || 0) + 1>>
 <<clampStats>>
 <<run setup.showToast && setup.showToast("쿠로 갈등 +1", "bond")>>
 <<run setup.showToast && setup.showToast("쿠로는 늑대의 충성 너머에 닿지 못했다.", "bond")>>
@@ -1094,6 +1107,9 @@
 <<set $kuroConflict = ($kuroConflict || 0) + 2>>
 <<set $shura = ($shura || 0) + 1>>
 <<set $kuroOrderLanguageSeen = true>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $obedienceCount = ($obedienceCount || 0) + 1>>
+<<set $missionObedienceCount = ($missionObedienceCount || 0) + 1>>
 <<clampStats>>
 <<run setup.showToast && setup.showToast("쿠로 갈등 +2", "bond")>>
 <<run setup.showToast && setup.showToast("그 말은 부탁이 아니라 도망이었다.", "shura")>>
@@ -1726,6 +1742,9 @@
 <<page>>
 <<set $kuroOrderLanguageSeen = true>>
 <<set $isolation += 1>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $obedienceCount = ($obedienceCount || 0) + 1>>
+<<set $missionObedienceCount = ($missionObedienceCount || 0) + 1>>
 <<clampStats>>
 
 <div class="narration">

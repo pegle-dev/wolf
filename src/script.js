@@ -514,6 +514,11 @@
       dreamNoSwordUnlocked: false,
       dreamCordUnlocked: false,
       dreamNoNameUnlocked: false,
+      owlVoiceCount: 0,
+      obedienceCount: 0,
+      refusedHelpCount: 0,
+      endingHiddenOwlsWolfSeen: false,
+      recordEndingHiddenOwlsWolf: false,
       returnEventPending: false,
       hanbeiJustVisitedSeen: false,
       hanbeiSakeSeen: false,
@@ -1170,6 +1175,9 @@
     if (name === 'Ending_ReturnToStart') {
       classes.push('ending-return-stage');
     }
+    else if (/^Hidden_End_OwlsWolf/.test(name)) {
+      classes.push('ending-screen', 'bad-ending-sequence', 'sequence-vanish', 'sequence-cut');
+    }
     else if (/^BadEnd_/.test(name)) {
       classes.push('ending-screen', 'bad-ending-sequence', 'sequence-vanish', 'sequence-cut');
     }
@@ -1447,7 +1455,7 @@
   }
 
   function isBadEndingPassage(passageName) {
-    return /^BadEnd_/.test(String(passageName || ''));
+    return /^(BadEnd_|Hidden_End_OwlsWolf)/.test(String(passageName || ''));
   }
 
   function isTrueEndingPassage(passageName) {
@@ -3247,7 +3255,7 @@ function wolfEscapeHtml(value) {
   }
 
   function isEndingSequencePassage(passage) {
-    return /^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Hidden_End_Remember)/.test(String(passage || ''));
+    return /^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Hidden_End_Remember|Hidden_End_OwlsWolf)/.test(String(passage || ''));
   }
 
   function getPassageSource(passage) {

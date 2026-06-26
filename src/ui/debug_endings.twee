@@ -72,6 +72,7 @@
 [[COMMON BAD: 빈 칼집->BadEnd_EmptyScabbard]]
 [[COMMON BAD: 길들여진 늑대->BadEnd_TamedWolf]]
 [[WORST BAD: 올빼미의 늑대->BadEnd_OwlWolf]]
+[[HIDDEN BROKEN: Owl’s Wolf->Hidden_End_OwlsWolf_01]]
 
 <h3>수라 구출 이벤트</h3>
 [[SHURA RISK ROUTER->ShuraRiskRouter]]
