@@ -6216,7 +6216,7 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 
 /* =========================
    Wolf Timed Choice Danger Mark
-   inside timer bar only
+   above timer bar only
    ========================= */
 
 .timed-choice-bar-track {
@@ -6227,8 +6227,8 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 .timed-choice-bar-ui .timed-choice-danger-mark {
   position: absolute !important;
   left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  top: -18px !important;
+  transform: translateX(-50%) !important;
   z-index: 12 !important;
   display: block !important;
   width: auto !important;
@@ -6240,14 +6240,22 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     0 0 4px rgba(76, 8, 8, 0.28),
     0 0 10px rgba(128, 18, 14, 0.22);
   font-family: "WolfBodySerif", "WolfNotoSerifKRBold", "Noto Serif CJK KR", "Noto Serif KR", serif !important;
-  font-size: 16px !important;
+  font-size: 28px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   letter-spacing: 0 !important;
   pointer-events: none !important;
   user-select: none !important;
   opacity: 0.72;
-  animation: wolfTimerDangerMarkBlink 1050ms ease-in-out infinite;
+  animation: wolfTimerDangerMarkBlink 2200ms ease-in-out infinite;
+}
+
+.first-death-choice-screen .timed-choice-bar-ui .timed-choice-danger-mark {
+  top: -32px !important;
+}
+
+.genichiro-arrow-choice-screen .timed-choice-bar-ui .timed-choice-danger-mark {
+  top: 0 !important;
 }
 
 @keyframes wolfTimerDangerMarkBlink {
