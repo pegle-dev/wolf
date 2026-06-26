@@ -107,8 +107,8 @@
     <div class="genichiro-arrow-tension-ui timed-choice-bar-ui">
       <div class="genichiro-arrow-tension-bar timed-choice-bar-track">
         <div class="genichiro-arrow-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
-        <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
       </div>
+      <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
     </div>
 
     <div class="global-choice-box genichiro-arrow-choice-box">
@@ -179,6 +179,7 @@
 <<set $recordBookUnlocked = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen "badend_genichiro_arrow">>
+<div class="wolf-death-kanji" aria-hidden="true">死</div>
 <div class="ending-text">
 [Bad End. 성문 앞의 화살]
 

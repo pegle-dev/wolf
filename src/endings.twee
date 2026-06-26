@@ -422,11 +422,13 @@
 
 :: Ending_ReturnToStart {"position":"5200,400","size":"100,100"}
 <<page>>
-<div class="ending-return-screen">
-<div class="choice-box">
+<div class="ending-return-screen scene-bg-reedfield05">
+<div class="ending-return-choice-layer">
+<div class="ending-return-choice-box">
 <<link "다시, 처음으로">>
   <<run setup.goTitleAfterEnding && setup.goTitleAfterEnding({ element: document.querySelector(".ending-return-screen") })>>
 <</link>>
+</div>
 </div>
 </div>
 <</page>>

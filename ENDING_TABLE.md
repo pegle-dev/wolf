@@ -549,61 +549,61 @@ notes: 내부 passage/변수명은 기존 호환을 위해 Worst를 유지하지
 ### Sculptor
 
 ```text
-id: Ending_Sculptor_LeftBehindBuddha
-title: Day End. 남겨진 불상
-type: End
+id: Ending_Sculptor_AshCoolingSound
+title: True End. 재가 식는 소리
+type: True End
 character: sculptor
 seenVar: $sculptorGoodEndingSeen
 qualified: true
 recordbook: true
-recordDesc: 불상 곁에 남은 것은 벌이 아니라 기억이었다.
+recordDesc: 쥐지 않는 손으로 재가 식는 소리를 들었다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: 현재 UI 표시명은 Day End.
+notes: 기존 $sculptorGoodEndingSeen을 재사용한다. 조각가가 늑대의 손을 보고, 늑대가 손을 펴는 결말.
 ```
 
 ```text
-id: BadEnd_Sculptor_UncarvedFace
-title: Bad End. 깎이지 않는 얼굴
-type: Bad End
+id: BrokenEnd_Sculptor_DeadHand
+title: Broken End. 죽은 손
+type: Broken End
 character: sculptor
 seenVar: $sculptorBadFaceSeen
 qualified: false
 recordbook: true
-recordDesc: TBD
+recordDesc: 손은 남았지만 더는 손처럼 움직이지 않았다.
 background: BadEnd.png / scene-bg-badend
 nextTarget: Ending_ReturnToStart
-notes: 기록장 별도 항목 추가 여부를 점검해야 한다.
+notes: 기존 $sculptorBadFaceSeen을 재사용한다.
 ```
 
 ```text
-id: BadEnd_Sculptor_SpreadingEmber
-title: Bad End. 옮겨붙은 불씨
+id: Sculptor_ShuraEnd_Prelude
+title: Bad End. 수라의 손
 type: Bad End
 character: sculptor
 seenVar: $sculptorBadFireSeen
 qualified: false
 recordbook: true
-recordDesc: TBD
+recordDesc: 불씨는 작았고, 손은 먼저 알아보았다.
 background: BadEnd.png / scene-bg-badend
 nextTarget: Ending_ReturnToStart
-notes: 기록장 별도 항목 추가 여부를 점검해야 한다.
+notes: Shura End 전조. 실제 Shura End는 Shura_Ending에서 처리한다.
 ```
 
 ### Isshin
 
 ```text
-id: Ending_Isshin_ReedSake
-title: Day End. 갈대밭의 술자리
-type: End
+id: Ending_Isshin_BeforeBlade
+title: True End. 칼보다 먼저
+type: True End
 character: isshin
 seenVar: $isshinGoodEndingSeen
 qualified: true
 recordbook: true
-recordDesc: 검 대신 술잔을 든 밤이 있었다.
+recordDesc: 검은 남았고, 늑대가 먼저 섰다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: 현재 UI 표시명은 Day End.
+notes: 기존 $isshinGoodEndingSeen을 재사용한다. 검을 버리는 것이 아니라 검보다 먼저 서는 결말.
 ```
 
 ```text
@@ -621,17 +621,31 @@ notes: 기록장 별도 항목 추가 여부를 점검해야 한다.
 ```
 
 ```text
-id: BadEnd_Isshin_SwordDemonLaugh
-title: Bad End. 검귀의 웃음
+id: BrokenEnd_Isshin_SwordOnly
+title: Broken End. 검만 남은 자
+type: Broken End
+character: isshin
+seenVar: $isshinBadSwordLaughSeen
+qualified: false
+recordbook: true
+recordDesc: 검이 먼저 섰고 사람은 그 뒤에 남았다.
+background: BadEnd.png / scene-bg-badend
+nextTarget: Ending_ReturnToStart
+notes: 기존 $isshinBadSwordLaughSeen을 재사용한다.
+```
+
+```text
+id: Isshin_ShuraEnd_Prelude
+title: Bad End. 마지막 검맞댐
 type: Bad End
 character: isshin
 seenVar: $isshinBadSwordLaughSeen
 qualified: false
 recordbook: true
-recordDesc: TBD
+recordDesc: 잇신이 마지막으로 검을 맞대고, 사람보다 먼저 온 검을 보았다.
 background: BadEnd.png / scene-bg-badend
 nextTarget: Ending_ReturnToStart
-notes: 기록장 별도 항목 추가 여부를 점검해야 한다.
+notes: Shura End 전조. 실제 Shura End는 Shura_Ending에서 처리한다.
 ```
 
 ### Shura

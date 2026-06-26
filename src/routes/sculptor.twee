@@ -1,21 +1,649 @@
 :: Sculptor_Router {"position":"2500,450","size":"100,100"}
 <<set $currentRoute = "sculptor">>
 
-<<if not $sculptorCarvingSeen>>
-  <<goto "Sculptor_01_Carving">>
-<<elseif not $sculptorWoundSeen>>
-  <<goto "Sculptor_02_Wound">>
-<<elseif not $sculptorDoNotDieSeen>>
-  <<goto "Sculptor_03_DoNotDie">>
-<<elseif not $sculptorShuraSmellSeen>>
-  <<goto "Sculptor_04_ShuraSmell">>
-<<elseif not $sculptorProstheticSeen>>
-  <<goto "Sculptor_05_Prosthetic">>
-<<elseif not $sculptorFaceSeen>>
-  <<goto "Sculptor_06_Face">>
+<<if not ($sculptorBuddhaSoundSeen || false)>>
+  <<goto "Sculptor_01_BuddhaSound">>
+<<elseif not ($sculptorHandShownSeen || false)>>
+  <<goto "Sculptor_02_ShowHand">>
+<<elseif not ($sculptorCarvingKnifeSeen || false)>>
+  <<goto "Sculptor_03_CarvingKnife">>
+<<elseif not ($sculptorMidConflictSeen || false)>>
+  <<goto "Sculptor_04_HandFire">>
+<<elseif (($shura || 0) >= 3 or ($sculptorTouchedFire || false)) and not ($sculptorShuraPreludeSeen || false)>>
+  <<goto "Sculptor_05_ShuraPrelude">>
 <<else>>
   <<goto "Sculptor_07_FinalChoice">>
 <</if>>
+
+:: Sculptor_01_BuddhaSound {"position":"2500,525","size":"100,100"}
+<<page>>
+<<set $currentRoute = "sculptor">>
+<<set $sculptorProgress = Math.max($sculptorProgress, 1)>>
+<<set $sculptorBuddhaSoundSeen = true>>
+<<set $sculptorCarvingSeen = true>>
+
+<div class="narration">
+절 안쪽에서 나무를 깎는 소리가 났다.
+
+작고 마른 소리였다.
+불도 없는데,
+재가 식는 냄새가 났다.
+
+늑대가 문가에 서자,
+소리가 멈췄다.
+</div>
+
+<<continueTo "Sculptor_01_BuddhaSound_Talk01">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Talk01 {"position":"2625,525","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+들어왔으면 앉아라.
+<</talk>>
+
+<<continueTo "Sculptor_01_BuddhaSound_Talk02">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Talk02 {"position":"2750,525","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+명입니까.
+<</talk>>
+
+<<continueTo "Sculptor_01_BuddhaSound_Talk03">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Talk03 {"position":"2875,525","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+아니다.
+
+그래도 앉아.
+<</talk>>
+
+<<continueTo "Sculptor_01_BuddhaSound_Beat01">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Beat01 {"position":"3000,525","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 앉지 않았다.
+
+조각가는 불상을 다시 깎았다.
+칼이 나무를 밀 때마다,
+얇은 부스러기가 늑대의 발치까지 흘러왔다.
+</div>
+
+<<continueTo "Sculptor_01_BuddhaSound_Choice">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Choice {"position":"3125,525","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
+<<link "문가에 선다" "Sculptor_01_BuddhaSound_Door_Result">>
+  <<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+  <<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "불상 소리를 듣는다" "Sculptor_01_BuddhaSound_Listen_Result">>
+  <<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+  <<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "손을 숨긴다" "Sculptor_01_BuddhaSound_HideHand_Result">>
+  <<set $isolation = ($isolation || 0) + 1>>
+  <<set $sculptorHidWound = true>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Door_Result {"position":"3250,525","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 문가에 섰다.
+
+조각가는 고개를 들지 않았다.
+
+나가지도,
+들어오지도 못하는 자리를
+그는 이미 알고 있는 듯했다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_Listen_Result {"position":"3250,575","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 깎는 소리를 들었다.
+
+검이 고기를 가르는 소리와 닮지 않았다.
+그런데도 손끝이 먼저 기억했다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_HideHand_Result {"position":"3250,625","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 손을 소매 안으로 넣었다.
+
+칼 소리가 멈췄다.
+
+조각가는 보지 않고도 말했다.
+</div>
+
+<<talk "sculptor" "조각가">>
+숨긴다고 손이 쉬는 건 아니다.
+<</talk>>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_02_ShowHand {"position":"2500,675","size":"100,100"}
+<<page>>
+<<set $currentRoute = "sculptor">>
+<<set $sculptorProgress = Math.max($sculptorProgress, 2)>>
+<<set $sculptorHandShownSeen = true>>
+<<set $sculptorWoundSeen = true>>
+
+<div class="narration">
+조각가는 늑대의 얼굴을 보지 않았다.
+
+검도 보지 않았다.
+
+시선은 늑대의 손에 머물렀다.
+피가 마른 손.
+명령보다 먼저 움직이는 손.
+</div>
+
+<<continueTo "Sculptor_02_ShowHand_Talk01">>
+<</page>>
+
+:: Sculptor_02_ShowHand_Talk01 {"position":"2625,675","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+그 손,
+또 피 냄새가 나는군.
+<</talk>>
+
+<<continueTo "Sculptor_02_ShowHand_Talk02">>
+<</page>>
+
+:: Sculptor_02_ShowHand_Talk02 {"position":"2750,675","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+문제 없습니다.
+<</talk>>
+
+<<continueTo "Sculptor_02_ShowHand_Talk03">>
+<</page>>
+
+:: Sculptor_02_ShowHand_Talk03 {"position":"2875,675","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+문제 없는 놈은
+그렇게 숨지 않는다.
+<</talk>>
+
+<<continueTo "Sculptor_02_ShowHand_Choice">>
+<</page>>
+
+:: Sculptor_02_ShowHand_Choice {"position":"3000,675","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
+<<link "손을 보인다" "Sculptor_02_ShowHand_Show_Result">>
+  <<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+  <<set $sculptorSawWound = true>>
+  <<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "소매를 내린다" "Sculptor_02_ShowHand_Hide_Result">>
+  <<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+  <<set $sculptorHidWound = true>>
+  <<set $isolation = ($isolation || 0) + 1>>
+  <<clampStats>>
+<</link>>
+
+<<link "붕대를 받는다" "Sculptor_02_ShowHand_Bandage_Result">>
+  <<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+  <<set $danger = ($danger || 0) - 1>>
+  <<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Sculptor_02_ShowHand_Show_Result {"position":"3125,675","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 손을 내밀었다.
+
+조각가는 상처를 오래 보지 않았다.
+필요한 만큼만 보았다.
+
+그리고 붕대를 던졌다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_02_ShowHand_Hide_Result {"position":"3125,725","size":"100,100"}
+<<page>>
+<div class="narration">
+소매가 손등을 덮었다.
+
+조각가는 더 묻지 않았다.
+
+묻지 않는 것은,
+속았다는 뜻이 아니었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_02_ShowHand_Bandage_Result {"position":"3125,775","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 붕대를 받았다.
+
+감는 법은 알고 있었다.
+다만 누군가가 던져준 붕대는,
+손에 닿는 무게가 달랐다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife {"position":"2500,825","size":"100,100"}
+<<page>>
+<<set $currentRoute = "sculptor">>
+<<set $sculptorProgress = Math.max($sculptorProgress, 3)>>
+<<set $sculptorCarvingKnifeSeen = true>>
+<<set $sculptorProstheticSeen = true>>
+
+<div class="narration">
+조각가는 조각칼을 늑대 앞에 놓았다.
+
+검보다 짧았다.
+가벼웠다.
+
+그러나 손에 쥐면,
+무엇이든 깎을 수 있는 날이었다.
+</div>
+
+<<continueTo "Sculptor_03_CarvingKnife_Talk01">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Talk01 {"position":"2625,825","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+쥐어 봐라.
+<</talk>>
+
+<<continueTo "Sculptor_03_CarvingKnife_Talk02">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Talk02 {"position":"2750,825","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+무기입니까.
+<</talk>>
+
+<<continueTo "Sculptor_03_CarvingKnife_Talk03">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Talk03 {"position":"2875,825","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+손에 따라 달라진다.
+<</talk>>
+
+<<continueTo "Sculptor_03_CarvingKnife_Choice">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Choice {"position":"3000,825","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
+<<link "가볍게 쥔다" "Sculptor_03_CarvingKnife_Light_Result">>
+  <<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+  <<set $freedom = ($freedom || 0) + 1>>
+  <<set $sculptorAcceptedWarning = true>>
+  <<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+  <<clampStats>>
+<</link>>
+
+<<link "검처럼 쥔다" "Sculptor_03_CarvingKnife_Sword_Result">>
+  <<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+  <<set $shura = ($shura || 0) + 1>>
+  <<set $sculptorTouchedFire = true>>
+  <<clampStats>>
+<</link>>
+
+<<link "쥐지 않는다" "Sculptor_03_CarvingKnife_Refuse_Result">>
+  <<set $isolation = ($isolation || 0) + 1>>
+  <<set $sculptorHidWound = true>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Light_Result {"position":"3125,825","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 조각칼을 가볍게 쥐었다.
+
+날이 흔들리지 않았다.
+
+조각가는 그제야 늑대의 얼굴을 보았다.
+</div>
+
+<<talk "sculptor" "조각가">>
+그 정도면
+아직 베는 손은 아니다.
+<</talk>>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Sword_Result {"position":"3125,875","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 조각칼을 검처럼 쥐었다.
+
+작은 날이 곧게 섰다.
+
+조각가는 손을 뻗지 않았다.
+이미 늦게 뻗은 적이 있는 사람처럼.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_03_CarvingKnife_Refuse_Result {"position":"3125,925","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 조각칼을 쥐지 않았다.
+
+조각가는 칼을 거두었다.
+
+날은 작았지만,
+거절한 손에 남은 빈자리는 작지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_04_HandFire {"position":"2500,975","size":"100,100"}
+<<page>>
+<<set $currentRoute = "sculptor">>
+<<set $sculptorProgress = Math.max($sculptorProgress, 4)>>
+<<set $sculptorMidConflictSeen = true>>
+<<set $sculptorShuraSmellSeen = true>>
+
+<div class="narration">
+화로에는 불이 거의 남아 있지 않았다.
+
+그런데 늑대의 손끝이,
+아주 잠깐 붉게 보였다.
+
+불빛 때문은 아니었다.
+조각가는 그것을 알았다.
+</div>
+
+<<continueTo "Sculptor_04_HandFire_Talk01">>
+<</page>>
+
+:: Sculptor_04_HandFire_Talk01 {"position":"2625,975","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+그만둬라.
+<</talk>>
+
+<<continueTo "Sculptor_04_HandFire_Talk02">>
+<</page>>
+
+:: Sculptor_04_HandFire_Talk02 {"position":"2750,975","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+무엇을 말입니까.
+<</talk>>
+
+<<continueTo "Sculptor_04_HandFire_Talk03">>
+<</page>>
+
+:: Sculptor_04_HandFire_Talk03 {"position":"2875,975","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+그 손끝.
+
+불을 찾고 있다.
+<</talk>>
+
+<<continueTo "Sculptor_04_HandFire_Talk04">>
+<</page>>
+
+:: Sculptor_04_HandFire_Talk04 {"position":"3000,975","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그 길을 아십니까.
+<</talk>>
+
+<<continueTo "Sculptor_04_HandFire_Talk05">>
+<</page>>
+
+:: Sculptor_04_HandFire_Talk05 {"position":"3125,975","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+너보다 먼저 걸었다.
+
+끝까지는 못 갔다.
+그래서 더 나쁘다.
+<</talk>>
+
+<<continueTo "Sculptor_04_HandFire_Choice">>
+<</page>>
+
+:: Sculptor_04_HandFire_Choice {"position":"3250,975","size":"100,100"}
+<<page>>
+<div class="choice-screen sculptor-choice-screen">
+  <div class="choice-prompt">조각가가 늑대의 손을 본다.<br>화로에는 재만 남아 있다.</div>
+
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "손을 편다" "Sculptor_04_HandFire_Open">>
+      <<choiceTo "주먹을 쥔다" "Sculptor_04_HandFire_Fist">>
+      <<choiceTo "불씨를 본다" "Sculptor_04_HandFire_Ember">>
+      <<choiceTo "조각칼을 내려놓는다" "Sculptor_04_HandFire_KnifeDown">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Sculptor_04_HandFire_Open {"position":"3375,900","size":"100,100"}
+<<page>>
+<<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+<<set $freedom = ($freedom || 0) + 1>>
+<<set $sculptorAcceptedWarning = true>>
+<<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+<<clampStats>>
+<div class="narration">
+늑대는 손을 폈다.
+
+피가 굳은 손바닥 위로,
+재가 한 점 내려앉았다.
+
+조각가는 그제야 숨을 내쉬었다.
+</div>
+
+<<talk "sculptor" "조각가">>
+아직 쥐지 마라.
+<</talk>>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_04_HandFire_Fist {"position":"3375,975","size":"100,100"}
+<<page>>
+<<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $sculptorTouchedFire = true>>
+<<clampStats>>
+<div class="narration">
+늑대는 주먹을 쥐었다.
+
+손 안에서 아무것도 타지 않았다.
+
+그런데도 조각가의 얼굴은 더 어두워졌다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_04_HandFire_Ember {"position":"3375,1050","size":"100,100"}
+<<page>>
+<<set $sculptorConflict = ($sculptorConflict || 0) + 2>>
+<<set $shura = ($shura || 0) + 2>>
+<<set $sculptorTouchedFire = true>>
+<<set $sculptorBadPortrait = true>>
+<<clampStats>>
+<div class="narration">
+늑대는 불씨를 보았다.
+
+꺼져 가는 것이 아니었다.
+기다리고 있었다.
+
+손끝이 먼저 그것을 알아보았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_04_HandFire_KnifeDown {"position":"3375,1125","size":"100,100"}
+<<page>>
+<<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+<<set $sculptorPromisedReturn = true>>
+<<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+<<clampStats>>
+<div class="narration">
+늑대는 조각칼을 내려놓았다.
+
+나무 바닥에 닿는 소리는 작았다.
+
+그 작은 소리에,
+불씨가 조금 물러난 것 같았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude {"position":"2500,1125","size":"100,100"}
+<<page>>
+<<set $currentRoute = "sculptor">>
+<<set $sculptorProgress = Math.max($sculptorProgress, 5)>>
+<<set $sculptorShuraPreludeSeen = true>>
+<<set $shuraHintSeen = true>>
+<<set $nightSawShuraHint = true>>
+
+<div class="narration">
+그날 밤,
+늑대는 검을 닦다가 멈췄다.
+
+손이 먼저 움직이고 있었다.
+닦기 위해서가 아니었다.
+
+쥐기 위해서였다.
+</div>
+
+<<continueTo "Sculptor_05_ShuraPrelude_Talk01">>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude_Talk01 {"position":"2625,1125","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+늦었다고 생각하는 순간이 온다.
+<</talk>>
+
+<<continueTo "Sculptor_05_ShuraPrelude_Talk02">>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude_Talk02 {"position":"2750,1125","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+그때 멈추면,
+늦어도 사람이다.
+<</talk>>
+
+<<continueTo "Sculptor_05_ShuraPrelude_Talk03">>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude_Talk03 {"position":"2875,1125","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+멈추지 못하면,
+이름이 바뀐다.
+<</talk>>
+
+<<continueTo "Sculptor_05_ShuraPrelude_Choice">>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude_Choice {"position":"3000,1125","size":"100,100"}
+<<page>>
+<div class="route-choice-screen">
+<div class="choice-box route-choice-box">
+<<link "손을 편다" "Sculptor_05_ShuraPrelude_Open_Result">>
+  <<set $freedom = ($freedom || 0) + 1>>
+  <<set $sculptorAcceptedWarning = true>>
+  <<clampStats>>
+<</link>>
+
+<<link "검자루를 놓지 않는다" "Sculptor_05_ShuraPrelude_Grip_Result">>
+  <<set $shura = ($shura || 0) + 1>>
+  <<set $sculptorTouchedFire = true>>
+  <<set $sculptorBadPortrait = true>>
+  <<clampStats>>
+<</link>>
+</div>
+</div>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude_Open_Result {"position":"3125,1125","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 손을 폈다.
+
+검은 떨어지지 않았다.
+하지만 손바닥과 칼자루 사이에,
+아주 얇은 틈이 생겼다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Sculptor_05_ShuraPrelude_Grip_Result {"position":"3125,1175","size":"100,100"}
+<<page>>
+<div class="narration">
+늑대는 검자루를 놓지 않았다.
+
+조각가는 더 말하지 않았다.
+
+말로 꺼지는 불이 아니었다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
 
 :: Sculptor_01_Carving {"position":"2500,575","size":"100,100"}
 <<page>>
@@ -578,12 +1206,13 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 7)>>
 
-<<beat>>조각가는 완성되지 않은 불상 앞에 앉아 있었다.
+<<beat>>조각가는 식은 화로 앞에 앉아 있었다.
 
-늑대는 그 옆에 섰다.<</beat>>
+늑대는 그 옆에 섰다.
+손은 무릎 위에 놓여 있었다.<</beat>>
 
 <<talk "sculptor" "조각가">>
-내가 막을 수 있는 건 많지 않다.
+손을 봐라.
 <</talk>>
 
 <<talk "wolf" "늑대">>
@@ -591,7 +1220,7 @@
 <</talk>>
 
 <<talk "sculptor" "조각가">>
-그래도 하나는 말할 수 있다.
+아직 네 손인가.
 <</talk>>
 
 <<beat>>잠시 후,
@@ -608,8 +1237,8 @@
 <<page>>
 <div class="route-choice-screen">
 <div class="choice-box route-choice-box">
-<<if $sculptorLove >= 4 or $sculptorPromisedReturn or $sculptorAcceptedWarning>>
-<<link "불상 곁에 앉는다" "Ending_Sculptor_LeftBehindBuddha">>
+<<if (($sculptorAffection || 0) + ($sculptorConflict || 0)) >= 2 or $sculptorLove >= 2 or $sculptorPromisedReturn or $sculptorAcceptedWarning>>
+<<link "손을 편 채 앉는다" "Ending_Sculptor_AshCoolingSound">>
   <<set $sculptorDone = true>>
   <<set $completedSculptor = true>>
   <<set $sculptorGoodEndingSeen = true>>
@@ -618,7 +1247,7 @@
 <</link>>
 <</if>>
 
-<<link "아직 얼굴이 없다고 말한다" "BadEnd_Sculptor_UncarvedFace">>
+<<link "손을 쥔 채 선다" "BrokenEnd_Sculptor_DeadHand">>
   <<set $sculptorDone = true>>
   <<set $completedSculptor = true>>
   <<set $sculptorBadFaceSeen = true>>
@@ -627,7 +1256,7 @@
   <<clampStats>>
 <</link>>
 
-<<link "불씨를 들여다본다" "BadEnd_Sculptor_SpreadingEmber">>
+<<link "불씨를 들여다본다" "Sculptor_ShuraEnd_Prelude">>
   <<set $sculptorDone = true>>
   <<set $completedSculptor = true>>
   <<set $sculptorBadFireSeen = true>>
@@ -640,6 +1269,186 @@
 <</link>>
 </div>
 </div>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound {"position":"2500,1600","size":"100,100"}
+<<page>>
+<<set $sculptorDone = true>>
+<<set $completedSculptor = true>>
+<<set $sculptorGoodEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<<qualifiedCharacterEnding "sculptor">>
+<div class="narration narration-full short-beat">화로에는 불이 없었다.
+
+재만 남아 있었다.</div>
+<<continueTo "Ending_Sculptor_AshCoolingSound_02">>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound_02 {"position":"2625,1600","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">늑대는 손을 편 채 앉았다.
+
+손바닥의 피는 말라 있었다.
+칼자루를 찾던 힘도,
+조금씩 빠져나갔다.</div>
+<<continueTo "Ending_Sculptor_AshCoolingSound_03">>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound_03 {"position":"2750,1600","size":"100,100"}
+<<page>>
+<<talk "sculptor:like" "조각가">>
+그렇게 둬라.
+<</talk>>
+
+<<continueTo "Ending_Sculptor_AshCoolingSound_04">>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound_04 {"position":"2875,1600","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+무엇을 말입니까.
+<</talk>>
+
+<<continueTo "Ending_Sculptor_AshCoolingSound_05">>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound_05 {"position":"3000,1600","size":"100,100"}
+<<page>>
+<<talk "sculptor:like" "조각가">>
+쥐지 않는 손.
+<</talk>>
+
+<<continueTo "Ending_Sculptor_AshCoolingSound_06">>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound_06 {"position":"3125,1600","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">조각가는 다시 불상을 깎지 않았다.
+
+그날 절 안에는,
+칼 소리 대신 재가 식는 소리가 났다.
+
+늑대는 그 소리를 끝까지 들었다.</div>
+<<continueTo "Ending_Sculptor_AshCoolingSound_End">>
+<</page>>
+
+:: Ending_Sculptor_AshCoolingSound_End {"position":"3250,1600","size":"100,100"}
+<<page>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[True End. 재가 식는 소리]</div>
+<</page>>
+
+:: BrokenEnd_Sculptor_DeadHand {"position":"2500,1775","size":"100,100"}
+<<page>>
+<<set $sculptorDone = true>>
+<<set $completedSculptor = true>>
+<<set $sculptorBadFaceSeen = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<div class="narration narration-full short-beat">늑대는 손을 쥔 채 서 있었다.
+
+조각가는 그 손을 보았다.
+오래전,
+자기 손이 멈추지 못하던 밤처럼.</div>
+<<continueTo "BrokenEnd_Sculptor_DeadHand_02">>
+<</page>>
+
+:: BrokenEnd_Sculptor_DeadHand_02 {"position":"2625,1775","size":"100,100"}
+<<page>>
+<<talk "sculptor:bad" "조각가">>
+그건 이제 손이 아니다.
+<</talk>>
+
+<<continueTo "BrokenEnd_Sculptor_DeadHand_03">>
+<</page>>
+
+:: BrokenEnd_Sculptor_DeadHand_03 {"position":"2750,1775","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">늑대는 대답하지 않았다.
+
+쥔 손은 열리지 않았다.
+검을 들고 있지 않아도,
+이미 무엇인가를 베고 있는 모양이었다.</div>
+<<continueTo "BrokenEnd_Sculptor_DeadHand_04">>
+<</page>>
+
+:: BrokenEnd_Sculptor_DeadHand_04 {"position":"2875,1775","size":"100,100"}
+<<page>>
+<<talk "sculptor:bad" "조각가">>
+늦었다.
+
+그래도 기억해라.
+늦은 놈도,
+멈추면 아직 놈이다.
+<</talk>>
+
+<<continueTo "BrokenEnd_Sculptor_DeadHand_End">>
+<</page>>
+
+:: BrokenEnd_Sculptor_DeadHand_End {"position":"3000,1775","size":"100,100"}
+<<page>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 죽은 손]</div>
+<</page>>
+
+:: Sculptor_ShuraEnd_Prelude {"position":"2500,1950","size":"100,100"}
+<<page>>
+<<set $sculptorDone = true>>
+<<set $completedSculptor = true>>
+<<set $sculptorBadFireSeen = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $shura = ($shura || 0) + 2>>
+<<set $shuraHintSeen = true>>
+<<set $sculptorBadPortrait = true>>
+<<set $sculptorRouteBad = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<<clampStats>>
+<div class="narration narration-full short-beat">늑대는 불씨를 들여다보았다.
+
+불씨는 작았다.
+작은데도,
+손을 비추기에는 충분했다.</div>
+<<continueTo "Sculptor_ShuraEnd_Prelude_02">>
+<</page>>
+
+:: Sculptor_ShuraEnd_Prelude_02 {"position":"2625,1950","size":"100,100"}
+<<page>>
+<<talk "sculptor:bad" "조각가">>
+보지 마라.
+<</talk>>
+
+<<continueTo "Sculptor_ShuraEnd_Prelude_03">>
+<</page>>
+
+:: Sculptor_ShuraEnd_Prelude_03 {"position":"2750,1950","size":"100,100"}
+<<page>>
+<div class="narration narration-full short-beat">늑대는 보았다.
+
+검을 쥔 손.
+베는 손.
+멈추지 않아도 되는 손.
+
+그 이름은 아직 입 밖에 나오지 않았다.</div>
+<<continueTo "Sculptor_ShuraEnd_Prelude_04">>
+<</page>>
+
+:: Sculptor_ShuraEnd_Prelude_04 {"position":"2875,1950","size":"100,100"}
+<<page>>
+<<talk "sculptor:bad" "조각가">>
+다음에 그 손이 먼저 움직이면,
+돌아오지 못한다.
+<</talk>>
+
+<<continueTo "Sculptor_ShuraEnd_Prelude_End">>
+<</page>>
+
+:: Sculptor_ShuraEnd_Prelude_End {"position":"3000,1950","size":"100,100"}
+<<page>>
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 수라의 손]</div>
 <</page>>
 
 :: Ending_Sculptor_LeftBehindBuddha {"position":"2500,1650","size":"100,100"}

@@ -26,8 +26,8 @@
     <div class="first-death-tension-ui timed-choice-bar-ui">
       <div class="first-death-tension-track first-death-tension-bar timed-choice-bar-track">
         <div class="first-death-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
-        <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
       </div>
+      <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
     </div>
 
     <div class="urgent-shake-inner">
@@ -147,6 +147,7 @@
 <<set $badEndingSeen = true>>
 <<markEndingSeen "badend_first_death">>
 <div class="badend-screen black-stage">
+<div class="wolf-death-kanji" aria-hidden="true">死</div>
 <div class="badend-narration">늑대는 쿠로를 구했다.
 
 그리고,

@@ -56,14 +56,15 @@
 [[GENICHIRO BAD: 무릎 꿇은 성->BadEnd_Genichiro_KneelingCastle]]
 
 <h3>조각가</h3>
-[[조각가 END: 남겨진 불상->Ending_Sculptor_LeftBehindBuddha]]
-[[조각가 BAD: 깎이지 않는 얼굴->BadEnd_Sculptor_UncarvedFace]]
-[[조각가 BAD: 옮겨붙은 불씨->BadEnd_Sculptor_SpreadingEmber]]
+[[조각가 TRUE: 재가 식는 소리->Ending_Sculptor_AshCoolingSound]]
+[[조각가 BROKEN: 죽은 손->BrokenEnd_Sculptor_DeadHand]]
+[[조각가 BAD: 수라의 손->Sculptor_ShuraEnd_Prelude]]
 
 <h3>잇신</h3>
-[[잇신 END: 갈대밭의 술자리->Ending_Isshin_ReedSake]]
+[[잇신 TRUE: 칼보다 먼저->Ending_Isshin_BeforeBlade]]
 [[잇신 BAD: 빈 술잔->BadEnd_Isshin_EmptyCup]]
-[[잇신 BAD: 검귀의 웃음->BadEnd_Isshin_SwordDemonLaugh]]
+[[잇신 BROKEN: 검만 남은 자->BrokenEnd_Isshin_SwordOnly]]
+[[잇신 BAD: 마지막 검맞댐->Isshin_ShuraEnd_Prelude]]
 
 <h3>공통 배드엔딩</h3>
 [[COMMON BAD ROUTER->CommonBadEndRouter]]
