@@ -90,7 +90,8 @@
 [[DREAM: 함정 전조 꿈->Dream_Danger_Trap]]
 
 <h3>히든 / 수라</h3>
-[[수라 테스트->Shura]]
+[[수라 루트 테스트->Shura_Entrance]]
+[[수라 END: 마지막 선택지->Ending_Shura_LastChoice]]
 
 <<link "히든 END: 돌아갈 길 처음부터 보기">>
   <<set $shuraDone = true>>

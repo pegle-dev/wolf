@@ -554,6 +554,7 @@
 <<set $currentRoute = "sculptor">>
 <<set $sculptorProgress = Math.max($sculptorProgress, 5)>>
 <<set $sculptorShuraPreludeSeen = true>>
+<<set $sculptorShuraWarningSeen = true>>
 <<set $shuraHintSeen = true>>
 <<set $nightSawShuraHint = true>>
 
@@ -1402,6 +1403,7 @@
 <<set $anyEndingSeen = true>>
 <<set $shura = ($shura || 0) + 2>>
 <<set $shuraHintSeen = true>>
+<<set $sculptorShuraWarningSeen = true>>
 <<set $sculptorBadPortrait = true>>
 <<set $sculptorRouteBad = true>>
 <<set $recordBookNewEnding = true>>

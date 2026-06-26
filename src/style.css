@@ -4144,9 +4144,9 @@ body,
 }
 
 .wolf-player-status-panel {
-  position: fixed;
-  right: 32px;
-  top: 132px;
+  position: absolute;
+  right: 24px;
+  top: 96px;
   width: min(310px, 34vw);
   box-sizing: border-box;
   padding: 12px 14px 13px;

@@ -166,8 +166,9 @@
 <</if>>
 <</if>>
 
-<<if ($dayCount || $day || 1) >= 5 and $shuraUnlocked and $shura >= 13>>
-[[아무도 만나지 않는다->Shura]]
+<<set _shuraWarningSeen = ($sculptorShuraWarningSeen or $sculptorShuraPreludeSeen or $isshinShuraWarningSeen or $isshinShuraPreludeSeen)>>
+<<if ($dayCount || $day || 1) >= 5 and ($shura || 0) >= 5 and $shuraHintSeen and _shuraWarningSeen>>
+[[검이 조용하다->Shura_Entrance]]
 <</if>>
 
 <<if $timeOfDay == "day">>

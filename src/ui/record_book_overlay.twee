@@ -84,7 +84,7 @@
 <<if $badOwlWolfSeen>><<set _seen += 1>><</if>>
 <<if $badEndFirstDeathSeen>><<set _seen += 1>><</if>>
 <<if $endingHanbeiQuietDaySeen>><<set _seen += 1>><</if>>
-<<if $shuraEndingSeen>><<set _seen += 1>><</if>>
+<<if $shuraEndingSeen or $endingShuraSeen>><<set _seen += 1>><</if>>
 <<if $hiddenRevivalDone>><<set _seen += 1>><</if>>
 
 <div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 34</span></div>
@@ -112,7 +112,7 @@
   <div class="recordbook-item <<if not $isshinBadEmptyCupSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinBadEmptyCupSeen>>[Bad End. 빈 술잔]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isshinBadEmptyCupSeen>>끝내 들지 않은 잔이 비어 있었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $isshinBadSwordLaughSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $isshinBadSwordLaughSeen>>[Broken End. 검만 남은 자]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $isshinBadSwordLaughSeen>>검이 먼저 섰고 사람은 그 뒤에 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not ($badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen>>[Bad End. 공통 실패의 흔적]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWolfSeen>>고립과 위험이 늑대의 길을 덮었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
-  <div class="recordbook-item <<if not $shuraEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $shuraEndingSeen>>[Shura End. 수라]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $shuraEndingSeen>>검이 사람을 삼킨 끝을 보았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not ($shuraEndingSeen or $endingShuraSeen)>>locked<</if>>"><div class="recordbook-item-title"><<if $shuraEndingSeen or $endingShuraSeen>>[Shura End. 마지막 선택지]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $shuraEndingSeen or $endingShuraSeen>>모든 이름이 멀어지고 마지막 선택지만 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $hiddenRevivalDone>>locked<</if>>"><div class="recordbook-item-title"><<if $hiddenRevivalDone>>[Day End. 돌아갈 길]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hiddenRevivalDone>>검 없이도 걸어갈 수 있는 길이 남았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
 </div>
 <</nobr>>

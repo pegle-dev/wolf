@@ -587,7 +587,7 @@ recordbook: true
 recordDesc: 불씨는 작았고, 손은 먼저 알아보았다.
 background: BadEnd.png / scene-bg-badend
 nextTarget: Ending_ReturnToStart
-notes: Shura End 전조. 실제 Shura End는 Shura_Ending에서 처리한다.
+notes: Shura End 전조. 실제 Shura End는 Ending_Shura_LastChoice에서 처리한다.
 ```
 
 ### Isshin
@@ -645,23 +645,23 @@ recordbook: true
 recordDesc: 잇신이 마지막으로 검을 맞대고, 사람보다 먼저 온 검을 보았다.
 background: BadEnd.png / scene-bg-badend
 nextTarget: Ending_ReturnToStart
-notes: Shura End 전조. 실제 Shura End는 Shura_Ending에서 처리한다.
+notes: Shura End 전조. 실제 Shura End는 Ending_Shura_LastChoice에서 처리한다.
 ```
 
 ### Shura
 
 ```text
-id: Shura_Ending
-title: Shura End. 수라
+id: Ending_Shura_LastChoice
+title: Shura End. 마지막 선택지
 type: Shura End
 character: shura
-seenVar: $shuraEndingSeen
+seenVar: $endingShuraSeen / $shuraEndingSeen
 qualified: false
 recordbook: true
-recordDesc: 검이 사람을 삼킨 끝을 보았다.
+recordDesc: 모든 이름이 멀어지고 마지막 선택지만 남았다.
 background: shura/default
-nextTarget: TBD
-notes: 모두를 끊어내는 결말. 캐릭터 qualified ending으로 처리하지 않는다.
+nextTarget: Ending_ReturnToStart
+notes: 모두를 끊어내는 공통 Shura End. 기존 호환 passage Shura_Ending은 Ending_Shura_LastChoice로 이동한다.
 ```
 
 ---

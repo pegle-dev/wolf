@@ -460,6 +460,7 @@ Genichiro_ReturnNotice
 | ReturnEvent_WatchKuro | Return | dawn | 2 | kuroAffection >= 1 | repeat/cooldown | Temple/NextDay | 쿠로를 지켜봄 |
 | ReturnEvent_HanbeiPretendSleep | Return | dawn | 1 | hanbei met | repeat/cooldown | Temple/NextDay | 한베 일상 |
 | ReturnEvent_EmmaLamp | Return | dawn | 3 | emmaEventUnlocked | repeat/cooldown | Temple/NextDay | 엠마 등불 |
+| Shura_Entrance | Shura Route | day | 5 | shura >= 5, shuraHintSeen, sculptor/isshin warning | once | Ending_Shura_LastChoice | 공통 Shura End 진입 |
 
 ---
 

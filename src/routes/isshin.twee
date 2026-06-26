@@ -433,6 +433,7 @@
 <<set $currentRoute = "isshin">>
 <<set $isshinProgress = Math.max($isshinProgress, 4)>>
 <<set $isshinShuraPreludeSeen = true>>
+<<set $isshinShuraWarningSeen = true>>
 <<set $shuraHintSeen = true>>
 
 <div class="narration">
@@ -1250,6 +1251,7 @@
 <<set $anyEndingSeen = true>>
 <<set $shura = ($shura || 0) + 2>>
 <<set $shuraHintSeen = true>>
+<<set $isshinShuraWarningSeen = true>>
 <<set $isshinBadPortrait = true>>
 <<set $isshinRouteBad = true>>
 <<set $recordBookNewEnding = true>>

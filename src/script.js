@@ -2953,24 +2953,28 @@ function applyStoredStatusHidden() {
 
 function wolfEnsurePlayerStatusPanel() {
   var panel = document.querySelector('.wolf-player-status-panel');
+  var root = setup.getGameRoot ? setup.getGameRoot() : (document.querySelector('#passages > .passage:last-child') || document.querySelector('#passages') || document.body);
 
   if (panel) {
+    if (root && panel.parentNode !== root) {
+      root.appendChild(panel);
+    }
     return panel;
   }
 
   panel = document.createElement('div');
   panel.className = 'wolf-player-status-panel';
-  panel.setAttribute('aria-label', '늑대 상태');
+  panel.setAttribute('aria-label', '늑대의 상태');
   panel.setAttribute('aria-hidden', 'true');
   panel.innerHTML =
-    '<div class="wolf-player-status-title">늑대</div>' +
+    '<div class="wolf-player-status-title">늑대의 상태</div>' +
     '<div class="wolf-player-status-list">' +
       '<div class="wolf-player-status-row"><span>위험</span><strong data-wolf-state-label="danger"></strong></div>' +
       '<div class="wolf-player-status-row"><span>고독</span><strong data-wolf-state-label="isolation"></strong></div>' +
       '<div class="wolf-player-status-row"><span>수라</span><strong data-wolf-state-label="shura"></strong></div>' +
     '</div>';
 
-  document.body.appendChild(panel);
+  (root || document.body).appendChild(panel);
   return panel;
 }
 
