@@ -955,6 +955,9 @@
     }
 
     wikiInto(stage, '<<include "RecordBookOverlay">>');
+    if (setup.updateWolfStateLabels) {
+      setup.updateWolfStateLabels(stage);
+    }
   }
 
   setup.openRecordBookOverlay = function (tab) {
@@ -2985,11 +2988,17 @@ function wolfUpdatePlayerStatusPanel() {
     return;
   }
 
-  Array.prototype.forEach.call(panel.querySelectorAll('[data-wolf-state-label]'), function (el) {
+  setup.updateWolfStateLabels(document);
+}
+
+setup.updateWolfStateLabels = function (root) {
+  var scope = root || document;
+
+  Array.prototype.forEach.call(scope.querySelectorAll('[data-wolf-state-label]'), function (el) {
     var type = el.getAttribute('data-wolf-state-label') || '';
     el.textContent = setup.getWolfStateLabel ? setup.getWolfStateLabel(type) : '';
   });
-}
+};
 
 function wolfSetPlayerStatusVisible(visible) {
   var panel = wolfEnsurePlayerStatusPanel();

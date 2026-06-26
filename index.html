@@ -7129,6 +7129,162 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 .title-screen .game-tagline {
   font-family: 'WolfBodySerif', serif !important;
 }
+
+/* Recordbook overlay header final layout. Tabs stay full-width under the title row. */
+.recordbook-panel[data-recordbook-source="overlay"] {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-header {
+  position: relative !important;
+  flex: 0 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 16px 50px 10px 20px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border-bottom: 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] > br,
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-header br {
+  display: none !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 16px !important;
+  align-items: start !important;
+  min-width: 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-heading {
+  min-width: 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state {
+  justify-self: end !important;
+  width: 220px !important;
+  max-width: 220px !important;
+  margin-right: 68px !important;
+  box-sizing: border-box !important;
+  padding: 7px 10px 8px !important;
+  color: rgba(216, 211, 202, 0.78) !important;
+  background: rgba(0, 0, 0, 0.20) !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.26) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.26) !important;
+  font-size: 11px !important;
+  line-height: 1.38 !important;
+  letter-spacing: 0.025em !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row {
+  display: grid !important;
+  grid-template-columns: 36px minmax(0, 1fr) !important;
+  gap: 7px !important;
+  align-items: baseline !important;
+  margin: 1px 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row span {
+  color: rgba(168, 164, 156, 0.62) !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row strong {
+  color: rgba(216, 211, 202, 0.82) !important;
+  font-weight: 400 !important;
+  text-align: right !important;
+  word-break: keep-all !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-close {
+  position: absolute !important;
+  top: 8px !important;
+  right: 10px !important;
+  z-index: 8 !important;
+  margin: 0 !important;
+  padding: 2px 4px !important;
+  color: rgba(180, 174, 164, 0.72) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-family: 'WolfNotoSerifKRBold', 'WolfBodySerif', serif !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-close:hover {
+  color: rgba(232, 229, 222, 0.86) !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs {
+  width: 100% !important;
+  flex: 0 0 28px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 18px !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
+  height: 28px !important;
+  max-height: 28px !important;
+  margin: 4px 0 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  background: rgba(255, 255, 255, 0.008) !important;
+  border-top: 1px solid rgba(210, 206, 198, 0.04) !important;
+  border-bottom: 1px solid rgba(210, 206, 198, 0.10) !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs a,
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-tab {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-content {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-status-panel {
+  display: none !important;
+}
+
+@media (max-width: 620px) {
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-header {
+    padding: 14px 42px 9px 18px !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state {
+    justify-self: stretch !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs {
+    gap: 14px !important;
+    overflow-x: auto !important;
+  }
+}
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* Wolf UI macros: JS로 직접 정의해서 widget/_contents 꼬임을 피한다. */
 (function () {
   'use strict';
@@ -8086,6 +8242,9 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
     }
 
     wikiInto(stage, '<<include "RecordBookOverlay">>');
+    if (setup.updateWolfStateLabels) {
+      setup.updateWolfStateLabels(stage);
+    }
   }
 
   setup.openRecordBookOverlay = function (tab) {
@@ -10116,11 +10275,17 @@ function wolfUpdatePlayerStatusPanel() {
     return;
   }
 
-  Array.prototype.forEach.call(panel.querySelectorAll('[data-wolf-state-label]'), function (el) {
+  setup.updateWolfStateLabels(document);
+}
+
+setup.updateWolfStateLabels = function (root) {
+  var scope = root || document;
+
+  Array.prototype.forEach.call(scope.querySelectorAll('[data-wolf-state-label]'), function (el) {
     var type = el.getAttribute('data-wolf-state-label') || '';
     el.textContent = setup.getWolfStateLabel ? setup.getWolfStateLabel(type) : '';
   });
-}
+};
 
 function wolfSetPlayerStatusVisible(visible) {
   var panel = wolfEnsurePlayerStatusPanel();
@@ -26188,49 +26353,56 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="1239" name="RecordBookOverlay" tags="" position="750,500" size="100,100">&lt;div class=&quot;recordbook-dim&quot;&gt;&lt;/div&gt;
 &lt;aside class=&quot;recordbook-panel&quot; data-recordbook-source=&quot;overlay&quot;&gt;
   &lt;div class=&quot;recordbook-header&quot;&gt;
-    &lt;div class=&quot;recordbook-heading&quot;&gt;
-      &lt;div class=&quot;recordbook-title&quot;&gt;&lt;&lt;print setup.t(&quot;journal&quot;)&gt;&gt;&lt;/div&gt;
-      &lt;div class=&quot;recordbook-subtitle&quot;&gt;&lt;&lt;print setup.t(&quot;journalSubtitle&quot;)&gt;&gt;&lt;/div&gt;
+    &lt;div class=&quot;recordbook-title-row&quot;&gt;
+      &lt;div class=&quot;recordbook-heading&quot;&gt;
+        &lt;div class=&quot;recordbook-title&quot;&gt;&lt;&lt;print setup.t(&quot;journal&quot;)&gt;&gt;&lt;/div&gt;
+        &lt;div class=&quot;recordbook-subtitle&quot;&gt;&lt;&lt;print setup.t(&quot;journalSubtitle&quot;)&gt;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;recordbook-wolf-state&quot; aria-label=&quot;늑대의 상태&quot;&gt;
+        &lt;div class=&quot;recordbook-wolf-state-row&quot;&gt;&lt;span&gt;위험&lt;/span&gt;&lt;strong data-wolf-state-label=&quot;danger&quot;&gt;&lt;/strong&gt;&lt;/div&gt;
+        &lt;div class=&quot;recordbook-wolf-state-row&quot;&gt;&lt;span&gt;고독&lt;/span&gt;&lt;strong data-wolf-state-label=&quot;isolation&quot;&gt;&lt;/strong&gt;&lt;/div&gt;
+        &lt;div class=&quot;recordbook-wolf-state-row&quot;&gt;&lt;span&gt;수라&lt;/span&gt;&lt;strong data-wolf-state-label=&quot;shura&quot;&gt;&lt;/strong&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;button class=&quot;recordbook-close&quot; type=&quot;button&quot; onclick=&quot;setup.closeRecordBookOverlay()&quot;&gt;
+        &lt;&lt;print setup.t(&quot;close&quot;)&gt;&gt;
+      &lt;/button&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;recordbook-close&quot;&gt;
-      &lt;&lt;link setup.t(&quot;close&quot;)&gt;&gt;
-        &lt;&lt;run setup.closeRecordBookOverlay()&gt;&gt;
-      &lt;&lt;/link&gt;&gt;
+
+    &lt;div class=&quot;recordbook-tabs&quot;&gt;
+      &lt;&lt;if $recordBookTab is &quot;endings&quot;&gt;&gt;
+        &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;endings&quot;)&gt;&gt;&lt;/span&gt;
+      &lt;&lt;else&gt;&gt;
+        &lt;&lt;link setup.t(&quot;endings&quot;)&gt;&gt;
+          &lt;&lt;run setup.switchRecordBookTab(&quot;endings&quot;)&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+      &lt;&lt;/if&gt;&gt;
+
+      &lt;&lt;if $recordBookTab is &quot;dreams&quot;&gt;&gt;
+        &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;dreams&quot;)&gt;&gt;&lt;/span&gt;
+      &lt;&lt;else&gt;&gt;
+        &lt;&lt;link setup.t(&quot;dreams&quot;)&gt;&gt;
+          &lt;&lt;run setup.switchRecordBookTab(&quot;dreams&quot;)&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+      &lt;&lt;/if&gt;&gt;
+
+      &lt;&lt;if $recordBookTab is &quot;bonds&quot;&gt;&gt;
+        &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;bonds&quot;)&gt;&gt;&lt;/span&gt;
+      &lt;&lt;else&gt;&gt;
+        &lt;&lt;link setup.t(&quot;bonds&quot;)&gt;&gt;
+          &lt;&lt;run setup.switchRecordBookTab(&quot;bonds&quot;)&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+      &lt;&lt;/if&gt;&gt;
+
+      &lt;&lt;if $recordBookTab is &quot;traces&quot;&gt;&gt;
+        &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;traces&quot;)&gt;&gt;&lt;/span&gt;
+      &lt;&lt;else&gt;&gt;
+        &lt;&lt;link setup.t(&quot;traces&quot;)&gt;&gt;
+          &lt;&lt;run setup.switchRecordBookTab(&quot;traces&quot;)&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+      &lt;&lt;/if&gt;&gt;
     &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;recordbook-tabs&quot;&gt;
-    &lt;&lt;if $recordBookTab is &quot;endings&quot;&gt;&gt;
-      &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;endings&quot;)&gt;&gt;&lt;/span&gt;
-    &lt;&lt;else&gt;&gt;
-      &lt;&lt;link setup.t(&quot;endings&quot;)&gt;&gt;
-        &lt;&lt;run setup.switchRecordBookTab(&quot;endings&quot;)&gt;&gt;
-      &lt;&lt;/link&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
-
-    &lt;&lt;if $recordBookTab is &quot;dreams&quot;&gt;&gt;
-      &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;dreams&quot;)&gt;&gt;&lt;/span&gt;
-    &lt;&lt;else&gt;&gt;
-      &lt;&lt;link setup.t(&quot;dreams&quot;)&gt;&gt;
-        &lt;&lt;run setup.switchRecordBookTab(&quot;dreams&quot;)&gt;&gt;
-      &lt;&lt;/link&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
-
-    &lt;&lt;if $recordBookTab is &quot;bonds&quot;&gt;&gt;
-      &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;bonds&quot;)&gt;&gt;&lt;/span&gt;
-    &lt;&lt;else&gt;&gt;
-      &lt;&lt;link setup.t(&quot;bonds&quot;)&gt;&gt;
-        &lt;&lt;run setup.switchRecordBookTab(&quot;bonds&quot;)&gt;&gt;
-      &lt;&lt;/link&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
-
-    &lt;&lt;if $recordBookTab is &quot;traces&quot;&gt;&gt;
-      &lt;span class=&quot;recordbook-tab active&quot;&gt;&lt;&lt;print setup.t(&quot;traces&quot;)&gt;&gt;&lt;/span&gt;
-    &lt;&lt;else&gt;&gt;
-      &lt;&lt;link setup.t(&quot;traces&quot;)&gt;&gt;
-        &lt;&lt;run setup.switchRecordBookTab(&quot;traces&quot;)&gt;&gt;
-      &lt;&lt;/link&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
   &lt;/div&gt;
 
   &lt;div class=&quot;recordbook-content&quot;&gt;&lt;&lt;nobr&gt;&gt;&lt;&lt;if $recordBookTab is &quot;dreams&quot;&gt;&gt;&lt;&lt;include &quot;RecordBookOverlay_Dreams&quot;&gt;&gt;&lt;&lt;elseif $recordBookTab is &quot;bonds&quot;&gt;&gt;&lt;&lt;include &quot;RecordBookOverlay_Bonds&quot;&gt;&gt;&lt;&lt;elseif $recordBookTab is &quot;traces&quot;&gt;&gt;&lt;&lt;include &quot;RecordBookOverlay_Traces&quot;&gt;&gt;&lt;&lt;else&gt;&gt;&lt;&lt;include &quot;RecordBookOverlay_Endings&quot;&gt;&gt;&lt;&lt;/if&gt;&gt;&lt;&lt;/nobr&gt;&gt;&lt;/div&gt;

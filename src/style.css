@@ -7023,3 +7023,159 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 .title-screen .game-tagline {
   font-family: 'WolfBodySerif', serif !important;
 }
+
+/* Recordbook overlay header final layout. Tabs stay full-width under the title row. */
+.recordbook-panel[data-recordbook-source="overlay"] {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-header {
+  position: relative !important;
+  flex: 0 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 16px 50px 10px 20px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border-bottom: 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] > br,
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-header br {
+  display: none !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 16px !important;
+  align-items: start !important;
+  min-width: 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-heading {
+  min-width: 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state {
+  justify-self: end !important;
+  width: 220px !important;
+  max-width: 220px !important;
+  margin-right: 68px !important;
+  box-sizing: border-box !important;
+  padding: 7px 10px 8px !important;
+  color: rgba(216, 211, 202, 0.78) !important;
+  background: rgba(0, 0, 0, 0.20) !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.26) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.26) !important;
+  font-size: 11px !important;
+  line-height: 1.38 !important;
+  letter-spacing: 0.025em !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row {
+  display: grid !important;
+  grid-template-columns: 36px minmax(0, 1fr) !important;
+  gap: 7px !important;
+  align-items: baseline !important;
+  margin: 1px 0 !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row span {
+  color: rgba(168, 164, 156, 0.62) !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row strong {
+  color: rgba(216, 211, 202, 0.82) !important;
+  font-weight: 400 !important;
+  text-align: right !important;
+  word-break: keep-all !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-close {
+  position: absolute !important;
+  top: 8px !important;
+  right: 10px !important;
+  z-index: 8 !important;
+  margin: 0 !important;
+  padding: 2px 4px !important;
+  color: rgba(180, 174, 164, 0.72) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-family: 'WolfNotoSerifKRBold', 'WolfBodySerif', serif !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-close:hover {
+  color: rgba(232, 229, 222, 0.86) !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs {
+  width: 100% !important;
+  flex: 0 0 28px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 18px !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
+  height: 28px !important;
+  max-height: 28px !important;
+  margin: 4px 0 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  background: rgba(255, 255, 255, 0.008) !important;
+  border-top: 1px solid rgba(210, 206, 198, 0.04) !important;
+  border-bottom: 1px solid rgba(210, 206, 198, 0.10) !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs a,
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-tab {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+
+.recordbook-panel[data-recordbook-source="overlay"] .recordbook-content {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-status-panel {
+  display: none !important;
+}
+
+@media (max-width: 620px) {
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-header {
+    padding: 14px 42px 9px 18px !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state {
+    justify-self: stretch !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs {
+    gap: 14px !important;
+    overflow-x: auto !important;
+  }
+}
