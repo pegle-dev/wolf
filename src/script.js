@@ -1173,7 +1173,7 @@
     else if (/^BadEnd_/.test(name)) {
       classes.push('ending-screen', 'bad-ending-sequence', 'sequence-vanish', 'sequence-cut');
     }
-    else if (/^Ending_Hidden_Rebirth/.test(name)) {
+    else if (/^Ending_Hidden_Rebirth/.test(name) || /^Hidden_End_Remember/.test(name)) {
       classes.push('ending-screen', 'hidden-ending-sequence', 'final-still-sequence');
     }
     else if (/^Ending_/.test(name) || name === 'Hanbei_End_QuietDay') {
@@ -1451,7 +1451,7 @@
   }
 
   function isTrueEndingPassage(passageName) {
-    return /^(Hidden_Rebirth|Ending_Hidden_Rebirth)/.test(String(passageName || ''));
+    return /^(Hidden_Rebirth|Ending_Hidden_Rebirth|Hidden_End_Remember)/.test(String(passageName || ''));
   }
 
   function isShuraEndingPassage(passageName) {
@@ -3247,7 +3247,7 @@ function wolfEscapeHtml(value) {
   }
 
   function isEndingSequencePassage(passage) {
-    return /^(Ending_|BadEnd_|Hidden_Rebirth_Voices)/.test(String(passage || ''));
+    return /^(Ending_|BadEnd_|Hidden_Rebirth_Voices|Hidden_End_Remember)/.test(String(passage || ''));
   }
 
   function getPassageSource(passage) {

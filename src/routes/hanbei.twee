@@ -1878,7 +1878,7 @@
 살아 있는 것처럼.</div>
 </div>
 
-<<continueTo "Hanbei_End_QuietDay">>
+<<continueTo "EchoRouter_Hanbei_Day_CameBy">>
 <</page>>
 
 :: Hanbei_Sake_Refuse {"position":"1675,1550","size":"100,100"}
@@ -1901,12 +1901,13 @@
 한베도 더 권하지 않았다.</div>
 </div>
 
-<<continueTo "Hanbei_End_QuietDay">>
+<<continueTo "EchoRouter_Hanbei_Day_CameBy">>
 <</page>>
 
 :: Hanbei_End_QuietDay {"position":"1675,1575","size":"100,100"}
 <<page>>
 <<set $endingHanbeiQuietDaySeen = true>>
+<<set $endingHanbeiDaySeen = true>>
 <<set $hanbeiDone = true>>
 <<set $completedHanbei = true>>
 <<set $recordBookNewEnding = true>>
@@ -3307,7 +3308,7 @@
 언젠가 끝날 대련이,
 두 사람 사이에 놓였다.</div>
 
-<<continueTo "BadEnd_Hanbei_Mercy">>
+<<continueTo "EchoRouter_Hanbei_Bad_LateLaugh">>
 <</page>>
 
 :: Hanbei_09_FinalChoice_Silence_Result {"position":"3200,1975","size":"100,100"}

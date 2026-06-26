@@ -7024,6 +7024,54 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   font-family: 'WolfBodySerif', serif !important;
 }
 
+@keyframes shuraChoiceFlicker {
+  0%, 91%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 3px rgba(92, 0, 0, 0.44),
+      0 0 9px rgba(45, 0, 0, 0.34);
+  }
+  94% {
+    opacity: 0.88;
+    text-shadow:
+      0 0 4px rgba(128, 20, 20, 0.52),
+      0 0 11px rgba(55, 0, 0, 0.42);
+  }
+  97% {
+    opacity: 1;
+    text-shadow:
+      0 0 2px rgba(80, 0, 0, 0.38),
+      0 0 8px rgba(35, 0, 0, 0.30);
+  }
+}
+
+.shura-choice,
+.shura-choice a,
+a.shura-choice,
+.global-choice-item.shura-choice a {
+  color: #8a1f1f !important;
+  text-shadow:
+    0 0 3px rgba(80, 0, 0, 0.50),
+    0 0 9px rgba(40, 0, 0, 0.36) !important;
+  font-weight: 700 !important;
+  animation: shuraChoiceFlicker 4.6s infinite;
+}
+
+.shura-choice a:hover,
+a.shura-choice:hover,
+.shura-choice:hover,
+.global-choice-item.shura-choice a:hover {
+  color: #b02a2a !important;
+  text-shadow:
+    0 0 5px rgba(156, 36, 36, 0.64),
+    0 0 13px rgba(70, 0, 0, 0.50) !important;
+}
+
+.shura-choice a::before,
+.global-choice-item.shura-choice a::before {
+  color: rgba(146, 34, 34, 0.82) !important;
+}
+
 /* Recordbook overlay header final layout. Tabs stay full-width under the title row. */
 .recordbook-panel[data-recordbook-source="overlay"] {
   display: flex !important;

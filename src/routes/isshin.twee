@@ -88,12 +88,12 @@
   <<clampStats>>
 <</link>>
 
-<<link "검을 먼저 확인한다" "Isshin_01_BitterSake_Sword_Result">>
+<span class="shura-choice"><<link "검을 먼저 확인한다" "Isshin_01_BitterSake_Sword_Result">>
   <<set $isshinConflict = ($isshinConflict || 0) + 1>>
   <<set $shura = ($shura || 0) + 1>>
   <<set $isshinBadPortrait = true>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -211,12 +211,12 @@
   <<clampStats>>
 <</link>>
 
-<<link "칼을 먼저 세운다" "Isshin_02_BeforeBlade_Blade_Result">>
+<span class="shura-choice"><<link "칼을 먼저 세운다" "Isshin_02_BeforeBlade_Blade_Result">>
   <<set $isshinConflict = ($isshinConflict || 0) + 1>>
   <<set $shura = ($shura || 0) + 1>>
   <<set $isshinBadPortrait = true>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 
 <<link "잇신의 발을 본다" "Isshin_02_BeforeBlade_Foot_Result">>
   <<set $isshinAffection = ($isshinAffection || 0) + 1>>
@@ -341,8 +341,8 @@
   <div class="global-choice-layer">
     <div class="global-choice-box">
       <<choiceTo "검을 제대로 고쳐 쥔다" "Isshin_03_LivingBlade_Grip">>
-      <<choiceTo "검을 앞세운다" "Isshin_03_LivingBlade_First">>
-      <<choiceTo "웃음소리를 듣는다" "Isshin_03_LivingBlade_Laugh">>
+      <<choiceTo "검을 앞세운다" "Isshin_03_LivingBlade_First" "shura-choice">>
+      <<choiceTo "웃음소리를 듣는다" "Isshin_03_LivingBlade_Laugh" "shura-choice">>
       <<choiceTo "검을 낮춘다" "Isshin_03_LivingBlade_Lower">>
     </div>
   </div>
@@ -486,12 +486,12 @@
   <<clampStats>>
 <</link>>
 
-<<link "먼저 벤다" "Isshin_04_ShuraPrelude_Cut_Result">>
+<span class="shura-choice"><<link "먼저 벤다" "Isshin_04_ShuraPrelude_Cut_Result">>
   <<set $shura = ($shura || 0) + 2>>
   <<set $isshinBadPortrait = true>>
   <<set $isshinRouteBad = true>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -680,13 +680,13 @@
   <<clampStats>>
 <</link>>
 
-<<link "검을 본다" "Isshin_02_DangerousJoke_Sword_Result">>
+<span class="shura-choice"><<link "검을 본다" "Isshin_02_DangerousJoke_Sword_Result">>
   <<set $shura += 1>>
   <<set $isshinBadPortrait = true>>
   <<set $isshinJokeSeen = true>>
   <<set $isshinProgress = Math.max($isshinProgress, 2)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -777,13 +777,13 @@
   <<clampStats>>
 <</link>>
 
-<<link "검에 손을 둔다" "Isshin_03_SwordEyes_Draw_Result">>
+<span class="shura-choice"><<link "검에 손을 둔다" "Isshin_03_SwordEyes_Draw_Result">>
   <<set $shura += 1>>
   <<set $isshinBadPortrait = true>>
   <<set $isshinSwordEyesSeen = true>>
   <<set $isshinProgress = Math.max($isshinProgress, 3)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -870,13 +870,13 @@
   <<clampStats>>
 <</link>>
 
-<<link "웃음소리를 듣는다" "Isshin_04_NotEaten_Laugh_Result">>
+<span class="shura-choice"><<link "웃음소리를 듣는다" "Isshin_04_NotEaten_Laugh_Result">>
   <<set $shura += 1>>
   <<set $isshinBadPortrait = true>>
   <<set $isshinLaughSeen = true>>
   <<set $isshinProgress = Math.max($isshinProgress, 4)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -959,13 +959,13 @@
   <<clampStats>>
 <</link>>
 
-<<link "검을 확인한다" "Isshin_05_ReedField_Sword_Result">>
+<span class="shura-choice"><<link "검을 확인한다" "Isshin_05_ReedField_Sword_Result">>
   <<set $shura += 1>>
   <<set $isshinBadPortrait = true>>
   <<set $isshinReedFieldSeen = true>>
   <<set $isshinProgress = Math.max($isshinProgress, 5)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -1043,7 +1043,7 @@
 <<page>>
 <div class="route-choice-screen">
 <div class="choice-box route-choice-box">
-<<if (($isshinAffection || 0) + ($isshinConflict || 0)) >= 2 or $isshinLove >= 2 or $isshinSatWithoutSword or $isshinHeardWarning>>
+<<if ((($isshinAffection || 0) + ($isshinConflict || 0)) >= 2 or $isshinLove >= 2 or $isshinSatWithoutSword or $isshinHeardWarning) and (($endingIsshinDaySeen || false) or ($endingIsshinBadSeen || false))>>
 <<link "숨을 먼저 고른다" "Ending_Isshin_BeforeBlade">>
   <<set $isshinDone = true>>
   <<set $completedIsshin = true>>
@@ -1054,17 +1054,13 @@
   <</if>>
   <<clampStats>>
 <</link>>
+<<elseif (($isshinAffection || 0) + ($isshinConflict || 0)) >= 2 or $isshinLove >= 2 or $isshinSatWithoutSword or $isshinHeardWarning>>
+<<link "숨을 먼저 고른다" "EchoRouter_Isshin_Day_BitterTaste">>
+  <<clampStats>>
+<</link>>
 <</if>>
 
-<<link "빈 잔을 내려놓는다" "BadEnd_Isshin_EmptyCup">>
-  <<set $isshinDone = true>>
-  <<set $completedIsshin = true>>
-  <<set $isshinBadEmptyCupSeen = true>>
-  <<set $badEndingSeen = true>>
-  <<set $anyEndingSeen = true>>
-  <<if $sculptorDone and $isshinDone>>
-    <<set $shuraUnlocked = true>>
-  <</if>>
+<<link "빈 잔을 내려놓는다" "EchoRouter_Isshin_Bad_NotYet">>
   <<clampStats>>
 <</link>>
 
@@ -1083,7 +1079,7 @@
   <<clampStats>>
 <</link>>
 <<if (($shura || 0) >= 3 or ($isshinBadPortrait || false))>>
-<<link "웃음소리를 따라간다" "Isshin_ShuraEnd_Prelude">>
+<span class="shura-choice"><<link "웃음소리를 따라간다" "Isshin_ShuraEnd_Prelude">>
   <<set $isshinDone = true>>
   <<set $completedIsshin = true>>
   <<set $isshinBadSwordLaughSeen = true>>
@@ -1096,7 +1092,7 @@
     <<set $shuraUnlocked = true>>
   <</if>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 <</if>>
 </div>
 </div>
@@ -1306,6 +1302,7 @@
 <<set $isshinDone = true>>
 <<set $completedIsshin = true>>
 <<set $isshinGoodEndingSeen = true>>
+<<set $endingIsshinDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <<qualifiedCharacterEnding "isshin">>
@@ -1373,6 +1370,7 @@
 <<set $isshinDone = true>>
 <<set $completedIsshin = true>>
 <<set $isshinBadEmptyCupSeen = true>>
+<<set $endingIsshinBadSeen = true>>
 <<set $badEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>

@@ -1,0 +1,432 @@
+:: Echo_UnlockHiddenIfReady {"position":"5400,2300","size":"100,100"}
+<<if ($hanbeiEchoSeen || false) and ($kuroEchoSeen || false) and ($genichiroEchoSeen || false) and ($sculptorEchoSeen || false) and ($isshinEchoSeen || false) and not ($endingHiddenRememberSeen || false)>>
+  <<set $hiddenEndUnlocked = true>>
+<</if>>
+
+:: EchoRouter_Hanbei_Day_CameBy {"position":"5200,2400","size":"100,100"}
+<<if ($endingHanbeiDaySeen || false) or ($endingHanbeiQuietDaySeen || false)>>
+  <<goto "Echo_Hanbei_Day_CameBy">>
+<<else>>
+  <<goto "Hanbei_End_QuietDay">>
+<</if>>
+
+:: EchoRouter_Hanbei_Bad_LateLaugh {"position":"5275,2400","size":"100,100"}
+<<if ($endingHanbeiBadSeen || false) or ($hanbeiMercyEndingSeen || false)>>
+  <<goto "Echo_Hanbei_Bad_LateLaugh">>
+<<else>>
+  <<goto "BadEnd_Hanbei_Mercy">>
+<</if>>
+
+:: EchoRouter_Kuro_Day_WarmTea {"position":"5200,2525","size":"100,100"}
+<<if ($endingKuroDaySeen || false) or ($kuroGoodEndingSeen || false)>>
+  <<goto "Echo_Kuro_Day_WarmTea">>
+<<else>>
+  <<goto "Ending_Kuro_PathWithoutMaster">>
+<</if>>
+
+:: EchoRouter_Kuro_Bad_ColdTea {"position":"5275,2525","size":"100,100"}
+<<if ($endingKuroBadSeen || false) or ($kuroBadTeahouseSeen || false)>>
+  <<goto "Echo_Kuro_Bad_ColdTea">>
+<<else>>
+  <<goto "BadEnd_Kuro_UnreachableTeahouse">>
+<</if>>
+
+:: EchoRouter_Genichiro_Day_OneInch {"position":"5200,2650","size":"100,100"}
+<<if ($endingGenichiroDaySeen || false) or ($genichiroGoodEndingSeen || false)>>
+  <<goto "Echo_Genichiro_Day_OneInch">>
+<<else>>
+  <<goto "Ending_Genichiro_SettingMoonCastle">>
+<</if>>
+
+:: EchoRouter_Genichiro_Bad_BehindName {"position":"5275,2650","size":"100,100"}
+<<if ($endingGenichiroBadSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)>>
+  <<goto "Echo_Genichiro_Bad_BehindName">>
+<<else>>
+  <<goto "BadEnd_Genichiro_SinkingCastle">>
+<</if>>
+
+:: EchoRouter_Sculptor_Day_UnfinishedBuddha {"position":"5200,2775","size":"100,100"}
+<<if ($endingSculptorDaySeen || false)>>
+  <<goto "Echo_Sculptor_Day_UnfinishedBuddha">>
+<<else>>
+  <<goto "Ending_Sculptor_LeftBehindBuddha">>
+<</if>>
+
+:: EchoRouter_Sculptor_Bad_MoreBuddhas {"position":"5275,2775","size":"100,100"}
+<<if ($endingSculptorBadSeen || false)>>
+  <<goto "Echo_Sculptor_Bad_MoreBuddhas">>
+<<else>>
+  <<goto "BadEnd_Sculptor_UncarvedFace">>
+<</if>>
+
+:: EchoRouter_Isshin_Day_BitterTaste {"position":"5200,2900","size":"100,100"}
+<<if ($endingIsshinDaySeen || false)>>
+  <<goto "Echo_Isshin_Day_BitterTaste">>
+<<else>>
+  <<goto "Ending_Isshin_ReedSake">>
+<</if>>
+
+:: EchoRouter_Isshin_Bad_NotYet {"position":"5275,2900","size":"100,100"}
+<<if ($endingIsshinBadSeen || false) or ($isshinBadEmptyCupSeen || false)>>
+  <<goto "Echo_Isshin_Bad_NotYet">>
+<<else>>
+  <<goto "BadEnd_Isshin_EmptyCup">>
+<</if>>
+
+:: Echo_Hanbei_Day_CameBy {"position":"5400,2400","size":"100,100"}
+<<page>>
+<<set $hanbeiEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+한베는 목검을 들지 않았다.
+
+늑대도 검을 뽑지 않았다.
+
+한베:
+하하.
+어쩐지 이대로 모든 게 멈춰도 좋겠다는 생각을 했다네.
+
+늑대:
+이상한 말이군.
+
+한베:
+그래.
+그래서 말해본 거지.
+
+바람이 지나간다.
+
+그날은 아무도 베이지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Hanbei_Bad_LateLaugh {"position":"5525,2400","size":"100,100"}
+<<page>>
+<<set $hanbeiEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+한베는 웃었다.
+
+하지만 웃음이 조금 늦었다.
+
+한베:
+이 장면,
+전에도 있었던 것 같지 않나?
+
+늑대:
+모른다.
+
+한베:
+그래.
+자네는 늘 그런 식이지.
+
+한베는 목검을 내려놓았다.
+
+이번에도,
+대련은 시작되지 않았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Kuro_Day_WarmTea {"position":"5400,2525","size":"100,100"}
+<<page>>
+<<set $kuroEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+쿠로는 찻잔을 두 개 놓았다.
+
+하나는 자기 앞에.
+하나는 늑대 앞에.
+
+쿠로:
+언젠가 똑같은 일이 있었던 듯도 하군.
+
+늑대:
+그렇습니까.
+
+쿠로:
+응.
+하지만 싫지는 않아.
+
+차는 아직 따뜻했다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Kuro_Bad_ColdTea {"position":"5525,2525","size":"100,100"}
+<<page>>
+<<set $kuroEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+찻잔은 식어 있었다.
+
+쿠로는 그것을 한참 보았다.
+
+쿠로:
+이번에도 늦었구나.
+
+늑대:
+……
+
+쿠로:
+아니.
+탓하는 게 아니야.
+
+그 말은,
+탓하는 말보다 더 오래 남았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Genichiro_Day_OneInch {"position":"5400,2650","size":"100,100"}
+<<page>>
+<<set $genichiroEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+칼은 뽑히지 않았다.
+
+그러나 둘 사이의 거리는
+이미 칼이 닿은 뒤와 같았다.
+
+겐이치로:
+또 멈췄군.
+
+늑대:
+너도다.
+
+겐이치로는 웃지 않았다.
+
+겐이치로:
+그래.
+늘 한 치 전이지.
+
+비가 오기 전에,
+둘은 등을 돌렸다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Genichiro_Bad_BehindName {"position":"5525,2650","size":"100,100"}
+<<page>>
+<<set $genichiroEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+겐이치로:
+끝까지 이름 뒤에 숨는구나.
+
+늑대는 대답하지 않는다.
+
+겐이치로:
+전에도 이렇게 말한 것 같군.
+
+늑대:
+그렇다면.
+
+겐이치로:
+이번에도 대답하지 못하겠지.
+
+비가 내린다.
+
+늑대는 쿠로의 이름을 떠올렸다.
+
+자신의 이름보다 먼저.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Sculptor_Day_UnfinishedBuddha {"position":"5400,2775","size":"100,100"}
+<<page>>
+<<set $sculptorEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+불상은 오늘도 완성되지 않았다.
+
+조각가는 그것을 이상하게 여기지 않았다.
+
+늑대도 묻지 않았다.
+
+조각가:
+전에도 앉아 있었지.
+
+늑대:
+그랬나.
+
+조각가:
+몰라도 된다.
+
+나무 조각 하나가 떨어졌다.
+
+그날은,
+그 소리만 남았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Sculptor_Bad_MoreBuddhas {"position":"5525,2775","size":"100,100"}
+<<page>>
+<<set $sculptorEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+불상은 하나 더 늘었다.
+
+방 안은 조금도 가벼워지지 않았다.
+
+조각가:
+또 늘었군.
+
+늑대:
+무엇이.
+
+조각가:
+묻지 마라.
+알면 더 무거워진다.
+
+나무 냄새가 오래 남았다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Isshin_Day_BitterTaste {"position":"5400,2900","size":"100,100"}
+<<page>>
+<<set $isshinEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+잇신은 술잔을 던졌다.
+
+늑대는 받았다.
+
+한 방울도 흘리지 않았다.
+
+잇신:
+하하하.
+전보다 재미없게 받는군.
+
+늑대:
+마십니까.
+
+잇신:
+그래.
+이번에도 맛을 잊지 말아라.
+
+늑대는 마셨다.
+
+여전히 썼다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Echo_Isshin_Bad_NotYet {"position":"5525,2900","size":"100,100"}
+<<page>>
+<<set $isshinEchoSeen = true>>
+<<set $endingEchoCount = ($endingEchoCount || 0) + 1>>
+<<include "Echo_UnlockHiddenIfReady">>
+<div class="narration">
+잇신:
+오늘도 검이 먼저 왔군.
+
+늑대는 대답하지 않는다.
+
+잇신:
+전에도 그랬지.
+
+잇신은 술잔을 들었다.
+
+잇신:
+그래도 늦지는 않았다.
+아직은.
+
+그 “아직”이,
+오늘은 더 짧게 들렸다.
+</div>
+
+<<continueTo "Temple_Return">>
+<</page>>
+
+:: Hidden_End_Remember {"position":"5400,3050","size":"100,100"}
+<<page>>
+<<set $hiddenEndUnlocked = true>>
+<<set $endingHiddenRememberSeen = true>>
+<<set $hiddenRevivalUnlocked = true>>
+<<set $hiddenRevivalDone = true>>
+<<set $anyEndingSeen = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<div class="narration narration-full">
+갈대밭이다.
+
+바람이 분다.
+
+그런데 이상하게,
+처음 오는 곳이 아니다.
+
+늑대는 걸음을 멈춘다.
+
+어딘가에서 목소리가 들린다.
+
+한베였을지도 모른다.
+
+한베:
+오늘은 안 베나?
+
+쿠로였을지도 모른다.
+
+쿠로:
+언젠가 똑같은 일이 있었던 듯도 하군.
+
+겐이치로였을지도 모른다.
+
+겐이치로:
+늘 한 치 전이지.
+
+조각가였을지도 모른다.
+
+조각가:
+전에도 앉아 있었지.
+
+잇신이었을지도 모른다.
+
+잇신:
+이번에도 맛을 잊지 말아라.
+
+목소리들은 사라지지 않는다.
+
+하지만 늑대를 붙잡지도 않는다.
+
+늑대는 검자루에서 손을 뗀다.
+
+오래 걸렸다.
+
+그렇게 어려운 일은 아니었을 텐데도.
+
+늑대:
+기억한다.
+
+바람이 갈대를 지나간다.
+
+누구도 대답하지 않는다.
+
+그것으로 충분했다.
+
+오늘은 아무도 베이지 않았다.
+</div>
+
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Hidden End. 기억한다]</div>
+<</page>>

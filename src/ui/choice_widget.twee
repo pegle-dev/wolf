@@ -3,7 +3,8 @@
 <<widget "choiceTo">>
 	<<set _label = _args[0]>>
 	<<set _target = _args[1]>>
-	<div class="global-choice-item">
+	<<set _extraClass = _args[2] || "">>
+	<div class="global-choice-item <<print _extraClass>>">
 		<<link _label>>
 			<<goto _target>>
 		<</link>>

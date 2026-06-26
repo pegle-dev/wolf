@@ -188,8 +188,8 @@
 
 [[검을 거둔다->Shura_LastChoice_SheatheFails]]
 [[말한다->Shura_LastChoice_SpeakFails]]
-[[비켜라->Shura_LastChoice_TwoChoices]]
-[[죽인다->Ending_Shura_LastChoice]]
+<span class="shura-choice">[[비켜라->Shura_LastChoice_TwoChoices]]</span>
+<span class="shura-choice">[[죽인다->Ending_Shura_LastChoice]]</span>
 <</page>>
 
 :: Shura_LastChoice_SheatheFails {"position":"3125,525","size":"100,100"}
@@ -238,8 +238,8 @@
 처음부터 멀지 않았던 것 같다.
 </div>
 
-[[비켜라->Shura_LastChoice_OneChoice]]
-[[죽인다->Ending_Shura_LastChoice]]
+<span class="shura-choice">[[비켜라->Shura_LastChoice_OneChoice]]</span>
+<span class="shura-choice">[[죽인다->Ending_Shura_LastChoice]]</span>
 <</page>>
 
 :: Shura_LastChoice_OneChoice {"position":"3375,575","size":"100,100"}
@@ -257,7 +257,7 @@
 마지막 선택지만 남는다.
 </div>
 
-[[죽인다->Ending_Shura_LastChoice]]
+<span class="shura-choice">[[죽인다->Ending_Shura_LastChoice]]</span>
 <</page>>
 
 :: Ending_Shura_LastChoice {"position":"3500,575","size":"100,100"}

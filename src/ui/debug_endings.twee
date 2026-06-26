@@ -92,6 +92,12 @@
 <h3>히든 / 수라</h3>
 [[수라 루트 테스트->Shura_Entrance]]
 [[수라 END: 마지막 선택지->Ending_Shura_LastChoice]]
+[[Echo: 한베 Day->Echo_Hanbei_Day_CameBy]]
+[[Echo: 쿠로 Day->Echo_Kuro_Day_WarmTea]]
+[[Echo: 겐이치로 Day->Echo_Genichiro_Day_OneInch]]
+[[Echo: 조각가 Day->Echo_Sculptor_Day_UnfinishedBuddha]]
+[[Echo: 잇신 Day->Echo_Isshin_Day_BitterTaste]]
+[[Hidden END: 기억한다->Hidden_End_Remember]]
 
 <<link "히든 END: 돌아갈 길 처음부터 보기">>
   <<set $shuraDone = true>>

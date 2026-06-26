@@ -664,6 +664,22 @@ nextTarget: Ending_ReturnToStart
 notes: 모두를 끊어내는 공통 Shura End. 기존 호환 passage Shura_Ending은 Ending_Shura_LastChoice로 이동한다.
 ```
 
+### Hidden
+
+```text
+id: Hidden_End_Remember
+title: Hidden End. 기억한다
+type: Hidden End
+character: common
+seenVar: $endingHiddenRememberSeen
+qualified: false
+recordbook: true
+recordDesc: 여러 잔향 끝에서, 늑대는 검자루에서 손을 떼었다.
+background: hidden/default
+nextTarget: Ending_ReturnToStart
+notes: 캐릭터별 Echo 플래그($hanbeiEchoSeen, $kuroEchoSeen, $genichiroEchoSeen, $sculptorEchoSeen, $isshinEchoSeen)가 모두 켜진 뒤 타이틀 특수 선택지로 진입한다.
+```
+
 ---
 
 ## 5. 기록장 묶음 항목 주의

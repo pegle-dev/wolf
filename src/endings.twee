@@ -211,6 +211,7 @@
 <<set $badEndingSeen = true>>
 <<set $hanbeiBadEndingSeen = true>>
 <<set $hanbeiMercyEndingSeen = true>>
+<<set $endingHanbeiBadSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <div class="narration narration-full short-beat">

@@ -2,15 +2,15 @@
 <<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 <<if ($hanbeiMidConflictSeen || false) and (($hanbeiConflict || 0) >= 3) and (($shura || 0) >= 2 or ($hanbeiTrainingLocked || false) or ($hanbeiWorstReady || false))>>
   <<goto "Ending_Hanbei_Worst_ImmortalWeapon">>
-<<elseif ($hanbeiMidConflictSeen || false) and ((setup.getBond && setup.getBond("hanbei") >= 4) or (($hanbeiAffection || 0) + ($hanbeiConflict || 0)) >= 4) and ($hanbeiAffection || 0) >= 2 and ($shura || 0) < 3>>
+<<elseif ($hanbeiMidConflictSeen || false) and (($endingHanbeiDaySeen || false) or ($endingHanbeiBadSeen || false) or ($endingHanbeiQuietDaySeen || false) or ($hanbeiMercyEndingSeen || false)) and ((setup.getBond && setup.getBond("hanbei") >= 4) or (($hanbeiAffection || 0) + ($hanbeiConflict || 0)) >= 4) and ($hanbeiAffection || 0) >= 2 and ($shura || 0) < 3>>
   <<goto "Ending_Hanbei_True_LivingPractice">>
 <<elseif ($kuroMidConflictSeen || false) and ($kuroConflict || 0) >= 3 and (($wolfProtectsAgainstWill || 0) >= 2 or ($wolfChoseDutyOverKuroWish || 0) >= 2 or ($kuroWorstReady || false))>>
   <<goto "Ending_Kuro_Worst_CommandlessBurden">>
-<<elseif ($kuroTeaSeen || false) and ($kuroMidConflictSeen || false) and ((setup.getBond && setup.getBond("kuro") >= 4) or (($kuroAffection || 0) + ($kuroConflict || 0)) >= 4) and ($kuroAffection || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2>>
+<<elseif ($kuroTeaSeen || false) and ($kuroMidConflictSeen || false) and (($endingKuroDaySeen || false) or ($endingKuroBadSeen || false) or ($kuroGoodEndingSeen || false) or ($kuroBadTeahouseSeen || false)) and ((setup.getBond && setup.getBond("kuro") >= 4) or (($kuroAffection || 0) + ($kuroConflict || 0)) >= 4) and ($kuroAffection || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2>>
   <<goto "Ending_Kuro_True_NotCommand">>
 <<elseif ($genichiroMidConflictSeen || false) and (($genichiroConflict || 0) >= 3 or ($genichiroLogicSeed || false)) and (($wolfProtectsAgainstWill || 0) >= 2 or ($ironGuardFlag || false) or ($genichiroWorstReady || false))>>
   <<goto "Ending_Genichiro_Worst_IronGuard">>
-<<elseif ($genichiroMidConflictSeen || false) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
+<<elseif ($genichiroMidConflictSeen || false) and (($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false) or ($genichiroGoodEndingSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
   <<goto "Ending_Genichiro_True_MirrorSide">>
 <<else>>
   <<page>>

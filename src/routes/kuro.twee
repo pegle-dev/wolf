@@ -1777,7 +1777,7 @@
 쿠로는 오래 바라보다가,
 작게 숨을 놓았다.</div>
 
-<<continueTo "Ending_Kuro_PathWithoutMaster">>
+<<continueTo "EchoRouter_Kuro_Day_WarmTea">>
 <</page>>
 
 :: Kuro_07_FinalChoice_LastOrder_Result {"position":"3725,1550","size":"100,100"}
@@ -1800,7 +1800,7 @@
 책장도, 찻잔도,
 그 침묵을 대신 넘겨 주지는 못했다.</div>
 
-<<continueTo "BadEnd_Kuro_UnreachableTeahouse">>
+<<continueTo "EchoRouter_Kuro_Bad_ColdTea">>
 <</page>>
 
 :: Ending_Kuro_PathWithoutMaster {"position":"2350,1725","size":"100,100"}
@@ -1809,6 +1809,7 @@
 <<set $kuroDone = true>>
 <<set $completedKuro = true>>
 <<set $kuroGoodEndingSeen = true>>
+<<set $endingKuroDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <<qualifiedCharacterEnding "kuro">>
@@ -2045,6 +2046,7 @@
 <<set $currentRoute = "kuro">>
 <<set $kuroDone = true>>
 <<set $kuroBadTeahouseSeen = true>>
+<<set $endingKuroBadSeen = true>>
 <<set $badEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>

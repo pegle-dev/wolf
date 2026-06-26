@@ -202,10 +202,10 @@
   <<goto "BadEnd_Genichiro_LightningWolf">>
 <<elseif ($genichiroMidConflictSeen || false) and (($genichiroConflict || 0) >= 3 or ($genichiroLogicSeed || false)) and (($wolfProtectsAgainstWill || 0) >= 2 or ($ironGuardFlag || false) or ($genichiroWorstReady || false) or (($missionObedienceCount || 0) >= 3 and ($freedom || 0) <= 1))>>
   <<goto "Ending_Genichiro_Worst_IronGuard">>
-<<elseif ($genichiroMidConflictSeen || false) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4 or ($genichiroLove || 0) >= 5) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
+<<elseif ($genichiroMidConflictSeen || false) and (($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false) or ($genichiroGoodEndingSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4 or ($genichiroLove || 0) >= 5) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
   <<goto "Ending_Genichiro_True_MirrorSide">>
 <<elseif $genichiroLove >= 5 and $isolation >= 8>>
-  <<goto "BadEnd_Genichiro_SinkingCastle">>
+  <<goto "EchoRouter_Genichiro_Bad_BehindName">>
 <<elseif $freedom <= 1 and $missionObedienceCount >= 3>>
   <<goto "BadEnd_Genichiro_KneelingCastle">>
 <<elseif $genichiroLove >= 5 and $freedom >= 3 and ($kuroLove >= 3 or $kuroGoodEndingSeen)>>
@@ -213,7 +213,7 @@
 <<elseif $genichiroLove >= 4 and $danger >= 6 and $shura < 7>>
   <<goto "Ending_Genichiro_Footprints">>
 <<else>>
-  <<goto "Ending_Genichiro_SettingMoonCastle">>
+  <<goto "EchoRouter_Genichiro_Day_OneInch">>
 <</if>>
 
 :: Genichiro_01_Gate {"position":"2175,1725","size":"100,100"}
@@ -1600,6 +1600,7 @@
 <<set $genichiroDone = true>>
 <<set $completedGenichiro = true>>
 <<set $genichiroGoodEndingSeen = true>>
+<<set $endingGenichiroDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <<qualifiedCharacterEnding "genichiro">>
@@ -1894,6 +1895,7 @@
 <<page>>
 <<set $currentRoute = "genichiro">>
 <<set $badEndGenichiroSinkingCastleSeen = true>>
+<<set $endingGenichiroBadSeen = true>>
 <<set $genichiroDone = true>>
 <<set $completedGenichiro = true>>
 <<set $badEndingSeen = true>>
@@ -2247,7 +2249,7 @@
     <div class="global-choice-box">
       <<choiceTo "쿠로 님의 뜻이다." "Genichiro_MidConflict_Q1_Kuro">>
       <<choiceTo "모른다." "Genichiro_MidConflict_Q1_DontKnow">>
-      <<choiceTo "너를 베는 것이다." "Genichiro_MidConflict_Q1_Kill">>
+      <<choiceTo "너를 베는 것이다." "Genichiro_MidConflict_Q1_Kill" "shura-choice">>
       <<choiceTo "……" "Genichiro_MidConflict_Q1_Silence">>
     </div>
   </div>
@@ -2605,7 +2607,7 @@
     <div class="global-choice-box">
       <<choiceTo "쿠로 님을 모욕하지 마라." "Genichiro_MidConflict_DefendKuro">>
       <<choiceTo "나는 비어 있지 않다." "Genichiro_MidConflict_NotEmpty">>
-      <<choiceTo "……그럼, 내가 너를 죽이고 싶다면." "Genichiro_MidConflict_ShuraHint">>
+      <<choiceTo "……그럼, 내가 너를 죽이고 싶다면." "Genichiro_MidConflict_ShuraHint" "shura-choice">>
       <<choiceTo "검을 거둔다." "Genichiro_MidConflict_Sheathe">>
     </div>
   </div>
@@ -2895,7 +2897,7 @@
     <div class="global-choice-box">
       <<choiceTo "쿠로 님을 모욕하지 마라." "Genichiro_MidConflict_DefendKuro">>
       <<choiceTo "나는 비어 있지 않다." "Genichiro_MidConflict_NotEmpty">>
-      <<choiceTo "……그럼, 내가 너를 죽이고 싶다면." "Genichiro_MidConflict_ShuraHint">>
+      <<choiceTo "……그럼, 내가 너를 죽이고 싶다면." "Genichiro_MidConflict_ShuraHint" "shura-choice">>
       <<choiceTo "검을 거둔다." "Genichiro_MidConflict_Sheathe">>
     </div>
   </div>

@@ -47,6 +47,15 @@ Wolf
 
       [[회생한다.->Hidden_Rebirth_Voices]]
       <</if>>
+
+      <<if $hiddenEndUnlocked and not $endingHiddenRememberSeen>>
+      <div class="hidden-revival-title">
+        어딘가에서,<br>
+        같은 바람이 다시 분다.
+      </div>
+
+      [[기억한다.->Hidden_End_Remember]]
+      <</if>>
     </div>
   </div>
 </div>

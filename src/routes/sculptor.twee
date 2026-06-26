@@ -324,12 +324,12 @@
   <<clampStats>>
 <</link>>
 
-<<link "검처럼 쥔다" "Sculptor_03_CarvingKnife_Sword_Result">>
+<span class="shura-choice"><<link "검처럼 쥔다" "Sculptor_03_CarvingKnife_Sword_Result">>
   <<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
   <<set $shura = ($shura || 0) + 1>>
   <<set $sculptorTouchedFire = true>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 
 <<link "쥐지 않는다" "Sculptor_03_CarvingKnife_Refuse_Result">>
   <<set $isolation = ($isolation || 0) + 1>>
@@ -464,8 +464,8 @@
   <div class="global-choice-layer">
     <div class="global-choice-box">
       <<choiceTo "손을 편다" "Sculptor_04_HandFire_Open">>
-      <<choiceTo "주먹을 쥔다" "Sculptor_04_HandFire_Fist">>
-      <<choiceTo "불씨를 본다" "Sculptor_04_HandFire_Ember">>
+      <<choiceTo "주먹을 쥔다" "Sculptor_04_HandFire_Fist" "shura-choice">>
+      <<choiceTo "불씨를 본다" "Sculptor_04_HandFire_Ember" "shura-choice">>
       <<choiceTo "조각칼을 내려놓는다" "Sculptor_04_HandFire_KnifeDown">>
     </div>
   </div>
@@ -610,12 +610,12 @@
   <<clampStats>>
 <</link>>
 
-<<link "검자루를 놓지 않는다" "Sculptor_05_ShuraPrelude_Grip_Result">>
+<span class="shura-choice"><<link "검자루를 놓지 않는다" "Sculptor_05_ShuraPrelude_Grip_Result">>
   <<set $shura = ($shura || 0) + 1>>
   <<set $sculptorTouchedFire = true>>
   <<set $sculptorBadPortrait = true>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -970,14 +970,14 @@
   <<clampStats>>
 <</link>>
 
-<<link "검을 내려다본다" "Sculptor_04_ShuraSmell_Fire_Result">>
+<span class="shura-choice"><<link "검을 내려다본다" "Sculptor_04_ShuraSmell_Fire_Result">>
   <<set $shura += 1>>
   <<set $sculptorTouchedFire = true>>
   <<set $sculptorBadPortrait = true>>
   <<set $sculptorShuraSmellSeen = true>>
   <<set $sculptorProgress = Math.max($sculptorProgress, 4)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -1057,14 +1057,14 @@
   <<clampStats>>
 <</link>>
 
-<<link "무기라면 충분하다고 한다" "Sculptor_05_Prosthetic_Weapon_Result">>
+<span class="shura-choice"><<link "무기라면 충분하다고 한다" "Sculptor_05_Prosthetic_Weapon_Result">>
   <<set $shura += 1>>
   <<set $isolation += 1>>
   <<set $sculptorBadPortrait = true>>
   <<set $sculptorProstheticSeen = true>>
   <<set $sculptorProgress = Math.max($sculptorProgress, 5)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -1152,14 +1152,14 @@
   <<clampStats>>
 <</link>>
 
-<<link "불씨를 본다" "Sculptor_06_Face_Fire_Result">>
+<span class="shura-choice"><<link "불씨를 본다" "Sculptor_06_Face_Fire_Result">>
   <<set $shura += 1>>
   <<set $sculptorTouchedFire = true>>
   <<set $sculptorBadPortrait = true>>
   <<set $sculptorFaceSeen = true>>
   <<set $sculptorProgress = Math.max($sculptorProgress, 6)>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -1238,12 +1238,16 @@
 <<page>>
 <div class="route-choice-screen">
 <div class="choice-box route-choice-box">
-<<if (($sculptorAffection || 0) + ($sculptorConflict || 0)) >= 2 or $sculptorLove >= 2 or $sculptorPromisedReturn or $sculptorAcceptedWarning>>
+<<if ((($sculptorAffection || 0) + ($sculptorConflict || 0)) >= 2 or $sculptorLove >= 2 or $sculptorPromisedReturn or $sculptorAcceptedWarning) and (($endingSculptorDaySeen || false) or ($endingSculptorBadSeen || false))>>
 <<link "손을 편 채 앉는다" "Ending_Sculptor_AshCoolingSound">>
   <<set $sculptorDone = true>>
   <<set $completedSculptor = true>>
   <<set $sculptorGoodEndingSeen = true>>
   <<set $anyEndingSeen = true>>
+  <<clampStats>>
+<</link>>
+<<elseif (($sculptorAffection || 0) + ($sculptorConflict || 0)) >= 2 or $sculptorLove >= 2 or $sculptorPromisedReturn or $sculptorAcceptedWarning>>
+<<link "손을 편 채 앉는다" "EchoRouter_Sculptor_Day_UnfinishedBuddha">>
   <<clampStats>>
 <</link>>
 <</if>>
@@ -1257,7 +1261,7 @@
   <<clampStats>>
 <</link>>
 
-<<link "불씨를 들여다본다" "Sculptor_ShuraEnd_Prelude">>
+<span class="shura-choice"><<link "불씨를 들여다본다" "Sculptor_ShuraEnd_Prelude">>
   <<set $sculptorDone = true>>
   <<set $completedSculptor = true>>
   <<set $sculptorBadFireSeen = true>>
@@ -1267,7 +1271,7 @@
   <<set $sculptorBadPortrait = true>>
   <<set $sculptorRouteBad = true>>
   <<clampStats>>
-<</link>>
+<</link>></span>
 </div>
 </div>
 <</page>>
@@ -1458,6 +1462,7 @@
 <<set $sculptorDone = true>>
 <<set $completedSculptor = true>>
 <<set $sculptorGoodEndingSeen = true>>
+<<set $endingSculptorDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <<qualifiedCharacterEnding "sculptor">>
@@ -1520,6 +1525,7 @@
 <<set $sculptorDone = true>>
 <<set $completedSculptor = true>>
 <<set $sculptorBadFaceSeen = true>>
+<<set $endingSculptorBadSeen = true>>
 <<set $badEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
