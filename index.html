@@ -7194,7 +7194,7 @@ a.shura-choice:hover,
   justify-content: flex-start !important;
   gap: 8px !important;
   margin: 0 !important;
-  padding: 16px 50px 10px 20px !important;
+  padding: 16px 16px 10px 20px !important;
   box-sizing: border-box !important;
   background: transparent !important;
   border-bottom: 0 !important;
@@ -7208,8 +7208,8 @@ a.shura-choice:hover,
 .recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
   position: relative !important;
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto !important;
-  gap: 16px !important;
+  grid-template-columns: minmax(0, 1fr) auto auto !important;
+  gap: 8px !important;
   align-items: start !important;
   min-width: 0 !important;
 }
@@ -7222,7 +7222,7 @@ a.shura-choice:hover,
   justify-self: end !important;
   width: 220px !important;
   max-width: 220px !important;
-  margin-right: 68px !important;
+  margin-right: 0 !important;
   box-sizing: border-box !important;
   padding: 7px 10px 8px !important;
   color: rgba(216, 211, 202, 0.78) !important;
@@ -7254,12 +7254,14 @@ a.shura-choice:hover,
 }
 
 .recordbook-panel[data-recordbook-source="overlay"] .recordbook-close {
-  position: absolute !important;
-  top: 8px !important;
-  right: 10px !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
   z-index: 8 !important;
   margin: 0 !important;
-  padding: 2px 4px !important;
+  padding: 2px 0 2px 4px !important;
+  justify-self: end !important;
+  align-self: start !important;
   color: rgba(180, 174, 164, 0.72) !important;
   background: transparent !important;
   border: 0 !important;
@@ -7326,6 +7328,13 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
     width: 100% !important;
     max-width: none !important;
     margin-right: 0 !important;
+  }
+
+  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-close {
+    position: absolute !important;
+    top: 8px !important;
+    right: 10px !important;
+    padding: 2px 4px !important;
   }
 
   .recordbook-panel[data-recordbook-source="overlay"] .recordbook-tabs {
@@ -8336,10 +8345,26 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
   };
 
   setup.closeRecordBookOverlay = function () {
-    setup.ensureRecordBookVariables();
-    State.variables.recordBookOpen = false;
-    removeRecordBookOverlay();
+    try {
+      setup.ensureRecordBookVariables();
+      if (State.variables) {
+        State.variables.recordBookOpen = false;
+      }
+      removeRecordBookOverlay();
+    } catch (error) {
+      console.warn('[Wolf] recordbook close failed:', error);
+      removeRecordBookOverlay();
+      if (State.variables) {
+        State.variables.recordBookOpen = false;
+      }
+    }
   };
+
+  $(document).on('click', '[data-recordbook-close]', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    setup.closeRecordBookOverlay();
+  });
 
   setup.switchRecordBookTab = function (tab) {
     setup.ensureRecordBookVariables();
@@ -10307,6 +10332,10 @@ function setStoredStatusHidden(hidden) {
   }
 }
 
+function wolfHideDebugStatusPanel() {
+  setStoredStatusHidden(true);
+}
+
 function applyStoredStatusHidden() {
   applyStatusHiddenClass(!wolfIsDebugMode() || getStoredStatusHidden());
 }
@@ -10404,6 +10433,15 @@ $(document).on('keydown', function (event) {
       (String(event.key || '').toLowerCase() === 's' || event.code === 'KeyS')) {
     event.preventDefault();
     wolfTogglePlayerStatusPanel();
+    return;
+  }
+
+  if (!event.altKey && !event.ctrlKey && !event.metaKey &&
+      (String(event.key || '').toLowerCase() === 'r' || event.code === 'KeyR')) {
+    event.preventDefault();
+    if (setup.openRecordBookOverlay) {
+      setup.openRecordBookOverlay('endings');
+    }
     return;
   }
 
@@ -11025,12 +11063,20 @@ $(document).on(':passagerender :passageend', function (event) {
 
 $(document).on(':passagedisplay', function () {
   if (setup.isTitlePassage && setup.isTitlePassage(State.passage)) {
+    var shouldPlayEndingTitleBgm = !!(State.variables &&
+      (State.variables.fromEndingToTitle === true || State.variables.titleSlowFadeIn === true));
+
     if (setup.clearEndingTitleTransitionClasses) {
       setup.clearEndingTitleTransitionClasses();
     }
-    if (setup.playEndingTitleBgm) {
+
+    if (shouldPlayEndingTitleBgm && setup.playEndingTitleBgm) {
       setup.playEndingTitleBgm();
     }
+    else if (!shouldPlayEndingTitleBgm && setup.stopEndingTitleBgm) {
+      setup.stopEndingTitleBgm();
+    }
+
     if (State.variables && State.variables.titleSlowFadeIn) {
       var titleScreen = document.querySelector('.title-screen');
       if (titleScreen) {
@@ -11089,6 +11135,7 @@ $(document).on('click', '[data-game-back]', function (event) {
   if ($(this).hasClass('is-disabled')) return;
 
   if (State.length > 1) {
+    wolfHideDebugStatusPanel();
     Engine.backward();
   }
 });
@@ -11100,8 +11147,14 @@ $(document).on('click', '[data-dev-jump]', function (event) {
 
   var passage = $(this).attr('data-dev-jump');
   if (wolfHasPassage(passage)) {
+    wolfHideDebugStatusPanel();
     Engine.play(passage);
   }
+});
+
+$(document).on('click', '.debug-endings a', function () {
+  if (!wolfIsDebugMode()) return;
+  wolfHideDebugStatusPanel();
 });
 
 $(document).on('click', '[data-dev-language]', function (event) {
@@ -27147,7 +27200,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
         &lt;div class=&quot;recordbook-wolf-state-row&quot;&gt;&lt;span&gt;수라&lt;/span&gt;&lt;strong data-wolf-state-label=&quot;shura&quot;&gt;&lt;/strong&gt;&lt;/div&gt;
       &lt;/div&gt;
 
-      &lt;button class=&quot;recordbook-close&quot; type=&quot;button&quot; onclick=&quot;setup.closeRecordBookOverlay()&quot;&gt;
+      &lt;button class=&quot;recordbook-close&quot; type=&quot;button&quot; data-recordbook-close&gt;
         &lt;&lt;print setup.t(&quot;close&quot;)&gt;&gt;
       &lt;/button&gt;
     &lt;/div&gt;

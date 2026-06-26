@@ -14,7 +14,7 @@
         <div class="recordbook-wolf-state-row"><span>수라</span><strong data-wolf-state-label="shura"></strong></div>
       </div>
 
-      <button class="recordbook-close" type="button" onclick="setup.closeRecordBookOverlay()">
+      <button class="recordbook-close" type="button" data-recordbook-close>
         <<print setup.t("close")>>
       </button>
     </div>

@@ -1001,10 +1001,26 @@
   };
 
   setup.closeRecordBookOverlay = function () {
-    setup.ensureRecordBookVariables();
-    State.variables.recordBookOpen = false;
-    removeRecordBookOverlay();
+    try {
+      setup.ensureRecordBookVariables();
+      if (State.variables) {
+        State.variables.recordBookOpen = false;
+      }
+      removeRecordBookOverlay();
+    } catch (error) {
+      console.warn('[Wolf] recordbook close failed:', error);
+      removeRecordBookOverlay();
+      if (State.variables) {
+        State.variables.recordBookOpen = false;
+      }
+    }
   };
+
+  $(document).on('click', '[data-recordbook-close]', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    setup.closeRecordBookOverlay();
+  });
 
   setup.switchRecordBookTab = function (tab) {
     setup.ensureRecordBookVariables();
@@ -2972,6 +2988,10 @@ function setStoredStatusHidden(hidden) {
   }
 }
 
+function wolfHideDebugStatusPanel() {
+  setStoredStatusHidden(true);
+}
+
 function applyStoredStatusHidden() {
   applyStatusHiddenClass(!wolfIsDebugMode() || getStoredStatusHidden());
 }
@@ -3069,6 +3089,15 @@ $(document).on('keydown', function (event) {
       (String(event.key || '').toLowerCase() === 's' || event.code === 'KeyS')) {
     event.preventDefault();
     wolfTogglePlayerStatusPanel();
+    return;
+  }
+
+  if (!event.altKey && !event.ctrlKey && !event.metaKey &&
+      (String(event.key || '').toLowerCase() === 'r' || event.code === 'KeyR')) {
+    event.preventDefault();
+    if (setup.openRecordBookOverlay) {
+      setup.openRecordBookOverlay('endings');
+    }
     return;
   }
 
@@ -3690,12 +3719,20 @@ $(document).on(':passagerender :passageend', function (event) {
 
 $(document).on(':passagedisplay', function () {
   if (setup.isTitlePassage && setup.isTitlePassage(State.passage)) {
+    var shouldPlayEndingTitleBgm = !!(State.variables &&
+      (State.variables.fromEndingToTitle === true || State.variables.titleSlowFadeIn === true));
+
     if (setup.clearEndingTitleTransitionClasses) {
       setup.clearEndingTitleTransitionClasses();
     }
-    if (setup.playEndingTitleBgm) {
+
+    if (shouldPlayEndingTitleBgm && setup.playEndingTitleBgm) {
       setup.playEndingTitleBgm();
     }
+    else if (!shouldPlayEndingTitleBgm && setup.stopEndingTitleBgm) {
+      setup.stopEndingTitleBgm();
+    }
+
     if (State.variables && State.variables.titleSlowFadeIn) {
       var titleScreen = document.querySelector('.title-screen');
       if (titleScreen) {
@@ -3754,6 +3791,7 @@ $(document).on('click', '[data-game-back]', function (event) {
   if ($(this).hasClass('is-disabled')) return;
 
   if (State.length > 1) {
+    wolfHideDebugStatusPanel();
     Engine.backward();
   }
 });
@@ -3765,8 +3803,14 @@ $(document).on('click', '[data-dev-jump]', function (event) {
 
   var passage = $(this).attr('data-dev-jump');
   if (wolfHasPassage(passage)) {
+    wolfHideDebugStatusPanel();
     Engine.play(passage);
   }
+});
+
+$(document).on('click', '.debug-endings a', function () {
+  if (!wolfIsDebugMode()) return;
+  wolfHideDebugStatusPanel();
 });
 
 $(document).on('click', '[data-dev-language]', function (event) {
