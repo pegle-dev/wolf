@@ -320,12 +320,22 @@
     return table[key] || fallback[key] || key;
   };
 
-  setup.getDayLabel = function () {
+  setup.getDayLabel = function (passageName) {
     var variables = State.variables || {};
+    var name = String(passageName || '');
     var day = Number(variables.day);
     var dayCount = Number(variables.dayCount);
     var displayDay = isFinite(dayCount) && dayCount > 0 ? dayCount : (isFinite(day) && day > 0 ? day : 1);
     var time = String(variables.timeOfDay || 'day');
+    if (name === 'Temple_Return' || /^NightPatrol/.test(name) || /^NightRisk/.test(name)) {
+      time = 'night';
+    } else if (name === 'Temple_AfterNight' || name === 'ReturnEvent_Router' || /^ReturnEvent_/.test(name)) {
+      time = 'dawn';
+    } else if (/^Dream/.test(name)) {
+      time = 'dream';
+    } else if (name === 'Temple' || /^DayEvent_/.test(name)) {
+      time = 'day';
+    }
     var timeKey = time === 'dream' || time === '꿈' ? 'dream' : (time === 'dawn' || time === '새벽' ? 'dawn' : (time === 'night' || time === '밤' ? 'night' : (time === 'evening' || time === '저녁' ? 'evening' : 'day')));
     var lang = variables.language || 'ko';
 
@@ -950,7 +960,11 @@
   }
 
   function renderRecordBookOverlay() {
-    var stage = document.querySelector('.wolf-page');
+    var stage =
+      document.querySelector('#passages > .passage:last-child .wolf-page') ||
+      document.querySelector('#passages > .passage:last-child .page-stage') ||
+      document.querySelector('.wolf-page') ||
+      document.querySelector('.page-stage');
 
     setup.ensureRecordBookVariables();
     removeRecordBookOverlay();
@@ -1059,10 +1073,10 @@
     }, 0);
   };
 
-  function makeDayDisplay() {
+  function makeDayDisplay(passageName) {
     var wrapper = makeEl('div', 'day-display');
 
-    wrapper.appendChild(makeEl('div', 'day-display-day', setup.getDayLabel()));
+    wrapper.appendChild(makeEl('div', 'day-display-day', setup.getDayLabel(passageName)));
 
     return wrapper;
   }
@@ -1663,7 +1677,7 @@
       var locationName = getSceneLocationName(passageName, bgClass);
       var stage = makeEl('div', 'stage page-stage wolf-page ' + bgClass + ' ' + bgAlias);
       var location = locationName ? makeEl('div', 'location-label', locationName) : null;
-      var dayDisplay = shouldShowDayDisplay(passageName) ? makeDayDisplay() : null;
+      var dayDisplay = shouldShowDayDisplay(passageName) ? makeDayDisplay(passageName) : null;
       var box = makeEl('div', 'page-box');
       var text = makeEl('div', 'page-text wolf-content');
       var sameBg = setup.wolfLastBgClass === bgClass;
@@ -2032,7 +2046,7 @@ setup.hasAutosave = function () {
         Save.browser &&
         Save.browser.auto &&
         typeof Save.browser.auto.has === 'function') {
-      return Save.browser.auto.has();
+      return Save.browser.auto.has(0);
     }
   } catch (error) {
     if (window.console && console.warn) {
@@ -2049,7 +2063,7 @@ setup.deleteAutosave = function () {
         Save.browser &&
         Save.browser.auto &&
         typeof Save.browser.auto.delete === 'function') {
-      Save.browser.auto.delete();
+      Save.browser.auto.delete(0);
     }
   } catch (error) {
     if (window.console && console.warn) {
@@ -2091,7 +2105,7 @@ setup.continueAutosave = function () {
       }
       setup._wolfContinuingAutosave = true;
       wolfSetSessionFlag('wolf.continuingAutosave');
-      Save.browser.auto.load();
+      Save.browser.auto.load(0);
       return;
     }
   } catch (error) {
@@ -2304,7 +2318,7 @@ setup.saveAutosave = function () {
         Save.browser &&
         Save.browser.auto &&
         typeof Save.browser.auto.save === 'function') {
-      Save.browser.auto.save('Wolf Autosave');
+      Save.browser.auto.save(0, 'Wolf Autosave');
     }
   } catch (error) {
     if (window.console && console.warn) {
