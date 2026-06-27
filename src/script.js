@@ -2159,7 +2159,7 @@ setup.startNewGame = function () {
 
   wolfClearSessionFlag('wolf.startNewGame');
   setup._wolfStartNewGame = false;
-  Engine.play('Intro_CheckReturn');
+  Engine.play('Intro_Dream_01');
 };
 
 setup.continueAutosave = function () {
@@ -3814,7 +3814,7 @@ $(document).on(':passagedisplay', function () {
   if (wolfHasSessionFlag('wolf.startNewGame') || setup._wolfStartNewGame) {
     wolfClearSessionFlag('wolf.startNewGame');
     setup._wolfStartNewGame = false;
-    Engine.play('Intro_CheckReturn');
+    Engine.play('Intro_Dream_01');
     return;
   }
 
