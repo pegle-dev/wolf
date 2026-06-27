@@ -95,7 +95,8 @@
 <<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
 <<clampStats>>
 <div class="narration-screen">
-<div class="narration narration-block">쿠로는 작은 등불을 보고 있었다.
+<div class="narration narration-block">성 안쪽의 조용한 방에서,
+쿠로는 작은 등불을 보고 있었다.
 늑대가 들어오자,
 그는 고개를 든다.</div>
 </div>

@@ -72,7 +72,8 @@
 <<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
 <<clampStats>>
 <div class="narration-screen">
-<div class="narration narration-block">절 안에는 차 향이 남아 있었다.
+<div class="narration narration-block">성 쪽에서 묻어온 차 향이
+아직 소매 끝에 남아 있었다.
 
 멀리서는 나무를 깎는 소리가 났다.
 
@@ -100,9 +101,12 @@
 
 :: Temple_Daily_Healing_TeaAndWood_Talk02 {"position":"2200,750","size":"100,100"}
 <<page>>
-<<talk "kuro" "쿠로">>
-차가 아직 식지 않았어.
-<</talk>>
+<div class="narration-screen">
+<div class="narration narration-block">성 안쪽에서 들었던 말이
+늦게 떠올랐다.
+
+차가 아직 식지 않았어.</div>
+</div>
 
 <<continueTo "Temple_Daily_Healing_TeaAndWood_End">>
 <</page>>
@@ -305,11 +309,13 @@
 <<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
 <<clampStats>>
 <div class="narration-screen">
-<div class="narration narration-block">찻잔 하나가 놓여 있다.
+<div class="narration narration-block">성 쪽에서 돌아오는 길,
+늑대는 문득 빈 손을 내려다보았다.
 
-식은 지 오래다.
+찻잔 하나의 온기가
+손바닥에 남아 있는 듯했다.
 
-누군가 기다렸다는 뜻이다.
+하지만 이미 식은 뒤였다.
 
 늑대는 찻잔을 들지 않는다.
 
@@ -621,7 +627,8 @@
 <<set $hanbeiKuroMediationSeen = true>>
 <<set $dailyMediationCount = ($dailyMediationCount || 0) + 1>>
 <div class="narration-screen">
-<div class="narration narration-block">한베와 쿠로가 마당에 서 있었다.
+<div class="narration narration-block">성 안쪽의 작은 마당에
+한베와 쿠로가 서 있었다.
 
 큰 소리는 아니었다.
 
@@ -666,10 +673,10 @@
 :: Temple_Daily_Mediation_HanbeiKuro_Choice {"position":"2450,1875","size":"100,100"}
 <<page>>
 <div class="choice-screen">
-  <div class="choice-prompt">한베와 쿠로가 늑대를 보고 있다.</div>
+  <div class="choice-prompt">성 안쪽의 마당에서<br>한베와 쿠로가 늑대를 보고 있다.</div>
   <div class="global-choice-layer">
     <div class="global-choice-box">
-      <<choiceTo "쿠로에게 간다" "Temple_Daily_Mediation_HanbeiKuro_Kuro">>
+      <<choiceTo "주군 쪽에 선다" "Temple_Daily_Mediation_HanbeiKuro_Kuro">>
       <<choiceTo "한베 쪽에 선다" "Temple_Daily_Mediation_HanbeiKuro_Hanbei">>
       <<choiceTo "둘 다 보지 않는다" "Temple_Daily_Mediation_HanbeiKuro_Silence">>
     </div>
@@ -685,7 +692,7 @@
 <<set $hanbeiLove = Math.max(($hanbeiLove || 0), (($hanbeiAffection || 0) + ($hanbeiConflict || 0)))>>
 <<clampStats>>
 <div class="narration-screen">
-<div class="narration narration-block">늑대는 쿠로 쪽으로 간다.</div>
+<div class="narration narration-block">늑대는 주군 쪽에 선다.</div>
 </div>
 
 <<continueTo "Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk01">>

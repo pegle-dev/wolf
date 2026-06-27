@@ -7344,6 +7344,88 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
     overflow-x: auto !important;
   }
 }
+
+/* Final choice spacing contract.
+   Keep prompt and choices in separate zones, and keep the layer decorative-free. */
+.choice-screen .choice-prompt,
+.choice-screen .intro-dream-choice-prompt {
+  top: 54px !important;
+  max-height: 28% !important;
+  line-height: 1.55 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer,
+.choice-screen .global-choice-layer.debug-force-choice,
+.page-stage.intro-dream-screen .global-choice-layer,
+.wolf-page.intro-dream-screen .global-choice-layer {
+  top: auto !important;
+  bottom: 42px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  max-width: min(720px, 82vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  z-index: 50 !important;
+}
+
+.choice-screen .global-choice-box,
+.choice-screen .story-choice-box,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box,
+.global-choice-box,
+.story-choice-box {
+  gap: 1px !important;
+  padding: 5px 18px 6px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+.choice-screen .global-choice-box a,
+.choice-screen .story-choice-box a,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box a,
+.global-choice-box a,
+.story-choice-box a {
+  padding: 2px 0 2px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.first-death-choice-screen .choice-prompt,
+.genichiro-arrow-choice-screen .choice-prompt {
+  top: 56px !important;
+  max-height: 28% !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  bottom: 88px !important;
+}
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* Wolf UI macros: JS로 직접 정의해서 widget/_contents 꼬임을 피한다. */
 (function () {
   'use strict';
@@ -7797,6 +7879,9 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
       case 'bg-night02':
         return '밤의 절';
       case 'bg-room':
+        if (/^Kuro/.test(name)) {
+          return '성 안쪽 처소';
+        }
         return '낡은 서고';
       case 'bg-ashina-gate':
         return '아시나 성문';
@@ -12044,7 +12129,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;/div&gt;
 &lt;&lt;elseif _echoRoll &lt;= 35 and $kuroLove &gt;= 3&gt;&gt;
 &lt;div class=&quot;narration&quot;&gt;
-&lt;&lt;print either(&quot;쿠로의 방 쪽에 희미한 불빛이 남아 있다.&quot;, &quot;닫힌 문 너머로 낮은 숨소리가 느껴졌다.&quot;)&gt;&gt;
+&lt;&lt;print either(&quot;먼 성 쪽에 희미한 불빛이 남아 있다.&quot;, &quot;성 쪽 처소의 낮은 숨소리가 떠올랐다.&quot;)&gt;&gt;
 &lt;/div&gt;
 &lt;&lt;elseif _echoRoll &lt;= 35 and $genichiroLove &gt;= 3&gt;&gt;
 &lt;div class=&quot;narration&quot;&gt;
@@ -12093,13 +12178,13 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;if ($dayCount || $day || 1) &gt;= 2&gt;&gt;
 &lt;&lt;if $kuroProgress == 0&gt;&gt;
 &lt;&lt;if $kuroLove &gt;= 3&gt;&gt;
-[[쿠로님에게로 간다-&gt;Kuro_Router]]
+[[주군에게로 간다-&gt;Kuro_Router]]
 &lt;&lt;else&gt;&gt;
 [[주군에게로 간다-&gt;Kuro_Router]]
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;else&gt;&gt;
 &lt;&lt;if $kuroLove &gt;= 3&gt;&gt;
-[[쿠로님에게로 간다-&gt;Kuro_Router]]
+[[주군에게로 간다-&gt;Kuro_Router]]
 &lt;&lt;else&gt;&gt;
 [[주군에게로 간다-&gt;Kuro_Router]]
 &lt;&lt;/if&gt;&gt;
@@ -13001,7 +13086,8 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))&gt;&gt;
 &lt;&lt;clampStats&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;절 안에는 차 향이 남아 있었다.
+&lt;div class=&quot;narration narration-block&quot;&gt;성 쪽에서 묻어온 차 향이
+아직 소매 끝에 남아 있었다.
 
 멀리서는 나무를 깎는 소리가 났다.
 
@@ -13023,9 +13109,12 @@ $(document).on('click', '[data-dev-language]', function (event) {
 
 &lt;&lt;continueTo &quot;Temple_Daily_Healing_TeaAndWood_Talk02&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="118" name="Temple_Daily_Healing_TeaAndWood_Talk02" tags="" position="2200,750" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;&lt;talk &quot;kuro&quot; &quot;쿠로&quot;&gt;&gt;
-차가 아직 식지 않았어.
-&lt;&lt;/talk&gt;&gt;
+&lt;div class=&quot;narration-screen&quot;&gt;
+&lt;div class=&quot;narration narration-block&quot;&gt;성 안쪽에서 들었던 말이
+늦게 떠올랐다.
+
+차가 아직 식지 않았어.&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;&lt;continueTo &quot;Temple_Daily_Healing_TeaAndWood_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="119" name="Temple_Daily_Healing_TeaAndWood_End" tags="" position="2325,750" size="100,100">&lt;&lt;page&gt;&gt;
@@ -13180,11 +13269,13 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))&gt;&gt;
 &lt;&lt;clampStats&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;찻잔 하나가 놓여 있다.
+&lt;div class=&quot;narration narration-block&quot;&gt;성 쪽에서 돌아오는 길,
+늑대는 문득 빈 손을 내려다보았다.
 
-식은 지 오래다.
+찻잔 하나의 온기가
+손바닥에 남아 있는 듯했다.
 
-누군가 기다렸다는 뜻이다.
+하지만 이미 식은 뒤였다.
 
 늑대는 찻잔을 들지 않는다.
 
@@ -13430,7 +13521,8 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $hanbeiKuroMediationSeen = true&gt;&gt;
 &lt;&lt;set $dailyMediationCount = ($dailyMediationCount || 0) + 1&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;한베와 쿠로가 마당에 서 있었다.
+&lt;div class=&quot;narration narration-block&quot;&gt;성 안쪽의 작은 마당에
+한베와 쿠로가 서 있었다.
 
 큰 소리는 아니었다.
 
@@ -13463,10 +13555,10 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;continueTo &quot;Temple_Daily_Mediation_HanbeiKuro_Choice&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="160" name="Temple_Daily_Mediation_HanbeiKuro_Choice" tags="" position="2450,1875" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;div class=&quot;choice-screen&quot;&gt;
-  &lt;div class=&quot;choice-prompt&quot;&gt;한베와 쿠로가 늑대를 보고 있다.&lt;/div&gt;
+  &lt;div class=&quot;choice-prompt&quot;&gt;성 안쪽의 마당에서&lt;br&gt;한베와 쿠로가 늑대를 보고 있다.&lt;/div&gt;
   &lt;div class=&quot;global-choice-layer&quot;&gt;
     &lt;div class=&quot;global-choice-box&quot;&gt;
-      &lt;&lt;choiceTo &quot;쿠로에게 간다&quot; &quot;Temple_Daily_Mediation_HanbeiKuro_Kuro&quot;&gt;&gt;
+      &lt;&lt;choiceTo &quot;주군 쪽에 선다&quot; &quot;Temple_Daily_Mediation_HanbeiKuro_Kuro&quot;&gt;&gt;
       &lt;&lt;choiceTo &quot;한베 쪽에 선다&quot; &quot;Temple_Daily_Mediation_HanbeiKuro_Hanbei&quot;&gt;&gt;
       &lt;&lt;choiceTo &quot;둘 다 보지 않는다&quot; &quot;Temple_Daily_Mediation_HanbeiKuro_Silence&quot;&gt;&gt;
     &lt;/div&gt;
@@ -13479,7 +13571,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $hanbeiLove = Math.max(($hanbeiLove || 0), (($hanbeiAffection || 0) + ($hanbeiConflict || 0)))&gt;&gt;
 &lt;&lt;clampStats&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;늑대는 쿠로 쪽으로 간다.&lt;/div&gt;
+&lt;div class=&quot;narration narration-block&quot;&gt;늑대는 주군 쪽에 선다.&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;&lt;continueTo &quot;Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk01&quot;&gt;&gt;
@@ -13792,7 +13884,8 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))&gt;&gt;
 &lt;&lt;clampStats&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;쿠로는 작은 등불을 보고 있었다.
+&lt;div class=&quot;narration narration-block&quot;&gt;성 안쪽의 조용한 방에서,
+쿠로는 작은 등불을 보고 있었다.
 늑대가 들어오자,
 그는 고개를 든다.&lt;/div&gt;
 &lt;/div&gt;
@@ -26275,7 +26368,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
   &lt;&lt;goto &quot;Kuro_07_FinalChoice&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="1141" name="Kuro_NotYet" tags="" position="2225,1025" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;쿠로의 방은 조용했다.
+&lt;div class=&quot;narration narration-block&quot;&gt;성 쪽의 방은 조용했다.
 
 아직 불빛이 들기 전이었다.&lt;/div&gt;
 &lt;/div&gt;
@@ -26287,7 +26380,8 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;set $kuroReadingSeen = true&gt;&gt;
 
 &lt;div class=&quot;narration&quot;&gt;
-소년은 서고에 앉아서 책을 읽고 있었다.
+성 안쪽의 서고에
+소년이 앉아 책을 읽고 있었다.
 
 늑대가 말없이 옆에 서자, 그의 주군은 책을 덮고 올려다봤다.
 &lt;/div&gt;
@@ -26484,6 +26578,8 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;clampStats&gt;&gt;
 
 &lt;div class=&quot;narration&quot;&gt;
+아시나 성의 낮은 방은 조용했다.
+
 작은 찻잔 두 개가 놓여 있었다.
 
 쿠로는 제 몫의 잔을 들고,
@@ -26682,6 +26778,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;set $kuroSitBesideSeen = true&gt;&gt;
 
 &lt;div class=&quot;narration&quot;&gt;
+성 안쪽의 방에서
 쿠로가 앉자, 늑대는 자연스럽게 그 앞에 무릎을 꿇었다.
 
 쿠로는 책을 펼치려다 멈췄다.
@@ -26831,7 +26928,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;set $currentRoute = &quot;kuro&quot;&gt;&gt;
 
 &lt;div class=&quot;narration&quot;&gt;
-밤.
+성 안쪽의 밤.
 
 쿠로의 방 안에는 작은 등불 하나만 켜져 있었다.
 
@@ -27895,16 +27992,16 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;goto &quot;ReturnToTempleNextDay&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="1318" name="ReturnEvent_WatchKuro" tags="" position="2925,750" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;run setup.markRoutedEvent &amp;&amp; setup.markRoutedEvent(&quot;return&quot;, &quot;ReturnEvent_WatchKuro&quot;, 1)&gt;&gt;
 &lt;div class=&quot;narration-screen&quot;&gt;
-&lt;div class=&quot;narration narration-block&quot;&gt;황폐한 절로 돌아가는 길,
-늑대는 발을 멈췄다.
+&lt;div class=&quot;narration narration-block&quot;&gt;황폐한 절로 돌아온 뒤에도,
+늑대는 한동안 성 쪽을 바라보았다.
 
-쿠로의 방에는 아직 불이 켜져 있었다.
+멀리,
+작은 불빛이 남아 있었다.
 
-작은 그림자가 책상 앞에 앉아 있었다.
-늑대는 문턱 밖에 섰다.
+그곳에 주군이 있었다.
 
 부르지 않는다.
-들어가지도 않는다.
+다가가지도 않는다.
 
 그저,
 불이 꺼질 때까지 지켜보았다.&lt;/div&gt;

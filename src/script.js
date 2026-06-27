@@ -451,6 +451,9 @@
       case 'bg-night02':
         return '밤의 절';
       case 'bg-room':
+        if (/^Kuro/.test(name)) {
+          return '성 안쪽 처소';
+        }
         return '낡은 서고';
       case 'bg-ashina-gate':
         return '아시나 성문';

@@ -61,16 +61,16 @@
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_WatchKuro", 1)>>
 <div class="narration-screen">
-<div class="narration narration-block">황폐한 절로 돌아가는 길,
-늑대는 발을 멈췄다.
+<div class="narration narration-block">황폐한 절로 돌아온 뒤에도,
+늑대는 한동안 성 쪽을 바라보았다.
 
-쿠로의 방에는 아직 불이 켜져 있었다.
+멀리,
+작은 불빛이 남아 있었다.
 
-작은 그림자가 책상 앞에 앉아 있었다.
-늑대는 문턱 밖에 섰다.
+그곳에 주군이 있었다.
 
 부르지 않는다.
-들어가지도 않는다.
+다가가지도 않는다.
 
 그저,
 불이 꺼질 때까지 지켜보았다.</div>

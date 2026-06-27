@@ -76,7 +76,7 @@
 </div>
 <<elseif _echoRoll <= 35 and $kuroLove >= 3>>
 <div class="narration">
-<<print either("쿠로의 방 쪽에 희미한 불빛이 남아 있다.", "닫힌 문 너머로 낮은 숨소리가 느껴졌다.")>>
+<<print either("먼 성 쪽에 희미한 불빛이 남아 있다.", "성 쪽 처소의 낮은 숨소리가 떠올랐다.")>>
 </div>
 <<elseif _echoRoll <= 35 and $genichiroLove >= 3>>
 <div class="narration">
@@ -128,13 +128,13 @@
 <<if ($dayCount || $day || 1) >= 2>>
 <<if $kuroProgress == 0>>
 <<if $kuroLove >= 3>>
-[[쿠로님에게로 간다->Kuro_Router]]
+[[주군에게로 간다->Kuro_Router]]
 <<else>>
 [[주군에게로 간다->Kuro_Router]]
 <</if>>
 <<else>>
 <<if $kuroLove >= 3>>
-[[쿠로님에게로 간다->Kuro_Router]]
+[[주군에게로 간다->Kuro_Router]]
 <<else>>
 [[주군에게로 간다->Kuro_Router]]
 <</if>>

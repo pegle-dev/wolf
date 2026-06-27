@@ -44,7 +44,7 @@
 :: Kuro_NotYet {"position":"2225,1025","size":"100,100"}
 <<page>>
 <div class="narration-screen">
-<div class="narration narration-block">쿠로의 방은 조용했다.
+<div class="narration narration-block">성 쪽의 방은 조용했다.
 
 아직 불빛이 들기 전이었다.</div>
 </div>
@@ -59,7 +59,8 @@
 <<set $kuroReadingSeen = true>>
 
 <div class="narration">
-소년은 서고에 앉아서 책을 읽고 있었다.
+성 안쪽의 서고에
+소년이 앉아 책을 읽고 있었다.
 
 늑대가 말없이 옆에 서자, 그의 주군은 책을 덮고 올려다봤다.
 </div>
@@ -331,6 +332,8 @@
 <<clampStats>>
 
 <div class="narration">
+아시나 성의 낮은 방은 조용했다.
+
 작은 찻잔 두 개가 놓여 있었다.
 
 쿠로는 제 몫의 잔을 들고,
@@ -598,6 +601,7 @@
 <<set $kuroSitBesideSeen = true>>
 
 <div class="narration">
+성 안쪽의 방에서
 쿠로가 앉자, 늑대는 자연스럽게 그 앞에 무릎을 꿇었다.
 
 쿠로는 책을 펼치려다 멈췄다.
@@ -801,7 +805,7 @@
 <<set $currentRoute = "kuro">>
 
 <div class="narration">
-밤.
+성 안쪽의 밤.
 
 쿠로의 방 안에는 작은 등불 하나만 켜져 있었다.
 

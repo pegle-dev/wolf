@@ -7238,3 +7238,85 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
     overflow-x: auto !important;
   }
 }
+
+/* Final choice spacing contract.
+   Keep prompt and choices in separate zones, and keep the layer decorative-free. */
+.choice-screen .choice-prompt,
+.choice-screen .intro-dream-choice-prompt {
+  top: 54px !important;
+  max-height: 28% !important;
+  line-height: 1.55 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.choice-screen .global-choice-layer,
+.choice-screen .story-choice-layer,
+.choice-screen .global-choice-layer.debug-force-choice,
+.page-stage.intro-dream-screen .global-choice-layer,
+.wolf-page.intro-dream-screen .global-choice-layer {
+  top: auto !important;
+  bottom: 42px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, 82vw) !important;
+  max-width: min(720px, 82vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  z-index: 50 !important;
+}
+
+.choice-screen .global-choice-box,
+.choice-screen .story-choice-box,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box,
+.global-choice-box,
+.story-choice-box {
+  gap: 1px !important;
+  padding: 5px 18px 6px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+
+.choice-screen .global-choice-box a,
+.choice-screen .story-choice-box a,
+.choice-screen .global-choice-layer.debug-force-choice .global-choice-box a,
+.global-choice-box a,
+.story-choice-box a {
+  padding: 2px 0 2px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.timed-choice-screen .choice-prompt,
+.first-death-choice-screen .choice-prompt,
+.genichiro-arrow-choice-screen .choice-prompt {
+  top: 56px !important;
+  max-height: 28% !important;
+}
+
+.timed-choice-screen .global-choice-layer,
+.first-death-choice-screen .global-choice-layer,
+.genichiro-arrow-choice-screen .global-choice-layer {
+  bottom: 88px !important;
+}
