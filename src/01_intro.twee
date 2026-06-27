@@ -1,3 +1,10 @@
+:: Intro_CheckReturn {"position":"1375,125","size":"100,100"}
+<<if setup.hasAnyEndingSeen && setup.hasAnyEndingSeen()>>
+  <<goto "Intro_Returning">>
+<<else>>
+  <<goto "Intro_01">>
+<</if>>
+
 :: Intro_01 {"position":"1500,125","size":"100,100"}
 <<page>>
 <div class="intro-sequence">
@@ -32,7 +39,7 @@
 <<page>>
 <div class="intro-sequence">
 <div class="intro-line">하지만 결국 도구는 도구.</div>
-<div class="intro-line">늑대는 ‘임무’라는 이름 아래 수많은 목숨을 베어 왔다.</div>
+<div class="intro-line">늑대는 ‘임무’라는 이름 아래<br>손이 먼저 움직이는 법을 배웠다.</div>
 <div class="intro-line">누군가의 그림자가 되고,<br>누군가의 죽음이 되어 왔다.</div>
 </div>
 
@@ -43,7 +50,7 @@
 <<page>>
 <div class="intro-sequence">
 <div class="intro-line">하지만 언젠가는<br>이 곳, 아시나에서 찾아낼 수 있을지도 모른다.</div>
-<div class="intro-line">새로운 갈림길을.</div>
+<div class="intro-line">숨이 먼저 오고,<br>그 다음에 손이 움직이는 갈림길을.</div>
 <div class="intro-line">그땐 누군가의 곁에 남을 수 있을까.<br>누구의 손을 붙잡을 수 있을까.</div>
 </div>
 
@@ -60,4 +67,207 @@
 <div class="choice-box intro-continue intro-final-link">
 [[계속 떠돈다...->Temple]]
 </div>
+<</page>>
+
+:: Intro_Returning {"position":"1625,125","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 눈을 뜬다.</div>
+<div class="intro-line">아직 어둡다.</div>
+
+<<if ($endingHanbeiTrueSeen || false) or ($endingHanbeiBrokenSeen || false) or ($endingHanbeiWorstSeen || false) or ($endingHanbeiDaySeen || false) or ($endingHanbeiQuietDaySeen || false) or ($endingHanbeiBadSeen || false)>>
+<div class="intro-line">아픈 곳은 아직,<br>이름을 기다리고 있었다.</div>
+<</if>>
+
+<<if ($endingKuroTrueSeen || false) or ($endingKuroBrokenSeen || false) or ($endingKuroWorstSeen || false) or ($endingKuroDaySeen || false) or ($endingKuroBadSeen || false)>>
+<div class="intro-line">어딘가에 식지 않은 차가 있었다.</div>
+<</if>>
+
+<<if ($endingGenichiroTrueSeen || false) or ($endingGenichiroBrokenSeen || false) or ($endingGenichiroWorstSeen || false) or ($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false)>>
+<div class="intro-line">비가 오지 않는데도,<br>빗소리가 들렸다.</div>
+<</if>>
+
+<<if ($endingSculptorTrueSeen || false) or ($endingSculptorBrokenSeen || false) or ($endingSculptorWorstSeen || false) or ($endingSculptorDaySeen || false) or ($endingSculptorBadSeen || false)>>
+<div class="intro-line">손끝에 나무 냄새가 남아 있었다.</div>
+<</if>>
+
+<<if ($endingIsshinTrueSeen || false) or ($endingIsshinBrokenSeen || false) or ($endingIsshinWorstSeen || false) or ($endingIsshinDaySeen || false) or ($endingIsshinBadSeen || false)>>
+<div class="intro-line">혀끝에 쓴맛이 남아 있었다.</div>
+<</if>>
+
+<<if $endingHiddenRememberSeen>>
+<div class="intro-line">처음 보는 아침이었다.<br>하지만 처음은 아니었다.</div>
+<</if>>
+
+<<if $endingHiddenOwlsWolfSeen>>
+<div class="intro-line">고개를 들기 전부터,<br>목소리가 있었다.</div>
+<</if>>
+
+<<if ($endingShuraSeen || false) or ($shuraEndingSeen || false)>>
+<div class="intro-line">검이 조용했다.</div>
+<</if>>
+
+<div class="intro-line">무엇이 먼저 돌아오는가?</div>
+</div>
+
+<div class="choice-box intro-continue intro-returning-choices">
+<<if ($endingHanbeiTrueSeen || false) or ($endingHanbeiBrokenSeen || false) or ($endingHanbeiWorstSeen || false) or ($endingHanbeiDaySeen || false) or ($endingHanbeiQuietDaySeen || false) or ($endingHanbeiBadSeen || false)>>
+[[아픈 곳을 고른다->Intro_Return_Hanbei]]
+<</if>>
+
+<<if ($endingKuroTrueSeen || false) or ($endingKuroBrokenSeen || false) or ($endingKuroWorstSeen || false) or ($endingKuroDaySeen || false) or ($endingKuroBadSeen || false)>>
+[[찻잔을 떠올린다->Intro_Return_Kuro]]
+<</if>>
+
+<<if ($endingGenichiroTrueSeen || false) or ($endingGenichiroBrokenSeen || false) or ($endingGenichiroWorstSeen || false) or ($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false)>>
+[[비를 듣는다->Intro_Return_Genichiro]]
+<</if>>
+
+<<if ($endingSculptorTrueSeen || false) or ($endingSculptorBrokenSeen || false) or ($endingSculptorWorstSeen || false) or ($endingSculptorDaySeen || false) or ($endingSculptorBadSeen || false)>>
+[[손을 본다->Intro_Return_Sculptor]]
+<</if>>
+
+<<if ($endingIsshinTrueSeen || false) or ($endingIsshinBrokenSeen || false) or ($endingIsshinWorstSeen || false) or ($endingIsshinDaySeen || false) or ($endingIsshinBadSeen || false)>>
+[[숨을 고른다->Intro_Return_Isshin]]
+<</if>>
+
+<<if $endingHiddenRememberSeen>>
+[[기억한다->Intro_Return_Remember]]
+<</if>>
+
+<<if $endingHiddenOwlsWolfSeen>>
+[[고개를 들지 않는다->Intro_Return_OwlResist]]
+[[명령을 기다린다->Intro_Return_OwlWait]]
+<</if>>
+
+<<if ($endingShuraSeen || false) or ($shuraEndingSeen || false)>>
+<span class="shura-choice">[[검을 쥔다->Intro_Return_ShuraGrip]]</span>
+<</if>>
+
+[[그냥 눈을 뜬다->Intro_06]]
+</div>
+<</page>>
+
+:: Intro_Return_Hanbei {"position":"1750,125","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 아픈 곳을 고른다.</div>
+<div class="intro-line">문제없다는 말은,<br>오늘은 조금 늦게 왔다.</div>
+</div>
+
+<<set $introRememberedHanbei = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_Kuro {"position":"1750,225","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 찻잔을 떠올린다.</div>
+<div class="intro-line">명령은 들리지 않았다.</div>
+<div class="intro-line">그래도,<br>곁이라는 자리는 남아 있었다.</div>
+</div>
+
+<<set $introRememberedKuro = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_Genichiro {"position":"1750,325","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 비를 듣는다.</div>
+<div class="intro-line">칼끝 하나의 거리.</div>
+<div class="intro-line">베기에는 가깝고,<br>물러서기에는 늦은 거리.</div>
+<<if ($endingGenichiroBrokenSeen || false) or ($endingGenichiroWorstSeen || false)>>
+<div class="intro-line">갈대밭 어딘가에서,<br>목 없는 무사가 걷고 있었다.</div>
+<</if>>
+</div>
+
+<<set $introRememberedGenichiro = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_Sculptor {"position":"1750,425","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 자기 손을 본다.</div>
+<div class="intro-line">검자루의 감각보다 먼저,<br>조각칼의 가벼움이 떠올랐다.</div>
+<div class="intro-line">무언가를 베기 전,<br>손을 보는 법.</div>
+</div>
+
+<<set $introRememberedSculptor = true>>
+<<set $shuraHintSeen = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_Isshin {"position":"1750,525","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 숨을 고른다.</div>
+<div class="intro-line">마신 적 없는 술의 맛이,<br>혀끝에 남아 있었다.</div>
+<div class="intro-line">검보다 먼저,<br>숨이 왔다.</div>
+</div>
+
+<<set $introRememberedIsshin = true>>
+<<set $isshinBreathSeen = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_Remember {"position":"1750,625","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 눈을 뜬다.</div>
+<div class="intro-line">기억한다.</div>
+<div class="intro-line">목소리는 없었다.</div>
+<div class="intro-line">그것으로 충분했다.</div>
+</div>
+
+<<set $introRememberedHidden = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_OwlResist {"position":"1750,725","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 고개를 들지 않는다.</div>
+<div class="intro-line">명은 아직 내려오지 않았다.</div>
+<div class="intro-line">그 사실을,<br>오늘은 먼저 알았다.</div>
+</div>
+
+<<set $introResistedOwl = true>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_OwlWait {"position":"1750,825","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 명령을 기다린다.</div>
+<div class="intro-line">목소리는 아직 오지 않았다.</div>
+<div class="intro-line">그런데 몸은,<br>이미 대답할 준비를 하고 있었다.</div>
+</div>
+
+<<set $introRememberedOwl = true>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $obedienceCount = ($obedienceCount || 0) + 1>>
+
+<<continueTo "Intro_06">>
+<</page>>
+
+:: Intro_Return_ShuraGrip {"position":"1750,925","size":"100,100"}
+<<page>>
+<div class="intro-sequence">
+<div class="intro-line">늑대는 검을 쥔다.</div>
+<div class="intro-line">선택지가 떠오르기 전에,<br>손이 먼저 있었다.</div>
+</div>
+
+<<set $introRememberedShura = true>>
+<<set $shuraHintSeen = true>>
+
+<<continueTo "Intro_06">>
 <</page>>

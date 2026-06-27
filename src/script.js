@@ -678,6 +678,53 @@
 
   setup.getUniqueEndingCount = setup.getEndingProgressCount;
 
+  setup.hasAnyEndingSeen = function () {
+    var variables = State.variables || {};
+    var meta = setup.ensureEndingMetaVariables ? setup.ensureEndingMetaVariables() : null;
+    var flags = [
+      'anyEndingSeen',
+      'endingHanbeiDaySeen',
+      'endingHanbeiBadSeen',
+      'endingHanbeiTrueSeen',
+      'endingHanbeiBrokenSeen',
+      'endingHanbeiWorstSeen',
+      'endingHanbeiQuietDaySeen',
+      'endingKuroDaySeen',
+      'endingKuroBadSeen',
+      'endingKuroTrueSeen',
+      'endingKuroBrokenSeen',
+      'endingKuroWorstSeen',
+      'endingGenichiroDaySeen',
+      'endingGenichiroBadSeen',
+      'endingGenichiroTrueSeen',
+      'endingGenichiroBrokenSeen',
+      'endingGenichiroWorstSeen',
+      'endingSculptorDaySeen',
+      'endingSculptorBadSeen',
+      'endingSculptorTrueSeen',
+      'endingSculptorBrokenSeen',
+      'endingSculptorWorstSeen',
+      'endingIsshinDaySeen',
+      'endingIsshinBadSeen',
+      'endingIsshinTrueSeen',
+      'endingIsshinBrokenSeen',
+      'endingIsshinWorstSeen',
+      'endingShuraSeen',
+      'shuraEndingSeen',
+      'endingHiddenRememberSeen',
+      'endingHiddenOwlsWolfSeen',
+      'hiddenRevivalDone'
+    ];
+
+    if (meta && Number(meta.count) > 0) {
+      return true;
+    }
+
+    return flags.some(function (key) {
+      return variables[key] === true;
+    });
+  };
+
   setup.recordEndingSeen = function (endingId) {
     if (!endingId) {
       return false;
@@ -1299,9 +1346,9 @@
     }
 
     var lines = Array.prototype.slice.call(text.querySelectorAll('.intro-sequence .intro-line'));
-    var lineStep = 900;
-    var firstDelay = 300;
-    var choiceDelay = firstDelay + (lines.length * lineStep) + 450;
+    var lineStep = 90;
+    var firstDelay = 50;
+    var choiceDelay = firstDelay + (lines.length * lineStep) + 180;
 
     lines.forEach(function (line, index) {
       line.style.animationDelay = (firstDelay + (index * lineStep)) + 'ms';
@@ -2106,7 +2153,7 @@ setup.startNewGame = function () {
 
   wolfClearSessionFlag('wolf.startNewGame');
   setup._wolfStartNewGame = false;
-  Engine.play('Intro_Dream_01');
+  Engine.play('Intro_CheckReturn');
 };
 
 setup.continueAutosave = function () {
@@ -3752,7 +3799,7 @@ $(document).on(':passagedisplay', function () {
   if (wolfHasSessionFlag('wolf.startNewGame') || setup._wolfStartNewGame) {
     wolfClearSessionFlag('wolf.startNewGame');
     setup._wolfStartNewGame = false;
-    Engine.play('Intro_Dream_01');
+    Engine.play('Intro_CheckReturn');
     return;
   }
 

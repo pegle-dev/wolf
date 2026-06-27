@@ -154,7 +154,7 @@
 <</page>>
 
 :: Hanbei01 {"position":"1075,625","size":"100,100"}
-<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+<<if (($nightFoundHanbeiTrace || false) or ($nightMetHanbei || false) or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
   <<set $nightReactionReturn = "Hanbei01">>
   <<goto "Hanbei_React_NightTrace">>
 <</if>>
@@ -601,7 +601,7 @@
 <</page>>
 
 :: Hanbei02 {"position":"1200,625","size":"100,100"}
-<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+<<if (($nightFoundHanbeiTrace || false) or ($nightMetHanbei || false) or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
   <<set $nightReactionReturn = "Hanbei02">>
   <<goto "Hanbei_React_NightTrace">>
 <</if>>
@@ -1407,8 +1407,31 @@
 <<continueTo "Hanbei02_Worry">>
 <</page>>
 
+:: Hanbei03_Beat {"position":"0,0","size":"100,100"}
+<<if (($nightFoundHanbeiTrace || false) or ($nightMetHanbei || false) or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+  <<set $nightReactionReturn = "Hanbei03_Beat">>
+  <<goto "Hanbei_React_NightTrace">>
+<</if>>
+<<page>>
+<div class="narration">
+
+훈련장.
+
+익숙한 길.
+
+익숙한 공터.
+
+그리고.
+
+익숙한 사람.
+
+</div>
+
+<<continueTo "Hanbei03">>
+<</page>>
+
 :: Hanbei03 {"position":"1375,625","size":"100,100"}
-<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+<<if (($nightFoundHanbeiTrace || false) or ($nightMetHanbei || false) or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
   <<set $nightReactionReturn = "Hanbei03">>
   <<goto "Hanbei_React_NightTrace">>
 <</if>>
@@ -1627,25 +1650,6 @@
 </div>
 <</page>>
 
-:: Hanbei03_Beat {"position":"0,0","size":"100,100"}
-<<page>>
-<div class="narration">
-
-훈련장.
-
-익숙한 길.
-
-익숙한 공터.
-
-그리고.
-
-익숙한 사람.
-
-</div>
-
-<<continueTo "Hanbei03">>
-<</page>>
-
 :: Hanbei03_Fight {"position":"1250,1625","size":"100,100"}
 <<page>>
 <<talk "wolf" "늑대">>
@@ -1773,7 +1777,7 @@
 <</page>>
 
 :: Hanbei_Loop {"position":"1300,350","size":"100,100"}
-<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+<<if (($nightFoundHanbeiTrace || false) or ($nightMetHanbei || false) or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
   <<set $nightReactionReturn = "Hanbei_Loop">>
   <<goto "Hanbei_React_NightTrace">>
 <</if>>
@@ -1830,7 +1834,7 @@
 <</page>>
 
 :: Hanbei_Sake {"position":"1675,1475","size":"100,100"}
-<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+<<if (($nightFoundHanbeiTrace || false) or ($nightMetHanbei || false) or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
   <<set $nightReactionReturn = "Hanbei_Sake">>
   <<goto "Hanbei_React_NightTrace">>
 <</if>>

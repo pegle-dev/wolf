@@ -3012,6 +3012,7 @@ body.status-hidden .outer-dev-ui {
 }
 
 .intro-line {
+  --wolf-intro-line-opacity: 0.76;
   margin: 0 0 22px;
   font-size: 22px;
   line-height: 1.68;
@@ -3019,7 +3020,7 @@ body.status-hidden .outer-dev-ui {
   text-align: center;
   word-break: keep-all;
   overflow-wrap: break-word;
-  opacity: 0.76;
+  opacity: var(--wolf-intro-line-opacity);
 }
 
 .intro-sequence.intro-tight .intro-line {
@@ -3027,8 +3028,9 @@ body.status-hidden .outer-dev-ui {
 }
 
 .intro-line:last-child {
+  --wolf-intro-line-opacity: 1;
   opacity: 1;
-  animation: wolf-intro-line-in 1800ms ease-out both;
+  animation: wolf-intro-line-in 550ms ease-out both;
 }
 
 .intro-line.intro-final {
@@ -3201,8 +3203,8 @@ body.status-hidden .outer-dev-ui {
 .page-stage.intro-screen .intro-line,
 .wolf-page.intro-screen .intro-line {
   opacity: 0;
-  transform: translateY(6px);
-  animation: wolf-intro-line-fade 1100ms ease-out both;
+  transform: translateY(3px);
+  animation: wolf-intro-line-fade 550ms ease-out both;
 }
 
 .page-stage.intro-screen .intro-line:last-child,
@@ -3214,22 +3216,22 @@ body.status-hidden .outer-dev-ui {
 .page-stage.intro-screen .choice-box.intro-continue,
 .wolf-page.intro-screen .choice-box.intro-continue {
   opacity: 0;
-  animation: wolf-intro-choice-fade 800ms ease-out both;
+  animation: wolf-intro-choice-fade 550ms ease-out both !important;
 }
 
 .page-stage.intro-screen .global-continue-layer,
 .wolf-page.intro-screen .global-continue-layer {
   opacity: 0;
-  animation: wolf-intro-choice-fade 800ms ease-out both;
+  animation: wolf-intro-choice-fade 550ms ease-out both !important;
 }
 
 @keyframes wolf-intro-line-fade {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(3px);
   }
   to {
-    opacity: 0.82;
+    opacity: var(--wolf-intro-line-opacity, 0.82);
     transform: translateY(0);
   }
 }

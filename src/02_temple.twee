@@ -2,7 +2,7 @@
 <<page>>
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<set $timeOfDay = "day">>
-<<if $nightFoundOwlTrace and not $owlReactedNightFootsteps>>
+<<if (($nightFoundOwlTrace || false) or (($nightOwlTraceCount || 0) > 0)) and not $owlReactedNightFootsteps>>
   <<set $nightReactionReturn = "Temple">>
   <<goto "Owl_React_NightFootsteps">>
 <</if>>

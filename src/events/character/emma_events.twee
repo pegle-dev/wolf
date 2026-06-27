@@ -2,7 +2,7 @@
 <<goto "Emma_IntroduceIsshin">>
 
 :: Emma_IntroduceIsshin {"position":"1900,1475","size":"100,100"}
-<<if $nightSawEmmaTrace and not $emmaReactedNightMedicine>>
+<<if (($nightSawEmmaTrace || false) or ($nightSawReflection || false) or ($nightSawShuraHint || false)) and not $emmaReactedNightMedicine>>
   <<set $nightReactionReturn = "Emma_IntroduceIsshin">>
   <<goto "Emma_React_NightMedicine">>
 <</if>>

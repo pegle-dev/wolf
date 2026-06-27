@@ -1,14 +1,48 @@
 :: DayEvent_Router {"position":"1700,550","size":"100,100"}
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<run setup.ensureEventCooldowns && setup.ensureEventCooldowns()>>
+<<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 <<set $timeOfDay = "day">>
+<<set $dailyEventCount = ($dailyEventCount || 0) + 1>>
 
 <<if ($dayCount || $day || 1) < 2>>
   <<goto "DayEvent_None">>
 <</if>>
 
-<<set _roll = random(1, 3)>>
-<<if _roll == 1 and setup.canRouteEvent("day", "DayEvent_SilentTemple")>>
+<<set _roll = random(1, 100)>>
+<<if ($shura || 0) >= 4 and _roll <= 25 and setup.canRouteEvent("day", "Temple_Daily_Danger_ShuraHand")>>
+  <<goto "Temple_Daily_Danger_ShuraHand">>
+<<elseif ($danger || 0) >= 4 and _roll <= 45 and setup.canRouteEvent("day", "Temple_Daily_Danger_WoundHidden")>>
+  <<goto "Temple_Daily_Danger_WoundHidden">>
+<<elseif ($danger || 0) >= 3 and ($hanbeiMidConflictSeen || false) and _roll <= 58 and setup.canRouteEvent("day", "Temple_Daily_Danger_HanbeiStops")>>
+  <<goto "Temple_Daily_Danger_HanbeiStops">>
+<<elseif ($isolation || 0) >= 4 and _roll <= 66>>
+  <<set _lonelyRoll = random(1, 3)>>
+  <<if _lonelyRoll == 1 and setup.canRouteEvent("day", "Temple_Daily_Lonely_EmptyTemple")>>
+    <<goto "Temple_Daily_Lonely_EmptyTemple">>
+  <<elseif _lonelyRoll == 2 and setup.canRouteEvent("day", "Temple_Daily_Lonely_ColdTea")>>
+    <<goto "Temple_Daily_Lonely_ColdTea">>
+  <<elseif setup.canRouteEvent("day", "Temple_Daily_Lonely_StoppedCarving")>>
+    <<goto "Temple_Daily_Lonely_StoppedCarving">>
+  <<else>>
+    <<goto "DayEvent_None">>
+  <</if>>
+<<elseif _roll <= 84>>
+  <<set _healingRoll = random(1, 3)>>
+  <<if _healingRoll == 1 and setup.canRouteEvent("day", "Temple_Daily_Healing_TeaAndWood")>>
+    <<goto "Temple_Daily_Healing_TeaAndWood">>
+  <<elseif _healingRoll == 2 and setup.canRouteEvent("day", "Temple_Daily_Healing_HanbeiNap")>>
+    <<goto "Temple_Daily_Healing_HanbeiNap">>
+  <<elseif $isshinUnlocked and setup.canRouteEvent("day", "Temple_Daily_Healing_IsshinDrink")>>
+    <<goto "Temple_Daily_Healing_IsshinDrink">>
+  <<else>>
+    <<goto "Temple_Daily_Healing_TeaAndWood">>
+  <</if>>
+<<elseif _roll <= 94 and (($kuroAffection || 0) + ($hanbeiAffection || 0)) >= 1 and setup.canRouteEvent("day", "Temple_Daily_Mediation_HanbeiKuro")>>
+  <<goto "Temple_Daily_Mediation_HanbeiKuro">>
+<<elseif (($sculptorUnlocked || false) or ($secondLoopUnlocked || false)) and ($isshinUnlocked || false) and setup.canRouteEvent("day", "Temple_Daily_Mediation_SculptorIsshin")>>
+  <<goto "Temple_Daily_Mediation_SculptorIsshin">>
+<<elseif setup.canRouteEvent("day", "DayEvent_SilentTemple")>>
   <<goto "DayEvent_SilentTemple">>
 <<else>>
   <<goto "DayEvent_None">>
@@ -25,6 +59,941 @@
 무너진 처마 아래를 지나갔다.</div>
 </div>
 
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Healing_TeaAndWood {"position":"1950,750","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Healing_TeaAndWood", 1)>>
+<<set $templeDailyTeaSeen = true>>
+<<set $dailyHealingCount = ($dailyHealingCount || 0) + 1>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">절 안에는 차 향이 남아 있었다.
+
+멀리서는 나무를 깎는 소리가 났다.
+
+뒤뜰 쪽에서는 목검이 바닥을 두드리는 소리가 한 번.
+
+늑대는 문가에 섰다.
+
+아무도 그에게 명령하지 않았다.
+
+그런데도,
+그는 한동안 움직이지 않았다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Healing_TeaAndWood_Talk01">>
+<</page>>
+
+:: Temple_Daily_Healing_TeaAndWood_Talk01 {"position":"2075,750","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+거기 서 있지만 말고 들어오지?
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_TeaAndWood_Talk02">>
+<</page>>
+
+:: Temple_Daily_Healing_TeaAndWood_Talk02 {"position":"2200,750","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+차가 아직 식지 않았어.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_TeaAndWood_End">>
+<</page>>
+
+:: Temple_Daily_Healing_TeaAndWood_End {"position":"2325,750","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">나무를 깎는 소리는 멎지 않는다.
+
+늑대는 잠시,
+검에서 손을 뗀다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap {"position":"1950,875","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Healing_HanbeiNap", 1)>>
+<<set $dailyHealingCount = ($dailyHealingCount || 0) + 1>>
+<<set $templeHanbeiNapSeen = true>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), (($hanbeiAffection || 0) + ($hanbeiConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">뒤뜰에 한베가 누워 있다.
+
+죽은 것처럼 보인다.
+
+아니.
+
+죽어도 이상하지 않은 사람처럼 보인다.
+
+늑대가 가까이 가자,
+한베가 눈을 떴다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Healing_HanbeiNap_Talk01">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap_Talk01 {"position":"2075,875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+확인하러 왔나?
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_HanbeiNap_Talk02">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap_Talk02 {"position":"2200,875","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+무엇을.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_HanbeiNap_Talk03">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap_Talk03 {"position":"2325,875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+내가 아직 죽지 않았는지.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_HanbeiNap_Beat01">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap_Beat01 {"position":"2450,875","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 대답하지 않는다.</div>
+
+<<continueTo "Temple_Daily_Healing_HanbeiNap_Talk04">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap_Talk04 {"position":"2575,875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+하하.
+농담이네.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_HanbeiNap_Talk05">>
+<</page>>
+
+:: Temple_Daily_Healing_HanbeiNap_Talk05 {"position":"2700,875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+반쯤은.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Healing_IsshinDrink {"position":"1950,1000","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Healing_IsshinDrink", 1)>>
+<<set $dailyHealingCount = ($dailyHealingCount || 0) + 1>>
+<<set $templeIsshinDrinkSeen = true>>
+<<set $isshinAffection = ($isshinAffection || 0) + 1>>
+<<set $isshinLove = Math.max(($isshinLove || 0), (($isshinAffection || 0) + ($isshinConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">잇신은 술잔을 들고 있었다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Healing_IsshinDrink_Talk01">>
+<</page>>
+
+:: Temple_Daily_Healing_IsshinDrink_Talk01 {"position":"2075,1000","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+왔느냐.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_IsshinDrink_Talk02">>
+<</page>>
+
+:: Temple_Daily_Healing_IsshinDrink_Talk02 {"position":"2200,1000","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+마셔라.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_IsshinDrink_Talk03">>
+<</page>>
+
+:: Temple_Daily_Healing_IsshinDrink_Talk03 {"position":"2325,1000","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+임무 중입니다.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_IsshinDrink_Talk04">>
+<</page>>
+
+:: Temple_Daily_Healing_IsshinDrink_Talk04 {"position":"2450,1000","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+그럼 임무로 마셔라.
+<</talk>>
+
+<<continueTo "Temple_Daily_Healing_IsshinDrink_End">>
+<</page>>
+
+:: Temple_Daily_Healing_IsshinDrink_End {"position":"2575,1000","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 잔을 본다.
+
+술 냄새가 난다.
+
+살아 있는 냄새다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Lonely_EmptyTemple {"position":"1950,1125","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Lonely_EmptyTemple", 1)>>
+<<set $templeDailyEmptySeen = true>>
+<<set $dailyLonelyCount = ($dailyLonelyCount || 0) + 1>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">절은 조용했다.
+
+조용한 것이 아니라,
+비어 있었다.
+
+찻잔은 없었다.
+
+목검도 없었다.
+
+나무를 깎는 소리도 들리지 않았다.
+
+늑대는 마당 한가운데 선다.
+
+발소리 하나가 난다.
+
+늑대의 것이다.
+
+그 소리만,
+계속 늑대를 따라온다.</div>
+</div>
+
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Lonely_ColdTea {"position":"1950,1250","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Lonely_ColdTea", 1)>>
+<<set $dailyLonelyCount = ($dailyLonelyCount || 0) + 1>>
+<<set $templeColdTeaSeen = true>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $kuroConflict = ($kuroConflict || 0) + 1>>
+<<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">찻잔 하나가 놓여 있다.
+
+식은 지 오래다.
+
+누군가 기다렸다는 뜻이다.
+
+늑대는 찻잔을 들지 않는다.
+
+손을 대면,
+늦었다는 것을 알게 될 것 같았다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Lonely_StoppedCarving {"position":"1950,1375","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Lonely_StoppedCarving", 1)>>
+<<set $dailyLonelyCount = ($dailyLonelyCount || 0) + 1>>
+<<set $templeStoppedCarvingSeen = true>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+<<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">오늘은 나무 깎는 소리가 들리지 않았다.
+
+늑대는 불상방 앞에 선다.
+
+문은 닫혀 있다.
+
+안에 사람이 있는지는 알 수 없다.
+
+없는 것보다,
+있는지 모르는 것이 더 조용했다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden {"position":"1950,1500","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Danger_WoundHidden", 1)>>
+<<set $templeDailyWoundSeen = true>>
+<<set $dailyDangerCount = ($dailyDangerCount || 0) + 1>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 문가에 섰다.
+
+피는 이미 닦았다.
+
+냄새도 거의 남지 않았다.
+
+하지만 에마는 고개를 들었다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Talk01">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Talk01 {"position":"2075,1500","size":"100,100"}
+<<page>>
+<<talk "emma" "에마">>
+상처를 보여주시겠습니까.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Talk02">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Talk02 {"position":"2200,1500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+필요 없다.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Talk03">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Talk03 {"position":"2325,1500","size":"100,100"}
+<<page>>
+<<talk "emma" "에마">>
+필요 없는지는 제가 보겠습니다.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Beat01">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Beat01 {"position":"2450,1500","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 대답하지 않는다.
+
+에마의 시선은,
+검보다 조용하게 도망칠 곳을 막았다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Choice">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Choice {"position":"2575,1500","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">에마가 늑대의 손을 보고 있다.</div>
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "손을 보인다" "Temple_Daily_Danger_WoundHidden_Show">>
+      <<choiceTo "숨긴다" "Temple_Daily_Danger_WoundHidden_Refuse">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Show {"position":"2700,1500","size":"100,100"}
+<<page>>
+<<set $emmaAffection = ($emmaAffection || 0) + 1>>
+<<set $danger = Math.max(0, ($danger || 0) - 1)>>
+<<set $emmaLove = Math.max(($emmaLove || 0), (($emmaAffection || 0) + ($emmaConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 손을 내민다.
+
+에마는 상처를 오래 보지 않았다.
+
+필요한 만큼만 보고,
+필요한 만큼만 천을 감았다.</div>
+</div>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Refuse {"position":"2825,1500","size":"100,100"}
+<<page>>
+<<set $refusedHelpCount = ($refusedHelpCount || 0) + 1>>
+<<set $owlVoiceCount = ($owlVoiceCount || 0) + 1>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 손을 내밀지 않는다.
+
+에마는 잠시 그를 본다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Refuse_Talk01">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Refuse_Talk01 {"position":"2950,1500","size":"100,100"}
+<<page>>
+<<talk "emma" "에마">>
+그럼 오늘은,
+괜찮다는 말도 하지 말아주세요.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_WoundHidden_Refuse_End">>
+<</page>>
+
+:: Temple_Daily_Danger_WoundHidden_Refuse_End {"position":"3075,1500","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">그 말이 더 아팠다.</div>
+</div>
+
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Danger_ShuraHand {"position":"1950,1625","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Danger_ShuraHand", 2)>>
+<<set $templeDailyShuraHandSeen = true>>
+<<set $dailyDangerCount = ($dailyDangerCount || 0) + 1>>
+<<set $shuraHintSeen = true>>
+<div class="narration-screen">
+<div class="narration narration-block">절 마당에는 아무도 없다.
+
+작은 나뭇가지 하나가 바람에 흔들린다.
+
+늑대의 손이 검으로 간다.
+
+나뭇가지는 적이 아니다.
+
+늑대는 그것을 알고 있다.
+
+하지만 손은,
+알고 움직이지 않는다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Danger_ShuraHand_Choice">>
+<</page>>
+
+:: Temple_Daily_Danger_ShuraHand_Choice {"position":"2075,1625","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">늑대의 손이 검 위에 있다.</div>
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "손을 뗀다" "Temple_Daily_Danger_ShuraHand_Resist">>
+      <<choiceTo "벤다" "Temple_Daily_Danger_ShuraHand_Cut" "shura-choice">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Temple_Daily_Danger_ShuraHand_Resist {"position":"2200,1625","size":"100,100"}
+<<page>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<set $nightResistedShuraHint = true>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 손을 뗀다.
+
+검집은 조용하다.
+
+그 조용함이,
+오늘은 이긴 것처럼 느껴졌다.</div>
+</div>
+
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Danger_ShuraHand_Cut {"position":"2325,1625","size":"100,100"}
+<<page>>
+<<set $shura = ($shura || 0) + 1>>
+<<set $danger = ($danger || 0) + 1>>
+<<set $templeCutSmallThing = true>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 나뭇가지를 벤다.
+
+소리는 작다.
+
+작아서,
+더 오래 남았다.</div>
+</div>
+
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Danger_HanbeiStops {"position":"1950,1750","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Danger_HanbeiStops", 1)>>
+<<set $dailyDangerCount = ($dailyDangerCount || 0) + 1>>
+<<set $hanbeiStoppedWolfDaily = true>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $shuraHintSeen = true>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), (($hanbeiAffection || 0) + ($hanbeiConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">목검이 늑대의 손목을 친다.
+
+검은 뽑히지 않았다.
+
+하지만 뽑히기 직전이었다.
+
+한베가 웃지 않은 얼굴로 서 있다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Danger_HanbeiStops_Talk01">>
+<</page>>
+
+:: Temple_Daily_Danger_HanbeiStops_Talk01 {"position":"2075,1750","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+오늘은 그만.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_HanbeiStops_Talk02">>
+<</page>>
+
+:: Temple_Daily_Danger_HanbeiStops_Talk02 {"position":"2200,1750","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+아직 시작하지 않았다.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_HanbeiStops_Talk03">>
+<</page>>
+
+:: Temple_Daily_Danger_HanbeiStops_Talk03 {"position":"2325,1750","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래.
+그래서 그만하자는 거다.
+<</talk>>
+
+<<continueTo "Temple_Daily_Danger_HanbeiStops_End">>
+<</page>>
+
+:: Temple_Daily_Danger_HanbeiStops_End {"position":"2450,1750","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 손을 내린다.
+
+한베는 그제야 아주 조금 웃는다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Danger_HanbeiStops_Talk04">>
+<</page>>
+
+:: Temple_Daily_Danger_HanbeiStops_Talk04 {"position":"2575,1750","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+큰일이네.
+이런 말도 하게 되고.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro {"position":"1950,1875","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Mediation_HanbeiKuro", 2)>>
+<<set $templeDailyMediationSeen = true>>
+<<set $hanbeiKuroMediationSeen = true>>
+<<set $dailyMediationCount = ($dailyMediationCount || 0) + 1>>
+<div class="narration-screen">
+<div class="narration narration-block">한베와 쿠로가 마당에 서 있었다.
+
+큰 소리는 아니었다.
+
+그래서 더 잘 들렸다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Talk01 {"position":"2075,1875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+오늘은 좀 쉬게 두는 게 낫지 않나.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Talk02 {"position":"2200,1875","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+나도 그러고 싶어.
+하지만 물어봐야 할 일이 있어.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Beat01">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Beat01 {"position":"2325,1875","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">한베는 목검을 어깨에 걸친다.
+
+늑대는 문가에 선다.
+
+두 사람의 시선이 동시에 닿는다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Choice">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Choice {"position":"2450,1875","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">한베와 쿠로가 늑대를 보고 있다.</div>
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "쿠로에게 간다" "Temple_Daily_Mediation_HanbeiKuro_Kuro">>
+      <<choiceTo "한베 쪽에 선다" "Temple_Daily_Mediation_HanbeiKuro_Hanbei">>
+      <<choiceTo "둘 다 보지 않는다" "Temple_Daily_Mediation_HanbeiKuro_Silence">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Kuro {"position":"2575,1875","size":"100,100"}
+<<page>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $hanbeiConflict = ($hanbeiConflict || 0) + 1>>
+<<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), (($hanbeiAffection || 0) + ($hanbeiConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 쿠로 쪽으로 간다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk01 {"position":"2700,1875","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+말씀하십시오.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk02 {"position":"2825,1875","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+거봐.
+뻔하다니까.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk03">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Kuro_Talk03 {"position":"2950,1875","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+명령이 아니야.
+먼저 앉아도 돼.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Hanbei {"position":"2575,2000","size":"100,100"}
+<<page>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), (($hanbeiAffection || 0) + ($hanbeiConflict || 0)))>>
+<<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 한베 쪽에 선다.
+
+쿠로가 잠시 눈을 크게 뜬다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk01 {"position":"2700,2000","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그래.
+그럼 조금 있다가 말할게.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk02 {"position":"2825,2000","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+자네,
+가끔 이상한 선택을 하는군.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk03">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk03 {"position":"2950,2000","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그런가.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk04">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Hanbei_Talk04 {"position":"3075,2000","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+좋은 쪽으로.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Silence {"position":"2575,2125","size":"100,100"}
+<<page>>
+<<set $isolation = ($isolation || 0) + 1>>
+<<set $kuroConflict = ($kuroConflict || 0) + 1>>
+<<set $kuroLove = Math.max(($kuroLove || 0), (($kuroAffection || 0) + ($kuroConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 아무 쪽에도 가지 않는다.
+
+침묵이 마당 한가운데 남는다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Silence_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Silence_Talk01 {"position":"2700,2125","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래.
+이것도 대답이지.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_HanbeiKuro_Silence_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_HanbeiKuro_Silence_Talk02 {"position":"2825,2125","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+다음에는,
+네 말로 들어볼게.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin {"position":"1950,2250","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Mediation_SculptorIsshin", 2)>>
+<<set $templeDailyMediationSeen = true>>
+<<set $sculptorIsshinMediationSeen = true>>
+<<set $dailyMediationCount = ($dailyMediationCount || 0) + 1>>
+<div class="narration-screen">
+<div class="narration narration-block">조각가는 불상방 앞에 서 있었다.
+
+잇신은 마당 쪽에 서 있었다.
+
+둘 사이에는 늑대가 있었다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Talk01 {"position":"2075,2250","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+검을 멀리 둬라.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Talk02 {"position":"2200,2250","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+아니.
+가까이 둬라.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Beat01">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Beat01 {"position":"2325,2250","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 두 사람을 본다.
+
+잇신이 웃는다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Talk03">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Talk03 {"position":"2450,2250","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+대신 먹히지 마라.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Talk04">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Talk04 {"position":"2575,2250","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+먹힌 놈들은,
+대개 먹히는 줄 몰랐다.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Choice">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Choice {"position":"2700,2250","size":"100,100"}
+<<page>>
+<div class="choice-screen">
+  <div class="choice-prompt">조각가와 잇신이 늑대를 보고 있다.</div>
+  <div class="global-choice-layer">
+    <div class="global-choice-box">
+      <<choiceTo "검을 내려놓는다" "Temple_Daily_Mediation_SculptorIsshin_Down">>
+      <<choiceTo "검을 쥔 채 선다" "Temple_Daily_Mediation_SculptorIsshin_Hold" "shura-choice">>
+      <<choiceTo "두 사람의 말을 듣는다" "Temple_Daily_Mediation_SculptorIsshin_Listen">>
+    </div>
+  </div>
+</div>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Down {"position":"2825,2250","size":"100,100"}
+<<page>>
+<<set $sculptorAffection = ($sculptorAffection || 0) + 1>>
+<<set $isshinAffection = ($isshinAffection || 0) + 1>>
+<<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+<<set $isshinLove = Math.max(($isshinLove || 0), (($isshinAffection || 0) + ($isshinConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검을 내려놓는다.
+
+조각가의 눈이 조금 낮아진다.
+
+잇신은 술잔을 든다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Down_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Down_Talk01 {"position":"2950,2250","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+좋다.
+이번엔 손이 먼저 왔군.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Down_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Down_Talk02 {"position":"3075,2250","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+아직은.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Hold {"position":"2825,2375","size":"100,100"}
+<<page>>
+<<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+<<set $isshinConflict = ($isshinConflict || 0) + 1>>
+<<set $shuraHintSeen = true>>
+<<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+<<set $isshinLove = Math.max(($isshinLove || 0), (($isshinAffection || 0) + ($isshinConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 검을 쥔 채 선다.
+
+잇신은 웃는다.
+
+조각가는 늑대의 손을 본다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Hold_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Hold_Talk01 {"position":"2950,2375","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+그 손,
+너보다 먼저 대답하는군.
+<</talk>>
+
+<<recordNotice "bond">>
+<<continueTo "Temple">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Listen {"position":"2825,2500","size":"100,100"}
+<<page>>
+<<set $sculptorConflict = ($sculptorConflict || 0) + 1>>
+<<set $isshinAffection = ($isshinAffection || 0) + 1>>
+<<set $sculptorLove = Math.max(($sculptorLove || 0), (($sculptorAffection || 0) + ($sculptorConflict || 0)))>>
+<<set $isshinLove = Math.max(($isshinLove || 0), (($isshinAffection || 0) + ($isshinConflict || 0)))>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 말하지 않는다.
+
+하지만 검에서 손을 떼지도 않는다.
+
+조각가와 잇신은 동시에 늑대를 본다.</div>
+</div>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Listen_Talk01">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Listen_Talk01 {"position":"2950,2500","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
+듣고는 있군.
+<</talk>>
+
+<<continueTo "Temple_Daily_Mediation_SculptorIsshin_Listen_Talk02">>
+<</page>>
+
+:: Temple_Daily_Mediation_SculptorIsshin_Listen_Talk02 {"position":"3075,2500","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
+듣는 것과 멈추는 건 다르다.
+<</talk>>
+
+<<recordNotice "bond">>
 <<continueTo "Temple">>
 <</page>>
 
