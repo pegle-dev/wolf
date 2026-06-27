@@ -2,6 +2,10 @@
 <<page>>
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<set $timeOfDay = "day">>
+<<if $nightFoundOwlTrace and not $owlReactedNightFootsteps>>
+  <<set $nightReactionReturn = "Temple">>
+  <<goto "Owl_React_NightFootsteps">>
+<</if>>
 <<include "Temple_Description">>
 <<include "Temple_CharacterEcho">>
 

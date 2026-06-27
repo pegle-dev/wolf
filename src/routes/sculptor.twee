@@ -1,6 +1,11 @@
 :: Sculptor_Router {"position":"2500,450","size":"100,100"}
 <<set $currentRoute = "sculptor">>
 
+<<if ($nightFoundSculptorTrace or $sculptorTraceSeen or $nightHeardInnerBlade) and not $sculptorReactedNightCarving>>
+  <<set $nightReactionReturn = "Sculptor_Router">>
+  <<goto "Sculptor_React_NightCarving">>
+<</if>>
+
 <<if not ($sculptorBuddhaSoundSeen || false)>>
   <<goto "Sculptor_01_BuddhaSound">>
 <<elseif not ($sculptorHandShownSeen || false)>>

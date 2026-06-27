@@ -4,6 +4,11 @@
 :: Isshin_Router {"position":"2400,700","size":"100,100"}
 <<set $currentRoute = "isshin">>
 
+<<if ($nightFoundIsshinTrace or $isshinTraceSeen) and not $isshinReactedNightLaugh>>
+  <<set $nightReactionReturn = "Isshin_Router">>
+  <<goto "Isshin_React_NightLaugh">>
+<</if>>
+
 <<if not ($isshinBitterSakeSeen || false)>>
   <<goto "Isshin_01_BitterSake">>
 <<elseif not ($isshinSparringSeen || false)>>

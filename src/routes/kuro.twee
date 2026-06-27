@@ -12,6 +12,11 @@
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<run setup.ensureBondVariables && setup.ensureBondVariables()>>
 
+<<if ($nightFoundKuroTrace or $kuroTraceSeen or (($nightFoundKuroTraceCount || 0) > 0)) and not $kuroReactedNightLantern>>
+  <<set $nightReactionReturn = "Kuro_Router">>
+  <<goto "Kuro_React_NightLantern">>
+<</if>>
+
 <<if ($dayCount || $day || 1) < 2 or not ($badEndFirstDeathSeen || false)>>
   <<goto "Kuro_NotYet">>
 <<elseif not ($kuroTeaSeen || false)>>

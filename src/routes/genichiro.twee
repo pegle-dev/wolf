@@ -8,6 +8,11 @@
 <<set $currentRoute = "genichiro">>
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 
+<<if (($nightFeltGenichiroGaze || false) or ($nightMetGenichiro || false) or ($nightFoundGenichiroArrow || false) or (($nightGenichiroTraceCount || 0) > 0)) and not $genichiroReactedNightGaze and ($genichiroGateSeen || $genichiroArrowEventSeen)>>
+  <<set $nightReactionReturn = "Go_Genichiro">>
+  <<goto "Genichiro_React_NightGaze">>
+<</if>>
+
 <<if ($dayCount || $day || 1) < 5>>
   <<goto "Genichiro_NotYet">>
 <<elseif not $genichiroReturnNoticeSeen and not $genichiroArrowEventSeen and not $genichiroGateSeen>>

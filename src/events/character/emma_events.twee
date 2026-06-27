@@ -2,6 +2,10 @@
 <<goto "Emma_IntroduceIsshin">>
 
 :: Emma_IntroduceIsshin {"position":"1900,1475","size":"100,100"}
+<<if $nightSawEmmaTrace and not $emmaReactedNightMedicine>>
+  <<set $nightReactionReturn = "Emma_IntroduceIsshin">>
+  <<goto "Emma_React_NightMedicine">>
+<</if>>
 <<page>>
 <<set $emmaEventUnlocked = true>>
 <div class="narration">엠마는 늑대가 잠시 멈춰 선 순간을 보았다.

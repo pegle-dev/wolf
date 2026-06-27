@@ -154,6 +154,10 @@
 <</page>>
 
 :: Hanbei01 {"position":"1075,625","size":"100,100"}
+<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+  <<set $nightReactionReturn = "Hanbei01">>
+  <<goto "Hanbei_React_NightTrace">>
+<</if>>
 <<page>>
 <div class="narration">
 
@@ -597,6 +601,10 @@
 <</page>>
 
 :: Hanbei02 {"position":"1200,625","size":"100,100"}
+<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+  <<set $nightReactionReturn = "Hanbei02">>
+  <<goto "Hanbei_React_NightTrace">>
+<</if>>
 <<page>>
 <div class="narration">
 
@@ -1400,6 +1408,10 @@
 <</page>>
 
 :: Hanbei03 {"position":"1375,625","size":"100,100"}
+<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+  <<set $nightReactionReturn = "Hanbei03">>
+  <<goto "Hanbei_React_NightTrace">>
+<</if>>
 <<page>>
 <<talk "hanbei" "한베">>
 오.
@@ -1761,6 +1773,10 @@
 <</page>>
 
 :: Hanbei_Loop {"position":"1300,350","size":"100,100"}
+<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+  <<set $nightReactionReturn = "Hanbei_Loop">>
+  <<goto "Hanbei_React_NightTrace">>
+<</if>>
 <<page>>
 황폐한 절의 마른 흙 위로 바람이 지나간다.
 
@@ -1814,6 +1830,10 @@
 <</page>>
 
 :: Hanbei_Sake {"position":"1675,1475","size":"100,100"}
+<<if ($nightFoundHanbeiTrace or (($nightMetHanbeiCount || 0) > 0)) and not $hanbeiReactedNightTrace>>
+  <<set $nightReactionReturn = "Hanbei_Sake">>
+  <<goto "Hanbei_React_NightTrace">>
+<</if>>
 <<page>>
 <<set $currentRoute = "hanbei">>
 <<set $hanbeiSakeSeen = true>>
