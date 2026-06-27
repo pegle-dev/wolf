@@ -191,6 +191,34 @@ notes: 초반 강제 위험 이벤트. 튜토리얼 Bad End이므로 2회차 해
 ```
 
 ```text
+id: Ending_Common_Bad_NoOneCame
+title: Bad End. 아무도 오지 않았다
+type: Bad End
+character: common
+seenVar: $endingCommonBadNoOneCameSeen
+qualified: false
+recordbook: true
+recordDesc: 인연이 닿지 않은 절에는 늑대의 발소리만 남았다.
+background: BadEnd.png / scene-bg-badend
+nextTarget: Ending_ReturnToStart
+notes: isolation >= 7이고 주요 affection 합산이 3 미만일 때 발생하는 공통 Bad End. Shura/Owl 계열보다 낮은 우선순위다.
+```
+
+```text
+id: Ending_Common_Bad_TooLate
+title: Bad End. 늦었다
+type: Bad End
+character: common
+seenVar: $endingCommonBadTooLateSeen
+qualified: false
+recordbook: true
+recordDesc: 검을 거두기는 했지만, 언제나 마지막에 왔다.
+background: BadEnd.png / scene-bg-badend
+nextTarget: Ending_ReturnToStart
+notes: danger >= 7이고 shura < 5일 때 발생하는 공통 Bad End. Shura End와 구분되며 Shura/Owl 계열보다 낮은 우선순위다.
+```
+
+```text
 id: BadEnd_MissingNight
 title: Bad End. 돌아오지 않는 밤
 type: Bad End
@@ -753,7 +781,7 @@ $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWol
 
 ## 7. 현재 점검 필요 항목
 
-- 기록장 엔딩 총수는 현재 `엔딩 / 34`로 표시된다. 새 엔딩 추가 시 총수와 `_seen` 계산을 함께 갱신해야 한다.
+- 기록장 엔딩 총수는 현재 `엔딩 / 37`로 표시된다. 새 엔딩 추가 시 총수와 `_seen` 계산을 함께 갱신해야 한다.
 - `Worst` 내부 변수명은 현재 Broken End 표시명과 혼재한다. 세이브 호환 때문에 당장은 유지하되, 장기적으로 `Broken` 별칭 helper를 만들지 검토한다.
 - 조각가/잇신 Bad End는 passage와 seen 변수는 있으나 기록장 표시가 묶음/별도 항목 중 어떤 기준인지 추가 점검이 필요하다.
 - `End`와 `Day End` 명칭은 문서상 `End`, UI상 `Day End`로 혼재한다. 표시명 통일 여부를 별도 결정해야 한다.

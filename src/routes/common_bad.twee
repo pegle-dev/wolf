@@ -22,6 +22,12 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 <<elseif _owlVoiceTotal >= 4 and ($isolation || 0) >= 5 and ($danger || 0) >= 4 and _refusedHelpTotal >= 2 and ($shura || 0) < 5 and not ($endingHiddenOwlsWolfSeen || false)>>
   <<set $commonBadLevel = 4>>
   <<goto "Hidden_End_OwlsWolf_01">>
+<<elseif ($danger || 0) >= 7 and ($shura || 0) < 5 and not ($endingShuraSeen || false) and not ($shuraEndingSeen || false)>>
+  <<set $commonBadLevel = 3>>
+  <<goto "Ending_Common_Bad_TooLate">>
+<<elseif ($isolation || 0) >= 7 and (($hanbeiAffection || 0) + ($kuroAffection || 0) + ($genichiroAffection || 0) + ($sculptorAffection || 0) + ($isshinAffection || 0) + ($emmaAffection || 0)) < 3 and not ($endingShuraSeen || false) and not ($shuraEndingSeen || false)>>
+  <<set $commonBadLevel = 2>>
+  <<goto "Ending_Common_Bad_NoOneCame">>
 <<elseif $isolation >= 12 and $danger >= 10 and $freedom <= 1 and $helpRefusedCount >= 3>>
   <<set $commonBadLevel = 4>>
   <<goto "BadEnd_OwlWolf">>
@@ -105,6 +111,78 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 <<else>>
 <<continueTo "Temple_Return">>
 <</if>>
+<</page>>
+
+:: Ending_Common_Bad_NoOneCame {"position":"5950,700","size":"100,100"}
+<<page>>
+<<set $endingCommonBadNoOneCameSeen = true>>
+<<set $recordEndingCommonBadNoOneCame = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<div class="narration narration-full short-beat">
+절은 조용했다.
+
+조용한 것이 아니라,
+비어 있었다.
+
+찻잔은 놓이지 않았다.
+
+목검 소리도 들리지 않았다.
+
+나무를 깎는 소리도 멎어 있었다.
+
+늑대는 마당 한가운데 섰다.
+
+발소리 하나가 났다.
+
+늑대의 것이다.
+
+그 소리만,
+끝까지 늑대를 따라왔다.
+
+누군가 오지 않은 것이 아니다.
+
+아무도 올 이유가 없어진 것이다.
+</div>
+
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 아무도 오지 않았다]</div>
+<</page>>
+
+:: Ending_Common_Bad_TooLate {"position":"5950,800","size":"100,100"}
+<<page>>
+<<set $endingCommonBadTooLateSeen = true>>
+<<set $recordEndingCommonBadTooLate = true>>
+<<set $badEndingSeen = true>>
+<<set $anyEndingSeen = true>>
+<<set $recordBookNewEnding = true>>
+<<markEndingSeen>>
+<div class="narration narration-full short-beat">
+늑대는 멈췄다.
+
+멈추기는 했다.
+
+검끝은 이미 지나간 뒤였다.
+
+상대는 쓰러져 있었다.
+
+적이었는지,
+아니었는지,
+이제는 중요하지 않았다.
+
+중요했던 것은 하나였다.
+
+늦었다.
+
+늑대는 검을 거둔다.
+
+검집이 닫히는 소리가 난다.
+
+그 소리는 언제나 마지막에 왔다.
+</div>
+
+<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 늦었다]</div>
 <</page>>
 
 :: Rescue_Hanbei {"position":"5750,1050","size":"100,100"}

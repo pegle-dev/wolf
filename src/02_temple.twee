@@ -6,6 +6,13 @@
   <<set $nightReactionReturn = "Temple">>
   <<goto "Owl_React_NightFootsteps">>
 <</if>>
+<<set _commonBadAffectionTotal = ($hanbeiAffection || 0) + ($kuroAffection || 0) + ($genichiroAffection || 0) + ($sculptorAffection || 0) + ($isshinAffection || 0) + ($emmaAffection || 0)>>
+<<set _commonBadOwlVoiceTotal = ($owlVoiceCount || 0) + ($fatherObedienceCount || 0) + ($missionObedienceCount || 0)>>
+<<set _commonBadRefusedHelpTotal = ($refusedHelpCount || 0) + ($helpRefusedCount || 0)>>
+<<set _commonBadShuraWarningSeen = (($sculptorShuraWarningSeen || false) or ($sculptorShuraPreludeSeen || false) or ($isshinShuraWarningSeen || false) or ($isshinShuraPreludeSeen || false))>>
+<<if (($shura || 0) >= 5 and ($shuraHintSeen || false) and _commonBadShuraWarningSeen) or (_commonBadOwlVoiceTotal >= 4 and ($isolation || 0) >= 5 and ($danger || 0) >= 4 and _commonBadRefusedHelpTotal >= 2 and ($shura || 0) < 5 and not ($endingHiddenOwlsWolfSeen || false)) or (($danger || 0) >= 7 and ($shura || 0) < 5 and not ($endingShuraSeen || false) and not ($shuraEndingSeen || false)) or (($isolation || 0) >= 7 and _commonBadAffectionTotal < 3 and not ($endingShuraSeen || false) and not ($shuraEndingSeen || false))>>
+  <<goto "CommonBadEndRouter">>
+<</if>>
 <<include "Temple_Description">>
 <<include "Temple_CharacterEcho">>
 
