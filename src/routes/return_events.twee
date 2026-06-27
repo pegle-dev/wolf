@@ -83,16 +83,15 @@
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_ReedField", 1)>>
 <div class="narration-screen">
-<div class="narration narration-block">갈대밭에 바람이 불고 있었다.
+<div class="narration narration-block">황폐한 절로 돌아오는 길,
+늑대는 성 쪽 갈대밭을 보았다.
 
-늑대는 그 안에서
-익숙한 검집 소리를 들었다.
+바람이 불 때마다
+익숙한 검집 소리가 섞여 들리는 듯했다.
 
-겐이치로가 서 있었다.
+누군가 서 있는 것은 아니었다.
 
-서로 검을 뽑지 않았다.
-
-그것만으로도,
+그런데도,
 그 밤은 이상했다.</div>
 </div>
 

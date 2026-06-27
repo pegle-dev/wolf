@@ -88,7 +88,7 @@
 </div>
 <<elseif _echoRoll <= 35 and $isshinLove >= 3>>
 <div class="narration">
-<<print either("어디선가 술잔이 놓이는 소리가 났다.", "갈대밭 같은 웃음이 바람에 섞인 듯했다.")>>
+<<print either("먼 성 쪽에서 술잔이 놓이는 소리가 난 듯했다.", "갈대밭 같은 웃음이 성 쪽 바람에 섞인 듯했다.")>>
 </div>
 <</if>>
 
@@ -128,15 +128,15 @@
 <<if ($dayCount || $day || 1) >= 2>>
 <<if $kuroProgress == 0>>
 <<if $kuroLove >= 3>>
-[[주군에게로 간다->Kuro_Router]]
+[[성 쪽의 주군에게로 간다->Kuro_Router]]
 <<else>>
-[[주군에게로 간다->Kuro_Router]]
+[[성 쪽의 주군에게로 간다->Kuro_Router]]
 <</if>>
 <<else>>
 <<if $kuroLove >= 3>>
-[[주군에게로 간다->Kuro_Router]]
+[[성 쪽의 주군에게로 간다->Kuro_Router]]
 <<else>>
-[[주군에게로 간다->Kuro_Router]]
+[[성 쪽의 주군에게로 간다->Kuro_Router]]
 <</if>>
 <</if>>
 <</if>>
@@ -144,13 +144,13 @@
 <<if ($dayCount || $day || 1) >= 5>>
 <<if $genichiroProgress == 0>>
 <<if $genichiroLove >= 3>>
-[[겐이치로공에게 간다->Genichiro_ReturnNotice]]
+[[성문 쪽 기척을 살핀다->Genichiro_ReturnNotice]]
 <<else>>
 [[아시나 성의 대장군에게 간다->Genichiro_ReturnNotice]]
 <</if>>
 <<else>>
 <<if $genichiroLove >= 3>>
-[[겐이치로공에게 간다->Genichiro]]
+[[성문 쪽 기척을 살핀다->Genichiro]]
 <<else>>
 [[아시나 성의 대장군에게 간다->Genichiro]]
 <</if>>
@@ -171,7 +171,7 @@
 
 <<if ($dayCount || $day || 1) >= 5 and $isshinUnlocked>>
 <<if $isshinLove >= 3>>
-[[잇신님을 찾아간다->Isshin_Router]]
+[[성 쪽의 잇신님을 찾아간다->Isshin_Router]]
 <<else>>
 [[엠마가 말한 노인을 찾아간다->Isshin_Router]]
 <</if>>
@@ -299,13 +299,13 @@
 <<set $nightPatrolJustFinished = false>>
 <<set $nightPatrolActive = false>>
 <<set $timeOfDay = "night">>
-<div class="choice-screen scene-bg-night02">
+<div class="choice-screen night-choice-screen scene-bg-night02">
 <div class="choice-prompt">
 오늘 밤, 무엇을 할까.
 </div>
 
 <div class="global-choice-layer">
-<div class="global-choice-box">
+<div class="global-choice-box night-choice-box">
 <<if $nightPatrolUnlocked and not $nightPatrolUsedToday>>
 <<choiceTo "밤 정찰을 나선다" "NightPatrol_Start">>
 <</if>>

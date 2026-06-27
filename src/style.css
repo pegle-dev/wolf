@@ -6979,6 +6979,82 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   bottom: 88px !important;
 }
 
+/* =========================
+   Hanbei Route Text Spacing
+   ========================= */
+
+.passage[data-passage^="Hanbei"] .narration,
+.passage[data-passage^="Hanbei"] .narration-block,
+.passage[data-passage^="Hanbei"] .narration-full,
+.hanbei-narration .narration,
+.hanbei-narration .narration-block {
+  line-height: 1.62 !important;
+}
+
+.passage[data-passage^="Hanbei"] .narration p,
+.passage[data-passage^="Hanbei"] .narration-block p,
+.passage[data-passage^="Hanbei"] .narration-full p,
+.hanbei-narration .narration p,
+.hanbei-narration .narration-block p {
+  margin-top: 0 !important;
+  margin-bottom: 0.55em !important;
+}
+
+.passage[data-passage^="Hanbei"] .talk-row .dialogue,
+.talk-row[data-portrait-key^="hanbei"] .dialogue {
+  line-height: 1.45 !important;
+}
+
+.passage[data-passage^="Hanbei"] .textbox-panel,
+.talk-row[data-portrait-key^="hanbei"] .textbox-panel {
+  padding-top: 34px !important;
+  padding-bottom: 22px !important;
+}
+
+/* =========================
+   Wolf Night Choice Compact
+   ========================= */
+
+.night-choice-screen .choice-prompt {
+  top: 12% !important;
+  line-height: 1.45 !important;
+}
+
+.night-choice-screen .global-choice-layer {
+  bottom: 18% !important;
+}
+
+.night-choice-box {
+  gap: 2px !important;
+  padding: 5px 18px 6px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.38) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.38) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+}
+
+.night-choice-box a,
+.night-choice-box .link-internal {
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  font-size: 16px !important;
+  line-height: 1.26 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.night-choice-box a::before,
+.night-choice-box .link-internal::before {
+  line-height: 1 !important;
+}
+
 /* Font-only title/choice override. Keep layout, spacing, and title screen intact. */
 .global-choice-box a,
 .story-choice-box a,

@@ -324,6 +324,14 @@
 <<talk "hanbei" "한베">>
 다음에도 오게.
 아직, 뒷 마무리가 허술해.
+<</talk>>
+
+<<continueTo "Hanbei01_End_3b">>
+<</page>>
+
+:: Hanbei01_End_3b {"position":"812,1900","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
 인살할 기회를 자꾸 놓치지 않나.
 그리고, 어차피 난 여기 있으니까 말이네.
 <</talk>>
@@ -554,6 +562,14 @@
 <<talk "hanbei" "한베">>
 하하하!
 그런 눈 하지 마시게.
+<</talk>>
+
+<<continueTo "Hanbei01_Spar_3b">>
+<</page>>
+
+:: Hanbei01_Spar_3b {"position":"812,1400","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
 이미 잘 안다네.
 그대가 말 없는 거를.
 <</talk>>
@@ -959,7 +975,14 @@
 <<page>>
 <<talk "hanbei" "한베">>
 그래. 그럼 내가 좀 울었다고 치자.
+<</talk>>
 
+<<continueTo "Hanbei_MidConflict_Apologize_04">>
+<</page>>
+
+:: Hanbei_MidConflict_Apologize_04 {"position":"1612,895","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
 내일 다시 하자.
 대련 말고.
 사는 연습.
@@ -1585,6 +1608,14 @@
 <<talk "hanbei" "한베">>
 하하하하하!
 그게 뭔가!
+<</talk>>
+
+<<continueTo "Hanbei03_6b">>
+<</page>>
+
+:: Hanbei03_6b {"position":"1512,1250","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
 그냥?
 진짜 그냥 왔단 말인가?
 <</talk>>
@@ -1629,6 +1660,14 @@
 좋아.
 그럼 오늘은 쉬자.
 앉게.
+<</talk>>
+
+<<continueTo "Hanbei03_8b">>
+<</page>>
+
+:: Hanbei03_8b {"position":"1512,1500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
 가끔은 이런 날도 있어야 하지 않겠나.
 <</talk>>
 
@@ -1666,6 +1705,15 @@
 하하.
 역시 그럴 줄 알았네.
 좋아.
+<</talk>>
+
+<<continueTo "Hanbei03_Fight_ui2b">>
+<</page>>
+
+:: Hanbei03_Fight_ui2b {"position":"1262,1625","size":"100,100"}
+<<page>>
+<<set $hanbeiProgress = 3>>
+<<talk "hanbei" "한베">>
 그럼 조금만 봐주게.
 솔직히 어제 것도 아직 아프거든.
 <</talk>>
@@ -1689,6 +1737,15 @@
 어이.
 뭔가 그건.
 앉으라니까 가버리는 건 또 처음이군.
+<</talk>>
+
+<<continueTo "Hanbei03_Leave_ui2b">>
+<</page>>
+
+:: Hanbei03_Leave_ui2b {"position":"1512,1625","size":"100,100"}
+<<page>>
+<<set $hanbeiProgress = 3>>
+<<talk "hanbei" "한베">>
 하하하.
 다음엔 좀 더 있다 가게.
 <</talk>>

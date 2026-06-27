@@ -350,7 +350,8 @@
 <<set $isshinLove = Math.max(($isshinLove || 0), (($isshinAffection || 0) + ($isshinConflict || 0)))>>
 <<clampStats>>
 <div class="narration-screen">
-<div class="narration narration-block">잇신은 술잔을 들고 있었다.</div>
+<div class="narration narration-block">성 쪽의 방에서,
+잇신은 술잔을 들고 있었다.</div>
 </div>
 
 <<continueTo "Isshin_React_NightLaugh_Talk01">>
