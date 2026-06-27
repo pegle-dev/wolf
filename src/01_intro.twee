@@ -2,7 +2,7 @@
 <<if setup.hasAnyEndingSeen && setup.hasAnyEndingSeen()>>
   <<goto "Intro_Returning">>
 <<else>>
-  <<goto "Intro_01">>
+  <<goto "Intro_Dream_01">>
 <</if>>
 
 :: Intro_01 {"position":"1500,125","size":"100,100"}

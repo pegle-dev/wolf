@@ -1,6 +1,6 @@
 :: StoryInit {"position":"200,75","size":"100,100"}
-/* 개발용 Debug Status Panel. 배포 시 false로 바꾸면 ] 키 패널이 비활성화된다. */
-<<set $debugMode to true>>
+/* 개발용 Debug Status Panel. 필요할 때 별도 디버그 진입/토글로 켠다. */
+<<set $debugMode to false>>
 /* 다국어 UI 구조. 기본 스토리 본문은 한국어를 유지하고, UI/system 문구부터 key 기반으로 교체한다. */
 <<set $language to "ko">>
 

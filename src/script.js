@@ -2356,12 +2356,21 @@ setup.playEndingTitleBgm = function () {
 setup.isAutosaveExcludedPassage = function (passageName) {
   var name = String(passageName || '');
 
+  if (!name) {
+    return true;
+  }
+
   return (
     name === 'Start' ||
+    name === 'Title' ||
     name === 'StoryInit' ||
     name === 'Ending_ReturnToStart' ||
+    name === 'RecordBook' ||
     name.indexOf('RecordBook') !== -1 ||
-    /^Debug/.test(name)
+    /^Debug/.test(name) ||
+    /^(BadEnd|Ending_|TrueEnd|BrokenEnd|ShuraEnd)/.test(name) ||
+    /_End_/.test(name) ||
+    /(^|_)End$/.test(name)
   );
 };
 

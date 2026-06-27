@@ -279,21 +279,40 @@
 <<set $nightPatrolJustFinished = false>>
 <<set $nightPatrolActive = false>>
 <<set $timeOfDay = "night">>
-<div class="narration-full">
+<div class="narration-screen scene-bg-night02">
+<div class="narration narration-block">
 밤이 왔다.
 
 황폐한 절은 낮보다 조용했다.
 늑대는 잠시 처마 아래에 섰다.
+</div>
+</div>
 
+<<continueTo "Temple_Return_Choice">>
+<</page>>
+
+:: Temple_Return_Choice {"position":"2025,1260","size":"100,100"}
+<<page>>
+<<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
+<<set $returnTo = "Temple_Return">>
+<<set $currentMode = "temple">>
+<<set $nightPatrolJustFinished = false>>
+<<set $nightPatrolActive = false>>
+<<set $timeOfDay = "night">>
+<div class="choice-screen scene-bg-night02">
+<div class="choice-prompt">
 오늘 밤, 무엇을 할까.
 </div>
 
-<div class="choice-box">
+<div class="global-choice-layer">
+<div class="global-choice-box">
 <<if $nightPatrolUnlocked and not $nightPatrolUsedToday>>
-[[밤 정찰을 나선다->NightPatrol_Start]]
+<<choiceTo "밤 정찰을 나선다" "NightPatrol_Start">>
 <</if>>
-[[잠든다->Dream_Router]]
-[[절에 머문다->ReturnEvent_Router]]
+<<choiceTo "잠든다" "Dream_Router">>
+<<choiceTo "절에 머문다" "ReturnEvent_Router">>
+</div>
+</div>
 </div>
 <</page>>
 
@@ -336,6 +355,8 @@
 
 :: Sleep_Calm {"position":"1800,1000","size":"100,100"}
 <<page>>
+<<set $danger = Math.max(0, $danger - 1)>>
+<<clampStats>>
 <div class="narration-full">
 그 밤은 조용했다.
 
@@ -343,16 +364,14 @@
 늑대는 오래 깨어 있지 않았다.
 </div>
 
-<div class="choice-box">
-<<link "눈을 뜬다" "AdvanceDay">>
-  <<set $danger = Math.max(0, $danger - 1)>>
-  <<clampStats>>
-<</link>>
-</div>
+<<continueTo "AdvanceDay">>
 <</page>>
 
 :: Sleep_Alert {"position":"1925,1000","size":"100,100"}
 <<page>>
+<<set $danger = Math.max(0, $danger - 1)>>
+<<set $isolation += 1>>
+<<clampStats>>
 <div class="narration-full">
 잠은 얕았다.
 
@@ -363,13 +382,7 @@
 손은 아직 칼자루 가까이에 있었다.
 </div>
 
-<div class="choice-box">
-<<link "몸을 일으킨다" "AdvanceDay">>
-  <<set $danger = Math.max(0, $danger - 1)>>
-  <<set $isolation += 1>>
-  <<clampStats>>
-<</link>>
-</div>
+<<continueTo "AdvanceDay">>
 <</page>>
 
 :: Sleep_BadOmen {"position":"2050,1000","size":"100,100"}
