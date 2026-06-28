@@ -34,7 +34,14 @@
 
 하나는 잇신 앞에.
 하나는 늑대가 앉을 자리에.
+</div>
 
+<<continueTo "Isshin_01_BitterSake_02">>
+<</page>>
+
+:: Isshin_01_BitterSake_02 {"position":"2425,775","size":"100,100"}
+<<page>>
+<div class="narration">
 술 냄새는 진했고,
 끝에는 쓴 기운이 남았다.
 </div>
@@ -1109,9 +1116,12 @@
 <<set $isshinDone = true>>
 <<set $completedIsshin = true>>
 <<set $isshinGoodEndingSeen = true>>
+<<set $endingIsshinTrueSeen = true>>
 <<set $anyEndingSeen = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen>>
+<<run setup.setLastEndingBgmType && setup.setLastEndingBgmType("true")>>
+<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("isshin")>>
 <<qualifiedCharacterEnding "isshin">>
 <<if $sculptorDone and $isshinDone>>
   <<set $shuraUnlocked = true>>
@@ -1311,7 +1321,7 @@
 <<set $endingIsshinDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<<qualifiedCharacterEnding "isshin">>
+<<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
 <<if $sculptorDone and $isshinDone>>
   <<set $shuraUnlocked = true>>
 <</if>>
@@ -1368,7 +1378,7 @@
 
 :: Ending_Isshin_ReedSake_End {"position":"3150,1750","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 갈대밭의 술자리]</div>
+<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 갈대밭의 술자리]</div>
 <</page>>
 
 :: BadEnd_Isshin_EmptyCup {"position":"2400,1925","size":"100,100"}

@@ -33,7 +33,14 @@
 작고 마른 소리였다.
 불도 없는데,
 재가 식는 냄새가 났다.
+</div>
 
+<<continueTo "Sculptor_01_BuddhaSound_02">>
+<</page>>
+
+:: Sculptor_01_BuddhaSound_02 {"position":"2525,525","size":"100,100"}
+<<page>>
+<div class="narration">
 늑대가 문가에 서자,
 소리가 멈췄다.
 </div>
@@ -1289,9 +1296,12 @@
 <<set $sculptorDone = true>>
 <<set $completedSculptor = true>>
 <<set $sculptorGoodEndingSeen = true>>
+<<set $endingSculptorTrueSeen = true>>
 <<set $anyEndingSeen = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen>>
+<<run setup.setLastEndingBgmType && setup.setLastEndingBgmType("true")>>
+<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("sculptor")>>
 <<qualifiedCharacterEnding "sculptor">>
 <div class="narration narration-full short-beat">화로에는 불이 없었다.
 
@@ -1473,7 +1483,7 @@
 <<set $endingSculptorDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<<qualifiedCharacterEnding "sculptor">>
+<<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
 <div class="narration narration-full short-beat">조각가는 불상을 완성하지 못했다.</div>
 <<continueTo "Ending_Sculptor_LeftBehindBuddha_02">>
 <</page>>
@@ -1525,7 +1535,7 @@
 
 :: Ending_Sculptor_LeftBehindBuddha_End {"position":"3250,1650","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 남겨진 불상]</div>
+<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 남겨진 불상]</div>
 <</page>>
 
 :: BadEnd_Sculptor_UncarvedFace {"position":"2500,1825","size":"100,100"}

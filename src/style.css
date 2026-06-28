@@ -40,6 +40,7 @@
 :root {
   --game-w: 960px;
   --game-h: 720px;
+  --wolf-frame-top-margin: 6px;
 
   --white: #e8e8e8;
   --text: #d8d8d8;
@@ -166,8 +167,10 @@ body.dev-mode #ui-bar {
   width: 100vw;
   height: 100vh;
   display: flex !important;
-  align-items: center !important;
+  align-items: flex-start !important;
   justify-content: center !important;
+  padding-top: var(--wolf-frame-top-margin);
+  box-sizing: border-box;
   background: #000;
 }
 
@@ -1148,14 +1151,17 @@ body.wolf-ending-fade-out #passages {
 ========================= */
 
 :root {
-  /* 게임 전체 표시 크기. 브라우저 안에서 한 화면에 들어오도록 0.90 기준으로 유지. */
-  --ui-scale: 0.9;
+  /* 게임 전체 표시 크기. 4:3 프레임을 viewport 안에 최대한 크게 맞춘다. */
+  --ui-scale: min(
+    calc(100vw / 960px),
+    calc((100vh - var(--wolf-frame-top-margin) - 2px) / 720px)
+  );
 }
 
-/* 게임 전체를 같은 비율로 축소해서 작은 브라우저에서도 한 화면에 잘 보이게 함. */
+/* 게임 전체를 같은 비율로 조정해서 4:3을 유지하고 viewport 밖으로 자르지 않음. */
 .passage {
-  transform: translateY(-30px) scale(var(--ui-scale));
-  transform-origin: center center;
+  transform: translateY(0) scale(var(--ui-scale));
+  transform-origin: top center;
 }
 
 /* 대화창 본문 행간: 기존보다 조금 촘촘하게. */
@@ -1599,9 +1605,12 @@ body.wolf-ending-fade-out #passages {
   --bg-night: url('assets/backgrounds/Night.png');
   --bg-night02: url('assets/backgrounds/Night02.png');
   --bg-room: url('assets/backgrounds/Room01.png');
+  --bg-temple-room: url('assets/backgrounds/TempleRoom.png');
+  --bg-room-isshin: url('assets/backgrounds/Room_isshin.png');
   --bg-ashina-gate: url('assets/backgrounds/AshinaGate.png');
   --bg-ashina: url('assets/backgrounds/AshinaTower.png');
   --bg-intro: url('assets/backgrounds/Intro.png');
+  --bg-before-night: url('assets/backgrounds/BeforeNight.png');
   --bg-dawn: url('assets/backgrounds/Dawn.png');
   --bg-true: url('assets/backgrounds/True.png');
   --bg-danger: url('assets/backgrounds/Danger.png');
@@ -1652,8 +1661,48 @@ body.wolf-ending-fade-out #passages {
   --scene-bg: var(--bg-night02);
 }
 
+.page-stage.bg-before-night {
+  --scene-bg: var(--bg-before-night);
+}
+
+.scene-bg-before-night {
+  background-image: var(--bg-before-night);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.scene-bg-dawn {
+  background-image: var(--bg-dawn);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.scene-bg-night {
+  background-image: var(--bg-night);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 .page-stage.bg-room {
   --scene-bg: var(--bg-room);
+}
+
+.page-stage.bg-temple-room {
+  --scene-bg: var(--bg-temple-room);
+}
+
+.scene-bg-temple-room {
+  background-image: var(--bg-temple-room);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.page-stage.bg-room-isshin {
+  --scene-bg: var(--bg-room-isshin);
 }
 
 .page-stage.bg-ashina-gate {
@@ -2273,8 +2322,20 @@ body.wolf-ending-fade-out #passages {
   --scene-bg: var(--bg-night02);
 }
 
+.wolf-page.bg-before-night {
+  --scene-bg: var(--bg-before-night);
+}
+
 .wolf-page.bg-room {
   --scene-bg: var(--bg-room);
+}
+
+.wolf-page.bg-temple-room {
+  --scene-bg: var(--bg-temple-room);
+}
+
+.wolf-page.bg-room-isshin {
+  --scene-bg: var(--bg-room-isshin);
 }
 
 .wolf-page.bg-ashina-gate {
@@ -4461,23 +4522,47 @@ body,
    Wolf Recordbook Final UI
    ========================= */
 
-.recordbook-open-button {
-  position: fixed;
-  top: 72px;
-  right: 36px;
+.wolf-top-actions {
+  position: absolute;
+  top: 24px;
+  right: 24px;
   z-index: 6000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 13px;
   line-height: 1.2;
   letter-spacing: 0.08em;
 }
 
-.recordbook-open-button a {
+.wolf-top-action {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
   color: rgba(190, 186, 178, 0.66);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  font: inherit;
+  letter-spacing: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.recordbook-open-button a:hover {
+.wolf-top-action span {
+  color: rgba(160, 154, 144, 0.52);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.wolf-top-action:hover {
   color: rgba(232, 229, 222, 0.86);
+}
+
+.wolf-top-action:hover span {
+  color: rgba(216, 211, 202, 0.72);
 }
 
 .recordbook-dim,
@@ -4804,9 +4889,11 @@ body,
 }
 
 @media (max-width: 640px) {
-  .recordbook-open-button {
-    top: 64px;
-    right: 24px;
+  .wolf-top-actions {
+    top: 20px;
+    right: 20px;
+    gap: 9px;
+    font-size: 12px;
   }
 
   .recordbook-panel {
@@ -5567,7 +5654,7 @@ body,
 }
 
 .timed-choice-screen .global-choice-box {
-  gap: 2px !important;
+  gap: 1px !important;
   padding: 4px 18px 5px !important;
 }
 
@@ -6427,11 +6514,11 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 4px !important;
+  gap: 1px !important;
   width: fit-content !important;
   max-width: min(760px, 82vw) !important;
   min-width: 0 !important;
-  padding: 7px 24px 8px !important;
+  padding: 4px 18px 5px !important;
 }
 
 .page-stage.temple-hub.no-talk .temple-choice-box.is-two-column,
@@ -6440,7 +6527,7 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   display: grid !important;
   grid-template-columns: repeat(2, max-content) !important;
   column-gap: 36px !important;
-  row-gap: 4px !important;
+  row-gap: 1px !important;
   align-items: center !important;
   justify-content: center !important;
 }
@@ -6737,54 +6824,6 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   z-index: 3 !important;
 }
 
-.wolf-death-kanji {
-  position: absolute !important;
-  left: 50% !important;
-  top: 13% !important;
-  z-index: 8 !important;
-  display: block !important;
-  transform: translate(-50%, -50%) scale(0.92);
-  color: rgba(142, 16, 12, 0);
-  text-align: center;
-  font-family: "WolfBodySerif", "WolfNotoSerifKRBold", "Noto Serif CJK KR", "Noto Serif KR", serif !important;
-  font-size: clamp(72px, 12vw, 142px) !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
-  text-shadow:
-    0 0 10px rgba(118, 10, 8, 0.28),
-    0 0 26px rgba(74, 0, 0, 0.22);
-  pointer-events: none !important;
-  user-select: none !important;
-  animation: wolfDeathKanjiVanish 2600ms ease-out forwards;
-}
-
-@keyframes wolfDeathKanjiVanish {
-  0% {
-    opacity: 0;
-    color: rgba(112, 8, 8, 0);
-    transform: translate(-50%, -50%) scale(0.88);
-  }
-
-  22% {
-    opacity: 0.9;
-    color: rgba(154, 22, 16, 0.78);
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  58% {
-    opacity: 0.72;
-    color: rgba(118, 14, 12, 0.62);
-    transform: translate(-50%, -50%) scale(1.02);
-  }
-
-  100% {
-    opacity: 0;
-    color: rgba(72, 4, 4, 0);
-    transform: translate(-50%, -54%) scale(1.08);
-  }
-}
-
 /* Final choice separation guard.
    Keep choice prompts in the upper reading zone and push choices lower so
    two-line prompts do not collide with the choice layer. */
@@ -6980,6 +7019,190 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
 }
 
 /* =========================
+   Wolf Timed Choice Contract
+   prompt / timer / choices
+   ========================= */
+
+.choice-screen.timed-choice-screen {
+  position: absolute !important;
+  inset: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.timed-choice-screen .timed-choice-prompt,
+.timed-choice-screen .choice-prompt {
+  position: absolute !important;
+  top: 13% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(760px, 82vw) !important;
+  max-height: 28% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  font-size: 28px !important;
+  line-height: 1.48 !important;
+  letter-spacing: 0.05em !important;
+  color: rgba(218, 214, 204, 0.82) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  z-index: 20 !important;
+}
+
+.timed-choice-screen .timed-choice-layer,
+.timed-choice-screen .global-choice-layer {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 18% !important;
+  transform: translateX(-50%) !important;
+  width: min(700px, 80vw) !important;
+  max-width: min(700px, 80vw) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+  overflow: visible !important;
+  z-index: 30 !important;
+}
+
+.timed-choice-screen .timed-choice-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: fit-content !important;
+  max-width: min(680px, 78vw) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.timed-choice-screen .timed-choice-box,
+.timed-choice-screen .global-choice-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 3px !important;
+  width: fit-content !important;
+  max-width: min(660px, 76vw) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  padding: 6px 22px 7px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.40) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.40) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.timed-choice-screen .timed-choice-box a,
+.timed-choice-screen .global-choice-box a,
+.timed-choice-screen .timed-choice-box .link-internal,
+.timed-choice-screen .global-choice-box .link-internal {
+  display: block !important;
+  margin: 0 !important;
+  padding: 3px 0 4px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.32 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.timed-choice-screen .timed-choice-bar-ui,
+.timed-choice-screen .first-death-tension-ui,
+.timed-choice-screen .genichiro-arrow-tension-ui,
+.timed-choice-screen .genichiro-arrow-timer {
+  position: relative !important;
+  display: block !important;
+  width: min(320px, 50vw) !important;
+  height: 7px !important;
+  min-height: 7px !important;
+  margin: 0 auto 2px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+
+.timed-choice-screen .timed-choice-bar-track,
+.timed-choice-screen .first-death-tension-track,
+.timed-choice-screen .first-death-tension-bar,
+.timed-choice-screen .genichiro-arrow-tension-bar,
+.timed-choice-screen .genichiro-arrow-timer-track {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 7px !important;
+  overflow: hidden !important;
+  background: rgba(210, 206, 198, 0.12) !important;
+  border: 1px solid rgba(210, 206, 198, 0.22) !important;
+  box-sizing: border-box !important;
+}
+
+.timed-choice-screen .timed-choice-bar-fill,
+.timed-choice-screen .first-death-tension-fill,
+.timed-choice-screen .genichiro-arrow-tension-fill,
+.timed-choice-screen .genichiro-arrow-timer-fill {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  transform-origin: center center !important;
+  transform: scaleX(1);
+  background: rgba(206, 202, 194, 0.58) !important;
+}
+
+.timed-choice-screen .timed-choice-bar-track .timed-choice-danger-mark {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 4 !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: rgba(160, 24, 18, 0.72) !important;
+  text-shadow:
+    0 0 4px rgba(160, 24, 18, 0.28),
+    0 0 8px rgba(238, 232, 220, 0.12) !important;
+  font-family: "WolfNotoSerifKRBold", "Noto Serif KR", serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  animation: wolfTimerDangerMarkBlink 1050ms ease-in-out infinite !important;
+}
+
+/* =========================
    Hanbei Route Text Spacing
    ========================= */
 
@@ -7015,20 +7238,29 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
    Wolf Night Choice Compact
    ========================= */
 
-.night-choice-screen .choice-prompt {
+.night-choice-screen .choice-prompt,
+.night-patrol-choice-screen .choice-prompt {
   top: 12% !important;
   line-height: 1.45 !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.night-choice-screen .global-choice-layer {
+.night-choice-screen .global-choice-layer,
+.night-patrol-choice-screen .global-choice-layer {
   bottom: 18% !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .night-choice-box {
-  gap: 2px !important;
+  gap: 1px !important;
   padding: 5px 18px 6px !important;
   height: auto !important;
   min-height: 0 !important;
+  background-image: none !important;
   background: transparent !important;
   box-shadow: none !important;
   border-top: 1px solid rgba(160, 154, 144, 0.38) !important;
@@ -7166,7 +7398,7 @@ a.shura-choice:hover,
   justify-content: flex-start !important;
   gap: 8px !important;
   margin: 0 !important;
-  padding: 16px 16px 10px 20px !important;
+  padding: 16px 42px 10px 20px !important;
   box-sizing: border-box !important;
   background: transparent !important;
   border-bottom: 0 !important;
@@ -7179,10 +7411,10 @@ a.shura-choice:hover,
 
 .recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
   position: relative !important;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto auto !important;
+  display: flex !important;
+  justify-content: space-between !important;
   gap: 8px !important;
-  align-items: start !important;
+  align-items: flex-start !important;
   min-width: 0 !important;
 }
 
@@ -7190,48 +7422,13 @@ a.shura-choice:hover,
   min-width: 0 !important;
 }
 
-.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state {
-  justify-self: end !important;
-  width: 220px !important;
-  max-width: 220px !important;
-  margin-right: 0 !important;
-  box-sizing: border-box !important;
-  padding: 7px 10px 8px !important;
-  color: rgba(216, 211, 202, 0.78) !important;
-  background: rgba(0, 0, 0, 0.20) !important;
-  border-top: 1px solid rgba(160, 154, 144, 0.26) !important;
-  border-bottom: 1px solid rgba(160, 154, 144, 0.26) !important;
-  font-size: 11px !important;
-  line-height: 1.38 !important;
-  letter-spacing: 0.025em !important;
-}
-
-.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row {
-  display: grid !important;
-  grid-template-columns: 36px minmax(0, 1fr) !important;
-  gap: 7px !important;
-  align-items: baseline !important;
-  margin: 1px 0 !important;
-}
-
-.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row span {
-  color: rgba(168, 164, 156, 0.62) !important;
-}
-
-.recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state-row strong {
-  color: rgba(216, 211, 202, 0.82) !important;
-  font-weight: 400 !important;
-  text-align: right !important;
-  word-break: keep-all !important;
-}
-
 .recordbook-panel[data-recordbook-source="overlay"] .recordbook-close {
-  position: relative !important;
-  top: auto !important;
-  right: auto !important;
+  position: absolute !important;
+  top: 8px !important;
+  right: 10px !important;
   z-index: 8 !important;
   margin: 0 !important;
-  padding: 2px 0 2px 4px !important;
+  padding: 2px 4px !important;
   justify-self: end !important;
   align-self: start !important;
   color: rgba(180, 174, 164, 0.72) !important;
@@ -7286,20 +7483,17 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
   display: none !important;
 }
 
+body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-top-actions {
+  display: none !important;
+}
+
 @media (max-width: 620px) {
   .recordbook-panel[data-recordbook-source="overlay"] .recordbook-header {
     padding: 14px 42px 9px 18px !important;
   }
 
   .recordbook-panel[data-recordbook-source="overlay"] .recordbook-title-row {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-
-  .recordbook-panel[data-recordbook-source="overlay"] .recordbook-wolf-state {
-    justify-self: stretch !important;
-    width: 100% !important;
-    max-width: none !important;
-    margin-right: 0 !important;
+    display: flex !important;
   }
 
   .recordbook-panel[data-recordbook-source="overlay"] .recordbook-close {
@@ -7315,8 +7509,9 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
   }
 }
 
-/* Final choice spacing contract.
-   Keep prompt and choices in separate zones, and keep the layer decorative-free. */
+/* Final global choice spacing contract.
+   Keep prompt and choices in separate zones, make the layer decorative-free,
+   and let the box hug the actual choice text. */
 .choice-screen .choice-prompt,
 .choice-screen .intro-dream-choice-prompt {
   top: 54px !important;
@@ -7334,8 +7529,9 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
 .choice-screen .global-choice-layer.debug-force-choice,
 .page-stage.intro-dream-screen .global-choice-layer,
 .wolf-page.intro-dream-screen .global-choice-layer {
+  position: absolute !important;
   top: auto !important;
-  bottom: 42px !important;
+  bottom: 16% !important;
   left: 50% !important;
   right: auto !important;
   transform: translateX(-50%) !important;
@@ -7355,33 +7551,113 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
   z-index: 50 !important;
 }
 
+.choice-screen .global-choice-layer::before,
+.choice-screen .global-choice-layer::after,
+.choice-screen .story-choice-layer::before,
+.choice-screen .story-choice-layer::after {
+  content: none !important;
+  display: none !important;
+}
+
 .choice-screen .global-choice-box,
 .choice-screen .story-choice-box,
 .choice-screen .global-choice-layer.debug-force-choice .global-choice-box,
 .global-choice-box,
-.story-choice-box {
-  gap: 1px !important;
-  padding: 5px 18px 6px !important;
+.story-choice-box,
+.route-choice-box,
+.choice-box:not(.continue-row):not(.next-only):not(.wolf-next-button):not(.intro-continue) {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  align-content: center !important;
+  gap: 2px !important;
+  width: fit-content !important;
+  max-width: min(680px, 78vw) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  padding: 5px 20px 6px !important;
+  box-sizing: border-box !important;
   background: transparent !important;
   box-shadow: none !important;
   outline: 0 !important;
-  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
-  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.40) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.40) !important;
   border-left: 0 !important;
   border-right: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.choice-screen .global-choice-box::before,
+.choice-screen .global-choice-box::after,
+.choice-screen .story-choice-box::before,
+.choice-screen .story-choice-box::after,
+.route-choice-box::before,
+.route-choice-box::after,
+.choice-box:not(.continue-row):not(.next-only):not(.wolf-next-button):not(.intro-continue)::before,
+.choice-box:not(.continue-row):not(.next-only):not(.wolf-next-button):not(.intro-continue)::after {
+  content: none !important;
+  display: none !important;
+}
+
+.choice-screen .global-choice-box > br,
+.choice-screen .story-choice-box > br,
+.global-choice-box > br,
+.story-choice-box > br,
+.route-choice-box > br,
+.choice-box:not(.continue-row):not(.next-only):not(.wolf-next-button):not(.intro-continue) > br {
+  display: none !important;
+}
+
+.choice-screen .global-choice-box > *,
+.choice-screen .story-choice-box > *,
+.choice-screen .global-choice-item,
+.choice-screen .choice-item,
+.global-choice-box > *,
+.story-choice-box > *,
+.route-choice-box > *,
+.choice-box:not(.continue-row):not(.next-only):not(.wolf-next-button):not(.intro-continue) > *,
+.global-choice-item,
+.choice-item {
+  height: auto !important;
+  min-height: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .choice-screen .global-choice-box a,
 .choice-screen .story-choice-box a,
 .choice-screen .global-choice-layer.debug-force-choice .global-choice-box a,
 .global-choice-box a,
-.story-choice-box a {
-  padding: 2px 0 2px 20px !important;
+.story-choice-box a,
+.route-choice-box a,
+.choice-box:not(.continue-row):not(.next-only):not(.wolf-next-button):not(.intro-continue) a {
+  position: relative !important;
+  display: block !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: min(82vw, 680px) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 2px 0 3px 20px !important;
   font-size: 16px !important;
-  line-height: 1.3 !important;
+  line-height: 1.30 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.035em !important;
+  color: rgba(206, 202, 194, 0.78) !important;
+  text-align: center !important;
+  text-decoration: none !important;
   background: transparent !important;
   border: 0 !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
+  overflow: visible !important;
 }
 
 .timed-choice-screen .choice-prompt,
@@ -7395,4 +7671,162 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-player-statu
 .first-death-choice-screen .global-choice-layer,
 .genichiro-arrow-choice-screen .global-choice-layer {
   bottom: 88px !important;
+}
+
+.night-choice-screen .global-choice-layer,
+.night-patrol-choice-screen .global-choice-layer {
+  bottom: 16% !important;
+}
+
+.night-choice-screen .global-choice-box,
+.night-patrol-choice-screen .global-choice-box,
+.night-choice-screen .timed-choice-stack,
+.night-choice-box {
+  gap: 1px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 5px 20px 6px !important;
+  justify-content: flex-start !important;
+  background-image: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.timed-choice-screen .timed-choice-stack {
+  gap: 8px !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.timed-choice-screen .global-choice-box,
+.timed-choice-screen .timed-choice-box {
+  gap: 1px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 5px 20px 6px !important;
+  justify-content: flex-start !important;
+}
+
+.timed-choice-screen .global-choice-box a,
+.timed-choice-screen .timed-choice-box a {
+  padding-top: 2px !important;
+  padding-bottom: 3px !important;
+  line-height: 1.30 !important;
+}
+
+.page-stage .route-choice-screen .route-choice-box,
+.wolf-page .route-choice-screen .route-choice-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 2px !important;
+  width: fit-content !important;
+  max-width: min(680px, 78vw) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  padding: 5px 20px 6px !important;
+  background: transparent !important;
+  border-top: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-bottom: 1px solid rgba(160, 154, 144, 0.42) !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.page-stage .route-choice-screen .route-choice-box a,
+.wolf-page .route-choice-screen .route-choice-box a {
+  display: block !important;
+  width: auto !important;
+  max-width: min(82vw, 680px) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 2px 0 3px 20px !important;
+  font-size: 16px !important;
+  line-height: 1.30 !important;
+  text-align: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Ending return / ending sequence choices keep their dedicated layout. */
+.page-stage.ending-return-stage .ending-return-screen .choice-box,
+.ending-return-screen .choice-box,
+.page-stage.ending-screen .choice-box {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.page-stage.ending-return-stage .ending-return-screen .choice-box,
+.ending-return-screen .choice-box {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.page-stage.ending-return-stage .ending-return-screen .choice-box a,
+.ending-return-screen .choice-box a {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 20px !important;
+  line-height: 1.4 !important;
+}
+
+/* =========================
+   Wolf viewport frame fit
+   ========================= */
+
+#story {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+}
+
+#passages {
+  align-items: flex-start !important;
+  justify-content: center !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: var(--wolf-frame-top-margin) 0 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+#passages > .passage {
+  width: var(--game-w) !important;
+  height: var(--game-h) !important;
+  flex: 0 0 var(--game-w) !important;
+  min-width: var(--game-w) !important;
+  min-height: var(--game-h) !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  transform: translateY(0) scale(var(--ui-scale)) !important;
+  transform-origin: top center !important;
+}
+
+/* Narration overflow guard: passages should still be split before this clips. */
+.narration-screen .narration,
+.narration-screen .narration-block,
+.narration-screen .narration-full {
+  max-height: calc(100% - 150px);
+  overflow: hidden;
+  box-sizing: border-box;
 }

@@ -1,12 +1,12 @@
 :: Widget_ChoiceTo [widget]
 
-<<widget "choiceTo">>
+<<widget "choiceTo">><<nobr>>
 	<<set _label = _args[0]>>
 	<<set _target = _args[1]>>
 	<<set _extraClass = _args[2] || "">>
-	<div class="global-choice-item <<print _extraClass>>">
-		<<link _label>>
-			<<goto _target>>
-		<</link>>
-	</div>
-<</widget>>
+	<<if _extraClass>>
+		<div class="global-choice-item shura-choice"><<link _label>><<goto _target>><</link>></div>
+	<<else>>
+		<div class="global-choice-item"><<link _label>><<goto _target>><</link>></div>
+	<</if>>
+<</nobr>><</widget>>

@@ -13,7 +13,7 @@
   <<goto "Genichiro_React_NightGaze">>
 <</if>>
 
-<<if ($dayCount || $day || 1) < 5>>
+<<if ($dayCount || $day || 1) < 7>>
   <<goto "Genichiro_NotYet">>
 <<elseif not $genichiroReturnNoticeSeen and not $genichiroArrowEventSeen and not $genichiroGateSeen>>
   <<goto "Genichiro_ReturnNotice">>
@@ -66,14 +66,22 @@
 <<set $genichiroReturnNoticeSeen = true>>
 <<set $timeOfDay = "day">>
 <div class="narration-screen scene-bg-temple">
-<div class="narration narration-block">며칠째,
-성 쪽의 바람이 달랐다.
+<div class="narration narration-block">성 밖의 전투가
+끝났다는 소식이 들렸다.
 
-먼 곳에서 돌아온 발소리들이
-무너진 담과 길 위에 낮게 깔렸다.
+아시나의 대장군이
+성으로 돌아왔다고 했다.</div>
+</div>
 
-전투를 끝낸 아시나의 대장군 부대가
-성으로 돌아온 듯했다.
+<<continueTo "Genichiro_ReturnNotice_02">>
+<</page>>
+
+:: Genichiro_ReturnNotice_02 {"position":"2225,1550","size":"100,100"}
+<<page>>
+<div class="narration-screen scene-bg-temple">
+<div class="narration narration-block">
+무너진 담 너머로
+성문 쪽 바람이 낮게 불었다.
 
 늑대는 성문 쪽을 보았다.</div>
 </div>
@@ -88,8 +96,16 @@
 <div class="narration narration-block">성문 앞이었다.
 
 바람은 낮게 불고,
-문루 위의 그림자는 움직이지 않았다.
+문루 위의 그림자는 움직이지 않았다.</div>
+</div>
 
+<<continueTo "Genichiro_ArrowIntro_02">>
+<</page>>
+
+:: Genichiro_ArrowIntro_02 {"position":"2225,1600","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 늑대는 한 걸음 나아갔다.
 
 그 순간,
@@ -102,21 +118,21 @@
 :: Genichiro_ArrowChoice {"position":"2300,1600","size":"100,100"}
 <<page>>
 <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
-<div class="choice-screen timed-choice-screen genichiro-arrow-choice-screen" data-timed-choice-seconds="5" data-timed-choice-target="BadEnd_GenichiroArrow" data-timer-duration="5000" data-timer-pattern="accelerate" data-timeout-target="BadEnd_GenichiroArrow">
-<div class="choice-prompt genichiro-arrow-choice-prompt">화살이 날아온다.
+<div class="choice-screen timed-choice-screen genichiro-arrow-choice-screen scene-bg-danger" data-timed-choice-seconds="5" data-timed-choice-target="BadEnd_GenichiroArrow" data-timer-duration="5000" data-timer-pattern="accelerate" data-timeout-target="BadEnd_GenichiroArrow">
+<div class="choice-prompt timed-choice-prompt genichiro-arrow-choice-prompt">화살이 날아온다.
 
 눈으로 쫓기에는 너무 빠르다.</div>
 
-<div class="global-choice-layer genichiro-arrow-choice-layer">
+<div class="global-choice-layer timed-choice-layer genichiro-arrow-choice-layer">
   <div class="timed-choice-stack">
     <div class="genichiro-arrow-tension-ui timed-choice-bar-ui">
       <div class="genichiro-arrow-tension-bar timed-choice-bar-track">
         <div class="genichiro-arrow-tension-fill timed-choice-bar-fill" data-timed-choice-bar></div>
+        <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
       </div>
-      <span class="timed-choice-danger-mark" aria-hidden="true">危</span>
     </div>
 
-    <div class="global-choice-box genichiro-arrow-choice-box">
+    <div class="global-choice-box timed-choice-box genichiro-arrow-choice-box">
       <<link "왼쪽으로 구른다">>
         <<run setup.clearTimedChoice && setup.clearTimedChoice()>>
         <<goto "Genichiro_ArrowDodge">>
@@ -142,8 +158,16 @@
 <div class="narration narration-block">늑대는 왼쪽으로 굴렀다.
 
 화살은 조금 전까지 늑대가 서 있던 자리에 박혔다.
-오래된 돌 틈이 깊게 갈라졌다.
+오래된 돌 틈이 깊게 갈라졌다.</div>
+</div>
 
+<<continueTo "Genichiro_ArrowDodge_02">>
+<</page>>
+
+:: Genichiro_ArrowDodge_02 {"position":"2475,1600","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 문루 위에서 누군가가 활을 내렸다.
 
 겐이치로였다.
@@ -165,8 +189,16 @@
 <div class="narration narration-block">검이 올라갔다.
 
 화살촉이 칼날에 부딪혀,
-짧은 불꽃을 냈다.
+짧은 불꽃을 냈다.</div>
+</div>
 
+<<continueTo "Genichiro_ArrowParry_02">>
+<</page>>
+
+:: Genichiro_ArrowParry_02 {"position":"2600,1600","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 늑대의 손목이 조금 밀렸다.
 그러나 몸은 물러서지 않았다.
 
@@ -184,7 +216,6 @@
 <<set $recordBookUnlocked = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen "badend_genichiro_arrow">>
-<div class="wolf-death-kanji" aria-hidden="true">死</div>
 <div class="ending-text">
 [Bad End. 성문 앞의 화살]
 
@@ -207,7 +238,7 @@
   <<goto "BadEnd_Genichiro_LightningWolf">>
 <<elseif ($genichiroMidConflictSeen || false) and (($genichiroConflict || 0) >= 3 or ($genichiroLogicSeed || false)) and (($wolfProtectsAgainstWill || 0) >= 2 or ($ironGuardFlag || false) or ($genichiroWorstReady || false) or (($missionObedienceCount || 0) >= 3 and ($freedom || 0) <= 1))>>
   <<goto "Ending_Genichiro_Worst_IronGuard">>
-<<elseif ($genichiroMidConflictSeen || false) and (($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false) or ($genichiroGoodEndingSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4 or ($genichiroLove || 0) >= 5) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
+<<elseif ($secondLoopUnlocked || false) and ($genichiroMidConflictSeen || false) and (($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false) or ($genichiroGoodEndingSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4 or ($genichiroLove || 0) >= 5) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
   <<goto "Ending_Genichiro_True_MirrorSide">>
 <<elseif $genichiroLove >= 5 and $isolation >= 8>>
   <<goto "EchoRouter_Genichiro_Bad_BehindName">>
@@ -246,7 +277,14 @@
 적이다.
 쿠로님을 빼앗으려 한 자다.
 베어야 할 자다.
+</div>
 
+<<continueTo "Genichiro_01_Gate_Beat02_02">>
+<</page>>
+
+:: Genichiro_01_Gate_Beat02_02 {"position":"2325,1725","size":"100,100"}
+<<page>>
+<div class="narration">
 그러나 그 등에는,
 버릴 수 없는 것을 짊어진 사람의 무게가 있었다.
 
@@ -465,8 +503,14 @@
 겐이치로는 활을 들고 있었다.
 그러나 시위는 당기지 않았다.
 
-늑대의 손은 검자루에 닿아 있었다.
+늑대의 손은 검자루에 닿아 있었다.</div>
 
+<<continueTo "Genichiro_02b_WatchPost_02">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_02 {"position":"2200,1950","size":"100,100"}
+<<page>>
+<div class="narration">
 둘 사이에는,
 화살 하나가 날아올 만큼의 거리와
 칼 하나가 닿을 만큼의 침묵이 있었다.
@@ -529,8 +573,14 @@
 
 겐이치로는 쏘지 않았다.
 
-늑대도 돌아서지 않았다.
+늑대도 돌아서지 않았다.</div>
 
+<<continueTo "Genichiro_02b_WatchPost_Beat01_02">>
+<</page>>
+
+:: Genichiro_02b_WatchPost_Beat01_02 {"position":"2950,1950","size":"100,100"}
+<<page>>
+<div class="narration">
 등을 맡긴 것은 아니었다.
 다만,
 서로가 아직 베지 않았다는 사실만 남았다.
@@ -631,7 +681,14 @@
 한 번.
 두 번.
 세 번.
+</div>
 
+<<continueTo "Genichiro_03_FullDuel_Beat02_02">>
+<</page>>
+
+:: Genichiro_03_FullDuel_Beat02_02 {"position":"2325,2025","size":"100,100"}
+<<page>>
+<div class="narration">
 대화는 없었다.
 대신 칼이 말했다.
 </div>
@@ -662,8 +719,14 @@
 
 숨이 가까웠다.
 
-둘 다 움직이지 않았다.
+둘 다 움직이지 않았다.</div>
 
+<<continueTo "Genichiro_03_FullDuel_Beat04_02">>
+<</page>>
+
+:: Genichiro_03_FullDuel_Beat04_02 {"position":"2575,2025","size":"100,100"}
+<<page>>
+<div class="narration">
 그것이 살기 때문인지,
 분노 때문인지,
 다른 무엇 때문인지 알 수 없었다.
@@ -780,8 +843,14 @@
 둘은 바로 물러서지 않았다.
 
 겐이치로의 손등에서 피가 떨어졌다.
-늑대의 손목에도 같은 붉은 선이 있었다.
+늑대의 손목에도 같은 붉은 선이 있었다.</div>
 
+<<continueTo "Genichiro_03b_AfterDuelDistance_02">>
+<</page>>
+
+:: Genichiro_03b_AfterDuelDistance_02 {"position":"2200,2100","size":"100,100"}
+<<page>>
+<div class="narration">
 누가 먼저 베었는지는 분명했다.
 누가 먼저 멈췄는지는 분명하지 않았다.
 </div>
@@ -1608,7 +1677,7 @@
 <<set $endingGenichiroDaySeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<<qualifiedCharacterEnding "genichiro">>
+<<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
 
 <div class="narration">
 성은 무너지고 있었다.
@@ -1777,7 +1846,7 @@
 
 :: Ending_Genichiro_SettingMoonCastle_End {"position":"4175,2775","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[Day End. 달이 지는 성]</div>
+<div class="ending-stamp ending-stamp-click" data-next="ReturnToTempleAfterDayEnd">[Day End. 달이 지는 성]</div>
 <</page>>
 
 :: Ending_Genichiro_SameMoon {"position":"2175,2925","size":"100,100"}
@@ -1789,7 +1858,7 @@
 <<set $genichiroGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<<qualifiedCharacterEnding "genichiro">>
+<<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
 
 <div class="narration">성 위의 달은 기울어 있었다.
 
@@ -1836,7 +1905,7 @@
 
 :: Ending_Genichiro_SameMoon_End {"position":"2300,2925","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 같은 달을 등지고]</div>
+<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 같은 달을 등지고]</div>
 <</page>>
 
 :: Ending_Genichiro_Footprints {"position":"2175,3075","size":"100,100"}
@@ -1848,7 +1917,7 @@
 <<set $genichiroGoodEndingSeen = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<<qualifiedCharacterEnding "genichiro">>
+<<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
 
 <div class="narration">그 뒤로도 성은 무너지지 않았다.
 
@@ -1893,7 +1962,7 @@
 
 :: Ending_Genichiro_Footprints_End {"position":"2300,3075","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 성에 남은 발자국]</div>
+<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 성에 남은 발자국]</div>
 <</page>>
 
 :: BadEnd_Genichiro_SinkingCastle {"position":"2175,3225","size":"100,100"}
@@ -2092,8 +2161,14 @@
 
 밤 정찰에서 돌아오는 길이었다.
 절의 처마 아래,
-사람이 하나 서 있었다.
+사람이 하나 서 있었다.</div>
 
+<<continueTo "Genichiro_MidConflict_02">>
+<</page>>
+
+:: Genichiro_MidConflict_02 {"position":"2200,3650","size":"100,100"}
+<<page>>
+<div class="narration">
 등불도 없다.
 호위도 없다.
 

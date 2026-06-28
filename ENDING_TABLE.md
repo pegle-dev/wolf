@@ -16,7 +16,7 @@ Wolf의 엔딩 메타데이터 관리표.
 - 엔딩 passage를 추가하면 이 문서와 기록장 엔딩 탭을 함께 갱신한다.
 - 엔딩 seen 변수는 `StoryInit` 또는 세이브 호환 helper에도 기본값을 보장한다.
 - 기록장 엔딩 카운트와 실제 seen 변수 카운트가 어긋나지 않게 한다.
-- 2회차 해금에 포함되는 엔딩은 `qualifiedCharacterEnding "character"` 호출 여부를 반드시 확인한다.
+- 2회차 해금은 True End 전용이다. Day End / Bad End / Broken End / Shura End는 일반 2회차 해금 조건이 아니다.
 
 ---
 
@@ -35,6 +35,8 @@ Wolf의 엔딩 메타데이터 관리표.
 ```
 
 현재 UI에서는 기존 명칭 호환 때문에 `Day End`로 표시되는 항목이 있다. 문서상 분류는 `End`로 관리하되, 플레이어 표시명이 `Day End`인 경우 비고에 남긴다.
+
+Day End / End는 기록장에 남는 작은 결말 또는 하루의 마무리다. 타이틀로 돌아가지 않고 `Temple_Return`, `ReturnToTempleAfterDayEnd`, 또는 다음 하루 루프로 이어진다.
 
 ### True End
 
@@ -139,17 +141,39 @@ notes:
 
 ### 3.2 2회차 해금
 
-캐릭터 루트의 유효 엔딩은 아래 호출을 포함한다.
+2회차는 True End를 본 뒤에만 해금한다.
 
 ```twee
-<<qualifiedCharacterEnding "hanbei">>
-<<qualifiedCharacterEnding "kuro">>
-<<qualifiedCharacterEnding "genichiro">>
+<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("character")>>
 ```
 
-튜토리얼 Bad End, 공통 Bad End, 위험 이벤트 실패 Bad End는 qualified ending으로 처리하지 않는다.
+엔딩 수집 개수와 2회차 해금은 별개다.
 
-### 3.3 내부 변수명 호환
+```text
+Second loop unlock:
+- Day End / End: no
+- Bad End: no
+- Broken End: no, unless explicitly marked special
+- True End: yes
+- Shura End: special axis, not normal second-loop unlock
+```
+
+`qualifiedCharacterEnding`은 과거 호환용 보조 기록으로 남을 수 있지만, 2회차 해금 기준은 아니다.
+
+### 3.3 Day End 복귀
+
+Day End / End는 게임 종료가 아니라 하루 루프 안의 작은 결말이다.
+
+```text
+Day End / End:
+- recordbook: yes
+- ending meta count: yes
+- second loop unlock: no
+- title return: no
+- recommended nextTarget: Temple_Return or ReturnToTempleAfterDayEnd
+```
+
+### 3.4 내부 변수명 호환
 
 현재 일부 내부 변수명은 과거 명칭인 `Worst`를 유지한다.
 
@@ -163,7 +187,7 @@ $endingGenichiroWorstSeen
 
 플레이어 표시명은 `Broken End`로 정리되어 있다. 대규모 rename이 필요할 때는 세이브 호환 계획을 먼저 세운다.
 
-### 3.4 배경 기준
+### 3.5 배경 기준
 
 - `Bad End`, `Broken End`: `BadEnd.png` 또는 `scene-bg-badend` 계열 권장.
 - 위험 타이머 실패로 이어지는 엔딩 전 화면: `Danger.png`는 타이머 선택지 화면에서 사용한다.
@@ -178,13 +202,13 @@ $endingGenichiroWorstSeen
 
 ```text
 id: BadEnd_FirstDeath
-title: Bad End. 첫 번째 죽음
+title: Bad End. 익숙한 죽음
 type: Bad End
 character: common / kuro
 seenVar: $badEndFirstDeathSeen
 qualified: false
 recordbook: true
-recordDesc: 쿠로를 구하려다 늑대는 처음으로 죽었다.
+recordDesc: 쿠로를 구하려다 늑대는 다시 죽음을 맞았다.
 background: BadEnd.png / scene-bg-badend
 nextTarget: FirstDeath_Record
 notes: 초반 강제 위험 이벤트. 튜토리얼 Bad End이므로 2회차 해금 qualified ending에 포함하지 않는다.
@@ -299,8 +323,8 @@ qualified: false
 recordbook: true
 recordDesc: 검 없이도 걸어갈 수 있는 길이 남았다.
 background: route/default
-nextTarget: TBD
-notes: 현재 기록장 표시명은 Day End. 실제 대표 passage는 별도 확인 필요.
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 현재 기록장 표시명은 Day End. 실제 대표 passage는 Ending_Hidden_Rebirth_PathHome. Day End이므로 타이틀로 돌아가지 않는다.
 ```
 
 ### Hanbei
@@ -311,12 +335,12 @@ title: Day End. 그냥 온 날
 type: End
 character: hanbei
 seenVar: $endingHanbeiQuietDaySeen
-qualified: true
+qualified: false
 recordbook: true
 recordDesc: 한베와 검을 뽑지 않은 시간을 보냈다.
 background: route/default
 nextTarget: Temple_Return
-notes: 1회차 샘플 루트의 대표 엔딩. 현재 UI 표시명은 Day End.
+notes: 1회차 샘플 루트의 대표 엔딩. 현재 UI 표시명은 Day End. Day End이므로 2회차를 해금하지 않는다.
 ```
 
 ```text
@@ -325,12 +349,12 @@ title: Day End. 그냥 온 날 / Day End. 곁에 앉은 침묵
 type: End
 character: hanbei
 seenVar: $hanbeiGoodEndingSeen
-qualified: true
+qualified: false
 recordbook: true
 recordDesc: 한베와 검을 뽑지 않는 시간을 남겼다.
 background: route/default
-nextTarget: TBD
-notes: 기록장 카운트에서 2개로 계산되는 묶음 항목. 실제 passage 분리 여부를 정리할 필요가 있다.
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 기록장 카운트에서 2개로 계산되는 묶음 항목. 실제 passage 분리 여부를 정리할 필요가 있다. Day End이므로 2회차를 해금하지 않는다.
 ```
 
 ```text
@@ -372,7 +396,7 @@ recordbook: true
 recordDesc: 죽지 않는 법이 아니라 사는 법을 조금 배웠다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: $recordEndingHanbeiTrue와 함께 관리된다.
+notes: $recordEndingHanbeiTrue와 함께 관리된다. True End이므로 2회차를 해금한다.
 ```
 
 ```text
@@ -397,12 +421,12 @@ title: Day End. 주인 없는 길
 type: End
 character: kuro
 seenVar: $kuroGoodEndingSeen
-qualified: true
+qualified: false
 recordbook: true
 recordDesc: 주군과 닌자라는 이름 너머의 길을 보았다.
 background: route/default
-nextTarget: Ending_ReturnToStart
-notes: 현재 UI 표시명은 Day End.
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 현재 UI 표시명은 Day End. Day End이므로 2회차를 해금하지 않는다.
 ```
 
 ```text
@@ -444,7 +468,7 @@ recordbook: true
 recordDesc: 명령을 기다리지 않고 쿠로의 곁에 섰다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: $recordEndingKuroTrue와 함께 관리된다.
+notes: $recordEndingKuroTrue와 함께 관리된다. True End이므로 2회차를 해금한다.
 ```
 
 ```text
@@ -469,12 +493,12 @@ title: Day End. 달이 지는 성
 type: End
 character: genichiro
 seenVar: $genichiroGoodEndingSeen
-qualified: true
+qualified: false
 recordbook: true
 recordDesc: 겐이치로와 같은 성, 같은 달 아래에 섰다.
 background: route/default
-nextTarget: Ending_ReturnToStart
-notes: 기록장에서는 [Day End. 아시나의 달] 묶음에 포함된다.
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 기록장에서는 [Day End. 아시나의 달] 묶음에 포함된다. Day End이므로 2회차를 해금하지 않는다.
 ```
 
 ```text
@@ -483,12 +507,12 @@ title: Day End. 같은 달을 등지고
 type: End
 character: genichiro
 seenVar: $endingGenichiroSameMoonSeen
-qualified: true
+qualified: false
 recordbook: true
 recordDesc: 겐이치로와 같은 성, 같은 달 아래에 섰다.
 background: route/default
-nextTarget: Ending_ReturnToStart
-notes: 기록장에서는 [Day End. 아시나의 달] 묶음에 포함된다.
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 기록장에서는 [Day End. 아시나의 달] 묶음에 포함된다. Day End이므로 2회차를 해금하지 않는다.
 ```
 
 ```text
@@ -497,12 +521,12 @@ title: Day End. 성에 남은 발자국
 type: End
 character: genichiro
 seenVar: $endingGenichiroFootprintsSeen
-qualified: true
+qualified: false
 recordbook: true
 recordDesc: 겐이치로와 같은 성, 같은 달 아래에 섰다.
 background: route/default
-nextTarget: Ending_ReturnToStart
-notes: 기록장에서는 [Day End. 아시나의 달] 묶음에 포함된다.
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 기록장에서는 [Day End. 아시나의 달] 묶음에 포함된다. Day End이므로 2회차를 해금하지 않는다.
 ```
 
 ```text
@@ -572,7 +596,7 @@ recordbook: true
 recordDesc: 닮았음을 인정했지만 같은 길에 갇히지 않았다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: $recordEndingGenichiroTrue와 함께 관리된다.
+notes: $recordEndingGenichiroTrue와 함께 관리된다. Genichiro True End는 $secondLoopUnlocked가 true인 2회차 이후에만 진입 가능하다.
 ```
 
 ```text
@@ -592,17 +616,31 @@ notes: 내부 passage/변수명은 기존 호환을 위해 Worst를 유지하지
 ### Sculptor
 
 ```text
+id: Ending_Sculptor_LeftBehindBuddha
+title: Day End. 남겨진 불상
+type: End
+character: sculptor
+seenVar: $endingSculptorDaySeen
+qualified: false
+recordbook: true
+recordDesc: 완성되지 못한 불상 곁에 하루가 남았다.
+background: route/default
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 기록장 호환용 $sculptorGoodEndingSeen도 함께 true가 된다. Day End이므로 타이틀로 돌아가지 않는다.
+```
+
+```text
 id: Ending_Sculptor_AshCoolingSound
 title: True End. 재가 식는 소리
 type: True End
 character: sculptor
-seenVar: $sculptorGoodEndingSeen
+seenVar: $endingSculptorTrueSeen
 qualified: true
 recordbook: true
 recordDesc: 쥐지 않는 손으로 재가 식는 소리를 들었다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: 기존 $sculptorGoodEndingSeen을 재사용한다. 조각가가 늑대의 손을 보고, 늑대가 손을 펴는 결말.
+notes: 기록장 호환용 $sculptorGoodEndingSeen도 함께 true가 된다. True End이므로 2회차를 해금한다.
 ```
 
 ```text
@@ -636,17 +674,31 @@ notes: Shura End 전조. 실제 Shura End는 Ending_Shura_LastChoice에서 처�
 ### Isshin
 
 ```text
+id: Ending_Isshin_ReedSake
+title: Day End. 갈대밭의 술자리
+type: End
+character: isshin
+seenVar: $endingIsshinDaySeen
+qualified: false
+recordbook: true
+recordDesc: 술잔과 갈대 사이에 하루가 접혔다.
+background: route/default
+nextTarget: ReturnToTempleAfterDayEnd
+notes: 기록장 호환용 $isshinGoodEndingSeen도 함께 true가 된다. Day End이므로 타이틀로 돌아가지 않는다.
+```
+
+```text
 id: Ending_Isshin_BeforeBlade
 title: True End. 칼보다 먼저
 type: True End
 character: isshin
-seenVar: $isshinGoodEndingSeen
+seenVar: $endingIsshinTrueSeen
 qualified: true
 recordbook: true
 recordDesc: 검은 남았고, 늑대가 먼저 섰다.
 background: route/default
 nextTarget: Ending_ReturnToStart
-notes: 기존 $isshinGoodEndingSeen을 재사용한다. 검을 버리는 것이 아니라 검보다 먼저 서는 결말.
+notes: 기록장 호환용 $isshinGoodEndingSeen도 함께 true가 된다. True End이므로 2회차를 해금한다.
 ```
 
 ```text
@@ -769,10 +821,10 @@ $badMissingNightSeen or $badEmptyScabbardSeen or $badTamedWolfSeen or $badOwlWol
 4. `StoryInit` 또는 세이브 호환 helper에 기본값을 추가한다.
 5. 엔딩 passage에서 `seenVar`를 true로 설정한다.
 6. 기록장에 남길 경우 `$recordBookNewEnding = true`와 `<<recordNotice "ending">>`를 넣는다.
-7. qualified ending인지 결정한다.
-8. qualified라면 `<<qualifiedCharacterEnding "character">>`를 호출한다.
+7. True End인지 결정한다.
+8. True End라면 `<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("character")>>`를 호출한다. Day End는 호출하지 않는다.
 9. 엔딩 배경을 지정한다.
-10. 엔딩 후 `nextTarget`을 정한다.
+10. 엔딩 후 `nextTarget`을 정한다. Day End는 타이틀이 아니라 하루 루프로 돌려보낸다.
 11. `RecordBookOverlay_Endings`의 `_seen` 카운트와 항목을 갱신한다.
 12. 이 문서에 메타데이터를 추가한다.
 13. 빌드한다.

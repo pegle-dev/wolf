@@ -1,5 +1,5 @@
 :: Intro_CheckReturn {"position":"1375,125","size":"100,100"}
-<<if setup.hasAnyEndingSeen && setup.hasAnyEndingSeen()>>
+<<if $secondLoopUnlocked>>
   <<goto "Intro_Returning">>
 <<else>>
   <<goto "Intro_Dream_01">>

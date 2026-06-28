@@ -10,7 +10,7 @@
   <<goto "Ending_Kuro_True_NotCommand">>
 <<elseif ($genichiroMidConflictSeen || false) and (($genichiroConflict || 0) >= 3 or ($genichiroLogicSeed || false)) and (($wolfProtectsAgainstWill || 0) >= 2 or ($ironGuardFlag || false) or ($genichiroWorstReady || false))>>
   <<goto "Ending_Genichiro_Worst_IronGuard">>
-<<elseif ($genichiroMidConflictSeen || false) and (($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false) or ($genichiroGoodEndingSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
+<<elseif ($secondLoopUnlocked || false) and ($genichiroMidConflictSeen || false) and (($endingGenichiroDaySeen || false) or ($endingGenichiroBadSeen || false) or ($genichiroGoodEndingSeen || false) or ($badEndGenichiroSinkingCastleSeen || false)) and ($genichiroMirrorRecognized || false) and ((setup.getBond && setup.getBond("genichiro") >= 4) or (($genichiroAffection || 0) + ($genichiroConflict || 0)) >= 4) and ($genichiroConflict || 0) >= 2 and ($wolfProtectsAgainstWill || 0) < 2 and ($shura || 0) < 4>>
   <<goto "Ending_Genichiro_True_MirrorSide">>
 <<else>>
   <<page>>
@@ -32,6 +32,8 @@
 <<set $anyEndingSeen = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen>>
+<<run setup.setLastEndingBgmType && setup.setLastEndingBgmType("true")>>
+<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("hanbei")>>
 <<qualifiedCharacterEnding "hanbei">>
 <div class="narration">황폐한 절 뒤뜰.
 
@@ -192,6 +194,8 @@
 <<set $anyEndingSeen = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen>>
+<<run setup.setLastEndingBgmType && setup.setLastEndingBgmType("true")>>
+<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("kuro")>>
 <<qualifiedCharacterEnding "kuro">>
 <div class="narration">방 안에는 작은 등불이 켜져 있다.
 
@@ -367,6 +371,8 @@
 <<set $anyEndingSeen = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen>>
+<<run setup.setLastEndingBgmType && setup.setLastEndingBgmType("true")>>
+<<run setup.markTrueEndingSeen && setup.markTrueEndingSeen("genichiro")>>
 <<qualifiedCharacterEnding "genichiro">>
 <div class="narration">비가 온다.
 

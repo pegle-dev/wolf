@@ -65,8 +65,16 @@
 늑대는 한동안 성 쪽을 바라보았다.
 
 멀리,
-작은 불빛이 남아 있었다.
+작은 불빛이 남아 있었다.</div>
+</div>
 
+<<continueTo "ReturnEvent_WatchKuro_02">>
+<</page>>
+
+:: ReturnEvent_WatchKuro_02 {"position":"3050,750","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 그곳에 주군이 있었다.
 
 부르지 않는다.
@@ -87,9 +95,16 @@
 늑대는 성 쪽 갈대밭을 보았다.
 
 바람이 불 때마다
-익숙한 검집 소리가 섞여 들리는 듯했다.
+익숙한 검집 소리가 섞여 들리는 듯했다.</div>
+</div>
 
-누군가 서 있는 것은 아니었다.
+<<continueTo "ReturnEvent_ReedField_02">>
+<</page>>
+
+:: ReturnEvent_ReedField_02 {"position":"2950,850","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">누군가 서 있는 것은 아니었다.
 
 그런데도,
 그 밤은 이상했다.</div>
@@ -106,9 +121,16 @@
 
 늑대는 멈췄다.
 
-닭도 멈췄다.
+닭도 멈췄다.</div>
+</div>
 
-잠시 뒤,
+<<continueTo "ReturnEvent_Chicken_02">>
+<</page>>
+
+:: ReturnEvent_Chicken_02 {"position":"2950,950","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">잠시 뒤,
 늑대는 도망쳤다.
 
 닭은 끝까지 쫓아왔다.</div>
@@ -126,9 +148,16 @@
 자는 것처럼 보였다.
 
 늑대가 지나가려 하자,
-한베가 눈을 감은 채 말했다.
+한베가 눈을 감은 채 말했다.</div>
+</div>
 
-“오늘은 안 베고 가나?”
+<<continueTo "ReturnEvent_HanbeiPretendSleep_02">>
+<</page>>
+
+:: ReturnEvent_HanbeiPretendSleep_02 {"position":"2950,1050","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">“오늘은 안 베고 가나?”
 
 늑대는 대답하지 않았다.
 
@@ -144,9 +173,16 @@
 <div class="narration-screen">
 <div class="narration narration-block">절 문 앞에 작은 등불이 놓여 있었다.
 
-에마의 것이었다.
+에마의 것이었다.</div>
+</div>
 
-늑대는 그것을 집어 들지 않았다.
+<<continueTo "ReturnEvent_EmmaLamp_02">>
+<</page>>
+
+:: ReturnEvent_EmmaLamp_02 {"position":"2950,1150","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 그것을 집어 들지 않았다.
 
 다만,
 불이 꺼지지 않게
@@ -166,9 +202,16 @@
 
 벌레 소리도,
 나무 우는 소리도,
-숨소리도 없었다.
+숨소리도 없었다.</div>
+</div>
 
-늑대는 그 침묵이
+<<continueTo "ReturnEvent_SilentTemple_02">>
+<</page>>
+
+:: ReturnEvent_SilentTemple_02 {"position":"2950,1250","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 그 침묵이
 자기 안에서 시작되었다는 것을 알았다.</div>
 </div>
 

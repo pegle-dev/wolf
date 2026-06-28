@@ -234,5 +234,6 @@
 <<set $hiddenRevivalDone = true>>
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Day End. 돌아갈 길]</div>
+<<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
+<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 돌아갈 길]</div>
 <</page>>

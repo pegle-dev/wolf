@@ -516,14 +516,29 @@
 
 느긋하고,
 낮고,
-오래전에 배운 박자.
+오래전에 배운 박자.</div>
+</div>
 
-뒤를 돌아보아도 아무도 없다.
+<<continueTo "Owl_React_NightFootsteps_02">>
+<</page>>
+
+:: Owl_React_NightFootsteps_02 {"position":"3625,1325","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">뒤를 돌아보아도 아무도 없다.
 
 그래도 목소리는 들린다.
 
-“잘 배웠구나.”
+“잘 배웠구나.”</div>
+</div>
 
+<<continueTo "Owl_React_NightFootsteps_03">>
+<</page>>
+
+:: Owl_React_NightFootsteps_03 {"position":"3650,1325","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 늑대의 손이 아주 조금 움직인다.
 
 명령은 없었다.

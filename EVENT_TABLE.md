@@ -81,6 +81,25 @@ dawn
 
 ## 2. 이벤트 분류
 
+### Background rule
+
+```text
+실제 장소 장면
+= 해당 장소 배경
+
+이벤트 후 감상/여운
+= 시간대 공용 배경
+
+오후 / 밤 직전
+= BeforeNight.png
+
+밤 / 밤정찰
+= Night.png
+
+새벽 / 귀환
+= Dawn.png
+```
+
 ### 낮 이벤트
 
 낮 이벤트는 `Temple` 또는 `DayEvent_Router`에서 발생한다.
@@ -299,7 +318,7 @@ BadEnd_* 로 연결 가능
 ```text
 첫 꿈 인트로
 첫 쿠로 구출
-Bad End. 첫 번째 죽음
+Bad End. 익숙한 죽음
 기록장 해금
 Temple 진입
 한베 초반 이벤트
@@ -329,18 +348,8 @@ ReturnEvent_Chicken
 추천 이벤트:
 
 ```text
-Kuro_Tea
-쿠로 차 이벤트
-쿠로 책 읽는 시간
-쿠로가 첫 죽음/기둥 사건을 언급
 한베 술 이벤트
 더 깊은 첫 인연 이벤트
-```
-
-예시 조건:
-
-```twee
-<<if ($dayCount || 1) >= 2 and not $kuroTeaSeen>>
 ```
 
 ---
@@ -352,6 +361,10 @@ Kuro_Tea
 추천 이벤트:
 
 ```text
+Kuro_Tea
+쿠로 차 이벤트
+쿠로 책 읽는 시간
+쿠로가 첫 죽음/기둥 사건을 언급
 엠마 등장 가능
 깊은 꿈 이벤트
 조각가의 기척
@@ -362,7 +375,7 @@ Kuro_Tea
 예시 조건:
 
 ```twee
-<<if ($dayCount || 1) >= 3 and $emmaEventUnlocked>>
+<<if ($dayCount || 1) >= 3 and $badEndFirstDeathSeen and not $kuroTeaSeen>>
 ```
 
 ---
@@ -374,9 +387,6 @@ Kuro_Tea
 추천 이벤트:
 
 ```text
-Genichiro_ReturnNotice
-겐이치로 성문 화살 이벤트
-아시나 대장군 부대 귀환 전조
 잇신 관련 이벤트 일부
 조각가/수라 전조 일부
 ```
@@ -387,16 +397,33 @@ Genichiro_ReturnNotice
 <<if ($dayCount || 1) >= 5>>
 ```
 
+---
+
+### 7일째 이후
+
+바깥 전황과 겐이치로의 존재감이 본격적으로 움직인다.
+
+추천 이벤트:
+
+```text
+Genichiro_ReturnNotice
+겐이치로 성문 화살 이벤트
+성 밖 전투 이후 아시나 대장군 귀환 전조
+```
+
+예시 조건:
+
+```twee
+<<if ($dayCount || 1) >= 7>>
+```
+
 겐이치로 전조 예시:
 
 ```text
-며칠째, 성 쪽의 바람이 달랐다.
+성 밖의 전투가 끝났다는 소식이 들렸다.
 
-먼 곳에서 돌아온 발소리들이
-무너진 담과 길 위에 낮게 깔렸다.
-
-전투를 끝낸 아시나의 대장군 부대가
-성으로 돌아온 듯했다.
+아시나의 대장군이
+성으로 돌아왔다고 했다.
 
 늑대는 성문 쪽을 보았다.
 ```
@@ -440,11 +467,11 @@ Genichiro_ReturnNotice
 | Hanbei_Start | Character | day | 1 | Temple | repeat/route | Hanbei_* | 한베 초반 루트 |
 | Hanbei_Sake | Character | day | 1-2 | Hanbei progress | once | Hanbei_End_QuietDay | 술 이벤트 |
 | Hanbei_End_QuietDay | Ending | day | 1+ | Hanbei route | once | Temple_Return | qualified ending |
-| Kuro_Tea | Character | day | 2 | first death seen, not kuroTeaSeen | once | Kuro next / Temple_Return | 기둥 사건 감정 후속 |
-| Kuro_Reading | DayEvent | day | 2 | kuro available | repeat/once | Temple_Return or Temple | 책을 읽는 시간 |
-| Genichiro_ReturnNotice | Character Intro | day | 5 | genichiro not entered | once | Genichiro_ArrowIntro | 전황 변화 전조 |
-| Genichiro_ArrowChoice | Danger | danger | 5 | Genichiro_ReturnNotice | repeat/once | Genichiro route / BadEnd | Danger.png, timer |
-| BadEnd_GenichiroArrow | Bad End | badend | 5 | timeout/fail | once | Temple or record flow | qualified 아님 |
+| Kuro_Tea | Character | day | 3 | first death seen, not kuroTeaSeen | once | Kuro next / Temple_Return | 기둥 사건 감정 후속 |
+| Kuro_Reading | DayEvent | day | 3 | kuro available | repeat/once | Temple_Return or Temple | 책을 읽는 시간 |
+| Genichiro_ReturnNotice | Character Intro | day | 7 | genichiro not entered | once | Genichiro_ArrowIntro | 전황 변화 전조 |
+| Genichiro_ArrowChoice | Danger | danger | 7 | Genichiro_ReturnNotice | repeat/once | Genichiro route / BadEnd | Danger.png, timer |
+| BadEnd_GenichiroArrow | Bad End | badend | 7 | timeout/fail | once | Temple or record flow | qualified 아님 |
 | DayEvent_None | DayEvent | day | 1 | fallback | repeat | Temple | 낮 이벤트 없음 |
 | DayEvent_SilentTemple | DayEvent | day | 1 | fallback | repeat | Temple | 조용한 절 |
 | NightPatrol_Random | NightEvent | night | 1 | Temple_Return | repeat | NightRisk_* / Quiet | 밤정찰 |

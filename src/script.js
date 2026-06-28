@@ -19,6 +19,38 @@
 
   var WOLF_ENDING_META_KEY = 'wolf.endingMeta.v1';
 
+  if (typeof Config !== 'undefined' && Config.saves) {
+    Config.saves.maxAutoSaves = Math.max(Config.saves.maxAutoSaves || 0, 1);
+    Config.saves.isAllowed = function () {
+      var passage = '';
+
+      try {
+        passage = State && State.passage ? State.passage : '';
+      } catch (error) {
+        passage = '';
+      }
+
+      if (setup.isAutosaveExcludedPassage && setup.isAutosaveExcludedPassage(passage)) {
+        return false;
+      }
+      if (typeof State !== 'undefined' && State.variables && State.variables.recordBookOpen) {
+        return false;
+      }
+
+      return true;
+    };
+  }
+
+  setup.getSaveApi = function () {
+    if (typeof Save !== 'undefined') {
+      return Save;
+    }
+    if (typeof SugarCube !== 'undefined' && SugarCube.Save) {
+      return SugarCube.Save;
+    }
+    return null;
+  };
+
   function wolfGetStoryVariable(key, fallback) {
     var variables = State.variables || {};
 
@@ -346,6 +378,24 @@
     return displayDay + setup.t('daySuffix') + ' / ' + setup.t(timeKey);
   };
 
+  function isBeforeNightAfterEventPassage(passageName) {
+    var name = String(passageName || '');
+
+    if (/^Echo_/.test(name)) {
+      return true;
+    }
+
+    if (/^Genichiro_ReturnNotice/.test(name)) {
+      return true;
+    }
+
+    if (/^Hanbei_07_DawnTrainingGround/.test(name)) {
+      return false;
+    }
+
+    return false;
+  }
+
   function getSceneBgClass(passageName) {
     var name = String(passageName || '');
 
@@ -361,14 +411,23 @@
     if (/^Dream/.test(name)) {
       return 'bg-black';
     }
-    if (name === 'Temple_Return') {
-      return 'bg-night02';
-    }
-    if (isNightInterludePassage(name)) {
+    if (name === 'Temple_Return' || name === 'Temple_Return_Choice' || name === 'Temple_Return_Hub' || name === 'Temple_Return_Bad' || name === 'Temple_Return_Shura') {
       return 'bg-night';
     }
-    if (/^Temple_AfterNight$/.test(name)) {
+    if (/^(NightPatrol|NightRisk|NightRest|Sleep_)/.test(name) || isNightInterludePassage(name)) {
+      return 'bg-night';
+    }
+    if (/^(Temple_AfterNight|ReturnEvent_Router|ReturnToTempleNextDay)$/.test(name) || /^ReturnEvent_/.test(name)) {
       return 'bg-dawn';
+    }
+    if (/^Hanbei_07_DawnTrainingGround/.test(name)) {
+      return 'bg-dawn';
+    }
+    if (/^(Sculptor_|Ending_Sculptor_|BrokenEnd_Sculptor_|BadEnd_Sculptor_|Echo_Sculptor_|Night_Trap_Return_Sculptor|Temple_Daily_Mediation_SculptorIsshin)/.test(name)) {
+      return 'bg-temple-room';
+    }
+    if (isBeforeNightAfterEventPassage(name)) {
+      return 'bg-before-night';
     }
     if (/^Hidden_Rebirth_FinalField/.test(name)) {
       return 'bg-true';
@@ -385,26 +444,11 @@
     if (/^Hanbei/.test(name)) {
       return 'bg-training';
     }
-    if (/^NightPatrol01_/.test(name)) {
-      return 'bg-nightpatrol-01';
-    }
-    if (/^NightPatrol02_/.test(name)) {
-      return 'bg-nightpatrol-02';
-    }
-    if (/^NightPatrol03_/.test(name)) {
-      return 'bg-nightpatrol-03';
-    }
-    if (/^NightPatrol04_/.test(name)) {
-      return 'bg-nightpatrol-04';
-    }
-    if (/^NightPatrol05_/.test(name)) {
-      return 'bg-nightpatrol-05';
-    }
-    if (/^NightPatrol/.test(name)) {
-      return 'bg-nightpatrol';
-    }
     if (/^Kuro/.test(name)) {
       return 'bg-room';
+    }
+    if (/^(Isshin|Temple_Daily_Healing_IsshinDrink|Isshin_React_NightLaugh)/.test(name)) {
+      return 'bg-room-isshin';
     }
     if (/^(Genichiro_01_Gate|Genichiro_Arrow)/.test(name)) {
       return 'bg-ashina-gate';
@@ -450,15 +494,23 @@
         return '밤의 길';
       case 'bg-night02':
         return '밤의 절';
+      case 'bg-before-night':
+        return '밤이 오기 전';
       case 'bg-room':
         if (/^Kuro/.test(name)) {
           return '성 안쪽 처소';
         }
         return '낡은 서고';
+      case 'bg-temple-room':
+        return '조각가의 방';
+      case 'bg-room-isshin':
+        return '잇신의 방';
       case 'bg-ashina-gate':
         return '아시나 성문';
       case 'bg-ashina':
         return '천수각 망루';
+      case 'bg-dawn':
+        return '새벽';
       case 'bg-temple':
         return '황폐한 절';
       default:
@@ -540,6 +592,7 @@
       hanbeiJustVisitedSeen: false,
       hanbeiSakeSeen: false,
       endingHanbeiQuietDaySeen: false,
+      kuroTempleNoticeSeen: false,
       genichiroReturnNoticeSeen: false,
       genichiroArrowEventSeen: false,
       genichiroGateSeen: false,
@@ -678,6 +731,26 @@
   };
 
   setup.ensureEndingVariables = setup.ensureEndingMetaVariables;
+
+  setup.ensureEndingProgressVariables = function () {
+    var variables = State.variables || {};
+
+    setup.ensureEndingMetaVariables();
+
+    if (!variables.trueEndingsSeen || typeof variables.trueEndingsSeen !== 'object' || Array.isArray(variables.trueEndingsSeen)) {
+      variables.trueEndingsSeen = {};
+    }
+
+    if (typeof variables.anyTrueEndingSeen === 'undefined' || variables.anyTrueEndingSeen === null) {
+      variables.anyTrueEndingSeen = false;
+    }
+
+    if (typeof variables.secondLoopUnlocked === 'undefined' || variables.secondLoopUnlocked === null) {
+      variables.secondLoopUnlocked = false;
+    }
+
+    return variables;
+  };
 
   setup.getEndingProgressCount = function () {
     return setup.ensureEndingMetaVariables().count;
@@ -993,19 +1066,43 @@
     document.querySelectorAll('.recordbook-open-button a').forEach(function (link) {
       link.textContent = label;
     });
+    document.querySelectorAll('.wolf-recordbook-toggle').forEach(function (button) {
+      button.textContent = '';
+      button.appendChild(document.createTextNode(label + ' '));
+      button.appendChild(makeEl('span', '', '[J]'));
+    });
   }
 
   function makeRecordBookOpenButton() {
-    var wrapper = makeEl('div', 'recordbook-open-button');
-    var link = makeEl('a', '', hasNewRecordBookEntry() ? setup.t('journalButton') + ' *' : setup.t('journalButton'));
+    var wrapper = makeEl('div', 'wolf-top-actions recordbook-open-button');
+    var statusButton = makeEl('button', 'wolf-top-action wolf-status-toggle');
+    var recordButton = makeEl('button', 'wolf-top-action wolf-recordbook-toggle');
 
-    link.href = '#';
-    link.addEventListener('click', function (event) {
+    statusButton.type = 'button';
+    statusButton.appendChild(document.createTextNode('늑대의 상태 '));
+    statusButton.appendChild(makeEl('span', '', '[S]'));
+    statusButton.addEventListener('click', function (event) {
       event.preventDefault();
-      setup.openRecordBookOverlay('endings');
+      if (setup.toggleWolfStatusPanel) {
+        setup.toggleWolfStatusPanel();
+      }
     });
 
-    wrapper.appendChild(link);
+    recordButton.type = 'button';
+    recordButton.appendChild(document.createTextNode((hasNewRecordBookEntry() ? setup.t('journalButton') + ' *' : setup.t('journalButton')) + ' '));
+    recordButton.appendChild(makeEl('span', '', '[J]'));
+    recordButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      if (setup.toggleRecordBookOverlay) {
+        setup.toggleRecordBookOverlay();
+      }
+      else if (setup.openRecordBookOverlay) {
+        setup.openRecordBookOverlay('endings');
+      }
+    });
+
+    wrapper.appendChild(statusButton);
+    wrapper.appendChild(recordButton);
     return wrapper;
   }
 
@@ -1045,6 +1142,9 @@
       return;
     }
 
+    if (setup.closeWolfStatusPanel) {
+      setup.closeWolfStatusPanel();
+    }
     State.variables.recordBookOpen = true;
     State.variables.recordBookTab = tab || State.variables.recordBookTab || 'endings';
     State.variables.recordBookFirstOpened = true;
@@ -1235,6 +1335,12 @@
         return 'bg-night';
       case 'bg-night02':
         return 'bg-night02';
+      case 'bg-before-night':
+        return 'bg-before-night';
+      case 'bg-room-isshin':
+        return 'bg-room-isshin';
+      case 'bg-temple-room':
+        return 'bg-temple-room';
       case 'bg-ashina-gate':
         return 'bg-ashina-gate';
       case 'bg-ashina':
@@ -2113,12 +2219,27 @@ function wolfClearSessionFlag(key) {
 }
 
 setup.hasAutosave = function () {
+  var saveApi = setup.getSaveApi ? setup.getSaveApi() : null;
+
   try {
-    if (typeof Save !== 'undefined' &&
-        Save.browser &&
-        Save.browser.auto &&
-        typeof Save.browser.auto.has === 'function') {
-      return Save.browser.auto.has(0);
+    if (saveApi &&
+        saveApi.browser &&
+        saveApi.browser.auto &&
+        typeof saveApi.browser.auto.has === 'function') {
+      return !!saveApi.browser.auto.has(0);
+    }
+
+    if (saveApi &&
+        saveApi.autosave &&
+        typeof saveApi.autosave.has === 'function') {
+      return !!saveApi.autosave.has();
+    }
+
+    if (saveApi &&
+        saveApi.browser &&
+        saveApi.browser.auto &&
+        typeof saveApi.browser.auto.get === 'function') {
+      return !!saveApi.browser.auto.get(0);
     }
   } catch (error) {
     if (window.console && console.warn) {
@@ -2130,18 +2251,30 @@ setup.hasAutosave = function () {
 };
 
 setup.deleteAutosave = function () {
+  var saveApi = setup.getSaveApi ? setup.getSaveApi() : null;
+
   try {
-    if (typeof Save !== 'undefined' &&
-        Save.browser &&
-        Save.browser.auto &&
-        typeof Save.browser.auto.delete === 'function') {
-      Save.browser.auto.delete(0);
+    if (saveApi &&
+        saveApi.browser &&
+        saveApi.browser.auto &&
+        typeof saveApi.browser.auto.delete === 'function') {
+      saveApi.browser.auto.delete(0);
+      return true;
+    }
+
+    if (saveApi &&
+        saveApi.autosave &&
+        typeof saveApi.autosave.delete === 'function') {
+      saveApi.autosave.delete();
+      return true;
     }
   } catch (error) {
     if (window.console && console.warn) {
       console.warn('[Wolf] autosave delete failed:', error);
     }
   }
+
+  return false;
 };
 
 setup.startNewGame = function () {
@@ -2162,23 +2295,44 @@ setup.startNewGame = function () {
 
   wolfClearSessionFlag('wolf.startNewGame');
   setup._wolfStartNewGame = false;
-  Engine.play('Intro_Dream_01');
+  Engine.play('Intro_CheckReturn');
 };
 
 setup.continueAutosave = function () {
+  var saveApi = setup.getSaveApi ? setup.getSaveApi() : null;
+
   try {
     if (setup.hasAutosave && setup.hasAutosave() &&
-        typeof Save !== 'undefined' &&
-        Save.browser &&
-        Save.browser.auto &&
-        typeof Save.browser.auto.load === 'function') {
+        saveApi &&
+        saveApi.browser &&
+        saveApi.browser.auto &&
+        typeof saveApi.browser.auto.load === 'function') {
       if (setup.stopEndingTitleBgm) {
         setup.stopEndingTitleBgm();
       }
       setup._wolfContinuingAutosave = true;
       wolfSetSessionFlag('wolf.continuingAutosave');
-      Save.browser.auto.load(0);
-      return;
+      saveApi.browser.auto.load(0);
+      if (typeof Engine !== 'undefined' && Engine.show) {
+        Engine.show();
+      }
+      return true;
+    }
+
+    if (setup.hasAutosave && setup.hasAutosave() &&
+        saveApi &&
+        saveApi.autosave &&
+        typeof saveApi.autosave.load === 'function') {
+      if (setup.stopEndingTitleBgm) {
+        setup.stopEndingTitleBgm();
+      }
+      setup._wolfContinuingAutosave = true;
+      wolfSetSessionFlag('wolf.continuingAutosave');
+      saveApi.autosave.load();
+      if (typeof Engine !== 'undefined' && Engine.show) {
+        Engine.show();
+      }
+      return true;
     }
   } catch (error) {
     if (window.console && console.warn) {
@@ -2188,6 +2342,7 @@ setup.continueAutosave = function () {
 
   setup._wolfContinuingAutosave = false;
   wolfClearSessionFlag('wolf.continuingAutosave');
+  return false;
 };
 
 setup.getTitlePassageName = function () {
@@ -2379,6 +2534,7 @@ setup.isAutosaveExcludedPassage = function (passageName) {
 
 setup.saveAutosave = function () {
   var passage = State.passage || '';
+  var saveApi = setup.getSaveApi ? setup.getSaveApi() : null;
 
   if (setup._wolfForceTitleRedirecting) {
     if (passage === 'Start') {
@@ -2395,17 +2551,27 @@ setup.saveAutosave = function () {
   }
 
   try {
-    if (typeof Save !== 'undefined' &&
-        Save.browser &&
-        Save.browser.auto &&
-        typeof Save.browser.auto.save === 'function') {
-      Save.browser.auto.save(0, 'Wolf Autosave');
+    if (saveApi &&
+        saveApi.browser &&
+        saveApi.browser.auto &&
+        typeof saveApi.browser.auto.save === 'function') {
+      saveApi.browser.auto.save('Wolf Autosave');
+      return true;
+    }
+
+    if (saveApi &&
+        saveApi.autosave &&
+        typeof saveApi.autosave.save === 'function') {
+      saveApi.autosave.save();
+      return true;
     }
   } catch (error) {
     if (window.console && console.warn) {
       console.warn('[Wolf] autosave failed:', error);
     }
   }
+
+  return false;
 };
 
 setup.ensureGlobalContinueLayer = function () {
@@ -2524,12 +2690,25 @@ Macro.add('clampStats', {
 function wolfUpdateRouteUnlocks() {
   var variables = State.variables || {};
   var day = Number(variables.day);
+  var trueEndingsSeen = variables.trueEndingsSeen && typeof variables.trueEndingsSeen === 'object'
+    ? variables.trueEndingsSeen
+    : {};
+  var hasTrueEnding = variables.anyTrueEndingSeen === true ||
+    Object.keys(trueEndingsSeen).some(function (key) {
+      return trueEndingsSeen[key] === true;
+    }) ||
+	    variables.endingHanbeiTrueSeen === true ||
+	    variables.endingKuroTrueSeen === true ||
+	    variables.endingGenichiroTrueSeen === true ||
+	    variables.endingSculptorTrueSeen === true ||
+	    variables.endingIsshinTrueSeen === true;
 
   if (isFinite(day) && day >= 2) {
     variables.nightPatrolUnlocked = true;
   }
 
-  if (variables.qualifiedCharacterEndingSeen === true) {
+  if (hasTrueEnding) {
+    variables.anyTrueEndingSeen = true;
     variables.secondLoopUnlocked = true;
     variables.secondRoutesUnlocked = true;
     variables.sculptorUnlocked = true;
@@ -2724,10 +2903,6 @@ function wolfMarkQualifiedCharacterEnding(character) {
   }
 
   variables.qualifiedCharacterEndingSeen = true;
-  variables.secondLoopUnlocked = true;
-  variables.secondRoutesUnlocked = true;
-  variables.sculptorUnlocked = true;
-  variables.emmaEventUnlocked = true;
 
   if (variables[flag] !== true) {
     variables[flag] = true;
@@ -2737,9 +2912,34 @@ function wolfMarkQualifiedCharacterEnding(character) {
   wolfUpdateRouteUnlocks();
 }
 
+function wolfMarkTrueEndingSeen(character) {
+  var variables = setup.ensureEndingProgressVariables ? setup.ensureEndingProgressVariables() : (State.variables || {});
+  var key = String(character || '').toLowerCase();
+
+  if (!variables.trueEndingsSeen || typeof variables.trueEndingsSeen !== 'object' || Array.isArray(variables.trueEndingsSeen)) {
+    variables.trueEndingsSeen = {};
+  }
+
+  if (key) {
+    variables.trueEndingsSeen[key] = true;
+  }
+
+  variables.anyTrueEndingSeen = true;
+  variables.secondLoopUnlocked = true;
+  variables.secondRoutesUnlocked = true;
+  variables.sculptorUnlocked = true;
+
+  if ((variables.dayCount || variables.day || 1) >= 3) {
+    variables.emmaEventUnlocked = true;
+  }
+
+  wolfUpdateRouteUnlocks();
+}
+
 setup.wolfUpdateRouteUnlocks = wolfUpdateRouteUnlocks;
 setup.wolfMarkEndingSeen = wolfMarkEndingSeen;
 setup.wolfMarkQualifiedCharacterEnding = wolfMarkQualifiedCharacterEnding;
+setup.markTrueEndingSeen = wolfMarkTrueEndingSeen;
 window.WolfUpdateRouteUnlocks = wolfUpdateRouteUnlocks;
 window.WolfMarkEndingSeen = wolfMarkEndingSeen;
 window.WolfMarkQualifiedCharacterEnding = wolfMarkQualifiedCharacterEnding;
@@ -3037,6 +3237,12 @@ function wolfIsDebugMode() {
     State.variables.debugMode === true);
 }
 
+function wolfSetDebugMode(enabled) {
+  if (typeof State !== 'undefined' && State && State.variables) {
+    State.variables.debugMode = !!enabled;
+  }
+}
+
 function applyStatusHiddenClass(hidden) {
   document.documentElement.classList.toggle('status-hidden', hidden);
   document.body.classList.toggle('status-hidden', hidden);
@@ -3125,6 +3331,33 @@ function wolfTogglePlayerStatusPanel() {
   wolfSetPlayerStatusVisible(!setup._wolfPlayerStatusVisible);
 }
 
+setup.closeWolfStatusPanel = function () {
+  wolfSetPlayerStatusVisible(false);
+};
+
+setup.toggleWolfStatusPanel = function () {
+  var shouldOpen = !setup._wolfPlayerStatusVisible;
+
+  if (shouldOpen && State.variables && State.variables.recordBookOpen === true && setup.closeRecordBookOverlay) {
+    setup.closeRecordBookOverlay();
+  }
+
+  wolfSetPlayerStatusVisible(shouldOpen);
+};
+
+setup.toggleRecordBookOverlay = function () {
+  if (State.variables && State.variables.recordBookOpen === true) {
+    if (setup.closeRecordBookOverlay) {
+      setup.closeRecordBookOverlay();
+    }
+    return;
+  }
+
+  if (setup.openRecordBookOverlay) {
+    setup.openRecordBookOverlay('endings');
+  }
+};
+
 function isTypingTarget(target) {
   if (!target) {
     return false;
@@ -3153,20 +3386,17 @@ $(document).on('keydown', function (event) {
   if (!event.altKey && !event.ctrlKey && !event.metaKey &&
       (String(event.key || '').toLowerCase() === 's' || event.code === 'KeyS')) {
     event.preventDefault();
-    wolfTogglePlayerStatusPanel();
+    if (setup.toggleWolfStatusPanel) {
+      setup.toggleWolfStatusPanel();
+    }
     return;
   }
 
   if (!event.altKey && !event.ctrlKey && !event.metaKey &&
-      (String(event.key || '').toLowerCase() === 'r' || event.code === 'KeyR')) {
+      (String(event.key || '').toLowerCase() === 'j' || event.code === 'KeyJ')) {
     event.preventDefault();
-    if (State.variables && State.variables.recordBookOpen === true) {
-      if (setup.closeRecordBookOverlay) {
-        setup.closeRecordBookOverlay();
-      }
-    }
-    else if (setup.openRecordBookOverlay) {
-      setup.openRecordBookOverlay('endings');
+    if (setup.toggleRecordBookOverlay) {
+      setup.toggleRecordBookOverlay();
     }
     return;
   }
@@ -3174,7 +3404,9 @@ $(document).on('keydown', function (event) {
   if (event.key === ']') {
     event.preventDefault();
     if (!wolfIsDebugMode()) {
-      applyStatusHiddenClass(true);
+      wolfSetDebugMode(true);
+      setStoredStatusHidden(false);
+      wolfUpdateOuterUI();
       return;
     }
 
@@ -3822,7 +4054,7 @@ $(document).on(':passagedisplay', function () {
   if (wolfHasSessionFlag('wolf.startNewGame') || setup._wolfStartNewGame) {
     wolfClearSessionFlag('wolf.startNewGame');
     setup._wolfStartNewGame = false;
-    Engine.play('Intro_Dream_01');
+    Engine.play('Intro_CheckReturn');
     return;
   }
 

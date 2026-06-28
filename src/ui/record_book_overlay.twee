@@ -8,12 +8,6 @@
         <div class="recordbook-subtitle"><<print setup.t("journalSubtitle")>></div>
       </div>
 
-      <div class="recordbook-wolf-state" aria-label="늑대의 상태">
-        <div class="recordbook-wolf-state-row"><span>위험</span><strong data-wolf-state-label="danger"></strong></div>
-        <div class="recordbook-wolf-state-row"><span>고독</span><strong data-wolf-state-label="isolation"></strong></div>
-        <div class="recordbook-wolf-state-row"><span>수라</span><strong data-wolf-state-label="shura"></strong></div>
-      </div>
-
       <button class="recordbook-close" type="button" data-recordbook-close>
         <<print setup.t("close")>>
       </button>
@@ -99,7 +93,7 @@
 
 <div class="recordbook-summary">늑대가 닿았던 결말들. <span>엔딩 <<= _seen>> / 37</span></div>
 <div class="recordbook-list">
-  <div class="recordbook-item <<if not $badEndFirstDeathSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndFirstDeathSeen>>[Bad End. 첫 번째 죽음]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndFirstDeathSeen>>쿠로를 구하려다 늑대는 처음으로 죽었다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
+  <div class="recordbook-item <<if not $badEndFirstDeathSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $badEndFirstDeathSeen>>[Bad End. 익숙한 죽음]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $badEndFirstDeathSeen>>쿠로를 구하려다 늑대는 다시 죽음을 맞았다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $endingHanbeiQuietDaySeen>>locked<</if>>"><div class="recordbook-item-title"><<if $endingHanbeiQuietDaySeen>>[Day End. 그냥 온 날]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $endingHanbeiQuietDaySeen>>한베와 검을 뽑지 않은 시간을 보냈다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $hanbeiGoodEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiGoodEndingSeen>>[Day End. 그냥 온 날] / [Day End. 곁에 앉은 침묵]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiGoodEndingSeen>>한베와 검을 뽑지 않는 시간을 남겼다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>
   <div class="recordbook-item <<if not $hanbeiMercyEndingSeen>>locked<</if>>"><div class="recordbook-item-title"><<if $hanbeiMercyEndingSeen>>[Bad End. 끝나는 대련]<<else>>[???]<</if>></div><div class="recordbook-item-desc"><<if $hanbeiMercyEndingSeen>>끝을 바라는 약속을 받아들였다.<<else>><<print setup.t("lockedEnding")>><</if>></div></div>

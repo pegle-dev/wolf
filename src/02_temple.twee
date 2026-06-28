@@ -101,9 +101,9 @@
 <</if>>
 <<elseif $hanbeiProgress == 0>>
 <<if $hanbeiLove >= 3>>
-[[한베에게 간다->Hanbei01]]
+[[한베에게 간다->Hanbei_Start]]
 <<else>>
-[[죽지 않는 무사에게 다가간다->Hanbei01]]
+[[죽지 않는 무사에게 다가간다->Hanbei_Start]]
 <</if>>
 <<elseif $hanbeiProgress == 1>>
 <<if $hanbeiLove >= 3>>
@@ -125,23 +125,23 @@
 <</if>>
 <</if>>
 
-<<if ($dayCount || $day || 1) >= 2>>
+<<if ($dayCount || $day || 1) >= 3>>
 <<if $kuroProgress == 0>>
 <<if $kuroLove >= 3>>
-[[성 쪽의 주군에게로 간다->Kuro_Router]]
+[[주군에게로 간다->Kuro_TempleNotice]]
 <<else>>
-[[성 쪽의 주군에게로 간다->Kuro_Router]]
+[[주군에게로 간다->Kuro_TempleNotice]]
 <</if>>
 <<else>>
 <<if $kuroLove >= 3>>
-[[성 쪽의 주군에게로 간다->Kuro_Router]]
+[[주군에게로 간다->Kuro_TempleNotice]]
 <<else>>
-[[성 쪽의 주군에게로 간다->Kuro_Router]]
+[[주군에게로 간다->Kuro_TempleNotice]]
 <</if>>
 <</if>>
 <</if>>
 
-<<if ($dayCount || $day || 1) >= 5>>
+<<if ($dayCount || $day || 1) >= 7>>
 <<if $genichiroProgress == 0>>
 <<if $genichiroLove >= 3>>
 [[성문 쪽 기척을 살핀다->Genichiro_ReturnNotice]]
@@ -279,7 +279,7 @@
 <<set $nightPatrolJustFinished = false>>
 <<set $nightPatrolActive = false>>
 <<set $timeOfDay = "night">>
-<div class="narration-screen scene-bg-night02">
+<div class="narration-screen">
 <div class="narration narration-block">
 밤이 왔다.
 
@@ -299,17 +299,15 @@
 <<set $nightPatrolJustFinished = false>>
 <<set $nightPatrolActive = false>>
 <<set $timeOfDay = "night">>
-<div class="choice-screen night-choice-screen scene-bg-night02">
+<div class="choice-screen night-choice-screen">
 <div class="choice-prompt">
 오늘 밤, 무엇을 할까.
 </div>
 
 <div class="global-choice-layer">
 <div class="global-choice-box night-choice-box">
-<<if $nightPatrolUnlocked and not $nightPatrolUsedToday>>
 <<choiceTo "밤 정찰을 나선다" "NightPatrol_Start">>
-<</if>>
-<<choiceTo "잠든다" "Dream_Router">>
+<<choiceTo "잠든다" "NightRest">>
 <<choiceTo "절에 머문다" "ReturnEvent_Router">>
 </div>
 </div>

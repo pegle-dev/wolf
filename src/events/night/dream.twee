@@ -35,7 +35,7 @@
 <<elseif $isshinLove >= 6 and not $isshinDreamSeen>>
   <<goto "Dream_Isshin">>
 <<else>>
-  <<goto "Dream_DefaultSleep">>
+  <<goto "Dream_Common">>
 <</if>>
 
 :: Dream_Router {"position":"2050,925","size":"100,100"}
@@ -54,8 +54,16 @@
 손이 비어 있었다.
 
 하지만 손가락은,
-무언가를 쥔 모양으로 굳어 있었다.
+무언가를 쥔 모양으로 굳어 있었다.</div>
+</div>
 
+<<continueTo "Dream_NoSword_02">>
+<</page>>
+
+:: Dream_NoSword_02 {"position":"2450,700","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 검이 없는데도
 검의 무게가 남아 있었다.</div>
 </div>
@@ -79,9 +87,16 @@
 
 끈인지,
 손인지,
-풀인지 알 수 없었다.
+풀인지 알 수 없었다.</div>
+</div>
 
-움직이면 더 깊이 조였다.
+<<continueTo "Dream_Cord_02">>
+<</page>>
+
+:: Dream_Cord_02 {"position":"2450,825","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">움직이면 더 깊이 조였다.
 가만히 있으면 더 아래로 가라앉았다.</div>
 </div>
 
@@ -170,8 +185,16 @@
 하지만 그 이름은
 늑대의 것이 아니었다.
 
-다른 이름이었다.
+다른 이름이었다.</div>
+</div>
 
+<<continueTo "Dream_NoName_02">>
+<</page>>
+
+:: Dream_NoName_02 {"position":"2500,950","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">
 오래전에 버렸거나,
 한 번도 가진 적 없는 이름이었다.
 
@@ -267,8 +290,14 @@
 
 멈춰야 했다.
 
-하지만 꿈속의 몸은 멈추지 않았다.
+하지만 꿈속의 몸은 멈추지 않았다.</div>
 
+<<continueTo "Dream_Danger_Trap_02">>
+<</page>>
+
+:: Dream_Danger_Trap_02 {"position":"2325,875","size":"100,100"}
+<<page>>
+<div class="narration">
 끈이 발목을 감았다.
 
 넘어지는 순간,
@@ -282,9 +311,14 @@
 <div class="narration">눈을 떴을 때,
 발목에 아무것도 감겨 있지 않았다.
 
-그런데도 한동안 움직일 수 없었다.
+그런데도 한동안 움직일 수 없었다.</div>
 
-절은 조용했다.
+<<continueTo "Dream_Danger_Trap_Awake_02">>
+<</page>>
+
+:: Dream_Danger_Trap_Awake_02 {"position":"2450,875","size":"100,100"}
+<<page>>
+<div class="narration">절은 조용했다.
 
 너무 조용해서,
 꿈에서 들었던 작은 소리가
@@ -293,17 +327,24 @@
 <div class="choice-box continue-row">[[일어난다->AdvanceDay]]</div>
 <</page>>
 
-:: Dream_DefaultSleep {"position":"2050,1100","size":"100,100"}
+:: Dream_Common {"position":"2050,1100","size":"100,100"}
 <<page>>
-<<set $lastDream = "default">>
+<<set $lastDream = "common">>
+<<set $timeOfDay = "dream">>
 
-<div class="narration">잠은 얕았다.
-눈을 뜨자,
-새벽인지 밤인지 알 수 없었다.
+<div class="narration-screen black-stage">
+<div class="narration narration-block">짧은 꿈이었다.
+
+누군가의 이름을 부르기 전에
+늑대는 눈을 떴다.
+</div>
 </div>
 
 <<continueTo "AdvanceDay">>
 <</page>>
+
+:: Dream_DefaultSleep {"position":"2075,1100","size":"100,100"}
+<<goto "Dream_Common">>
 
 :: Dream_Hanbei {"position":"2175,975","size":"100,100"}
 <<page>>
@@ -314,7 +355,14 @@
 한베가 웃고 있다.
 몇 번을 베어도,
 그는 다시 일어난다.
-그러나 꿈속의 늑대는 안다.
+</div>
+
+<<continueTo "Dream_Hanbei_02">>
+<</page>>
+
+:: Dream_Hanbei_02 {"position":"2200,975","size":"100,100"}
+<<page>>
+<div class="narration">그러나 꿈속의 늑대는 안다.
 자신은 그를 이기고 싶은 것이 아니다.
 그가 다시 일어나지 않아도 되는 순간을
 보고 싶었던 것이다.
@@ -332,7 +380,14 @@
 늑대는 뒤따른다.
 늘 그랬듯이.
 그러나 꿈속의 쿠로는 명령하지 않는다.
-돌아보지도 않는다.
+</div>
+
+<<continueTo "Dream_Kuro_02">>
+<</page>>
+
+:: Dream_Kuro_02 {"position":"2200,1100","size":"100,100"}
+<<page>>
+<div class="narration">돌아보지도 않는다.
 그저 늑대가 따라오고 있는지,
 믿고 있는 사람처럼 걷는다.
 </div>
@@ -349,7 +404,14 @@
 겐이치로는 무너지는 성 위에 서 있다.
 그의 등은 너무 곧아서,
 이미 꺾인 나무처럼 보였다.
-늑대는 칼을 쥐고 있다.
+</div>
+
+<<continueTo "Dream_Genichiro_02">>
+<</page>>
+
+:: Dream_Genichiro_02 {"position":"2200,1225","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 칼을 쥐고 있다.
 그러나 꿈속에서조차
 그를 베어야 하는 이유를 알 수 없다.
 </div>
@@ -381,7 +443,14 @@
 잇신은 웃고 있다.
 칼을 든 채로,
 죽음을 알고도 웃는 사람처럼.
-늑대는 묻고 싶었다.
+</div>
+
+<<continueTo "Dream_Isshin_02">>
+<</page>>
+
+:: Dream_Isshin_02 {"position":"2200,1475","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 묻고 싶었다.
 어떻게 검을 들고도,
 검에게 먹히지 않을 수 있는지.
 </div>
@@ -398,7 +467,14 @@
 늑대는 혼자 걷고 있다.
 누군가를 찾고 있었던 것 같지만,
 누구였는지는 기억나지 않는다.
-뒤돌아보면 발자국은 없다.
+</div>
+
+<<continueTo "Dream_Isolation_Fog_02">>
+<</page>>
+
+:: Dream_Isolation_Fog_02 {"position":"2325,975","size":"100,100"}
+<<page>>
+<div class="narration">뒤돌아보면 발자국은 없다.
 처음부터 혼자였던 것처럼.
 </div>
 
@@ -414,7 +490,14 @@
 늑대는 큰 검자루 두 개를 등에 이고 있었다.
 검은 몸보다 컸고,
 전장은 길보다 넓었다.
-시체 더미 사이를 걷는다.
+</div>
+
+<<continueTo "Dream_Isolation_ChildBattlefield_02">>
+<</page>>
+
+:: Dream_Isolation_ChildBattlefield_02 {"position":"2325,1100","size":"100,100"}
+<<page>>
+<div class="narration">시체 더미 사이를 걷는다.
 누구도 이름을 부르지 않는다.
 누구도 손을 내밀지 않는다.
 그저 검만이,
@@ -434,7 +517,14 @@
 죽은 자들의 손,
 죽지 못한 자들의 손,
 끝내 놓지 못한 자들의 손.
-늑대는 검을 뽑으려 한다.
+</div>
+
+<<continueTo "Dream_Danger_Hands_02">>
+<</page>>
+
+:: Dream_Danger_Hands_02 {"position":"2325,1225","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 검을 뽑으려 한다.
 그러나 손은 칼자루에도,
 팔에도,
 목에도 감겨 있다.
