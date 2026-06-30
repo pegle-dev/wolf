@@ -527,10 +527,17 @@
 <div class="narration-screen">
 <div class="narration narration-block">뒤를 돌아보아도 아무도 없다.
 
-그래도 목소리는 들린다.
-
-“잘 배웠구나.”</div>
+그래도 목소리는 들린다.</div>
 </div>
+
+<<continueTo "Owl_React_NightFootsteps_Talk01">>
+<</page>>
+
+:: Owl_React_NightFootsteps_Talk01 {"position":"3625,1375","size":"100,100"}
+<<page>>
+<<talk "owl" "올빼미">>
+잘 배웠구나.
+<</talk>>
 
 <<continueTo "Owl_React_NightFootsteps_03">>
 <</page>>

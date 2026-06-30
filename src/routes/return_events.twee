@@ -157,12 +157,35 @@
 :: ReturnEvent_HanbeiPretendSleep_02 {"position":"2950,1050","size":"100,100"}
 <<page>>
 <div class="narration-screen">
-<div class="narration narration-block">“오늘은 안 베고 가나?”
-
-늑대는 대답하지 않았다.
-
-“그럼 됐네.”</div>
+<div class="narration narration-block">늑대는 발을 멈췄다.</div>
 </div>
+
+<<continueTo "ReturnEvent_HanbeiPretendSleep_Talk01">>
+<</page>>
+
+:: ReturnEvent_HanbeiPretendSleep_Talk01 {"position":"3075,1050","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+오늘은 안 베고 가나?
+<</talk>>
+
+<<continueTo "ReturnEvent_HanbeiPretendSleep_Beat01">>
+<</page>>
+
+:: ReturnEvent_HanbeiPretendSleep_Beat01 {"position":"3200,1050","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 대답하지 않았다.</div>
+</div>
+
+<<continueTo "ReturnEvent_HanbeiPretendSleep_Talk02">>
+<</page>>
+
+:: ReturnEvent_HanbeiPretendSleep_Talk02 {"position":"3325,1050","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그럼 됐네.
+<</talk>>
 
 <<continueTo "ReturnToTempleNextDay">>
 <</page>>

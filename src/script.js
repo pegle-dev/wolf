@@ -1068,7 +1068,7 @@
     });
     document.querySelectorAll('.wolf-recordbook-toggle').forEach(function (button) {
       button.textContent = '';
-      button.appendChild(document.createTextNode(label + ' '));
+      button.appendChild(document.createTextNode(label));
       button.appendChild(makeEl('span', '', '[J]'));
     });
   }
@@ -1079,7 +1079,7 @@
     var recordButton = makeEl('button', 'wolf-top-action wolf-recordbook-toggle');
 
     statusButton.type = 'button';
-    statusButton.appendChild(document.createTextNode('늑대의 상태 '));
+    statusButton.appendChild(document.createTextNode('늑대의 상태'));
     statusButton.appendChild(makeEl('span', '', '[S]'));
     statusButton.addEventListener('click', function (event) {
       event.preventDefault();
@@ -1089,7 +1089,7 @@
     });
 
     recordButton.type = 'button';
-    recordButton.appendChild(document.createTextNode((hasNewRecordBookEntry() ? setup.t('journalButton') + ' *' : setup.t('journalButton')) + ' '));
+    recordButton.appendChild(document.createTextNode(hasNewRecordBookEntry() ? setup.t('journalButton') + ' *' : setup.t('journalButton')));
     recordButton.appendChild(makeEl('span', '', '[J]'));
     recordButton.addEventListener('click', function (event) {
       event.preventDefault();
@@ -3287,7 +3287,7 @@ function wolfEnsurePlayerStatusPanel() {
     '<div class="wolf-player-status-list">' +
       '<div class="wolf-player-status-row"><span>위험</span><strong data-wolf-state-label="danger"></strong></div>' +
       '<div class="wolf-player-status-row"><span>고독</span><strong data-wolf-state-label="isolation"></strong></div>' +
-      '<div class="wolf-player-status-row"><span>수라</span><strong data-wolf-state-label="shura"></strong></div>' +
+      '<div class="wolf-player-status-row" data-wolf-state-row="shura"><span>???</span><strong data-wolf-state-label="shura"></strong></div>' +
     '</div>';
 
   (root || document.body).appendChild(panel);
@@ -3309,6 +3309,29 @@ setup.updateWolfStateLabels = function (root) {
 
   Array.prototype.forEach.call(scope.querySelectorAll('[data-wolf-state-label]'), function (el) {
     var type = el.getAttribute('data-wolf-state-label') || '';
+    var value = Number((State.variables || {})[type]);
+    var level = '0';
+
+    if (!isFinite(value)) {
+      value = 0;
+    }
+
+    if (type === 'shura') {
+      if (value >= 6) {
+        level = '3';
+      }
+      else if (value >= 4) {
+        level = '2';
+      }
+      else if (value >= 2) {
+        level = '1';
+      }
+      el.dataset.wolfStateLevel = level;
+      if (el.parentElement) {
+        el.parentElement.dataset.wolfStateLevel = level;
+      }
+    }
+
     el.textContent = setup.getWolfStateLabel ? setup.getWolfStateLabel(type) : '';
   });
 };

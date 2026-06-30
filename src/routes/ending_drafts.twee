@@ -50,48 +50,157 @@
 잠깐 숨을 고른다.
 어깨를 만진다.
 
-한베가 그걸 본다.
+한베가 그걸 본다.</div>
 
-한베: 아프냐.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq02">>
+<</page>>
 
-늑대: 아프다.
+:: Ending_Hanbei_True_LivingPractice_Seq02 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아프냐.
+<</talk>>
 
-한베는 잠시 아무 말도 하지 못한다.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq03">>
+<</page>>
 
-한베: 이야. 이거 큰일이네.
+:: Ending_Hanbei_True_LivingPractice_Seq03 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+아프다.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq04">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq04 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<div class="narration">한베는 잠시 아무 말도 하지 못한다.</div>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq05">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq05 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+이야. 이거 큰일이네.
 내가 오래 살고 볼 일이야.
+<</talk>>
 
-늑대: 너는 죽지 않는다.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq06">>
+<</page>>
 
-한베: 그래서 오래 본다고 한 거잖아.
+:: Ending_Hanbei_True_LivingPractice_Seq06 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+너는 죽지 않는다.
+<</talk>>
 
-한베는 웃는다.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq07">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq07 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그래서 오래 본다고 한 거잖아.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq08">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq08 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<div class="narration">한베는 웃는다.
 조금 비뚤어진 웃음이다.
-하지만 오늘은 숨기지 못할 만큼 다정하다.
+하지만 오늘은 숨기지 못할 만큼 다정하다.</div>
 
-한베: 그럼 오늘은 여기까지.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq09">>
+<</page>>
 
-늑대: 아직 움직일 수 있다.
+:: Ending_Hanbei_True_LivingPractice_Seq09 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그럼 오늘은 여기까지.
+<</talk>>
 
-한베: 움직일 수 있는 거랑,
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq10">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq10 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+아직 움직일 수 있다.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq11">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq11 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+움직일 수 있는 거랑,
 움직여야 하는 건 다르지.
+<</talk>>
 
-바람이 지나간다.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq12">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq12 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<div class="narration">바람이 지나간다.
 
 늑대는 검을 내려놓는다.
-한베도 목검을 어깨에 걸친다.
+한베도 목검을 어깨에 걸친다.</div>
 
-한베: 내일도 하자.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq13">>
+<</page>>
 
-늑대: 대련을?
+:: Ending_Hanbei_True_LivingPractice_Seq13 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+내일도 하자.
+<</talk>>
 
-한베: 그것도 하고.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq14">>
+<</page>>
 
-한베는 잠시 하늘을 본다.
+:: Ending_Hanbei_True_LivingPractice_Seq14 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+대련을?
+<</talk>>
 
-한베: 사는 연습.
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq15">>
+<</page>>
 
-늑대는 대답하지 않는다.
+:: Ending_Hanbei_True_LivingPractice_Seq15 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그것도 하고.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq16">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq16 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<div class="narration">한베는 잠시 하늘을 본다.</div>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq17">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq17 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+사는 연습.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_True_LivingPractice_Seq18">>
+<</page>>
+
+:: Ending_Hanbei_True_LivingPractice_Seq18 {"position":"5800,2500","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 대답하지 않는다.
 하지만 떠나지 않는다.
 
 죽지 못하는 자와,
@@ -99,6 +208,9 @@
 그날은 아무것도 죽이지 않았다.</div>
 
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[True End. 사는 연습]</div>
+<</page>>
+
+
 <</page>>
 
 :: Ending_Hanbei_Worst_ImmortalWeapon {"position":"5800,2650","size":"100,100"}
@@ -116,53 +228,160 @@
 
 목검이 부러진다.
 
-한베는 손에 남은 나무 조각을 내려다본다.
+한베는 손에 남은 나무 조각을 내려다본다.</div>
 
-한베: 이야. 오늘은 좀 심한데.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq02">>
+<</page>>
 
-늑대는 대답하지 않는다.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq02 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+이야. 오늘은 좀 심한데.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq03">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq03 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 대답하지 않는다.
 
 그의 옷은 찢어져 있다.
 상처는 깊다.
-하지만 걸음은 흐트러지지 않는다.
+하지만 걸음은 흐트러지지 않는다.</div>
 
-한베: 그만하자.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq04">>
+<</page>>
 
-늑대: 아직 할 수 있다.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq04 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그만하자.
+<</talk>>
 
-한베: 그게 문제라고 했잖아.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq05">>
+<</page>>
 
-늑대는 검을 든다.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq05 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+아직 할 수 있다.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq06">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq06 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그게 문제라고 했잖아.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq07">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq07 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 검을 든다.
 
 한베는 웃으려 한다.
 평소처럼.
-하지만 웃음이 잘 나오지 않는다.
+하지만 웃음이 잘 나오지 않는다.</div>
 
-한베: 너, 이제 정말 안 아픈 척을 잘하네.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq08">>
+<</page>>
 
-늑대: 문제없다.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq08 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+너, 이제 정말 안 아픈 척을 잘하네.
+<</talk>>
 
-한베는 부러진 목검을 내려놓는다.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq09">>
+<</page>>
 
-한베: 죽지 않는다는 게,
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq09 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+문제없다.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq10">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq10 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<div class="narration">한베는 부러진 목검을 내려놓는다.</div>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq11">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq11 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+죽지 않는다는 게,
 그렇게 쓰라고 있는 게 아니야.
+<</talk>>
 
-늑대: 불사는 쓸 수 있는 힘이다.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq12">>
+<</page>>
 
-한베는 늑대를 본다.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq12 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+불사는 쓸 수 있는 힘이다.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq13">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq13 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<div class="narration">한베는 늑대를 본다.
 
 이미 알고 있던 일이
-끝내 일어난 것을 본 얼굴이다.
+끝내 일어난 것을 본 얼굴이다.</div>
 
-한베: 그럼 나는 이제 네 상대 못 하겠다.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq14">>
+<</page>>
 
-늑대: 두려운가.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq14 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+그럼 나는 이제 네 상대 못 하겠다.
+<</talk>>
 
-한베는 아주 조금 웃는다.
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq15">>
+<</page>>
 
-한베: 아니. 슬픈 거지.
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq15 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+두려운가.
+<</talk>>
 
-그날 이후,
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq16">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq16 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<div class="narration">한베는 아주 조금 웃는다.</div>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq17">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq17 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
+아니. 슬픈 거지.
+<</talk>>
+
+<<continueTo "Ending_Hanbei_Worst_ImmortalWeapon_Seq18">>
+<</page>>
+
+:: Ending_Hanbei_Worst_ImmortalWeapon_Seq18 {"position":"5800,2650","size":"100,100"}
+<<page>>
+<div class="narration">그날 이후,
 한베는 더 이상 대련을 청하지 않았다.
 
 늑대는 계속 싸웠다.
@@ -184,6 +403,9 @@
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 죽지 않는 무기]</div>
 <</page>>
 
+
+<</page>>
+
 :: Ending_Kuro_True_NotCommand {"position":"6000,2500","size":"100,100"}
 <<page>>
 <<set $currentRoute = "kuro">>
@@ -203,11 +425,23 @@
 
 쿠로는 찻잔을 두 개 놓는다.
 하나는 자기 앞에.
-하나는 늑대가 서 있는 자리 앞에.
+하나는 늑대가 서 있는 자리 앞에.</div>
 
-쿠로: 앉아도 돼.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq02">>
+<</page>>
 
-늑대는 잠시 멈춘다.
+:: Ending_Kuro_True_NotCommand_Seq02 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+앉아도 돼.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq03">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq03 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 잠시 멈춘다.
 
 예전이라면 서 있었을 것이다.
 문가에서.
@@ -215,55 +449,176 @@
 
 늑대는 천천히 앉는다.
 
-쿠로는 그것을 보고 조금 웃는다.
+쿠로는 그것을 보고 조금 웃는다.</div>
 
-쿠로: 이제 명령하지 않아도 앉아주는구나.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq04">>
+<</page>>
 
-늑대: 명령이 아니었습니까.
+:: Ending_Kuro_True_NotCommand_Seq04 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+이제 명령하지 않아도 앉아주는구나.
+<</talk>>
 
-쿠로: 아니야. 부탁이었어.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq05">>
+<</page>>
 
-쿠로는 찻잔을 늑대 쪽으로 민다.
+:: Ending_Kuro_True_NotCommand_Seq05 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+명령이 아니었습니까.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq06">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq06 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+아니야. 부탁이었어.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq07">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq07 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">쿠로는 찻잔을 늑대 쪽으로 민다.
 
 늑대는 찻잔을 본다.
 그리고 두 손으로 받는다.
 
 침묵.
-하지만 예전처럼 무겁지는 않다.
+하지만 예전처럼 무겁지는 않다.</div>
 
-쿠로: 늑대.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq08">>
+<</page>>
 
-늑대: 말씀하십시오.
+:: Ending_Kuro_True_NotCommand_Seq08 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대.
+<</talk>>
 
-쿠로가 눈썹을 살짝 찌푸린다.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq09">>
+<</page>>
 
-늑대는 잠시 멈춘다.
+:: Ending_Kuro_True_NotCommand_Seq09 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+말씀하십시오.
+<</talk>>
 
-늑대: 아니. 말해라.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq10">>
+<</page>>
 
-쿠로는 웃는다.
-이번에는 조금 더 오래 웃는다.
+:: Ending_Kuro_True_NotCommand_Seq10 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">쿠로가 눈썹을 살짝 찌푸린다.
 
-쿠로: 내가 틀리면 막아줘.
+늑대는 잠시 멈춘다.</div>
 
-늑대: 그러겠다.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq11">>
+<</page>>
 
-쿠로: 내가 무서워하면.
+:: Ending_Kuro_True_NotCommand_Seq11 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+아니. 말해라.
+<</talk>>
 
-늑대: 곁에 있겠다.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq12">>
+<</page>>
 
-쿠로: 내가 명령하지 않아도?
+:: Ending_Kuro_True_NotCommand_Seq12 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">쿠로는 웃는다.
+이번에는 조금 더 오래 웃는다.</div>
 
-늑대는 쿠로를 본다.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq13">>
+<</page>>
 
-늑대: 명령이 없어도.
+:: Ending_Kuro_True_NotCommand_Seq13 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+내가 틀리면 막아줘.
+<</talk>>
 
-등불이 흔들린다.
-차 향이 방 안에 남는다.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq14">>
+<</page>>
 
-쿠로: 고마워.
+:: Ending_Kuro_True_NotCommand_Seq14 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그러겠다.
+<</talk>>
 
-늑대는 대답하지 않는다.
+<<continueTo "Ending_Kuro_True_NotCommand_Seq15">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq15 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+내가 무서워하면.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq16">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq16 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+곁에 있겠다.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq17">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq17 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+내가 명령하지 않아도?
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq18">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq18 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 쿠로를 본다.</div>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq19">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq19 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+명령이 없어도.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq20">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq20 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">등불이 흔들린다.
+차 향이 방 안에 남는다.</div>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq21">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq21 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+고마워.
+<</talk>>
+
+<<continueTo "Ending_Kuro_True_NotCommand_Seq22">>
+<</page>>
+
+:: Ending_Kuro_True_NotCommand_Seq22 {"position":"6000,2500","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 대답하지 않는다.
 하지만 자리를 떠나지 않는다.
 
 그는 주군의 뒤에 서지 않는다.
@@ -276,6 +631,7 @@
 
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[True End. 명령이 아닌 곁]</div>
 <</page>>
+
 
 :: Ending_Kuro_Worst_CommandlessBurden {"position":"6000,2650","size":"100,100"}
 <<page>>
@@ -295,45 +651,123 @@
 문 앞에 선다.
 길을 막는다.
 사람을 물린다.
-위험하다고 판단한 모든 것을 베어낸다.
+위험하다고 판단한 모든 것을 베어낸다.</div>
 
-쿠로: 늑대.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq02">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq02 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대.
 나는 그런 뜻으로 말한 게 아니야.
+<</talk>>
 
-늑대: 알고 있습니다.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq03">>
+<</page>>
 
-쿠로: 그런데 왜.
+:: Ending_Kuro_Worst_CommandlessBurden_Seq03 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+알고 있습니다.
+<</talk>>
 
-늑대: 주군을 지키기 위해서입니다.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq04">>
+<</page>>
 
-쿠로는 대답하지 못한다.
+:: Ending_Kuro_Worst_CommandlessBurden_Seq04 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그런데 왜.
+<</talk>>
+
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq05">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq05 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+주군을 지키기 위해서입니다.
+<</talk>>
+
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq06">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq06 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<div class="narration">쿠로는 대답하지 못한다.
 
 그 말은 오래전부터 쿠로를 지켜준 말이었다.
 그러나 이제는 그를 움직이지 못하게 하는 말이 되었다.
 
 차는 식는다.
 
-늑대는 여전히 서 있다.
+늑대는 여전히 서 있다.</div>
 
-쿠로: 앉아.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq07">>
+<</page>>
 
-늑대: 괜찮습니다.
+:: Ending_Kuro_Worst_CommandlessBurden_Seq07 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+앉아.
+<</talk>>
 
-쿠로: 명령이야.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq08">>
+<</page>>
 
-늑대는 곧장 앉는다.
+:: Ending_Kuro_Worst_CommandlessBurden_Seq08 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+괜찮습니다.
+<</talk>>
+
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq09">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq09 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+명령이야.
+<</talk>>
+
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq10">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq10 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 곧장 앉는다.
 
 쿠로는 그 모습을 본다.
 그리고 자신이 방금 무슨 일을 했는지 깨닫는다.
 
 명령하지 않고 싶었다.
-하지만 늑대는 명령 없이는 멈추지 않았다.
+하지만 늑대는 명령 없이는 멈추지 않았다.</div>
 
-쿠로: 나는 네게 명령하고 싶지 않았어.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq11">>
+<</page>>
 
-늑대: 명령해주십시오.
+:: Ending_Kuro_Worst_CommandlessBurden_Seq11 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+나는 네게 명령하고 싶지 않았어.
+<</talk>>
 
-쿠로의 손이 떨린다.
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq12">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq12 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+명령해주십시오.
+<</talk>>
+
+<<continueTo "Ending_Kuro_Worst_CommandlessBurden_Seq13">>
+<</page>>
+
+:: Ending_Kuro_Worst_CommandlessBurden_Seq13 {"position":"6000,2650","size":"100,100"}
+<<page>>
+<div class="narration">쿠로의 손이 떨린다.
 
 늑대는 고개를 숙인다.
 
@@ -361,6 +795,7 @@
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 무거운 명령]</div>
 <</page>>
 
+
 :: Ending_Genichiro_True_MirrorSide {"position":"6200,2500","size":"100,100"}
 <<page>>
 <<set $currentRoute = "genichiro">>
@@ -386,26 +821,69 @@
 겐이치로도 검을 든다.
 
 말은 많지 않다.
-이제는 서로에게 물을 것이 거의 남아 있지 않다.
+이제는 서로에게 물을 것이 거의 남아 있지 않다.</div>
 
-겐이치로: 늑대.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq02">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq02 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+늑대.
 아직도 쿠로의 이름 뒤에 서 있나.
+<</talk>>
 
-늑대: 서 있다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq03">>
+<</page>>
 
-겐이치로의 눈이 가늘어진다.
+:: Ending_Genichiro_True_MirrorSide_Seq03 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+서 있다.
+<</talk>>
 
-늑대: 하지만 숨지는 않는다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq04">>
+<</page>>
 
-짧은 침묵.
+:: Ending_Genichiro_True_MirrorSide_Seq04 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">겐이치로의 눈이 가늘어진다.</div>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq05">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq05 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+하지만 숨지는 않는다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq06">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq06 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">짧은 침묵.
 비가 두 사람 사이를 지난다.
 
 겐이치로는 아주 작게 웃는다.
-비웃음도, 안도도 아니다.
+비웃음도, 안도도 아니다.</div>
 
-겐이치로: 그런가. 그럼 증명해라.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq07">>
+<</page>>
 
-둘은 달려든다.
+:: Ending_Genichiro_True_MirrorSide_Seq07 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+그런가. 그럼 증명해라.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq08">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq08 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">둘은 달려든다.
 
 칼과 칼이 맞부딪힌다.
 
@@ -436,47 +914,156 @@
 그래서 용서하지 않는다.
 그래서 외면하지도 않는다.
 
-피가 빗물에 섞인다.
+피가 빗물에 섞인다.</div>
 
-겐이치로: 너와 나는 닮았다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq09">>
+<</page>>
 
-늑대: 그래.
+:: Ending_Genichiro_True_MirrorSide_Seq09 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+너와 나는 닮았다.
+<</talk>>
 
-겐이치로의 눈이 흔들린다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq10">>
+<</page>>
 
-늑대: 닮았다고 해도, 같지는 않다.
+:: Ending_Genichiro_True_MirrorSide_Seq10 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그래.
+<</talk>>
 
-겐이치로는 잠시 움직이지 않는다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq11">>
+<</page>>
 
-겐이치로: 그래. 그 말은 정확하군.
+:: Ending_Genichiro_True_MirrorSide_Seq11 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">겐이치로의 눈이 흔들린다.</div>
 
-끝내 남는 것은 두 자루의 칼이다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq12">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq12 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+닮았다고 해도, 같지는 않다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq13">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq13 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">겐이치로는 잠시 움직이지 않는다.</div>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq14">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq14 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+그래. 그 말은 정확하군.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq15">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq15 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">끝내 남는 것은 두 자루의 칼이다.
 그리고 그것을 쥔 두 사람이다.
 
 너무 가까워진 순간,
-둘은 동시에 멈춘다.
+둘은 동시에 멈춘다.</div>
 
-겐이치로: 지금 베면 끝난다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq16">>
+<</page>>
 
-늑대: 알고 있다.
+:: Ending_Genichiro_True_MirrorSide_Seq16 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+지금 베면 끝난다.
+<</talk>>
 
-겐이치로: 그런데 왜 멈췄지.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq17">>
+<</page>>
 
-늑대: 너도 멈췄다.
+:: Ending_Genichiro_True_MirrorSide_Seq17 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+알고 있다.
+<</talk>>
 
-둘은 동시에 손을 놓는다.
-칼끝만은 조금 늦게 떨어진다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq18">>
+<</page>>
 
-겐이치로: 나는 아시나를 놓지 못했다.
+:: Ending_Genichiro_True_MirrorSide_Seq18 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+그런데 왜 멈췄지.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq19">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq19 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+너도 멈췄다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq20">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq20 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">둘은 동시에 손을 놓는다.
+칼끝만은 조금 늦게 떨어진다.</div>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq21">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq21 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+나는 아시나를 놓지 못했다.
 너는 쿠로를 놓을 수 있나.
+<</talk>>
 
-늑대: 놓지 않는다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq22">>
+<</page>>
 
-겐이치로: 결국 같군.
+:: Ending_Genichiro_True_MirrorSide_Seq22 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+놓지 않는다.
+<</talk>>
 
-늑대: 가두지도 않는다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq23">>
+<</page>>
 
-짧은 순간.
+:: Ending_Genichiro_True_MirrorSide_Seq23 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+결국 같군.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq24">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq24 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+가두지도 않는다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq25">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq25 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">짧은 순간.
 
 그 순간에,
 칼보다 먼저 두 사람의 시선이 맞닿는다.
@@ -494,23 +1081,68 @@
 둘은 베지 않는다.
 
 벨 수 있었기 때문에,
-베지 않는다.
+베지 않는다.</div>
 
-겐이치로: 무르군.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq26">>
+<</page>>
 
-늑대: 그래.
+:: Ending_Genichiro_True_MirrorSide_Seq26 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+무르군.
+<</talk>>
 
-겐이치로: 그것도 네 말인가.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq27">>
+<</page>>
 
-늑대: 그렇다.
+:: Ending_Genichiro_True_MirrorSide_Seq27 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그래.
+<</talk>>
 
-겐이치로는 검을 거둔다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq28">>
+<</page>>
 
-겐이치로: 가라.
+:: Ending_Genichiro_True_MirrorSide_Seq28 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+그것도 네 말인가.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq29">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq29 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그렇다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq30">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq30 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">겐이치로는 검을 거둔다.</div>
+
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq31">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq31 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+가라.
 쿠로에게로 가라.
 그 아이의 뒤에 숨지 말고.
+<</talk>>
 
-늑대는 검을 거둔다.
+<<continueTo "Ending_Genichiro_True_MirrorSide_Seq32">>
+<</page>>
+
+:: Ending_Genichiro_True_MirrorSide_Seq32 {"position":"6200,2500","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 검을 거둔다.
 
 둘은 서로를 부르지 않는다.
 붙잡지도 않는다.
@@ -540,6 +1172,7 @@
 
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[True End. 거울의 반대편]</div>
 <</page>>
+
 
 :: Ending_Genichiro_Worst_IronGuard {"position":"6200,2650","size":"100,100"}
 <<page>>
@@ -574,16 +1207,42 @@
 
 쿠로는 오래도록 말이 없다.
 
-마침내 그가 묻는다.
+마침내 그가 묻는다.</div>
 
-쿠로: 늑대.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq02">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq02 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+늑대.
 이것이 네가 말한 보호인가.
+<</talk>>
 
-늑대: 예.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq03">>
+<</page>>
 
-쿠로: 나는 이런 것을 바란 적이 없어.
+:: Ending_Genichiro_Worst_IronGuard_Seq03 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+예.
+<</talk>>
 
-늑대는 대답하지 않는다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq04">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq04 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+나는 이런 것을 바란 적이 없어.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq05">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq05 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 대답하지 않는다.
 
 비슷한 말을 들은 적이 있다.
 
@@ -591,11 +1250,23 @@
 쿠로 님을 위해서라면.
 
 그 말들은 서로 달랐다.
-하지만 너무 닮아 있었다.
+하지만 너무 닮아 있었다.</div>
 
-쿠로: 문을 열어줘.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq06">>
+<</page>>
 
-늑대의 손이 문고리에 닿는다.
+:: Ending_Genichiro_Worst_IronGuard_Seq06 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+문을 열어줘.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq07">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq07 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대의 손이 문고리에 닿는다.
 
 잠시,
 손가락이 멈춘다.
@@ -607,27 +1278,89 @@
 
 그리고 선택이 있다.
 
-늑대는 문을 열지 않는다.
+늑대는 문을 열지 않는다.</div>
 
-늑대: 위험합니다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq08">>
+<</page>>
 
-쿠로: 알고 있어.
+:: Ending_Genichiro_Worst_IronGuard_Seq08 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+위험합니다.
+<</talk>>
 
-늑대: 그래서 열 수 없습니다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq09">>
+<</page>>
 
-쿠로는 눈을 감는다.
+:: Ending_Genichiro_Worst_IronGuard_Seq09 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+알고 있어.
+<</talk>>
 
-쿠로: 그건 내 뜻이 아니야.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq10">>
+<</page>>
 
-늑대는 고개를 숙인 채 말한다.
+:: Ending_Genichiro_Worst_IronGuard_Seq10 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그래서 열 수 없습니다.
+<</talk>>
 
-늑대: 알고 있습니다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq11">>
+<</page>>
 
-등불이 흔들린다.
+:: Ending_Genichiro_Worst_IronGuard_Seq11 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">쿠로는 눈을 감는다.</div>
 
-늑대: 그래도 지키겠습니다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq12">>
+<</page>>
 
-문은 닫혀 있다.
+:: Ending_Genichiro_Worst_IronGuard_Seq12 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
+그건 내 뜻이 아니야.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq13">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq13 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 고개를 숙인 채 말한다.</div>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq14">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq14 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+알고 있습니다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq15">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq15 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">등불이 흔들린다.</div>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq16">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq16 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "wolf" "늑대">>
+그래도 지키겠습니다.
+<</talk>>
+
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq17">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq17 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">문은 닫혀 있다.
 
 늑대는 끝까지 쿠로를 지켰다.
 
@@ -644,12 +1377,24 @@
 아무도.
 쿠로조차도.
 
-어느 밤의 빗소리가 떠오른다.
+어느 밤의 빗소리가 떠오른다.</div>
 
-겐이치로: 그 이름이 사라지면,
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq18">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq18 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+그 이름이 사라지면,
 너는 무엇으로 서 있을 셈이지?
+<</talk>>
 
-늑대는 여전히 문 앞에 서 있다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq19">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq19 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">늑대는 여전히 문 앞에 서 있다.
 
 이름은 사라지지 않았다.
 
@@ -679,12 +1424,24 @@
 늑대는 그 소문을 듣고도 움직이지 않았다.
 
 문 앞에 선 채,
-그는 오래전에 들었던 목소리를 떠올린다.
+그는 오래전에 들었던 목소리를 떠올린다.</div>
 
-겐이치로: 그 이름이 사라지면,
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq20">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq20 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
+그 이름이 사라지면,
 너는 무엇으로 서 있을 셈이지?
+<</talk>>
 
-갈대가 흔들린다.
+<<continueTo "Ending_Genichiro_Worst_IronGuard_Seq21">>
+<</page>>
+
+:: Ending_Genichiro_Worst_IronGuard_Seq21 {"position":"6200,2650","size":"100,100"}
+<<page>>
+<div class="narration">갈대가 흔들린다.
 
 목 없는 무사는 대답하지 않는다.
 
@@ -695,4 +1452,6 @@
 자신의 말을 잃었기 때문이다.</div>
 
 <div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 철의 호위]</div>
+<</page>>
+
 <</page>>

@@ -128,44 +128,100 @@
 <<page>>
 <div class="narration">
 갈대밭 끝에 누군가 선다.
+</div>
 
 <<if $sculptorShuraWarningSeen or $sculptorShuraPreludeSeen>>
+  <<goto "Shura_Witness_Sculptor">>
+<<elseif $isshinShuraWarningSeen or $isshinShuraPreludeSeen>>
+  <<goto "Shura_Witness_Isshin">>
+<<else>>
+  <<goto "Shura_Witness_None">>
+<</if>>
+<</page>>
+
+:: Shura_Witness_Sculptor {"position":"2875,625","size":"100,100"}
+<<page>>
+<div class="narration">
 조각가였다.
 
 그는 늑대의 얼굴을 보지 않는다.
 검도 오래 보지 않는다.
 
 손을 본다.
+</div>
 
-조각가:
+<<continueTo "Shura_Witness_Sculptor_Talk01">>
+<</page>>
+
+:: Shura_Witness_Sculptor_Talk01 {"position":"3000,625","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
 늦었군.
+<</talk>>
 
-조각가:
+<<continueTo "Shura_Witness_Sculptor_Talk02">>
+<</page>>
+
+:: Shura_Witness_Sculptor_Talk02 {"position":"3125,625","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
 그 손.
 이제 네 것이 아니군.
-<<elseif $isshinShuraWarningSeen or $isshinShuraPreludeSeen>>
+<</talk>>
+
+<<continueTo "Shura_Witness_End">>
+<</page>>
+
+:: Shura_Witness_Isshin {"position":"2875,675","size":"100,100"}
+<<page>>
+<div class="narration">
 잇신이었다.
 
 노인은 웃는다.
 웃음은 크지 않다.
 
 그는 술잔 대신 검을 든다.
+</div>
 
-잇신:
+<<continueTo "Shura_Witness_Isshin_Talk01">>
+<</page>>
+
+:: Shura_Witness_Isshin_Talk01 {"position":"3000,675","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
 하하하.
 그래.
+<</talk>>
 
-잇신:
+<<continueTo "Shura_Witness_Isshin_Talk02">>
+<</page>>
+
+:: Shura_Witness_Isshin_Talk02 {"position":"3125,675","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
 그럼 내가 마지막 술상대가 되어주마.
-<<else>>
+<</talk>>
+
+<<continueTo "Shura_Witness_End">>
+<</page>>
+
+:: Shura_Witness_None {"position":"2875,725","size":"100,100"}
+<<page>>
+<div class="narration">
 아무도 없다.
 
 그러나 늑대는 잠시 멈춘다.
 
 누군가 있었다면,
 이쯤에서 무언가를 말했을지도 모른다.
-<</if>>
+</div>
 
+<<continueTo "Shura_Witness_End">>
+<</page>>
+
+:: Shura_Witness_End {"position":"3250,625","size":"100,100"}
+<<page>>
+<div class="narration">
 말은 멀다.
 검은 가깝다.
 </div>
@@ -298,39 +354,124 @@
 어딘가에서 목소리가 들린다.
 
 누구의 목소리인지는 알 수 없다.
+</div>
 
+<<continueTo "Ending_Shura_LastChoice_Voice_Hanbei_Beat">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Hanbei_Beat {"position":"3625,575","size":"100,100"}
+<<page>>
+<div class="narration">
 한베였을지도 모른다.
+</div>
 
-한베:
+<<continueTo "Ending_Shura_LastChoice_Voice_Hanbei">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Hanbei {"position":"3750,575","size":"100,100"}
+<<page>>
+<<talk "hanbei" "한베">>
 문제없다는 말 금지.
+<</talk>>
 
+<<continueTo "Ending_Shura_LastChoice_Voice_Kuro_Beat">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Kuro_Beat {"position":"3875,575","size":"100,100"}
+<<page>>
+<div class="narration">
 쿠로였을지도 모른다.
+</div>
 
-쿠로:
+<<continueTo "Ending_Shura_LastChoice_Voice_Kuro">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Kuro {"position":"4000,575","size":"100,100"}
+<<page>>
+<<talk "kuro" "쿠로">>
 이건 명령이 아니야.
+<</talk>>
 
+<<continueTo "Ending_Shura_LastChoice_Voice_Genichiro_Beat">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Genichiro_Beat {"position":"4125,575","size":"100,100"}
+<<page>>
+<div class="narration">
 겐이치로였을지도 모른다.
+</div>
 
-겐이치로:
+<<continueTo "Ending_Shura_LastChoice_Voice_Genichiro">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Genichiro {"position":"4250,575","size":"100,100"}
+<<page>>
+<<talk "genichiro" "겐이치로">>
 쿠로의 이름 없이.
 주인의 명 없이.
 네가 원해서.
+<</talk>>
 
+<<continueTo "Ending_Shura_LastChoice_Voice_Sculptor_Beat">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Sculptor_Beat {"position":"4375,575","size":"100,100"}
+<<page>>
+<div class="narration">
 조각가였을지도 모른다.
+</div>
 
-조각가:
+<<continueTo "Ending_Shura_LastChoice_Voice_Sculptor">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Sculptor {"position":"4500,575","size":"100,100"}
+<<page>>
+<<talk "sculptor" "조각가">>
 손끝에 먼저 온다.
+<</talk>>
 
+<<continueTo "Ending_Shura_LastChoice_Voice_Isshin_Beat">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Isshin_Beat {"position":"4625,575","size":"100,100"}
+<<page>>
+<div class="narration">
 잇신이었을지도 모른다.
+</div>
 
-잇신:
+<<continueTo "Ending_Shura_LastChoice_Voice_Isshin">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Isshin {"position":"4750,575","size":"100,100"}
+<<page>>
+<<talk "isshin" "잇신">>
 검에게 쥐어먹히지 마라.
+<</talk>>
 
+<<continueTo "Ending_Shura_LastChoice_Voice_Owl_Beat">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Owl_Beat {"position":"4875,575","size":"100,100"}
+<<page>>
+<div class="narration">
 올빼미였을지도 모른다.
+</div>
 
-올빼미:
+<<continueTo "Ending_Shura_LastChoice_Voice_Owl">>
+<</page>>
+
+:: Ending_Shura_LastChoice_Voice_Owl {"position":"5000,575","size":"100,100"}
+<<page>>
+<<talk "owl" "올빼미">>
 잘 배웠구나.
+<</talk>>
 
+<<continueTo "Ending_Shura_LastChoice_AfterVoices">>
+<</page>>
+
+:: Ending_Shura_LastChoice_AfterVoices {"position":"5125,575","size":"100,100"}
+<<page>>
+<div class="narration">
 목소리들은 멀다.
 
 늑대는 멈추지 않는다.

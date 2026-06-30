@@ -63,6 +63,13 @@
 <</page>>
 
 :: Temple_Daily_Healing_TeaAndWood {"position":"1950,750","size":"100,100"}
+<<if $kuroTeaSeen>>
+  <<goto "Temple_Daily_Healing_TeaAndWood_KuroAfterTea">>
+<<else>>
+  <<goto "Temple_Daily_Healing_TempleSounds">>
+<</if>>
+
+:: Temple_Daily_Healing_TeaAndWood_KuroAfterTea {"position":"1950,750","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Healing_TeaAndWood", 1)>>
 <<set $templeDailyTeaSeen = true>>
@@ -78,6 +85,25 @@
 멀리서는 나무를 깎는 소리가 났다.
 
 뒤뜰 쪽에서는 목검이 바닥을 두드리는 소리가 한 번.</div>
+</div>
+
+<<continueTo "Temple_Daily_Healing_TeaAndWood_02">>
+<</page>>
+
+:: Temple_Daily_Healing_TempleSounds {"position":"1950,790","size":"100,100"}
+<<page>>
+<<run setup.markRoutedEvent && setup.markRoutedEvent("day", "Temple_Daily_Healing_TeaAndWood", 1)>>
+<<set $dailyHealingCount = ($dailyHealingCount || 0) + 1>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<clampStats>>
+<div class="narration-screen">
+<div class="narration narration-block">멀리서는 나무를 깎는 소리가 났다.
+
+뒤뜰 쪽에서는
+목검이 바닥을 두드리는 소리가 한 번.
+
+황폐한 절은
+아직 깨어나지 않은 것처럼 조용했다.</div>
 </div>
 
 <<continueTo "Temple_Daily_Healing_TeaAndWood_02">>
@@ -103,8 +129,15 @@
 거기 서 있지만 말고 들어오지?
 <</talk>>
 
-<<continueTo "Temple_Daily_Healing_TeaAndWood_Talk02">>
+<<continueTo "Temple_Daily_Healing_TeaAndWood_EchoRouter">>
 <</page>>
+
+:: Temple_Daily_Healing_TeaAndWood_EchoRouter {"position":"2200,750","size":"100,100"}
+<<if $kuroTeaSeen>>
+  <<goto "Temple_Daily_Healing_TeaAndWood_Talk02">>
+<<else>>
+  <<goto "Temple_Daily_Healing_TeaAndWood_CommonEcho">>
+<</if>>
 
 :: Temple_Daily_Healing_TeaAndWood_Talk02 {"position":"2200,750","size":"100,100"}
 <<page>>
@@ -113,6 +146,18 @@
 늦게 떠올랐다.
 
 차가 아직 식지 않았어.</div>
+</div>
+
+<<continueTo "Temple_Daily_Healing_TeaAndWood_End">>
+<</page>>
+
+:: Temple_Daily_Healing_TeaAndWood_CommonEcho {"position":"2200,790","size":"100,100"}
+<<page>>
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 문턱을 넘었다.
+
+안쪽에는 오래된 약 냄새와
+마른 나무 냄새가 희미하게 남아 있었다.</div>
 </div>
 
 <<continueTo "Temple_Daily_Healing_TeaAndWood_End">>
@@ -127,7 +172,9 @@
 검에서 손을 뗀다.</div>
 </div>
 
+<<if $kuroTeaSeen>>
 <<recordNotice "bond">>
+<</if>>
 <<continueTo "Temple">>
 <</page>>
 
