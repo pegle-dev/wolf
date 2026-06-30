@@ -216,16 +216,19 @@
 <<set $recordBookUnlocked = true>>
 <<set $recordBookNewEnding = true>>
 <<markEndingSeen "badend_genichiro_arrow">>
-<div class="ending-text">
-[Bad End. 성문 앞의 화살]
-
-늑대는 움직이지 못했다.
+<div class="ending-screen">
+<div class="ending-content">
+<div class="ending-body">늑대는 움직이지 못했다.
 
 몸이 늦은 것은 아니었다.
 명령이 없었다.
 
 화살은 그 짧은 빈틈을 지나,
 늑대의 숨을 성문 앞에 못박았다.
+</div>
+
+<div class="ending-title">[Bad End. 성문 앞의 화살]</div>
+</div>
 </div>
 
 <<recordNotice "ending">>
@@ -1846,7 +1849,7 @@
 
 :: Ending_Genichiro_SettingMoonCastle_End {"position":"4175,2775","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="ReturnToTempleAfterDayEnd">[Day End. 달이 지는 성]</div>
+<div class="ending-stamp ending-title ending-stamp-click" data-next="ReturnToTempleAfterDayEnd">[Day End. 달이 지는 성]</div>
 <</page>>
 
 :: Ending_Genichiro_SameMoon {"position":"2175,2925","size":"100,100"}
@@ -1905,7 +1908,7 @@
 
 :: Ending_Genichiro_SameMoon_End {"position":"2300,2925","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 같은 달을 등지고]</div>
+<div class="ending-stamp ending-title" data-next="ReturnToTempleAfterDayEnd">[Day End. 같은 달을 등지고]</div>
 <</page>>
 
 :: Ending_Genichiro_Footprints {"position":"2175,3075","size":"100,100"}
@@ -1962,7 +1965,7 @@
 
 :: Ending_Genichiro_Footprints_End {"position":"2300,3075","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 성에 남은 발자국]</div>
+<div class="ending-stamp ending-title" data-next="ReturnToTempleAfterDayEnd">[Day End. 성에 남은 발자국]</div>
 <</page>>
 
 :: BadEnd_Genichiro_SinkingCastle {"position":"2175,3225","size":"100,100"}
@@ -2020,7 +2023,7 @@
 
 :: BadEnd_Genichiro_SinkingCastle_End {"position":"2300,3225","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 함께 가라앉는 성]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 함께 가라앉는 성]</div>
 <</page>>
 
 :: BadEnd_Genichiro_LightningWolf {"position":"2175,3375","size":"100,100"}
@@ -2081,7 +2084,7 @@
 
 :: BadEnd_Genichiro_LightningWolf_End {"position":"2300,3375","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 번개를 삼킨 늑대]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 번개를 삼킨 늑대]</div>
 <</page>>
 
 :: BadEnd_Genichiro_KneelingCastle {"position":"2175,3525","size":"100,100"}
@@ -2147,7 +2150,7 @@
 
 :: BadEnd_Genichiro_KneelingCastle_End {"position":"2300,3525","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 무릎 꿇은 성]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 무릎 꿇은 성]</div>
 <</page>>
 
 :: Genichiro_MidConflict {"position":"2175,3650","size":"100,100"}

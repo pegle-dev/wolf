@@ -146,13 +146,15 @@
 <<set $anyEndingSeen = true>>
 <<set $badEndingSeen = true>>
 <<markEndingSeen "badend_first_death">>
-<div class="badend-screen black-stage">
-<div class="badend-narration">늑대는 쿠로를 구했다.
+<div class="ending-screen badend-screen black-stage">
+<div class="ending-content">
+<div class="ending-body badend-narration">늑대는 쿠로를 구했다.
 
 그리고,
 그 자리에서 죽었다.</div>
 
-<div class="badend-title">[Bad End. 익숙한 죽음]</div>
+<div class="ending-title badend-title">[Bad End. 익숙한 죽음]</div>
+</div>
 </div>
 
 <<continueTo "FirstDeath_Record">>

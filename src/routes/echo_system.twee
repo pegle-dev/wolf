@@ -428,5 +428,5 @@
 오늘은 아무도 베이지 않았다.
 </div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Hidden End. 기억한다]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Hidden End. 기억한다]</div>
 <</page>>

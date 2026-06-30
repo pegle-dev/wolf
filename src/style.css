@@ -2628,6 +2628,54 @@ body.status-hidden .outer-dev-ui {
   word-break: keep-all;
 }
 
+.ending-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ending-content {
+  position: absolute;
+  inset: 0;
+  width: min(760px, 82%);
+  max-height: 82%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.ending-body {
+  white-space: pre-line;
+  font-family: "WolfNotoSerifKR", "Noto Serif KR", serif;
+  font-size: 20px;
+  line-height: 1.9;
+  letter-spacing: 0.045em;
+  color: rgba(226, 222, 214, 0.86);
+}
+
+.ending-content .ending-title {
+  position: static;
+  width: auto;
+  margin-top: 42px;
+  transform: none;
+}
+
+.ending-title {
+  font-family: "WolfNotoSerifKRBold", "Noto Serif KR", serif;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  color: rgba(238, 235, 228, 0.92);
+  white-space: pre-line;
+}
+
 .page-stage.ending-screen .ending-stamp {
   animation: wolf-ending-stamp-in 2200ms ease-out both;
 }
@@ -6848,6 +6896,28 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   font-size: 29px !important;
   line-height: 1.25 !important;
   z-index: 3 !important;
+}
+
+.ending-content .badend-narration,
+.badend-screen .ending-content .badend-narration {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: auto !important;
+}
+
+.ending-content .badend-title,
+.badend-screen .ending-content .badend-title,
+.ending-content .badend-label,
+.badend-screen .ending-content .badend-label {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: auto !important;
+  margin-top: 42px !important;
 }
 
 /* Final choice separation guard.

@@ -1187,7 +1187,7 @@
 
 :: Ending_Isshin_BeforeBlade_End {"position":"3150,1700","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[True End. 칼보다 먼저]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[True End. 칼보다 먼저]</div>
 <</page>>
 
 :: BrokenEnd_Isshin_SwordOnly {"position":"2400,2050","size":"100,100"}
@@ -1251,7 +1251,7 @@
 
 :: BrokenEnd_Isshin_SwordOnly_End {"position":"3025,2050","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Broken End. 검만 남은 자]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Broken End. 검만 남은 자]</div>
 <</page>>
 
 :: Isshin_ShuraEnd_Prelude {"position":"2400,2225","size":"100,100"}
@@ -1310,7 +1310,7 @@
 
 :: Isshin_ShuraEnd_Prelude_End {"position":"2900,2225","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 마지막 검맞댐]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 마지막 검맞댐]</div>
 <</page>>
 
 :: Ending_Isshin_ReedSake {"position":"2400,1750","size":"100,100"}
@@ -1378,7 +1378,7 @@
 
 :: Ending_Isshin_ReedSake_End {"position":"3150,1750","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 갈대밭의 술자리]</div>
+<div class="ending-stamp ending-title" data-next="ReturnToTempleAfterDayEnd">[Day End. 갈대밭의 술자리]</div>
 <</page>>
 
 :: BadEnd_Isshin_EmptyCup {"position":"2400,1925","size":"100,100"}
@@ -1415,7 +1415,7 @@
 
 :: BadEnd_Isshin_EmptyCup_End {"position":"2775,1925","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 빈 술잔]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 빈 술잔]</div>
 <</page>>
 
 :: BadEnd_Isshin_SwordDemonLaugh {"position":"2400,2100","size":"100,100"}
@@ -1459,5 +1459,5 @@
 
 :: BadEnd_Isshin_SwordDemonLaugh_End {"position":"2775,2100","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 검귀의 웃음]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 검귀의 웃음]</div>
 <</page>>

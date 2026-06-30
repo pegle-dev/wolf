@@ -137,7 +137,7 @@
 
 :: Ending_Hanbei_End {"position":"5075,400","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 그냥 온 날]</div>
+<div class="ending-stamp ending-title" data-next="ReturnToTempleAfterDayEnd">[Day End. 그냥 온 날]</div>
 <</page>>
 
 :: Ending_Hanbei_Silence {"position":"3200,650","size":"100,100"}
@@ -203,7 +203,7 @@
 
 :: Ending_Hanbei_Silence_End {"position":"3950,650","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 곁에 앉은 침묵]</div>
+<div class="ending-stamp ending-title" data-next="ReturnToTempleAfterDayEnd">[Day End. 곁에 앉은 침묵]</div>
 <</page>>
 
 :: BadEnd_Hanbei_Mercy {"position":"3200,900","size":"100,100"}
@@ -317,7 +317,7 @@
 
 :: BadEnd_Hanbei_Mercy_End {"position":"4450,900","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 끝나는 대련]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 끝나는 대련]</div>
 <</page>>
 
 :: BadEnd_Hanbei_Sword {"position":"3200,1150","size":"100,100"}
@@ -418,7 +418,7 @@
 
 :: BadEnd_Hanbei_Sword_End {"position":"4200,1150","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 불사를 베는 연습]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 불사를 베는 연습]</div>
 <</page>>
 
 :: Ending_ReturnToStart {"position":"5200,400","size":"100,100"}

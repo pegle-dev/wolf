@@ -2062,12 +2062,16 @@
 <<markEndingSeen "ending_hanbei_quiet_day">>
 <<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
 
-<div class="narration-screen hanbei-narration">
-  <div class="narration narration-block">[Day End. 그냥 온 날]
-그날 늑대는
+<div class="ending-screen hanbei-narration">
+  <div class="ending-content">
+    <div class="ending-body">그날 늑대는
 한베를 베지 않았다.
+
 한베도
 다시 베어 달라 말하지 않았다.</div>
+
+    <div class="ending-title">[Day End. 그냥 온 날]</div>
+  </div>
 </div>
 
 <<continueTo "Hanbei_End_QuietDay_02">>

@@ -147,7 +147,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 아무도 올 이유가 없어진 것이다.
 </div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 아무도 오지 않았다]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 아무도 오지 않았다]</div>
 <</page>>
 
 :: Ending_Common_Bad_TooLate {"position":"5950,800","size":"100,100"}
@@ -182,7 +182,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 그 소리는 언제나 마지막에 왔다.
 </div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 늦었다]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 늦었다]</div>
 <</page>>
 
 :: Rescue_Hanbei {"position":"5750,1050","size":"100,100"}
@@ -350,7 +350,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 :: BadEnd_MissingNight_End {"position":"6450,900","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 돌아오지 않는 밤]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 돌아오지 않는 밤]</div>
 <</page>>
 
 :: BadEnd_EmptyScabbard {"position":"5950,1100","size":"100,100"}
@@ -440,7 +440,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 :: BadEnd_EmptyScabbard_End {"position":"6700,1100","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 빈 칼집]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 빈 칼집]</div>
 <</page>>
 
 :: BadEnd_TamedWolf {"position":"5950,1300","size":"100,100"}
@@ -501,7 +501,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 :: BadEnd_TamedWolf_End {"position":"6450,1300","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 길들여진 늑대]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 길들여진 늑대]</div>
 <</page>>
 
 :: BadEnd_OwlWolf {"position":"5950,1500","size":"100,100"}
@@ -722,7 +722,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 :: BadEnd_OwlWolf_End {"position":"7950,1500","size":"100,100"}
 <<page>>
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Bad End. 올빼미의 늑대]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Bad End. 올빼미의 늑대]</div>
 <</page>>
 
 :: Hidden_End_OwlsWolf_01 {"position":"5950,1750","size":"100,100"}
@@ -1016,5 +1016,5 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 아직도 칭찬을 기다리고 있어서.
 </div>
 
-<div class="ending-stamp" data-next="Ending_ReturnToStart">[Hidden Broken End. Owl’s Wolf]</div>
+<div class="ending-stamp ending-title" data-next="Ending_ReturnToStart">[Hidden Broken End. Owl’s Wolf]</div>
 <</page>>

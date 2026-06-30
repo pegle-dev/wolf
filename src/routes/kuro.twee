@@ -2070,7 +2070,7 @@
 
 :: Ending_Kuro_PathWithoutMaster_End {"position":"3850,1725","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="ReturnToTempleAfterDayEnd">[Day End. 주인 없는 길]</div>
+<div class="ending-stamp ending-title ending-stamp-click" data-next="ReturnToTempleAfterDayEnd">[Day End. 주인 없는 길]</div>
 <</page>>
 
 :: BadEnd_Kuro_LastOrder {"position":"2350,1875","size":"100,100"}
@@ -2127,7 +2127,7 @@
 
 :: BadEnd_Kuro_LastOrder_End {"position":"2850,1875","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[Bad End. 마지막 명령]</div>
+<div class="ending-stamp ending-title ending-stamp-click" data-next="Ending_ReturnToStart">[Bad End. 마지막 명령]</div>
 <</page>>
 
 :: BadEnd_Kuro_UnreachableTeahouse {"position":"2350,2025","size":"100,100"}
@@ -2179,7 +2179,7 @@
 
 :: BadEnd_Kuro_UnreachableTeahouse_End {"position":"2725,2025","size":"100,100"}
 <<page>>
-<div class="ending-stamp ending-stamp-click" data-next="Ending_ReturnToStart">[Bad End. 닿지 않는 찻집]</div>
+<div class="ending-stamp ending-title ending-stamp-click" data-next="Ending_ReturnToStart">[Bad End. 닿지 않는 찻집]</div>
 <</page>>
 
 :: Kuro_AfterEnding {"position":"3975,1725","size":"100,100"}

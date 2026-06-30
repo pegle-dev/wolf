@@ -2734,6 +2734,54 @@ body.status-hidden .outer-dev-ui {
   word-break: keep-all;
 }
 
+.ending-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ending-content {
+  position: absolute;
+  inset: 0;
+  width: min(760px, 82%);
+  max-height: 82%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.ending-body {
+  white-space: pre-line;
+  font-family: "WolfNotoSerifKR", "Noto Serif KR", serif;
+  font-size: 20px;
+  line-height: 1.9;
+  letter-spacing: 0.045em;
+  color: rgba(226, 222, 214, 0.86);
+}
+
+.ending-content .ending-title {
+  position: static;
+  width: auto;
+  margin-top: 42px;
+  transform: none;
+}
+
+.ending-title {
+  font-family: "WolfNotoSerifKRBold", "Noto Serif KR", serif;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  color: rgba(238, 235, 228, 0.92);
+  white-space: pre-line;
+}
+
 .page-stage.ending-screen .ending-stamp {
   animation: wolf-ending-stamp-in 2200ms ease-out both;
 }
@@ -6954,6 +7002,28 @@ body:has(.recordbook-panel) .wolf-global-continue-layer {
   font-size: 29px !important;
   line-height: 1.25 !important;
   z-index: 3 !important;
+}
+
+.ending-content .badend-narration,
+.badend-screen .ending-content .badend-narration {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: auto !important;
+}
+
+.ending-content .badend-title,
+.badend-screen .ending-content .badend-title,
+.ending-content .badend-label,
+.badend-screen .ending-content .badend-label {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: auto !important;
+  margin-top: 42px !important;
 }
 
 /* Final choice separation guard.
@@ -13322,7 +13392,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;Ending_Hanbei_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="Ending_Hanbei_End" tags="" position="5075,400" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 그냥 온 날]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 그냥 온 날]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="Ending_Hanbei_Silence" tags="" position="3200,650" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $hanbeiDone = true&gt;&gt;
 &lt;&lt;set $completedHanbei = true&gt;&gt;
@@ -13367,7 +13437,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;Ending_Hanbei_Silence_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="Ending_Hanbei_Silence_End" tags="" position="3950,650" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 곁에 앉은 침묵]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 곁에 앉은 침묵]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="BadEnd_Hanbei_Mercy" tags="" position="3200,900" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $badEndingSeen = true&gt;&gt;
 &lt;&lt;set $hanbeiBadEndingSeen = true&gt;&gt;
@@ -13445,7 +13515,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_Hanbei_Mercy_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="BadEnd_Hanbei_Mercy_End" tags="" position="4450,900" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 끝나는 대련]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 끝나는 대련]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="BadEnd_Hanbei_Sword" tags="" position="3200,1150" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $badEndingSeen = true&gt;&gt;
 &lt;&lt;set $hanbeiBadEndingSeen = true&gt;&gt;
@@ -13519,7 +13589,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_Hanbei_Sword_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="BadEnd_Hanbei_Sword_End" tags="" position="4200,1150" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 불사를 베는 연습]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 불사를 베는 연습]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="Ending_ReturnToStart" tags="" position="5200,400" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;div class=&quot;ending-return-screen scene-bg-reedfield05&quot;&gt;
 &lt;div class=&quot;ending-return-choice-layer&quot;&gt;
@@ -13721,7 +13791,7 @@ $(document).on('click', '[data-dev-language]', function (event) {
 &lt;&lt;set $anyEndingSeen = true&gt;&gt;
 &lt;&lt;markEndingSeen&gt;&gt;
 &lt;&lt;run setup.clearLastEndingBgmType &amp;&amp; setup.clearLastEndingBgmType()&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 돌아갈 길]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 돌아갈 길]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="103" name="Event_Emma_IsshinIntro" tags="" position="1900,1350" size="100,100">&lt;&lt;goto &quot;Emma_IntroduceIsshin&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="104" name="Emma_IntroduceIsshin" tags="" position="1900,1475" size="100,100">&lt;&lt;if (($nightSawEmmaTrace || false) or ($nightSawReflection || false) or ($nightSawShuraHint || false)) and not $emmaReactedNightMedicine&gt;&gt;
   &lt;&lt;set $nightReactionReturn = &quot;Emma_IntroduceIsshin&quot;&gt;&gt;
   &lt;&lt;goto &quot;Emma_React_NightMedicine&quot;&gt;&gt;
@@ -18962,7 +19032,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 아무도 올 이유가 없어진 것이다.
 &lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 아무도 오지 않았다]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 아무도 오지 않았다]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="524" name="Ending_Common_Bad_TooLate" tags="" position="5950,800" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $endingCommonBadTooLateSeen = true&gt;&gt;
 &lt;&lt;set $recordEndingCommonBadTooLate = true&gt;&gt;
@@ -18994,7 +19064,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 그 소리는 언제나 마지막에 왔다.
 &lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 늦었다]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 늦었다]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="525" name="Rescue_Hanbei" tags="" position="5750,1050" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $commonBadPending = false&gt;&gt;
 &lt;&lt;set $hanbeiRescueSeen = true&gt;&gt;
@@ -19132,7 +19202,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_MissingNight_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="534" name="BadEnd_MissingNight_End" tags="" position="6450,900" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 돌아오지 않는 밤]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 돌아오지 않는 밤]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="535" name="BadEnd_EmptyScabbard" tags="" position="5950,1100" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $badEmptyScabbardSeen = true&gt;&gt;
 &lt;&lt;set $badEndingSeen = true&gt;&gt;
@@ -19201,7 +19271,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_EmptyScabbard_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="541" name="BadEnd_EmptyScabbard_End" tags="" position="6700,1100" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 빈 칼집]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 빈 칼집]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="542" name="BadEnd_TamedWolf" tags="" position="5950,1300" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $badTamedWolfSeen = true&gt;&gt;
 &lt;&lt;set $badEndingSeen = true&gt;&gt;
@@ -19247,7 +19317,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_TamedWolf_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="546" name="BadEnd_TamedWolf_End" tags="" position="6450,1300" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 길들여진 늑대]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 길들여진 늑대]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="547" name="BadEnd_OwlWolf" tags="" position="5950,1500" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $badOwlWolfSeen = true&gt;&gt;
 &lt;&lt;set $badEndingSeen = true&gt;&gt;
@@ -19417,7 +19487,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_OwlWolf_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="563" name="BadEnd_OwlWolf_End" tags="" position="7950,1500" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 올빼미의 늑대]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 올빼미의 늑대]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="564" name="Hidden_End_OwlsWolf_01" tags="" position="5950,1750" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;div class=&quot;narration narration-full short-beat&quot;&gt;
 늑대는 어느 밤, 갑자기 사라졌다.
@@ -19675,7 +19745,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 아직도 칭찬을 기다리고 있어서.
 &lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Hidden Broken End. Owl’s Wolf]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Hidden Broken End. Owl’s Wolf]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="576" name="Echo_UnlockHiddenIfReady" tags="" position="5400,2300" size="100,100">&lt;&lt;if ($hanbeiEchoSeen || false) and ($kuroEchoSeen || false) and ($genichiroEchoSeen || false) and ($sculptorEchoSeen || false) and ($isshinEchoSeen || false) and not ($endingHiddenRememberSeen || false)&gt;&gt;
   &lt;&lt;set $hiddenEndUnlocked = true&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="577" name="EchoRouter_Hanbei_Day_CameBy" tags="" position="5200,2400" size="100,100">&lt;&lt;if ($endingHanbeiDaySeen || false) or ($endingHanbeiQuietDaySeen || false)&gt;&gt;
@@ -20042,7 +20112,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 오늘은 아무도 베이지 않았다.
 &lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Hidden End. 기억한다]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Hidden End. 기억한다]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="598" name="Ending_Draft_Check" tags="" position="5600,2500" size="100,100">&lt;&lt;run setup.ensureBondVariables &amp;&amp; setup.ensureBondVariables()&gt;&gt;
 &lt;&lt;if ($hanbeiMidConflictSeen || false) and (($hanbeiConflict || 0) &gt;= 3) and (($shura || 0) &gt;= 2 or ($hanbeiTrainingLocked || false) or ($hanbeiWorstReady || false))&gt;&gt;
   &lt;&lt;goto &quot;Ending_Hanbei_Worst_ImmortalWeapon&quot;&gt;&gt;
@@ -20197,7 +20267,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 죽고도 돌아오는 자가,
 그날은 아무것도 죽이지 않았다.&lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 사는 연습]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 사는 연습]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;
 
 
@@ -20336,7 +20406,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 죽음을 아무렇지 않게 쓰는 자가 되는 것이었다.&lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 죽지 않는 무기]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 죽지 않는 무기]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;
 
 
@@ -20499,7 +20569,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 명령을 기다리기 위해서가 아니라,
 함께 선택하기 위해서.&lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 명령이 아닌 곁]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 명령이 아닌 곁]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="657" name="Ending_Kuro_Worst_CommandlessBurden" tags="" position="6000,2650" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;kuro&quot;&gt;&gt;
 &lt;&lt;set $kuroDone = true&gt;&gt;
@@ -20622,7 +20692,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 늑대는 기다린다.
 쿠로가 다음 명령을 내릴 때까지.&lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 무거운 명령]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 무거운 명령]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="670" name="Ending_Genichiro_True_MirrorSide" tags="" position="6200,2500" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $genichiroDone = true&gt;&gt;
@@ -20903,7 +20973,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 그리고,
 나갈 수 있게 하기 위해.&lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 거울의 반대편]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 거울의 반대편]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="702" name="Ending_Genichiro_Worst_IronGuard" tags="" position="6200,2650" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $genichiroDone = true&gt;&gt;
@@ -21120,7 +21190,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 이미 오래전에
 자신의 말을 잃었기 때문이다.&lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 철의 호위]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 철의 호위]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;
 
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="723" name="FirstDeath_Event" tags="" position="2750,125" size="100,100">&lt;&lt;page&gt;&gt;
@@ -21252,13 +21322,15 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;set $anyEndingSeen = true&gt;&gt;
 &lt;&lt;set $badEndingSeen = true&gt;&gt;
 &lt;&lt;markEndingSeen &quot;badend_first_death&quot;&gt;&gt;
-&lt;div class=&quot;badend-screen black-stage&quot;&gt;
-&lt;div class=&quot;badend-narration&quot;&gt;늑대는 쿠로를 구했다.
+&lt;div class=&quot;ending-screen badend-screen black-stage&quot;&gt;
+&lt;div class=&quot;ending-content&quot;&gt;
+&lt;div class=&quot;ending-body badend-narration&quot;&gt;늑대는 쿠로를 구했다.
 
 그리고,
 그 자리에서 죽었다.&lt;/div&gt;
 
-&lt;div class=&quot;badend-title&quot;&gt;[Bad End. 익숙한 죽음]&lt;/div&gt;
+&lt;div class=&quot;ending-title badend-title&quot;&gt;[Bad End. 익숙한 죽음]&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;&lt;continueTo &quot;FirstDeath_Record&quot;&gt;&gt;
@@ -21452,16 +21524,19 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;set $recordBookUnlocked = true&gt;&gt;
 &lt;&lt;set $recordBookNewEnding = true&gt;&gt;
 &lt;&lt;markEndingSeen &quot;badend_genichiro_arrow&quot;&gt;&gt;
-&lt;div class=&quot;ending-text&quot;&gt;
-[Bad End. 성문 앞의 화살]
-
-늑대는 움직이지 못했다.
+&lt;div class=&quot;ending-screen&quot;&gt;
+&lt;div class=&quot;ending-content&quot;&gt;
+&lt;div class=&quot;ending-body&quot;&gt;늑대는 움직이지 못했다.
 
 몸이 늦은 것은 아니었다.
 명령이 없었다.
 
 화살은 그 짧은 빈틈을 지나,
 늑대의 숨을 성문 앞에 못박았다.
+&lt;/div&gt;
+
+&lt;div class=&quot;ending-title&quot;&gt;[Bad End. 성문 앞의 화살]&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;&lt;recordNotice &quot;ending&quot;&gt;&gt;
@@ -22686,7 +22761,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Ending_Genichiro_SettingMoonCastle_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="876" name="Ending_Genichiro_SettingMoonCastle_End" tags="" position="4175,2775" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp ending-stamp-click&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 달이 지는 성]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title ending-stamp-click&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 달이 지는 성]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="877" name="Ending_Genichiro_SameMoon" tags="" position="2175,2925" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $endingGenichiroSameMoonSeen = true&gt;&gt;
@@ -22739,7 +22814,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Ending_Genichiro_SameMoon_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="878" name="Ending_Genichiro_SameMoon_End" tags="" position="2300,2925" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 같은 달을 등지고]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 같은 달을 등지고]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="879" name="Ending_Genichiro_Footprints" tags="" position="2175,3075" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $endingGenichiroFootprintsSeen = true&gt;&gt;
@@ -22790,7 +22865,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Ending_Genichiro_Footprints_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="880" name="Ending_Genichiro_Footprints_End" tags="" position="2300,3075" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 성에 남은 발자국]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 성에 남은 발자국]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="881" name="BadEnd_Genichiro_SinkingCastle" tags="" position="2175,3225" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $badEndGenichiroSinkingCastleSeen = true&gt;&gt;
@@ -22842,7 +22917,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BadEnd_Genichiro_SinkingCastle_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="882" name="BadEnd_Genichiro_SinkingCastle_End" tags="" position="2300,3225" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 함께 가라앉는 성]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 함께 가라앉는 성]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="883" name="BadEnd_Genichiro_LightningWolf" tags="" position="2175,3375" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $badEndGenichiroLightningWolfSeen = true&gt;&gt;
@@ -22897,7 +22972,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BadEnd_Genichiro_LightningWolf_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="884" name="BadEnd_Genichiro_LightningWolf_End" tags="" position="2300,3375" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 번개를 삼킨 늑대]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 번개를 삼킨 늑대]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="885" name="BadEnd_Genichiro_KneelingCastle" tags="" position="2175,3525" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;genichiro&quot;&gt;&gt;
 &lt;&lt;set $badEndGenichiroKneelingCastleSeen = true&gt;&gt;
@@ -22957,7 +23032,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BadEnd_Genichiro_KneelingCastle_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="886" name="BadEnd_Genichiro_KneelingCastle_End" tags="" position="2300,3525" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 무릎 꿇은 성]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 무릎 꿇은 성]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="887" name="Genichiro_MidConflict" tags="" position="2175,3650" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;run setup.ensureBondVariables &amp;&amp; setup.ensureBondVariables()&gt;&gt;
 &lt;&lt;set $genichiroMidConflictSeen = true&gt;&gt;
@@ -25290,12 +25365,16 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 &lt;&lt;markEndingSeen &quot;ending_hanbei_quiet_day&quot;&gt;&gt;
 &lt;&lt;run setup.clearLastEndingBgmType &amp;&amp; setup.clearLastEndingBgmType()&gt;&gt;
 
-&lt;div class=&quot;narration-screen hanbei-narration&quot;&gt;
-  &lt;div class=&quot;narration narration-block&quot;&gt;[Day End. 그냥 온 날]
-그날 늑대는
+&lt;div class=&quot;ending-screen hanbei-narration&quot;&gt;
+  &lt;div class=&quot;ending-content&quot;&gt;
+    &lt;div class=&quot;ending-body&quot;&gt;그날 늑대는
 한베를 베지 않았다.
+
 한베도
 다시 베어 달라 말하지 않았다.&lt;/div&gt;
+
+    &lt;div class=&quot;ending-title&quot;&gt;[Day End. 그냥 온 날]&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;&lt;continueTo &quot;Hanbei_End_QuietDay_02&quot;&gt;&gt;
@@ -27524,7 +27603,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 검은 그 뒤에 왔다.&lt;/div&gt;
 &lt;&lt;continueTo &quot;Ending_Isshin_BeforeBlade_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1344" name="Ending_Isshin_BeforeBlade_End" tags="" position="3150,1700" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 칼보다 먼저]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 칼보다 먼저]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1345" name="BrokenEnd_Isshin_SwordOnly" tags="" position="2400,2050" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $isshinDone = true&gt;&gt;
 &lt;&lt;set $completedIsshin = true&gt;&gt;
@@ -27570,7 +27649,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BrokenEnd_Isshin_SwordOnly_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1350" name="BrokenEnd_Isshin_SwordOnly_End" tags="" position="3025,2050" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 검만 남은 자]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 검만 남은 자]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1351" name="Isshin_ShuraEnd_Prelude" tags="" position="2400,2225" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $isshinDone = true&gt;&gt;
 &lt;&lt;set $completedIsshin = true&gt;&gt;
@@ -27614,7 +27693,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Isshin_ShuraEnd_Prelude_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1355" name="Isshin_ShuraEnd_Prelude_End" tags="" position="2900,2225" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 마지막 검맞댐]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 마지막 검맞댐]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1356" name="Ending_Isshin_ReedSake" tags="" position="2400,1750" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $isshinDone = true&gt;&gt;
 &lt;&lt;set $completedIsshin = true&gt;&gt;
@@ -27661,7 +27740,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Ending_Isshin_ReedSake_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1362" name="Ending_Isshin_ReedSake_End" tags="" position="3150,1750" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 갈대밭의 술자리]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 갈대밭의 술자리]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1363" name="BadEnd_Isshin_EmptyCup" tags="" position="2400,1925" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $isshinDone = true&gt;&gt;
 &lt;&lt;set $completedIsshin = true&gt;&gt;
@@ -27686,7 +27765,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 검보다 가벼운지는 알 수 없었다.&lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_Isshin_EmptyCup_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1366" name="BadEnd_Isshin_EmptyCup_End" tags="" position="2775,1925" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 빈 술잔]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 빈 술잔]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1367" name="BadEnd_Isshin_SwordDemonLaugh" tags="" position="2400,2100" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $isshinDone = true&gt;&gt;
 &lt;&lt;set $completedIsshin = true&gt;&gt;
@@ -27718,7 +27797,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 늑대가 처음으로 이해할 수 있는 말이었다.&lt;&lt;/beat&gt;&gt;
 &lt;&lt;continueTo &quot;BadEnd_Isshin_SwordDemonLaugh_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1370" name="BadEnd_Isshin_SwordDemonLaugh_End" tags="" position="2775,2100" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 검귀의 웃음]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 검귀의 웃음]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1371" name="Kuro" tags="" position="2250,575" size="100,100">&lt;&lt;goto &quot;Go_Kuro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="1372" name="Kuro01" tags="" position="2225,675" size="100,100">&lt;&lt;goto &quot;Go_Kuro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="1373" name="Go_Kuro" tags="" position="2225,800" size="100,100">&lt;&lt;goto &quot;Kuro_Router&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="1374" name="Kuro_TempleNotice" tags="" position="2225,875" size="100,100">&lt;&lt;if $kuroTempleNoticeSeen&gt;&gt;
   &lt;&lt;goto &quot;Kuro_Router&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -29265,7 +29344,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Ending_Kuro_PathWithoutMaster_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1546" name="Ending_Kuro_PathWithoutMaster_End" tags="" position="3850,1725" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp ending-stamp-click&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 주인 없는 길]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title ending-stamp-click&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 주인 없는 길]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1547" name="BadEnd_Kuro_LastOrder" tags="" position="2350,1875" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;kuro&quot;&gt;&gt;
 &lt;&lt;set $kuroDone = true&gt;&gt;
@@ -29307,7 +29386,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BadEnd_Kuro_LastOrder_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1551" name="BadEnd_Kuro_LastOrder_End" tags="" position="2850,1875" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp ending-stamp-click&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 마지막 명령]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title ending-stamp-click&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 마지막 명령]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1552" name="BadEnd_Kuro_UnreachableTeahouse" tags="" position="2350,2025" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $currentRoute = &quot;kuro&quot;&gt;&gt;
 &lt;&lt;set $kuroDone = true&gt;&gt;
@@ -29347,7 +29426,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BadEnd_Kuro_UnreachableTeahouse_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1555" name="BadEnd_Kuro_UnreachableTeahouse_End" tags="" position="2725,2025" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp ending-stamp-click&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 닿지 않는 찻집]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title ending-stamp-click&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 닿지 않는 찻집]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1556" name="Kuro_AfterEnding" tags="" position="3975,1725" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;div class=&quot;narration&quot;&gt;
 쿠로의 방은 비어 있었다.
@@ -30663,7 +30742,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 늑대는 그 소리를 끝까지 들었다.&lt;/div&gt;
 &lt;&lt;continueTo &quot;Ending_Sculptor_AshCoolingSound_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1657" name="Ending_Sculptor_AshCoolingSound_End" tags="" position="3250,1600" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 재가 식는 소리]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[True End. 재가 식는 소리]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1658" name="BrokenEnd_Sculptor_DeadHand" tags="" position="2500,1775" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $sculptorDone = true&gt;&gt;
 &lt;&lt;set $completedSculptor = true&gt;&gt;
@@ -30702,7 +30781,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;BrokenEnd_Sculptor_DeadHand_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1662" name="BrokenEnd_Sculptor_DeadHand_End" tags="" position="3000,1775" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 죽은 손]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Broken End. 죽은 손]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1663" name="Sculptor_ShuraEnd_Prelude" tags="" position="2500,1950" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $sculptorDone = true&gt;&gt;
 &lt;&lt;set $completedSculptor = true&gt;&gt;
@@ -30746,7 +30825,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Sculptor_ShuraEnd_Prelude_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1667" name="Sculptor_ShuraEnd_Prelude_End" tags="" position="3000,1950" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 수라의 손]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 수라의 손]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1668" name="Ending_Sculptor_LeftBehindBuddha" tags="" position="2500,1650" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $sculptorDone = true&gt;&gt;
 &lt;&lt;set $completedSculptor = true&gt;&gt;
@@ -30788,7 +30867,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 
 &lt;&lt;continueTo &quot;Ending_Sculptor_LeftBehindBuddha_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1674" name="Ending_Sculptor_LeftBehindBuddha_End" tags="" position="3250,1650" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 남겨진 불상]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;ReturnToTempleAfterDayEnd&quot;&gt;[Day End. 남겨진 불상]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1675" name="BadEnd_Sculptor_UncarvedFace" tags="" position="2500,1825" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $sculptorDone = true&gt;&gt;
 &lt;&lt;set $completedSculptor = true&gt;&gt;
@@ -30808,7 +30887,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 그것이 가장 자신과 가까워 보였다.&lt;/div&gt;
 &lt;&lt;continueTo &quot;BadEnd_Sculptor_UncarvedFace_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1678" name="BadEnd_Sculptor_UncarvedFace_End" tags="" position="2875,1825" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 깎이지 않는 얼굴]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 깎이지 않는 얼굴]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1679" name="BadEnd_Sculptor_SpreadingEmber" tags="" position="2500,2000" size="100,100">&lt;&lt;page&gt;&gt;
 &lt;&lt;set $sculptorDone = true&gt;&gt;
 &lt;&lt;set $completedSculptor = true&gt;&gt;
@@ -30839,7 +30918,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 오래전의 자신을 보는 눈이었다.&lt;&lt;/beat&gt;&gt;
 &lt;&lt;continueTo &quot;BadEnd_Sculptor_SpreadingEmber_End&quot;&gt;&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1682" name="BadEnd_Sculptor_SpreadingEmber_End" tags="" position="2875,2000" size="100,100">&lt;&lt;page&gt;&gt;
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 옮겨붙은 불씨]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Bad End. 옮겨붙은 불씨]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;
 
 /% TODO: 밤 정찰 / 구출 / 수라 심화 이벤트와 조각가 루트의 깊은 연결은 후속 작업에서 추가한다. %/</tw-passagedata><tw-passagedata pid="1683" name="Shura" tags="" position="2500,575" size="100,100">&lt;&lt;goto &quot;Shura_Entrance&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="1684" name="Shura_Entrance" tags="" position="2500,575" size="100,100">&lt;&lt;page&gt;&gt;
@@ -31291,7 +31370,7 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 그것이 늑대였는지는 알 수 없다.
 &lt;/div&gt;
 
-&lt;div class=&quot;ending-stamp&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Shura End. 마지막 선택지]&lt;/div&gt;
+&lt;div class=&quot;ending-stamp ending-title&quot; data-next=&quot;Ending_ReturnToStart&quot;&gt;[Shura End. 마지막 선택지]&lt;/div&gt;
 &lt;&lt;/page&gt;&gt;</tw-passagedata><tw-passagedata pid="1718" name="Shura_Ending" tags="" position="3625,575" size="100,100">&lt;&lt;goto &quot;Ending_Shura_LastChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="1719" name="Widget_ChoiceTo" tags="widget" position="1100,21475" size="100,100">&lt;&lt;widget &quot;choiceTo&quot;&gt;&gt;&lt;&lt;nobr&gt;&gt;
 		&lt;&lt;set _label = _args[0]&gt;&gt;
 		&lt;&lt;set _target = _args[1]&gt;&gt;

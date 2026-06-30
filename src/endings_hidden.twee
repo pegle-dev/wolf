@@ -235,5 +235,5 @@
 <<set $anyEndingSeen = true>>
 <<markEndingSeen>>
 <<run setup.clearLastEndingBgmType && setup.clearLastEndingBgmType()>>
-<div class="ending-stamp" data-next="ReturnToTempleAfterDayEnd">[Day End. 돌아갈 길]</div>
+<div class="ending-stamp ending-title" data-next="ReturnToTempleAfterDayEnd">[Day End. 돌아갈 길]</div>
 <</page>>
