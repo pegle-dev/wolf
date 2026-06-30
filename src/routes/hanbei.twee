@@ -20,9 +20,17 @@
 <div class="narration-screen hanbei-narration">
   <div class="narration narration-block">
 발소리를 이미 알고 있는 사람처럼,
-가볍게 말했다.
+가볍게 말했다.</div>
+</div>
 
-“오늘도 날 베러 왔나?”</div>
+<<continueTo "Hanbei_FirstVisit_02_LineHanbei">>
+<</page>>
+
+:: Hanbei_FirstVisit_02_LineHanbei {"position":"700,600","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+오늘도 날 베러 왔나?</div>
 </div>
 
 <<continueTo "Hanbei_FirstVisit_Choice">>
@@ -54,11 +62,37 @@
 <<clampStats>>
 <<run setup.showToast && setup.showToast("한베 애정 +1", "bond")>>
 
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">늑대:
+그냥 왔다.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_JustCame_Beat01">>
+<</page>>
+
+:: Hanbei_FirstVisit_JustCame_Beat01 {"position":"675,850","size":"100,100"}
+<<page>>
 <div class="narration-screen hanbei-narration">
-  <div class="narration narration-block">“그냥 왔다.”
-한베가 눈을 떴다.
-“그냥?”
-늑대는 검을 뽑지 않았다.</div>
+  <div class="narration narration-block">한베가 눈을 떴다.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_JustCame_LineHanbei01">>
+<</page>>
+
+:: Hanbei_FirstVisit_JustCame_LineHanbei01 {"position":"690,850","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+그냥?</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_JustCame_Beat02">>
+<</page>>
+
+:: Hanbei_FirstVisit_JustCame_Beat02 {"position":"700,850","size":"100,100"}
+<<page>>
+<div class="narration-screen hanbei-narration">
+  <div class="narration narration-block">늑대는 검을 뽑지 않았다.</div>
 </div>
 
 <<continueTo "Hanbei_FirstVisit_JustCame_02">>
@@ -69,9 +103,18 @@
 <div class="narration-screen hanbei-narration">
   <div class="narration narration-block">
 한베는 잠시 늑대를 보다가,
-작게 웃었다.
-“그거 참,
-이상하게 무서운 말이군.”</div>
+작게 웃었다.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_JustCame_LineHanbei02">>
+<</page>>
+
+:: Hanbei_FirstVisit_JustCame_LineHanbei02 {"position":"715,850","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+그거 참,
+이상하게 무서운 말이군.</div>
 </div>
 
 <<continueTo "Hanbei_FirstVisit_JustCame_03">>
@@ -99,12 +142,39 @@
 <<clampStats>>
 <<run setup.showToast && setup.showToast("한베 갈등 +1", "bond")>>
 
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">늑대:
+대련하러 왔다.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_Duel_LineHanbei01">>
+<</page>>
+
+:: Hanbei_FirstVisit_Duel_LineHanbei01 {"position":"790,850","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+그렇겠지.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_Duel_Beat01">>
+<</page>>
+
+:: Hanbei_FirstVisit_Duel_Beat01 {"position":"800,850","size":"100,100"}
+<<page>>
 <div class="narration-screen hanbei-narration">
-  <div class="narration narration-block">“대련하러 왔다.”
-“그렇겠지.”
-한베는 천천히 일어났다.
-“자네 손이 쉬는 날이 있다면,
-내가 먼저 의심해야 하지 않겠나.”</div>
+  <div class="narration narration-block">한베는 천천히 일어났다.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_Duel_LineHanbei02">>
+<</page>>
+
+:: Hanbei_FirstVisit_Duel_LineHanbei02 {"position":"815,850","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+자네 손이 쉬는 날이 있다면,
+내가 먼저 의심해야 하지 않겠나.</div>
 </div>
 
 <<continueTo "Hanbei_FirstVisit_Duel_02">>
@@ -176,9 +246,18 @@
 <div class="narration-screen hanbei-narration">
   <div class="narration narration-block">
 한베는 웃었다.
-웃음 끝이 조금 늦게 내려앉았다.
-“그런 성실함은,
-사람을 오래 살게 만들기도 하지.”</div>
+웃음 끝이 조금 늦게 내려앉았다.</div>
+</div>
+
+<<continueTo "Hanbei_FirstVisit_Check_05_LineHanbei">>
+<</page>>
+
+:: Hanbei_FirstVisit_Check_05_LineHanbei {"position":"1035,850","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+그런 성실함은,
+사람을 오래 살게 만들기도 하지.</div>
 </div>
 
 <<continueTo "Hanbei_FirstVisit_Check_06">>
@@ -210,11 +289,19 @@
 
 :: Hanbei_DuelShort_02 {"position":"825,975","size":"100,100"}
 <<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+좋아.
+오늘도 자네 손은 성실하군.</div>
+</div>
+
+<<continueTo "Hanbei_DuelShort_03">>
+<</page>>
+
+:: Hanbei_DuelShort_03 {"position":"850,975","size":"100,100"}
+<<page>>
 <div class="narration-screen hanbei-narration">
-  <div class="narration narration-block">
-“좋아.
-오늘도 자네 손은 성실하군.”
-한베는 웃었다.
+  <div class="narration narration-block">한베는 웃었다.
 늑대는 검을 거두었다.</div>
 </div>
 
@@ -1881,9 +1968,18 @@
 
 <div class="narration-screen hanbei-narration">
   <div class="narration narration-block">늑대는 술병을 받았다.<br>
-한베의 손이 아주 잠깐 멈췄다.<br>
-“자네도 가끔은,
-사람 흉내를 내는군.”</div>
+한베의 손이 아주 잠깐 멈췄다.</div>
+</div>
+
+<<continueTo "Hanbei_Sake_Accept_LineHanbei">>
+<</page>>
+
+:: Hanbei_Sake_Accept_LineHanbei {"position":"1688,1525","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+자네도 가끔은,
+사람 흉내를 내는군.</div>
 </div>
 
 <<continueTo "Hanbei_Sake_Accept_02">>
@@ -1909,9 +2005,26 @@
 <<run setup.showToast && setup.showToast("한베 갈등 +1", "bond")>>
 
 <div class="narration-screen hanbei-narration">
-  <div class="narration narration-block">늑대는 술병을 받지 않았다.<br>
-“그럴 줄 알았네.”<br>
-한베는 혼자 술을 마셨다.</div>
+  <div class="narration narration-block">늑대는 술병을 받지 않았다.</div>
+</div>
+
+<<continueTo "Hanbei_Sake_Refuse_LineHanbei01">>
+<</page>>
+
+:: Hanbei_Sake_Refuse_LineHanbei01 {"position":"1688,1550","size":"100,100"}
+<<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+그럴 줄 알았네.</div>
+</div>
+
+<<continueTo "Hanbei_Sake_Refuse_Beat01">>
+<</page>>
+
+:: Hanbei_Sake_Refuse_Beat01 {"position":"1700,1550","size":"100,100"}
+<<page>>
+<div class="narration-screen hanbei-narration">
+  <div class="narration narration-block">한베는 혼자 술을 마셨다.</div>
 </div>
 
 <<continueTo "Hanbei_Sake_Refuse_02">>
@@ -1919,11 +2032,19 @@
 
 :: Hanbei_Sake_Refuse_02 {"position":"1700,1550","size":"100,100"}
 <<page>>
+<div class="dialogue-screen hanbei-narration">
+  <div class="dialogue-box">한베:
+그래도 권해보는 건,
+아직 내가 완전히 썩지는 않았다는 뜻이겠지.</div>
+</div>
+
+<<continueTo "Hanbei_Sake_Refuse_03">>
+<</page>>
+
+:: Hanbei_Sake_Refuse_03 {"position":"1712,1550","size":"100,100"}
+<<page>>
 <div class="narration-screen hanbei-narration">
-  <div class="narration narration-block">
-“그래도 권해보는 건,
-아직 내가 완전히 썩지는 않았다는 뜻이겠지.”
-늑대는 대답하지 않았다.
+  <div class="narration narration-block">늑대는 대답하지 않았다.
 한베도 더 권하지 않았다.</div>
 </div>
 
