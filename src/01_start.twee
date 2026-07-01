@@ -15,6 +15,9 @@ Wolf
 
 :: Start {"position":"1500,25","size":"100,100"}
 <div class="title-screen">
+  <div class="debug-purgatory-link">
+  [[달과 갈대밭 테스트|Prologue_Purgatory]]
+  </div>
 
   <div class="title-main">
     <div class="game-title title-logo">WOLF</div>

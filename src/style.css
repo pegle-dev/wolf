@@ -7926,3 +7926,25 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-top-actions 
   overflow: hidden;
   box-sizing: border-box;
 }
+
+.debug-purgatory-link {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 8px 12px;
+  border: 1px solid #fff;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.debug-purgatory-link a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.debug-purgatory-link a:hover {
+  text-decoration: underline;
+}

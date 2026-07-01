@@ -1,0 +1,169 @@
+:: Prologue_Purgatory {"position":"2600,75","size":"100,100"}
+<<set $day = 1>>
+<<set $maxDay = 5>>
+<<set $isolation = 0>>
+<<set $shura = 0>>
+<<set $attachment = 0>>
+<<set $echoHanbei = 0>>
+<<set $echoKuro = 0>>
+<<set $echoGenichiro = 0>>
+<<set $echoSculptor = 0>>
+<<set $echoIsshin = 0>>
+<<set $fatherVoice = 0>>
+<<set $nightScoutCount = 0>>
+<<set $sleepCount = 0>>
+<<set $currentMoonPhase = "만월">>
+<<set $lastDayAction = "">>
+<<set $lastNightAction = "">>
+<<set $currentMode = "purgatory">>
+<<set $timeOfDay = "day">>
+
+<div class="narration-screen">
+<div class="narration narration-block">불사 엔딩 이후,
+늑대는 죽음도 삶도 아닌 갈대밭에서 깨어난다.
+
+그에게 주어진 것은 서른 번의 밤이었다.
+
+지금은 그 첫 다섯 밤만을 헤아린다.</div>
+</div>
+
+[[갈대밭으로 일어난다->Purgatory_DayStart]]
+
+:: Purgatory_DayStart {"position":"2725,75","size":"100,100"}
+<<set $currentMode = "purgatory">>
+<<set $timeOfDay = "day">>
+<<if $day > $maxDay>>
+  <<goto "Purgatory_EndingRouter">>
+<</if>>
+<<if $day == 1>>
+  <<set $currentMoonPhase = "만월">>
+<<elseif $day == 2>>
+  <<set $currentMoonPhase = "기우기 시작한 달">>
+<<elseif $day == 3>>
+  <<set $currentMoonPhase = "반달">>
+<<elseif $day == 4>>
+  <<set $currentMoonPhase = "칼끝 같은 달">>
+<<elseif $day == 5>>
+  <<set $currentMoonPhase = "달의 흔적">>
+<<else>>
+  <<set $currentMoonPhase = "달 없는 밤">>
+<</if>>
+<<set _remainingNights = ($maxDay - $day) + 1>>
+<<if _remainingNights < 0>>
+  <<set _remainingNights = 0>>
+<</if>>
+
+<div class="narration-screen">
+<div class="narration narration-block">갈대밭 위의 달은 아직 사라지지 않았다.
+
+현재: $day일째
+남은 밤: _remainingNights
+달 상태: $currentMoonPhase</div>
+</div>
+
+[[낮의 잔향을 따라간다->Purgatory_DayAction]]
+
+:: Purgatory_DayAction {"position":"2850,75","size":"100,100"}
+<div class="choice-screen">
+<div class="choice-prompt">낮이 갈대 사이로 흩어진다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<link "한베의 웃음소리를 따라간다">>
+  <<set $echoHanbei += 1>>
+  <<set $isolation -= 1>>
+  <<set $lastDayAction = "hanbei">>
+  <<goto "Purgatory_NightChoice">>
+<</link>>
+<<link "쿠로의 찻잔을 따라간다">>
+  <<set $echoKuro += 1>>
+  <<set $attachment += 1>>
+  <<set $lastDayAction = "kuro">>
+  <<goto "Purgatory_NightChoice">>
+<</link>>
+<<link "아무도 따라가지 않는다">>
+  <<set $isolation += 1>>
+  <<set $fatherVoice += 1>>
+  <<set $lastDayAction = "alone">>
+  <<goto "Purgatory_NightChoice">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_NightChoice {"position":"2975,75","size":"100,100"}
+<<set $timeOfDay = "night">>
+<div class="choice-screen night-choice-screen">
+<div class="choice-prompt">밤이 갈대밭을 눕힌다.</div>
+
+<div class="global-choice-layer">
+<div class="global-choice-box night-choice-box">
+<<link "잠든다">>
+  <<set $sleepCount += 1>>
+  <<set $lastNightAction = "sleep">>
+  <<goto "Purgatory_SleepRouter">>
+<</link>>
+<<link "밤정찰을 나간다">>
+  <<set $nightScoutCount += 1>>
+  <<set $shura += 1>>
+  <<set $fatherVoice += 1>>
+  <<set $lastNightAction = "scout">>
+  <<goto "Purgatory_NightScoutRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_SleepRouter {"position":"3100,25","size":"100,100"}
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 갈대 위에 몸을 뉘었다.
+
+달빛은 눈꺼풀 안쪽에서도 희미하게 흔들렸다.</div>
+</div>
+
+[[꿈속으로 가라앉는다->Purgatory_DreamRouter]]
+
+:: Purgatory_NightScoutRouter {"position":"3100,125","size":"100,100"}
+<div class="narration-screen">
+<div class="narration narration-block">늑대는 밤의 갈대밭을 걷는다.
+
+발밑에서 젖은 흙이 갈라지고,
+멀리서 아버지의 목소리 같은 것이 낮게 웃었다.</div>
+</div>
+
+[[새벽까지 걷는다->Purgatory_DayEndRouter]]
+
+:: Purgatory_DreamRouter {"position":"3225,25","size":"100,100"}
+<div class="narration-screen">
+<div class="narration narration-block">꿈속에서도 갈대는 흔들렸다.
+
+누군가의 잔향이 달빛 아래 잠시 서 있다가,
+늑대가 이름을 부르기 전에 사라졌다.</div>
+</div>
+
+[[꿈에서 깨어난다->Purgatory_DayEndRouter]]
+
+:: Purgatory_DayEndRouter {"position":"3225,75","size":"100,100"}
+<<set $day += 1>>
+<<set $timeOfDay = "day">>
+<<set $currentMode = "purgatory">>
+<<goto "Purgatory_DayStart">>
+
+:: Purgatory_EndingRouter {"position":"3350,75","size":"100,100"}
+<<set $currentMode = "purgatory">>
+<div class="narration-screen">
+<div class="narration narration-block">달이 사라진 뒤,
+늑대는 자신이 가장 오래 붙잡은 것의 모습으로 남았다.
+
+<<if $shura >= 3>>
+Shura Mini End
+<<elseif $isolation >= 3>>
+Worst Mini End
+<<elseif $echoHanbei > $echoKuro>>
+Hanbei Mini End
+<<elseif $echoKuro >= $echoHanbei>>
+Kuro Mini End
+<</if>></div>
+</div>
+
+[[처음 화면으로->Start]]
