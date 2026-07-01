@@ -29516,9 +29516,14 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 그에게 주어진 것은 서른 번의 밤이었다.
 
 지금은 그 첫 다섯 밤만을 헤아린다.&lt;/div&gt;
+&lt;div class=&quot;global-choice-layer&quot;&gt;
+&lt;div class=&quot;global-choice-box&quot;&gt;
+&lt;&lt;link &quot;계속&quot;&gt;&gt;
+  &lt;&lt;goto &quot;Purgatory_DayStart&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
-
-[[갈대밭으로 일어난다-&gt;Purgatory_DayStart]]</tw-passagedata><tw-passagedata pid="1558" name="Purgatory_DayStart" tags="" position="2725,75" size="100,100">&lt;&lt;set $currentMode = &quot;purgatory&quot;&gt;&gt;
+&lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="1558" name="Purgatory_DayStart" tags="" position="2725,75" size="100,100">&lt;&lt;set $currentMode = &quot;purgatory&quot;&gt;&gt;
 &lt;&lt;set $timeOfDay = &quot;day&quot;&gt;&gt;
 &lt;&lt;if $day &gt; $maxDay&gt;&gt;
   &lt;&lt;goto &quot;Purgatory_EndingRouter&quot;&gt;&gt;
@@ -29547,9 +29552,14 @@ shura가 일정 이상 올라 검에게 먹히기 직전 발생하는 브레이�
 현재: $day일째
 남은 밤: _remainingNights
 달 상태: $currentMoonPhase&lt;/div&gt;
+&lt;div class=&quot;global-choice-layer&quot;&gt;
+&lt;div class=&quot;global-choice-box&quot;&gt;
+&lt;&lt;link &quot;낮의 잔향을 따라간다&quot;&gt;&gt;
+  &lt;&lt;goto &quot;Purgatory_DayAction&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
-
-[[낮의 잔향을 따라간다-&gt;Purgatory_DayAction]]</tw-passagedata><tw-passagedata pid="1559" name="Purgatory_DayAction" tags="" position="2850,75" size="100,100">&lt;div class=&quot;choice-screen&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="1559" name="Purgatory_DayAction" tags="" position="2850,75" size="100,100">&lt;div class=&quot;choice-screen&quot;&gt;
 &lt;div class=&quot;choice-prompt&quot;&gt;낮이 갈대 사이로 흩어진다.&lt;/div&gt;
 
 &lt;div class=&quot;global-choice-layer&quot;&gt;

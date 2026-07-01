@@ -25,9 +25,14 @@
 그에게 주어진 것은 서른 번의 밤이었다.
 
 지금은 그 첫 다섯 밤만을 헤아린다.</div>
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<link "계속">>
+  <<goto "Purgatory_DayStart">>
+<</link>>
 </div>
-
-[[갈대밭으로 일어난다->Purgatory_DayStart]]
+</div>
+</div>
 
 :: Purgatory_DayStart {"position":"2725,75","size":"100,100"}
 <<set $currentMode = "purgatory">>
@@ -59,9 +64,14 @@
 현재: $day일째
 남은 밤: _remainingNights
 달 상태: $currentMoonPhase</div>
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<link "낮의 잔향을 따라간다">>
+  <<goto "Purgatory_DayAction">>
+<</link>>
 </div>
-
-[[낮의 잔향을 따라간다->Purgatory_DayAction]]
+</div>
+</div>
 
 :: Purgatory_DayAction {"position":"2850,75","size":"100,100"}
 <div class="choice-screen">
