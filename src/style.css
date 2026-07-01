@@ -7989,3 +7989,46 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-top-actions 
 .debug-purgatory-link a:hover {
   text-decoration: underline;
 }
+
+body .narration-screen.purgatory-event-screen {
+  min-height: 100vh !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+  padding-top: 88px !important;
+  padding-bottom: 64px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow-y: auto !important;
+}
+
+body .narration-screen.purgatory-event-screen .purgatory-event-text {
+  max-height: none !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+  margin-bottom: 8px !important;
+}
+
+body .narration-screen.purgatory-event-screen .purgatory-choice-layer {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  top: auto !important;
+  transform: none !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  width: 100% !important;
+  margin-top: 8px !important;
+  margin-bottom: 24px !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+body .narration-screen.purgatory-event-screen .purgatory-choice-box {
+  pointer-events: auto !important;
+  max-width: min(720px, 88vw) !important;
+  margin: 0 auto !important;
+}
