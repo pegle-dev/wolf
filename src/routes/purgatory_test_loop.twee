@@ -83,18 +83,95 @@
   <<set $echoHanbei += 1>>
   <<set $isolation -= 1>>
   <<set $lastDayAction = "hanbei">>
-  <<goto "Purgatory_NightChoice">>
+  <<goto "Purgatory_Hanbei_Echo_01">>
 <</link>>
 <<link "쿠로의 찻잔을 따라간다">>
   <<set $echoKuro += 1>>
   <<set $attachment += 1>>
   <<set $lastDayAction = "kuro">>
-  <<goto "Purgatory_NightChoice">>
+  <<goto "Purgatory_Kuro_Echo_01">>
 <</link>>
 <<link "아무도 따라가지 않는다">>
   <<set $isolation += 1>>
   <<set $fatherVoice += 1>>
   <<set $lastDayAction = "alone">>
+  <<goto "Purgatory_FatherVoice_01">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Hanbei_Echo_01 {"position":"2910,75","size":"100,100"}
+<div class="narration-screen">
+<div class="narration narration-block">갈대 사이에서 웃음소리가 났다.
+
+한베는 거기 있었다.
+아니, 있었던 것처럼 보였다.
+
+그는 술잔을 흔들며 늑대를 보았다.
+
+"또 죽지 못한 얼굴이네."
+
+늑대는 대답하지 않았다.
+대신 자신의 손이 칼자루가 아니라 빈 허공을 쥐고 있다는 걸 알아차렸다.</div>
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<link "밤이 오기 전에 돌아간다">>
+  <<goto "Purgatory_NightChoice">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Kuro_Echo_01 {"position":"2910,175","size":"100,100"}
+<div class="narration-screen">
+<div class="narration narration-block">갈대밭 한가운데에 작은 방이 있었다.
+
+문은 없었다.
+벽도 없었다.
+
+그런데도 늑대는 그곳이 방이라는 것을 알았다.
+
+낮은 탁자 위에 찻잔 하나가 놓여 있었다.
+차는 아직 식지 않았다.
+
+쿠로는 그 너머에 앉아 있었다.
+너무 조용해서, 처음에는 달빛이 사람의 모양을 하고 있는 줄 알았다.
+
+"이제 명령은 없습니다."
+
+늑대는 그 말을 알아들었다.
+그러나 몸은 대답을 기다리듯 고개를 숙이려 했다.</div>
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<link "밤이 오기 전에 돌아간다">>
+  <<goto "Purgatory_NightChoice">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_FatherVoice_01 {"position":"2910,275","size":"100,100"}
+<div class="narration-screen">
+<div class="narration narration-block">아무도 따라가지 않기로 했다.
+
+갈대는 높았다.
+바람은 낮았다.
+
+늑대가 한 걸음 내딛자,
+등 뒤에서 오래된 목소리가 들렸다.
+
+정은 약점이다.
+
+늑대는 돌아보지 않았다.
+
+돌아보지 않았는데도,
+그 목소리가 어떤 얼굴을 하고 있는지 알고 있었다.
+
+그것이 더 불쾌했다.</div>
+<div class="global-choice-layer">
+<div class="global-choice-box">
+<<link "목소리를 등지고 밤으로 돌아간다">>
   <<goto "Purgatory_NightChoice">>
 <</link>>
 </div>
