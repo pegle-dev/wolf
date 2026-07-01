@@ -7934,7 +7934,7 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-top-actions 
 .purgatory-event-screen {
   min-height: 100vh !important;
   box-sizing: border-box !important;
-  padding: 96px 0 96px !important;
+  padding: 88px 0 80px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -7946,7 +7946,7 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-top-actions 
   max-height: none !important;
   overflow: visible !important;
   box-sizing: border-box !important;
-  margin-bottom: 48px !important;
+  margin-bottom: 12px !important;
 }
 
 .purgatory-event-screen .purgatory-choice-layer {
@@ -7957,14 +7957,15 @@ body:has(.recordbook-panel[data-recordbook-source="overlay"]) .wolf-top-actions 
   z-index: 10 !important;
   pointer-events: auto !important;
   width: 100% !important;
-  margin-top: 24px !important;
-  margin-bottom: 48px !important;
+  margin-top: 8px !important;
+  margin-bottom: 24px !important;
   display: flex !important;
   justify-content: center !important;
 }
 
 .purgatory-event-screen .purgatory-choice-layer .global-choice-box {
   pointer-events: auto !important;
+  max-width: min(720px, 88vw) !important;
 }
 
 .debug-purgatory-link {

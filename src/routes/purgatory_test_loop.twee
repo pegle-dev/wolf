@@ -11,6 +11,7 @@
 <<set $echoIsshin = 0>>
 <<set $echoFatherVoice = 0>>
 <<set $fatherVoice = 0>>
+<<set $itemOldBottleStopper = false>>
 <<set $nightScoutCount = 0>>
 <<set $sleepCount = 0>>
 <<set $currentMoonPhase = "만월">>
@@ -332,29 +333,133 @@
 
 <div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box night-choice-box">
-<<link "잠든다">>
-  <<set $sleepCount += 1>>
-  <<set $lastNightAction = "sleep">>
+<<link "그 자리에 남는다">>
+  <<set $lastNightAction = "stay">>
   <<set $isolation -= 1>>
   <<if $isolation < 0>>
     <<set $isolation = 0>>
   <</if>>
-  <<if $lastDayAction == "hanbei">>
-    <<set $attachment += 1>>
-  <<elseif $lastDayAction == "kuro">>
-    <<set $attachment += 1>>
-  <<elseif $lastDayAction == "alone">>
-    <<set $fatherVoice += 1>>
-  <</if>>
-  <<goto "Purgatory_SleepRouter">>
+  <<set $attachment += 1>>
+  <<goto "Purgatory_StayWithEchoRouter">>
 <</link>>
-<<link "밤정찰을 나간다">>
+<<link "갈대밭을 헤맨다">>
+  <<set $lastNightAction = "wander">>
   <<set $nightScoutCount += 1>>
+  <<set $isolation += 1>>
   <<set $shura += 1>>
   <<set $fatherVoice += 1>>
-  <<set $isolation += 1>>
-  <<set $lastNightAction = "scout">>
-  <<goto "Purgatory_NightScoutRouter">>
+  <<goto "Purgatory_WanderReedfieldRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_StayWithEchoRouter {"position":"3100,0","size":"100,100"}
+<<if $lastDayAction == "hanbei">>
+  <<goto "Purgatory_Stay_Hanbei_01">>
+<<elseif $lastDayAction == "kuro">>
+  <<goto "Purgatory_Stay_Kuro_01">>
+<<elseif $lastDayAction == "alone">>
+  <<goto "Purgatory_Stay_FatherVoice_01">>
+<<else>>
+  <<goto "Purgatory_Stay_Default_01">>
+<</if>>
+
+:: Purgatory_Stay_Hanbei_01 {"position":"3225,0","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 그 자리에 남았다.
+
+갈대 사이의 술상은 아직 사라지지 않았다.
+한베는 잔을 만지작거렸지만,
+다시 권하지는 않았다.
+
+"갈 거면 진작 갔겠지."
+
+그는 웃었다.
+그러나 이번 웃음은 늦게 왔다.
+
+늑대는 잔을 보았다.
+술은 줄어들지 않았고,
+달은 그 안에서 조금 더 기울었다.
+
+잠시 동안,
+아무도 죽지 않는다는 말이
+위로인지 저주인지 구분되지 않았다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "밤을 넘긴다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Stay_Kuro_01 {"position":"3225,50","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 그 자리에 남았다.
+
+벽 없는 방은 갈대밭 한가운데에 있었다.
+바람은 지나갔지만,
+찻잔의 김은 흩어지지 않았다.
+
+쿠로는 아무 말도 하지 않았다.
+
+명령도 없었다.
+부름도 없었다.
+
+그래서 늑대는 더 오래 앉아 있었다.
+
+무엇을 기다리는지도 모른 채.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "밤을 넘긴다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Stay_FatherVoice_01 {"position":"3225,100","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 그 자리에 남았다.
+
+아무도 없는 자리에 남는 것은
+누군가의 곁에 머무는 것보다 쉬웠다.
+
+갈대가 흔들렸다.
+
+정은 약점이다.
+
+목소리는 짧았다.
+그리고 너무 가까웠다.
+
+늑대는 눈을 감지 않았다.
+그래도 그 말은 사라지지 않았다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "밤을 넘긴다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Stay_Default_01 {"position":"3225,150","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 그 자리에 남았다.
+
+갈대는 밤이 깊어질수록 낮아지는 것처럼 보였다.
+아니,
+늑대의 어깨가 무거워진 것인지도 몰랐다.
+
+달빛은 얇았다.
+
+그는 아무것도 쥐지 않았다.
+그러나 손은 오래도록 펴지지 않았다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "밤을 넘긴다">>
+  <<goto "Purgatory_DayEndRouter">>
 <</link>>
 </div>
 </div>
@@ -374,29 +479,33 @@
 </div>
 </div>
 
-:: Purgatory_NightScoutRouter {"position":"3100,125","size":"100,100"}
+:: Purgatory_WanderReedfieldRouter {"position":"3100,125","size":"100,100"}
 <<if $shura >= 3>>
-  <<goto "Purgatory_NightScout_Shura_01">>
-<<elseif $fatherVoice >= 2>>
-  <<goto "Purgatory_NightScout_FatherVoice_01">>
+  <<goto "Purgatory_Wander_Shura_01">>
+<<elseif $fatherVoice >= 3>>
+  <<goto "Purgatory_Wander_FatherVoice_01">>
+<<elseif $nightScoutCount >= 2>>
+  <<goto "Purgatory_Wander_Item_01">>
 <<else>>
-  <<goto "Purgatory_NightScout_Default_01">>
+  <<goto "Purgatory_Wander_Default_01">>
 <</if>>
 
-:: Purgatory_NightScout_Default_01 {"position":"3225,125","size":"100,100"}
+:: Purgatory_Wander_Default_01 {"position":"3225,125","size":"100,100"}
 <div class="narration-screen purgatory-event-screen">
   <div class="narration narration-block purgatory-event-text">
-늑대는 밤의 갈대밭으로 나갔다.
+늑대는 갈대밭을 헤맸다.
 
-달빛은 낮보다 얇았다.
-갈대는 길을 숨겼고,
-바람은 발소리를 삼켰다.
+밤의 갈대는 낮보다 높았다.
+바람이 불 때마다 길은 바뀌었고,
+발자국은 오래 남지 않았다.
 
-위험한 것은 없었다.
+무언가가 있을 것 같았다.
 
-그러나 늑대는 알았다.
-아무것도 없는 밤이야말로,
-가장 오래 귀를 기울이게 만든다는 것을.
+그러나 손에 잡힌 것은
+젖은 갈대잎 하나뿐이었다.
+
+그마저도,
+달빛 아래에서는 칼날처럼 보였다.
   </div>
 
   <div class="global-choice-layer purgatory-choice-layer">
@@ -408,10 +517,10 @@
   </div>
 </div>
 
-:: Purgatory_NightScout_Shura_01 {"position":"3225,225","size":"100,100"}
+:: Purgatory_Wander_Shura_01 {"position":"3225,225","size":"100,100"}
 <div class="narration-screen purgatory-event-screen">
   <div class="narration narration-block purgatory-event-text">
-늑대는 밤의 갈대밭으로 나갔다.
+늑대는 갈대밭을 헤맸다.
 
 갈대가 흔들렸다.
 
@@ -438,10 +547,10 @@
   </div>
 </div>
 
-:: Purgatory_NightScout_FatherVoice_01 {"position":"3225,325","size":"100,100"}
+:: Purgatory_Wander_FatherVoice_01 {"position":"3225,325","size":"100,100"}
 <div class="narration-screen purgatory-event-screen">
   <div class="narration narration-block purgatory-event-text">
-늑대는 밤의 갈대밭으로 나갔다.
+늑대는 갈대밭을 헤맸다.
 
 길은 없었다.
 그런데도 그는 망설이지 않았다.
@@ -460,6 +569,34 @@
 이 밤에는 아무도 없었다.
 그런데도 그는 이미,
 누군가를 버릴 준비를 끝내고 있었다.
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box">
+      <<link "갈대밭으로 돌아간다">>
+        <<goto "Purgatory_DayEndRouter">>
+      <</link>>
+    </div>
+  </div>
+</div>
+
+:: Purgatory_Wander_Item_01 {"position":"3225,425","size":"100,100"}
+<<set $itemOldBottleStopper = true>>
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 갈대밭을 헤매다 멈춰 섰다.
+
+발밑에서 작은 것이 달빛을 받았다.
+
+술병의 마개였다.
+낡고, 젖어 있었고,
+손에 쥐자 이상할 만큼 따뜻했다.
+
+늑대는 그것을 본 적이 없었다.
+그러나 잃어버린 적은 있는 것 같았다.
+
+기억의 물건을 얻었다.
+[낡은 술병 마개]
   </div>
 
   <div class="global-choice-layer purgatory-choice-layer">
