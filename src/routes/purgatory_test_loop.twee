@@ -19,14 +19,14 @@
 <<set $currentMode = "purgatory">>
 <<set $timeOfDay = "day">>
 
-<div class="narration-screen">
-<div class="narration narration-block">불사 엔딩 이후,
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">불사 엔딩 이후,
 늑대는 죽음도 삶도 아닌 갈대밭에서 깨어난다.
 
 그에게 주어진 것은 서른 번의 밤이었다.
 
 지금은 그 첫 다섯 밤만을 헤아린다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "계속">>
   <<goto "Purgatory_DayStart">>
@@ -59,13 +59,13 @@
   <<set _remainingNights = 0>>
 <</if>>
 
-<div class="narration-screen">
-<div class="narration narration-block">갈대밭 위의 달은 아직 사라지지 않았다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">갈대밭 위의 달은 아직 사라지지 않았다.
 
 현재: $day일째
 남은 밤: _remainingNights
 달 상태: $currentMoonPhase</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "낮의 잔향을 따라간다">>
   <<goto "Purgatory_DayAction">>
@@ -78,7 +78,7 @@
 <div class="choice-screen">
 <div class="choice-prompt">낮이 갈대 사이로 흩어진다.</div>
 
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "한베의 웃음소리를 따라간다">>
   <<set $echoHanbei += 1>>
@@ -116,8 +116,8 @@
 </div>
 
 :: Purgatory_Hanbei_Echo_01 {"position":"2910,75","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">갈대 사이에서 웃음소리가 났다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">갈대 사이에서 웃음소리가 났다.
 
 한베는 거기 있었다.
 아니, 있었던 것처럼 보였다.
@@ -125,7 +125,7 @@
 그는 술잔을 흔들며 늑대를 보았다.
 
 "또 죽지 못한 얼굴이네."</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "한베의 잔향을 바라본다">>
   <<goto "Purgatory_Hanbei_Echo_01_02">>
@@ -135,10 +135,10 @@
 </div>
 
 :: Purgatory_Hanbei_Echo_01_02 {"position":"3035,75","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">늑대는 대답하지 않았다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 대답하지 않았다.
 대신 자신의 손이 칼자루가 아니라 빈 허공을 쥐고 있다는 걸 알아차렸다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "밤이 오기 전에 돌아간다">>
   <<goto "Purgatory_NightChoice">>
@@ -148,8 +148,8 @@
 </div>
 
 :: Purgatory_Kuro_Echo_01 {"position":"2910,175","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">갈대밭 한가운데에 작은 방이 있었다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">갈대밭 한가운데에 작은 방이 있었다.
 
 문은 없었다.
 벽도 없었다.
@@ -158,7 +158,7 @@
 
 낮은 탁자 위에 찻잔 하나가 놓여 있었다.
 차는 아직 식지 않았다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "그 방으로 들어간다">>
   <<goto "Purgatory_Kuro_Echo_01_02">>
@@ -168,15 +168,15 @@
 </div>
 
 :: Purgatory_Kuro_Echo_01_02 {"position":"3035,175","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">쿠로는 그 너머에 앉아 있었다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">쿠로는 그 너머에 앉아 있었다.
 너무 조용해서, 처음에는 달빛이 사람의 모양을 하고 있는 줄 알았다.
 
 "이제 명령은 없습니다."
 
 늑대는 그 말을 알아들었다.
 그러나 몸은 대답을 기다리듯 고개를 숙이려 했다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "밤이 오기 전에 돌아간다">>
   <<goto "Purgatory_NightChoice">>
@@ -186,8 +186,8 @@
 </div>
 
 :: Purgatory_FatherVoice_01 {"position":"2910,275","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">아무도 따라가지 않기로 했다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">아무도 따라가지 않기로 했다.
 
 갈대는 높았다.
 바람은 낮았다.
@@ -196,7 +196,7 @@
 등 뒤에서 오래된 목소리가 들렸다.
 
 정은 약점이다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "목소리를 듣는다">>
   <<goto "Purgatory_FatherVoice_01_02">>
@@ -206,14 +206,14 @@
 </div>
 
 :: Purgatory_FatherVoice_01_02 {"position":"3035,275","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">늑대는 돌아보지 않았다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 돌아보지 않았다.
 
 돌아보지 않았는데도,
 그 목소리가 어떤 얼굴을 하고 있는지 알고 있었다.
 
 그것이 더 불쾌했다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "목소리를 등지고 밤으로 돌아간다">>
   <<goto "Purgatory_NightChoice">>
@@ -223,8 +223,8 @@
 </div>
 
 :: Purgatory_Hanbei_Echo_02 {"position":"2910,375","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">이번에는 웃음소리가 먼저 멈췄다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">이번에는 웃음소리가 먼저 멈췄다.
 
 한베는 갈대 위에 앉아 있었다.
 술잔은 비어 있었다.
@@ -233,7 +233,7 @@
 이제 우연이라고 하긴 어렵지."
 
 늑대는 대답하지 않았다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "멈춘 웃음소리를 듣는다">>
   <<goto "Purgatory_Hanbei_Echo_02_02">>
@@ -243,10 +243,10 @@
 </div>
 
 :: Purgatory_Hanbei_Echo_02_02 {"position":"3035,375","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">한베는 웃지 않고,
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">한베는 웃지 않고,
 늑대가 서 있는 자리를 바라보았다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "밤이 오기 전에 돌아간다">>
   <<goto "Purgatory_NightChoice">>
@@ -256,14 +256,14 @@
 </div>
 
 :: Purgatory_Kuro_Echo_02 {"position":"2910,475","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">찻잔은 다시 놓여 있었다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">찻잔은 다시 놓여 있었다.
 
 이번에는 하나가 아니었다.
 
 늑대의 자리에도,
 식지 않은 차가 있었다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "찻잔 앞에 선다">>
   <<goto "Purgatory_Kuro_Echo_02_02">>
@@ -273,8 +273,8 @@
 </div>
 
 :: Purgatory_Kuro_Echo_02_02 {"position":"3035,475","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">쿠로는 늑대를 보지 않았다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">쿠로는 늑대를 보지 않았다.
 
 그저 낮은 목소리로 말했다.
 
@@ -283,7 +283,7 @@
 
 늑대는 그 말이 칭찬인지,
 질문인지 알 수 없었다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "밤이 오기 전에 돌아간다">>
   <<goto "Purgatory_NightChoice">>
@@ -293,8 +293,8 @@
 </div>
 
 :: Purgatory_FatherVoice_02 {"position":"2910,575","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">두 번째로 아무도 따라가지 않았을 때,
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">두 번째로 아무도 따라가지 않았을 때,
 목소리는 더 가까이 있었다.
 
 정은 약점이다.
@@ -303,7 +303,7 @@
 늑대의 등 뒤에서 들렸다.
 
 늑대는 손을 쥐었다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "쥔 손을 내려다본다">>
   <<goto "Purgatory_FatherVoice_02_02">>
@@ -313,10 +313,10 @@
 </div>
 
 :: Purgatory_FatherVoice_02_02 {"position":"3035,575","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">빈손인데도,
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">빈손인데도,
 무언가를 베어야 할 것 같았다.</div>
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box">
 <<link "목소리를 등지고 밤으로 돌아간다">>
   <<goto "Purgatory_NightChoice">>
@@ -330,17 +330,29 @@
 <div class="choice-screen night-choice-screen">
 <div class="choice-prompt">밤이 갈대밭을 눕힌다.</div>
 
-<div class="global-choice-layer">
+<div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box night-choice-box">
 <<link "잠든다">>
   <<set $sleepCount += 1>>
   <<set $lastNightAction = "sleep">>
+  <<set $isolation -= 1>>
+  <<if $isolation < 0>>
+    <<set $isolation = 0>>
+  <</if>>
+  <<if $lastDayAction == "hanbei">>
+    <<set $attachment += 1>>
+  <<elseif $lastDayAction == "kuro">>
+    <<set $attachment += 1>>
+  <<elseif $lastDayAction == "alone">>
+    <<set $fatherVoice += 1>>
+  <</if>>
   <<goto "Purgatory_SleepRouter">>
 <</link>>
 <<link "밤정찰을 나간다">>
   <<set $nightScoutCount += 1>>
   <<set $shura += 1>>
   <<set $fatherVoice += 1>>
+  <<set $isolation += 1>>
   <<set $lastNightAction = "scout">>
   <<goto "Purgatory_NightScoutRouter">>
 <</link>>
@@ -349,33 +361,222 @@
 </div>
 
 :: Purgatory_SleepRouter {"position":"3100,25","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">늑대는 갈대 위에 몸을 뉘었다.
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">늑대는 갈대 위에 몸을 뉘었다.
 
 달빛은 눈꺼풀 안쪽에서도 희미하게 흔들렸다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "꿈속으로 가라앉는다">>
+  <<goto "Purgatory_DreamRouter">>
+<</link>>
 </div>
-
-[[꿈속으로 가라앉는다->Purgatory_DreamRouter]]
+</div>
+</div>
 
 :: Purgatory_NightScoutRouter {"position":"3100,125","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">늑대는 밤의 갈대밭을 걷는다.
+<<if $shura >= 3>>
+  <<goto "Purgatory_NightScout_Shura_01">>
+<<elseif $fatherVoice >= 2>>
+  <<goto "Purgatory_NightScout_FatherVoice_01">>
+<<else>>
+  <<goto "Purgatory_NightScout_Default_01">>
+<</if>>
 
-발밑에서 젖은 흙이 갈라지고,
-멀리서 아버지의 목소리 같은 것이 낮게 웃었다.</div>
+:: Purgatory_NightScout_Default_01 {"position":"3225,125","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 밤의 갈대밭으로 나갔다.
+
+달빛은 낮보다 얇았다.
+갈대는 길을 숨겼고,
+바람은 발소리를 삼켰다.
+
+위험한 것은 없었다.
+
+그러나 늑대는 알았다.
+아무것도 없는 밤이야말로,
+가장 오래 귀를 기울이게 만든다는 것을.
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box">
+      <<link "갈대밭으로 돌아간다">>
+        <<goto "Purgatory_DayEndRouter">>
+      <</link>>
+    </div>
+  </div>
 </div>
 
-[[새벽까지 걷는다->Purgatory_DayEndRouter]]
+:: Purgatory_NightScout_Shura_01 {"position":"3225,225","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 밤의 갈대밭으로 나갔다.
+
+갈대가 흔들렸다.
+
+그뿐이었다.
+
+그런데 손은 먼저 움직였다.
+칼은 이미 뽑혀 있었다.
+
+늑대는 한동안,
+자신이 무엇을 베었는지 알지 못했다.
+
+달빛 아래에 쓰러진 것은
+갈대뿐이었다.
+
+그러나 손은 쉽게 가라앉지 않았다.
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box">
+      <<link "갈대밭으로 돌아간다">>
+        <<goto "Purgatory_DayEndRouter">>
+      <</link>>
+    </div>
+  </div>
+</div>
+
+:: Purgatory_NightScout_FatherVoice_01 {"position":"3225,325","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 밤의 갈대밭으로 나갔다.
+
+길은 없었다.
+그런데도 그는 망설이지 않았다.
+
+오른쪽.
+낮게.
+기척을 죽이고.
+
+말은 들리지 않았다.
+하지만 몸은 순서를 알고 있었다.
+
+오래전에 배운 움직임이었다.
+
+늑대는 멈춰 섰다.
+
+이 밤에는 아무도 없었다.
+그런데도 그는 이미,
+누군가를 버릴 준비를 끝내고 있었다.
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box">
+      <<link "갈대밭으로 돌아간다">>
+        <<goto "Purgatory_DayEndRouter">>
+      <</link>>
+    </div>
+  </div>
+</div>
 
 :: Purgatory_DreamRouter {"position":"3225,25","size":"100,100"}
-<div class="narration-screen">
-<div class="narration narration-block">꿈속에서도 갈대는 흔들렸다.
+<<if $lastDayAction == "hanbei">>
+  <<goto "Purgatory_Dream_Hanbei_01">>
+<<elseif $lastDayAction == "kuro">>
+  <<goto "Purgatory_Dream_Kuro_01">>
+<<elseif $lastDayAction == "alone">>
+  <<goto "Purgatory_Dream_FatherVoice_01">>
+<<else>>
+  <<goto "Purgatory_Dream_Default_01">>
+<</if>>
 
-누군가의 잔향이 달빛 아래 잠시 서 있다가,
-늑대가 이름을 부르기 전에 사라졌다.</div>
+:: Purgatory_Dream_Hanbei_01 {"position":"3350,25","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">꿈속에서 술잔이 흔들렸다.
+
+잔 안에는 달이 있었다.
+달은 둥글지 않았다.
+
+한베의 웃음소리가 들렸다.
+가까운 곳도, 먼 곳도 아니었다.
+
+"죽지 못하는 것도 재주는 아니지."
+
+늑대는 잔을 들려 했다.
+그러나 손은 빈 허공을 쥐고 있었다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "눈을 뜬다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
 </div>
 
-[[꿈에서 깨어난다->Purgatory_DayEndRouter]]
+:: Purgatory_Dream_Kuro_01 {"position":"3350,125","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">꿈속에서 차는 식지 않았다.
+
+찻잔은 늑대 앞에 놓여 있었다.
+그러나 그것을 내민 손은 보이지 않았다.
+
+"늑대."
+
+이름이 불렸다.
+
+늑대는 고개를 숙이려 했다.
+그보다 먼저,
+꿈이 조용히 그의 어깨를 눌렀다.
+
+명령은 없었다.
+
+그런데도 몸은 기다리고 있었다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "눈을 뜬다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Dream_FatherVoice_01 {"position":"3350,225","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">꿈속에서 갈대는 모두 같은 방향으로 누워 있었다.
+
+바람 때문이 아니었다.
+
+명령을 받은 것처럼.
+
+늑대는 그 사이를 걸었다.
+발소리는 나지 않았다.
+
+등 뒤에서 목소리가 들렸다.
+
+살아남아라.
+
+짧고, 낡고, 너무 익숙한 말이었다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "눈을 뜬다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
+</div>
+
+:: Purgatory_Dream_Default_01 {"position":"3350,325","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+<div class="narration narration-block purgatory-event-text">꿈속에서도 갈대는 흔들렸다.
+
+달빛은 얇았다.
+누군가 지나간 듯한 길이 있었지만,
+늑대가 눈을 돌리면 사라졌다.
+
+그는 이름 하나를 떠올리려 했다.
+
+그러나 깨어날 때까지,
+그 이름은 입 밖으로 나오지 않았다.</div>
+<div class="global-choice-layer purgatory-choice-layer">
+<div class="global-choice-box">
+<<link "눈을 뜬다">>
+  <<goto "Purgatory_DayEndRouter">>
+<</link>>
+</div>
+</div>
+</div>
 
 :: Purgatory_DayEndRouter {"position":"3225,75","size":"100,100"}
 <<set $day += 1>>
