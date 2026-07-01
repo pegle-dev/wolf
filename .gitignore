@@ -2,3 +2,13 @@ node_modules/
 .pnpm-store/
 playwright-report/
 test-results/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# local browser profile
+.chrome-wolf-profile/
+
+# iCloud placeholders
+*.icloud
