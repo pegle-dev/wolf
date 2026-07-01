@@ -1,56 +1,43 @@
 :: ReturnEvent_Router {"position":"2800,650","size":"100,100"}
 /% 귀환 이벤트는 보상 장면이다.
-   스탯을 변화시키지 않는다.
+   사건성 귀환 이벤트는 1회만 발생한다.
    기록장에 남기지 않는다. %/
 <<run setup.ensureTimeVariables && setup.ensureTimeVariables()>>
 <<run setup.ensureEventCooldowns && setup.ensureEventCooldowns()>>
 <<set $timeOfDay = "dawn">>
 <<set $returnEventPending = false>>
 
-<<if $debugMode>>
-  <<if ($dayCount || $day || 1) < 2>>
-    <<set _debugReturnEvent = random(1, 3)>>
-    <<if _debugReturnEvent == 1>>
-      <<goto "ReturnEvent_None">>
-    <<elseif _debugReturnEvent == 2>>
-      <<goto "ReturnEvent_Chicken">>
-    <<else>>
-      <<goto "ReturnEvent_SilentTemple">>
-    <</if>>
-  <<else>>
-    <<set _debugReturnEvent = random(1, 6)>>
-    <<if _debugReturnEvent == 1>>
-      <<goto "ReturnEvent_WatchKuro">>
-    <<elseif _debugReturnEvent == 2>>
-      <<goto "ReturnEvent_ReedField">>
-    <<elseif _debugReturnEvent == 3>>
-      <<goto "ReturnEvent_Chicken">>
-    <<elseif _debugReturnEvent == 4>>
-      <<goto "ReturnEvent_HanbeiPretendSleep">>
-    <<elseif _debugReturnEvent == 5 and ($dayCount || $day || 1) >= 3 and ($emmaEventUnlocked or $emmaIntroducedIsshin or $isshinUnlocked)>>
-      <<goto "ReturnEvent_EmmaLamp">>
-    <<else>>
-      <<goto "ReturnEvent_SilentTemple">>
-    <</if>>
-  <</if>>
-<<else>>
-<<set _r = random(1, 100)>>
+<<set _events = []>>
 
-<<if ($dayCount || $day || 1) >= 5 and ($shura || 0) >= 6 and _r <= 35 and setup.canRouteEvent("return", "ReturnEvent_SilentTemple")>>
-  <<goto "ReturnEvent_SilentTemple">>
-<<elseif ($dayCount || $day || 1) >= 3 and ($danger || 0) >= 5 and _r <= 45 and setup.canRouteEvent("return", "ReturnEvent_EmmaLamp")>>
-  <<goto "ReturnEvent_EmmaLamp">>
-<<elseif ($dayCount || $day || 1) >= 2 and ($kuroAffection || 0) >= 1 and _r <= 50 and setup.canRouteEvent("return", "ReturnEvent_WatchKuro")>>
-  <<goto "ReturnEvent_WatchKuro">>
-<<elseif ($dayCount || $day || 1) >= 2 and ($genichiroConflict || 0) >= 1 and _r <= 50 and setup.canRouteEvent("return", "ReturnEvent_ReedField")>>
-  <<goto "ReturnEvent_ReedField">>
-<<elseif ($dayCount || $day || 1) >= 2 and ($hanbeiAffection || 0) >= 1 and _r <= 50 and setup.canRouteEvent("return", "ReturnEvent_HanbeiPretendSleep")>>
-  <<goto "ReturnEvent_HanbeiPretendSleep">>
-<<elseif _r <= 20 and setup.canRouteEvent("return", "ReturnEvent_Chicken")>>
-  <<goto "ReturnEvent_Chicken">>
+<<if ($dayCount || $day || 1) >= 2 and not ($returnEventChickenSeen || false) and setup.canRouteEvent("return", "ReturnEvent_Chicken")>>
+  <<run _events.push("ReturnEvent_Chicken")>>
+<</if>>
+
+<<if ($dayCount || $day || 1) >= 2 and (($kuroTempleNoticeSeen || false) or ($kuroTeaSeen || false) or ($kuroAffection || 0) >= 1) and not ($returnEventWatchKuroSeen || false) and setup.canRouteEvent("return", "ReturnEvent_WatchKuro")>>
+  <<run _events.push("ReturnEvent_WatchKuro")>>
+<</if>>
+
+<<if ($dayCount || $day || 1) >= 2 and (($genichiroGateSeen || false) or ($genichiroReturnNoticeSeen || false) or ($genichiroConflict || 0) >= 1) and not ($returnEventReedFieldSeen || false) and setup.canRouteEvent("return", "ReturnEvent_ReedField")>>
+  <<run _events.push("ReturnEvent_ReedField")>>
+<</if>>
+
+<<if ($dayCount || $day || 1) >= 2 and (($hanbeiJustVisitedSeen || false) or ($hanbeiAffection || 0) >= 1 or ($hanbeiConflict || 0) >= 1) and not ($returnEventHanbeiPretendSleepSeen || false) and setup.canRouteEvent("return", "ReturnEvent_HanbeiPretendSleep")>>
+  <<run _events.push("ReturnEvent_HanbeiPretendSleep")>>
+<</if>>
+
+<<if ($dayCount || $day || 1) >= 3 and (($emmaEventUnlocked || false) or ($emmaIntroducedIsshin || false) or ($isshinUnlocked || false) or ($emmaAffection || 0) >= 1) and not ($returnEventEmmaLampSeen || false) and setup.canRouteEvent("return", "ReturnEvent_EmmaLamp")>>
+  <<run _events.push("ReturnEvent_EmmaLamp")>>
+<</if>>
+
+<<if ($dayCount || $day || 1) >= 5 and ($shura || 0) >= 6 and not ($returnEventSilentTempleSeen || false) and setup.canRouteEvent("return", "ReturnEvent_SilentTemple")>>
+  <<run _events.push("ReturnEvent_SilentTemple")>>
+<</if>>
+
+<<if _events.length > 0>>
+  <<set _target = _events[random(0, _events.length - 1)]>>
+  <<goto _target>>
 <<else>>
   <<goto "ReturnEvent_None">>
-<</if>>
 <</if>>
 
 :: ReturnEvent_None {"position":"2925,650","size":"100,100"}
@@ -60,6 +47,11 @@
 :: ReturnEvent_WatchKuro {"position":"2925,750","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_WatchKuro", 1)>>
+<<set $returnEventWatchKuroSeen = true>>
+<<set $kuroAffection = ($kuroAffection || 0) + 1>>
+<<set $kuroLove = Math.max(($kuroLove || 0), ($kuroAffection || 0))>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("쿠로 인연 +1", "bond")>>
 <div class="narration-screen">
 <div class="narration narration-block">황폐한 절로 돌아온 뒤에도,
 늑대는 한동안 성 쪽을 바라보았다.
@@ -90,6 +82,11 @@
 :: ReturnEvent_ReedField {"position":"2925,850","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_ReedField", 1)>>
+<<set $returnEventReedFieldSeen = true>>
+<<set $genichiroConflict = ($genichiroConflict || 0) + 1>>
+<<set $genichiroLove = Math.max(($genichiroLove || 0), (($genichiroAffection || 0) + ($genichiroConflict || 0)))>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("겐이치로 갈등 +1", "bond")>>
 <div class="narration-screen">
 <div class="narration narration-block">황폐한 절로 돌아오는 길,
 늑대는 성 쪽 갈대밭을 보았다.
@@ -116,6 +113,10 @@
 :: ReturnEvent_Chicken {"position":"2925,950","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_Chicken", 1)>>
+<<set $returnEventChickenSeen = true>>
+<<set $isolation = Math.max(0, ($isolation || 0) - 1)>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("고독 -1", "state")>>
 <div class="narration-screen">
 <div class="narration narration-block">절 앞마당에서 닭 한 마리가 튀어나왔다.
 
@@ -142,6 +143,11 @@
 :: ReturnEvent_HanbeiPretendSleep {"position":"2925,1050","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_HanbeiPretendSleep", 1)>>
+<<set $returnEventHanbeiPretendSleepSeen = true>>
+<<set $hanbeiAffection = ($hanbeiAffection || 0) + 1>>
+<<set $hanbeiLove = Math.max(($hanbeiLove || 0), ($hanbeiAffection || 0))>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("한베 인연 +1", "bond")>>
 <div class="narration-screen">
 <div class="narration narration-block">한베는 절 기둥에 기대어 앉아 있었다.
 
@@ -193,6 +199,11 @@
 :: ReturnEvent_EmmaLamp {"position":"2925,1150","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_EmmaLamp", 1)>>
+<<set $returnEventEmmaLampSeen = true>>
+<<set $emmaAffection = ($emmaAffection || 0) + 1>>
+<<set $emmaLove = Math.max(($emmaLove || 0), ($emmaAffection || 0))>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("에마 인연 +1", "bond")>>
 <div class="narration-screen">
 <div class="narration narration-block">절 문 앞에 작은 등불이 놓여 있었다.
 
@@ -218,6 +229,10 @@
 :: ReturnEvent_SilentTemple {"position":"2925,1250","size":"100,100"}
 <<page>>
 <<run setup.markRoutedEvent && setup.markRoutedEvent("return", "ReturnEvent_SilentTemple", 1)>>
+<<set $returnEventSilentTempleSeen = true>>
+<<set $shura = ($shura || 0) + 1>>
+<<clampStats>>
+<<run setup.showToast && setup.showToast("??? +1", "shura")>>
 <div class="narration-screen">
 <div class="narration narration-block">절이 조용했다.
 
