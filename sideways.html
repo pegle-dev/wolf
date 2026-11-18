@@ -105,19 +105,15 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
 	<!-- UUID://A076289A-9799-4475-8310-5E6966FB66A2// --><tw-storydata name="Wolf: Sideways" startnode="2" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="A076289A-9799-4475-8310-5E6966FB66A2" zoom="1" format="SugarCube" format-version="2.37.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Wolf: Sideways — 화면 스타일 */
-@font-face {
-  font-family: 'SwBody';
-  src: url('assets/Font/NotoSerifKR-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-}
+/* 픽셀 폰트: 글자는 둥근모(16px 격자), ▼ 표시만 갈무리11(11px 격자).
+   크기는 각 폰트의 격자 배수(16/32/64, 11/22)로 맞춰야 번지지 않는다. */
 @font-face {
   font-family: 'SwPixel';
-  src: url('assets/Font/Galmuri11.ttf') format('truetype');
+  src: url('assets/Font/NeoDunggeunmoPro-Regular.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'SwTitle';
-  src: url('assets/Font/Cinzel-VariableFont_wght.ttf') format('truetype');
-  font-weight: 400 900;
+  font-family: 'SwSmall';
+  src: url('assets/Font/Galmuri11.ttf') format('truetype');
 }
 
 :root {
@@ -138,7 +134,14 @@ html, body {
   overflow: hidden;
 }
 
-body { font-family: 'SwBody', serif; }
+body {
+  font-family: 'SwPixel', monospace;
+  font-size: 16px;
+  font-synthesis: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  text-rendering: optimizeSpeed;
+}
 
 #ui-bar, #ui-overlay { display: none; }
 
@@ -248,7 +251,7 @@ body[data-tags~="title"] #sw-stage::after {
 
 .sw-name {
   font-family: 'SwPixel', monospace;
-  font-size: 0.85rem;
+  font-size: 16px;
   letter-spacing: 0.08em;
   color: var(--sw-text);
   display: inline-block;
@@ -257,13 +260,34 @@ body[data-tags~="title"] #sw-stage::after {
   padding-bottom: 2px;
 }
 
-.sw-text { font-size: 1.05rem; line-height: 1.85; }
+.sw-text { font-size: 16px; line-height: 2; }
+
+/* 대화 초상화 (64x64 도트를 정수 배율로) */
+.sw-has-portrait {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 20px;
+  align-items: start;
+}
+.sw-has-portrait .sw-name { justify-self: start; }
+.sw-portrait {
+  grid-row: 1 / span 2;
+  width: 128px;
+  height: 128px;
+  image-rendering: pixelated;
+  border: 1px solid var(--sw-line);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.6);
+}
+/* 선택지가 떠 있을 때는 초상화를 1배로 줄여 상자가 캐릭터를 덮지 않게 */
+#passages:has(.sw-choices:not(.sw-hidden)) .sw-has-portrait { grid-template-columns: 64px 1fr; column-gap: 14px; }
+#passages:has(.sw-choices:not(.sw-hidden)) .sw-portrait { width: 64px; height: 64px; }
 .sw-n .sw-text { color: var(--sw-narr); }
 .sw-h .sw-text, .sw-w .sw-text { color: var(--sw-text); }
 
 .sw-note .sw-text {
   font-family: 'SwPixel', monospace;
-  font-size: 0.9rem;
+  font-size: 16px;
   color: var(--sw-dim);
   letter-spacing: 0.06em;
   text-align: center;
@@ -274,7 +298,8 @@ body[data-tags~="title"] #sw-stage::after {
   position: absolute;
   right: -4px;
   bottom: -8px;
-  font-size: 0.7rem;
+  font-family: 'SwSmall', monospace;
+  font-size: 11px;
   color: var(--sw-dim);
   animation: sw-blink 1s steps(2) infinite;
 }
@@ -292,13 +317,13 @@ body[data-tags~="title"] #sw-stage::after {
   animation: sw-fade 0.6s ease-out;
 }
 .sw-caption::after { right: auto; bottom: 22%; }
-.sw-caption-main { font-family: 'SwPixel', monospace; font-size: 2rem; letter-spacing: 0.2em; }
+.sw-caption-main { font-family: 'SwPixel', monospace; font-size: 32px; letter-spacing: 0.2em; }
 .sw-caption-sub { font-family: 'SwPixel', monospace; color: var(--sw-dim); letter-spacing: 0.4em; }
 .sw-ending { background: rgba(0, 0, 0, 0.72); }
-.sw-ending .sw-caption-main { font-family: 'SwBody', serif; font-size: 2.2rem; letter-spacing: 0.3em; }
+.sw-ending .sw-caption-main { font-size: 32px; letter-spacing: 0.3em; }
 .sw-ending-true .sw-caption-sub { color: var(--sw-accent); }
 .sw-ending-shura .sw-caption-sub { color: #c0473f; }
-.sw-ending-note { margin-top: 18px; font-family: 'SwPixel', monospace; font-size: 0.8rem; color: var(--sw-dim); }
+.sw-ending-note { margin-top: 18px; font-family: 'SwPixel', monospace; font-size: 16px; color: var(--sw-dim); }
 
 /* 선택지 */
 .sw-choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 2; }
@@ -310,7 +335,7 @@ body[data-tags~="title"] #sw-stage::after {
   background: rgba(255, 255, 255, 0.03);
   color: var(--sw-text);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 16px;
   counter-increment: sw-choice;
 }
 .sw-choices { counter-reset: sw-choice; }
@@ -338,11 +363,11 @@ body[data-tags~="title"] #passages { top: 0; bottom: 0; width: 100%; height: 100
   text-align: center;
   gap: 6px;
 }
-.sw-title-logo { font-family: 'SwTitle', serif; font-size: clamp(3rem, 12vw, 6rem); letter-spacing: 0.25em; font-weight: 700; }
-.sw-title-sub { font-family: 'SwTitle', serif; color: var(--sw-narr); letter-spacing: 0.4em; }
+.sw-title-logo { font-family: 'SwPixel', monospace; font-size: 64px; line-height: 1.2; letter-spacing: 0.2em; }
+.sw-title-sub { font-family: 'SwPixel', monospace; color: var(--sw-narr); letter-spacing: 0.4em; }
 .sw-title-copy { margin-top: 28px; color: var(--sw-dim); }
 .sw-title-menu { margin-top: 36px; }
-.sw-title-record { margin-top: 22px; font-family: 'SwPixel', monospace; font-size: 0.8rem; color: var(--sw-dim); letter-spacing: 0.1em; }
+.sw-title-record { margin-top: 22px; font-family: 'SwPixel', monospace; font-size: 16px; color: var(--sw-dim); letter-spacing: 0.1em; }
 .sw-title-menu a {
   font-family: 'SwPixel', monospace;
   color: var(--sw-text);
@@ -360,7 +385,7 @@ body[data-tags~="title"] #passages { top: 0; bottom: 0; width: 100%; height: 100
   right: 16px;
   z-index: 20;
   font-family: 'SwPixel', monospace;
-  font-size: 0.8rem;
+  font-size: 16px;
   color: var(--sw-narr);
   background: rgba(0, 0, 0, 0.6);
   border: 1px solid var(--sw-line);
@@ -368,6 +393,21 @@ body[data-tags~="title"] #passages { top: 0; bottom: 0; width: 100%; height: 100
   cursor: pointer;
 }
 body[data-tags~="title"] #sw-mem-btn { display: none; }
+
+#sw-snd-btn {
+  position: fixed;
+  top: 14px;
+  left: 16px;
+  z-index: 20;
+  font-family: 'SwPixel', monospace;
+  font-size: 16px;
+  color: var(--sw-narr);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--sw-line);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+#sw-snd-btn.sw-off { color: var(--sw-dim); }
 
 #sw-mem {
   position: fixed;
@@ -392,8 +432,8 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 .sw-mem-inner ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .sw-mem-inner li { border: 1px solid var(--sw-line); padding: 10px 12px; }
 .sw-mem-inner li.sw-locked { color: var(--sw-dim); }
-.sw-mem-title { font-size: 0.95rem; }
-.sw-mem-text { margin-top: 6px; font-size: 0.85rem; color: var(--sw-narr); line-height: 1.6; }
+.sw-mem-title { font-size: 16px; }
+.sw-mem-text { margin-top: 6px; font-size: 16px; color: var(--sw-narr); line-height: 1.75; }
 .sw-mem-close {
   margin-top: 18px;
   width: 100%;
@@ -419,7 +459,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   opacity: 0;
 }
 #sw-toast.sw-show { animation: sw-toast 3.2s ease-out forwards; }
-.sw-toast-label { font-family: 'SwPixel', monospace; font-size: 0.75rem; color: var(--sw-dim); letter-spacing: 0.2em; }
+.sw-toast-label { font-family: 'SwPixel', monospace; font-size: 16px; color: var(--sw-dim); letter-spacing: 0.2em; }
 .sw-toast-title { margin-top: 4px; }
 
 /* ---------- 애니메이션 ---------- */
@@ -443,7 +483,11 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 
 @media (max-width: 600px) {
   .sw-choices.sw-grid { grid-template-columns: 1fr; }
-  .sw-text { font-size: 0.98rem; line-height: 1.75; }
+  .sw-text { font-size: 16px; line-height: 1.85; }
+  .sw-has-portrait { grid-template-columns: 64px 1fr; column-gap: 12px; }
+  .sw-portrait { width: 64px; height: 64px; }
+  .sw-title-logo { font-size: 48px; }
+  .sw-caption-main, .sw-ending .sw-caption-main { font-size: 32px; letter-spacing: 0.12em; }
   #passages.sw-has-items .passage { padding: 14px 16px 16px; }
 }
 
@@ -903,6 +947,27 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
       }
       return cache[key];
     },
+    /* 대화 초상화: portraits.js의 64x64 도트 데이터를 그대로 칠한다 */
+    portrait: function (name) {
+      var key = 'p:' + name;
+      if (!cache[key]) {
+        var d = sw.portraitData, face = d && d.faces[name];
+        if (!face) { return ''; }
+        var c = document.createElement('canvas');
+        c.width = c.height = d.size;
+        var g = c.getContext('2d');
+        for (var y = 0; y < d.size; y++) {
+          var row = face.rows[y];
+          for (var x = 0; x < d.size; x++) {
+            var ch = row.charAt(x);
+            g.fillStyle = ch === 'z' ? face.bg : ch === 'r' ? d.red : d.levels[d.chars.indexOf(ch)];
+            g.fillRect(x, y, 1, 1);
+          }
+        }
+        cache[key] = c.toDataURL('image/png');
+      }
+      return cache[key];
+    },
     bg: function (name) {
       var key = 'b:' + name;
       if (!cache[key]) { cache[key] = (BGS[name] || BGS.dark).draw(); }
@@ -912,7 +977,353 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     particles: function (name) { return (BGS[name] || BGS.dark).particles; }
   };
 })();
-/* twine-user-script #2: "engine.js" */
+/* twine-user-script #2: "audio.js" */
+/* =========================================================
+   Wolf: Sideways — 8비트 소리 (Web Audio로 직접 합성, 음원 파일 없음)
+   악기: 펄스파(12.5/25/50%), 삼각파 베이스, 노이즈 타악기 — 패미컴 음원 구성
+   배경음은 배경 그림을 따라 자동으로 바뀐다 (engine.js의 setBg/setTint에서 호출).
+   음계는 일본 전통 음계: 미야코부시(쓸쓸함)·요(밝음).
+   ========================================================= */
+(function () {
+  'use strict';
+
+  var sw = (setup.sw = setup.sw || {});
+  var ctx = null, master = null, musicBus = null, sfxBus = null, noiseBuf = null, pulses = {};
+  var muted = false;
+  try { muted = localStorage.getItem('sw-mute') === '1'; } catch (e) { /* 저장소 없음 */ }
+
+  var MUSIC_VOL = 0.11, SFX_VOL = 0.22;
+
+  /* ---------- 음 이름 → 주파수 ---------- */
+  var SEMI = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  function freq(note) {
+    var m = /^([A-G])([#b]?)(-?\d)$/.exec(note);
+    if (!m) { return 0; }
+    var midi = 12 * (Number(m[3]) + 1) + SEMI[m[1]] + (m[2] === '#' ? 1 : m[2] === 'b' ? -1 : 0);
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+
+  /* ---------- 오디오 준비 (첫 클릭/키 입력 뒤에만 소리를 낼 수 있다) ---------- */
+  function init() {
+    if (ctx) { return true; }
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) { return false; }
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = muted ? 0 : 1;
+    master.connect(ctx.destination);
+    musicBus = ctx.createGain(); musicBus.gain.value = MUSIC_VOL; musicBus.connect(master);
+    sfxBus = ctx.createGain(); sfxBus.gain.value = SFX_VOL; sfxBus.connect(master);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0), reg = 1;
+    for (var i = 0; i < d.length; i++) {        /* 패미컴식 15비트 LFSR 노이즈 */
+      var bit = (reg ^ (reg >> 1)) & 1;
+      reg = (reg >> 1) | (bit << 14);
+      d[i] = (reg & 1) ? 0.8 : -0.8;
+    }
+    return true;
+  }
+
+  /* 펄스파 듀티비(0.125/0.25/0.5)를 PeriodicWave로 만든다 */
+  function pulseWave(duty) {
+    if (!pulses[duty]) {
+      var n = 32, re = new Float32Array(n), im = new Float32Array(n);
+      for (var k = 1; k < n; k++) { im[k] = (2 / (k * Math.PI)) * Math.sin(k * Math.PI * duty); }
+      pulses[duty] = ctx.createPeriodicWave(re, im);
+    }
+    return pulses[duty];
+  }
+
+  /* 음 하나: type = 'p125' | 'p25' | 'p50' | 'tri' */
+  function tone(bus, type, f, t, dur, vol, opts) {
+    if (!f) { return; }
+    opts = opts || {};
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    if (type === 'tri') { o.type = 'triangle'; } else { o.setPeriodicWave(pulseWave(type === 'p125' ? 0.125 : type === 'p25' ? 0.25 : 0.5)); }
+    o.frequency.setValueAtTime(f, t);
+    if (opts.slideTo) { o.frequency.exponentialRampToValueAtTime(opts.slideTo, t + dur); }
+    if (opts.vibrato) {
+      var lfo = ctx.createOscillator(), lg = ctx.createGain();
+      lfo.frequency.value = 5.5; lg.gain.value = f * 0.012;
+      lfo.connect(lg); lg.connect(o.frequency);
+      lfo.start(t + Math.min(0.18, dur / 2)); lfo.stop(t + dur + 0.05);
+    }
+    var a = 0.004, rel = opts.release || 0.05, sus = opts.decay ? vol * 0.45 : vol;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + a);
+    if (opts.decay) { g.gain.exponentialRampToValueAtTime(Math.max(sus, 0.0001), t + a + opts.decay); }
+    g.gain.setValueAtTime(sus, t + Math.max(dur - rel, a + 0.001));
+    g.gain.linearRampToValueAtTime(0, t + dur);
+    o.connect(g); g.connect(bus);
+    o.start(t); o.stop(t + dur + 0.02);
+  }
+
+  /* 노이즈 타악기: k(북) s(작은북) h(방울) */
+  function drum(bus, kind, t, vol) {
+    if (kind === 'k') {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(150, t);
+      o.frequency.exponentialRampToValueAtTime(42, t + 0.12);
+      g.gain.setValueAtTime(vol * 1.6, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      o.connect(g); g.connect(bus); o.start(t); o.stop(t + 0.18);
+      return;
+    }
+    var src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), ng = ctx.createGain();
+    src.buffer = noiseBuf;
+    f.type = kind === 'h' ? 'highpass' : 'bandpass';
+    f.frequency.value = kind === 'h' ? 7000 : 1800;
+    var len = kind === 'h' ? 0.04 : 0.13;
+    ng.gain.setValueAtTime(vol * (kind === 'h' ? 0.35 : 0.8), t);
+    ng.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    src.connect(f); f.connect(ng); ng.connect(bus);
+    src.start(t, Math.random() * 0.5); src.stop(t + len + 0.02);
+  }
+
+  /* ---------- 배경음 ----------
+     한 칸 = 8분음표. "-"는 앞 음을 늘이고, "."은 쉼표, "|"는 마디 구분(무시). */
+  var TRACKS = {
+    /* 타이틀: 미야코부시 A — 달밤, 혼자 */
+    title: { bpm: 64, parts: [
+      { inst: 'p25', vol: 0.55, vib: true, notes:
+        'A4 - - - E5 - D5 - | F5 - - - E5 - - - | D5 - Bb4 - A4 - - - | . . . . . . . . |' +
+        'E5 - - - F5 - A5 - | Bb5 - - - A5 - F5 - | E5 - D5 - E5 - - - | - - - - . . . . ' },
+      { inst: 'tri', vol: 0.9, notes:
+        'A2 - - - - - - - | Bb2 - - - - - - - | D2 - - - - - - - | A2 - - - - - - - |' +
+        'D2 - - - - - - - | Bb1 - - - - - - - | E2 - - - - - - - | A2 - - - - - - - ' } ] },
+    /* 낮 훈련장: 요음계 D — 가벼운 검 소리 */
+    day: { bpm: 104, parts: [
+      { inst: 'p25', vol: 0.5, notes:
+        'D5 . E5 G5 A5 - G5 . | B5 - A5 . G5 E5 D5 . | E5 . G5 . A5 - B5 A5 | G5 - E5 . D5 - - . |' +
+        'A5 . B5 A5 G5 - E5 . | D5 - E5 . G5 - - . | B4 . D5 . E5 G5 E5 D5 | D5 - - - . . . . ' },
+      { inst: 'p125', vol: 0.28, notes:
+        'A4 . . . B4 . . . | D5 . . . B4 . . . | G4 . . . A4 . . . | B4 . . . A4 . . . |' +
+        'E5 . . . D5 . . . | B4 . . . D5 . . . | G4 . . . A4 . . . | A4 . . . . . . . ' },
+      { inst: 'tri', vol: 0.85, notes:
+        'D3 . A2 . D3 . A2 . | G2 . D3 . G2 . D3 . | E2 . B2 . E2 . B2 . | A2 . E3 . D3 . . . |' +
+        'G2 . D3 . G2 . D3 . | D3 . A2 . D3 . A2 . | E2 . B2 . A2 . E3 . | D3 . A2 . D3 . . . ' },
+      { inst: 'drum', vol: 0.5, notes: 'k . h . s . h . | k . h h s . h . | k . h . s . h . | k . h . s h k . ' } ] },
+    /* 절 마당 낮: 요음계 G — 느긋하게 */
+    calm: { bpm: 80, parts: [
+      { inst: 'p25', vol: 0.5, vib: true, notes:
+        'B4 - - D5 E5 - D5 - | B4 - A4 - G4 - - - | A4 - B4 - D5 - E5 - | D5 - - - - - . . |' +
+        'E5 - - D5 B4 - A4 - | G4 - A4 - B4 - - - | A4 - G4 - E4 - G4 - | G4 - - - - - . . ' },
+      { inst: 'tri', vol: 0.85, notes:
+        'G2 - - - D3 - - - | E2 - - - B2 - - - | C3 - - - G2 - - - | D3 - - - - - - - |' +
+        'C3 - - - G2 - - - | E2 - - - B2 - - - | A2 - - - D3 - - - | G2 - - - - - - - ' },
+      { inst: 'drum', vol: 0.3, notes: 'h . . . h . . . | h . . . h . . . | h . . . h . . . | h . . . . . h . ' } ] },
+    /* 해질녘·술: 미야코부시 E — 따뜻하고 쓸쓸하게 */
+    eve: { bpm: 70, parts: [
+      { inst: 'p25', vol: 0.5, vib: true, notes:
+        'E5 - - - C5 - B4 - | A4 - - - B4 - C5 - | B4 - A4 - F4 - E4 - | - - - - . . . . |' +
+        'A4 - B4 - C5 - E5 - | F5 - - - E5 - C5 - | B4 - C5 - B4 - A4 - | - - - - . . . . ' },
+      { inst: 'p125', vol: 0.22, notes:
+        'A3 C4 E4 C4 A3 C4 E4 C4 | F3 A3 C4 A3 F3 A3 C4 A3 | D3 F3 A3 F3 D3 F3 A3 F3 | E3 B3 E4 B3 E3 B3 E4 B3 |' +
+        'A3 C4 E4 C4 A3 C4 E4 C4 | F3 A3 C4 A3 F3 A3 C4 A3 | D3 F3 A3 F3 E3 B3 E4 B3 | A3 C4 E4 C4 A3 . . . ' },
+      { inst: 'tri', vol: 0.8, notes:
+        'A2 - - - - - - - | F2 - - - - - - - | D2 - - - - - - - | E2 - - - - - - - |' +
+        'A2 - - - - - - - | F2 - - - - - - - | D2 - - - E2 - - - | A2 - - - - - - - ' } ] },
+    /* 밤: 드문 음과 낮은 지속음 */
+    night: { bpm: 58, parts: [
+      { inst: 'p125', vol: 0.45, vib: true, notes:
+        'E5 - - - . . . . | . . B4 - - - . . | C5 - - - A4 - - - | . . . . . . . . |' +
+        'F5 - - - E5 - . . | . . C5 - B4 - . . | A4 - - - - - - - | . . . . . . . . ' },
+      { inst: 'tri', vol: 0.75, notes:
+        'E2 - - - - - - - | E2 - - - - - - - | A1 - - - - - - - | B1 - - - - - - - |' +
+        'F2 - - - - - - - | E2 - - - - - - - | A1 - - - - - - - | E2 - - - - - - - ' } ] },
+    /* 어둠: 거의 지속음뿐 */
+    dark: { bpm: 52, parts: [
+      { inst: 'p125', vol: 0.35, notes: '. . . . . . . . | . . . . A4 - - - | . . . . . . . . | . . . . Bb4 - - - ' },
+      { inst: 'tri', vol: 0.8, notes: 'D2 - - - - - - - | - - - - - - - - | Eb2 - - - - - - - | - - - - - - - - ' } ] },
+    /* 수라: 낮게 몰아치는 베이스와 북 */
+    shura: { bpm: 132, parts: [
+      { inst: 'p50', vol: 0.42, notes:
+        'A4 - Bb4 - E5 - - - | F5 - E5 - Bb4 - A4 - | A5 - - - Bb5 - A5 - | E5 - - - - - . . |' +
+        'D5 - E5 - F5 - - - | E5 - Bb4 - A4 - - - | Bb4 - A4 - E4 - F4 - | E4 - - - - - . . ' },
+      { inst: 'tri', vol: 1, notes:
+        'A1 A1 . A1 Bb1 . A1 . | A1 A1 . A1 C2 . Bb1 . | A1 A1 . A1 Bb1 . A1 . | E1 E1 . E1 F1 . E1 . |' +
+        'D2 D2 . D2 Eb2 . D2 . | A1 A1 . A1 Bb1 . A1 . | Bb1 Bb1 . Bb1 A1 . Bb1 . | E1 E1 . E1 F1 . E1 . ' },
+      { inst: 'drum', vol: 0.7, notes: 'k . . k s . k . | k . k . s . k s | k . . k s . k . | k k . k s s k s ' } ] },
+    /* 새벽: 처음으로 색이 번지는 곡 */
+    dawn: { bpm: 88, parts: [
+      { inst: 'p25', vol: 0.5, vib: true, notes:
+        'A4 - D5 - E5 - F#5 - | A5 - - - F#5 - E5 - | D5 - E5 - F#5 - A5 - | B5 - - - A5 - - - |' +
+        'F#5 - E5 - D5 - B4 - | A4 - - - B4 - D5 - | E5 - F#5 - E5 - D5 - | D5 - - - - - . . ' },
+      { inst: 'p125', vol: 0.22, notes:
+        'D4 F#4 A4 F#4 D4 F#4 A4 F#4 | B3 D4 F#4 D4 B3 D4 F#4 D4 | G3 B3 D4 B3 G3 B3 D4 B3 | A3 C#4 E4 C#4 A3 C#4 E4 C#4 |' +
+        'D4 F#4 A4 F#4 D4 F#4 A4 F#4 | B3 D4 F#4 D4 B3 D4 F#4 D4 | G3 B3 D4 B3 A3 C#4 E4 C#4 | D4 F#4 A4 F#4 D4 . . . ' },
+      { inst: 'tri', vol: 0.85, notes:
+        'D3 - A2 - D3 - A2 - | B2 - F#2 - B2 - F#2 - | G2 - D3 - G2 - D3 - | A2 - E3 - A2 - E3 - |' +
+        'D3 - A2 - D3 - A2 - | B2 - F#2 - B2 - F#2 - | G2 - D3 - A2 - E3 - | D3 - - - - - - - ' },
+      { inst: 'drum', vol: 0.35, notes: 'h . h . h . h . | h . h . h . h h | h . h . h . h . | h . h . h h h . ' } ] }
+  };
+
+  /* 문자열 악보 → [{step, note, len}] */
+  function parse(str) {
+    var tokens = str.replace(/\|/g, ' ').trim().split(/\s+/), evs = [], last = null;
+    tokens.forEach(function (tk, i) {
+      if (tk === '-') { if (last) { last.len++; } return; }
+      if (tk === '.') { last = null; return; }
+      last = { step: i, note: tk, len: 1 };
+      evs.push(last);
+    });
+    return { evs: evs, steps: tokens.length };
+  }
+  Object.keys(TRACKS).forEach(function (k) {
+    TRACKS[k].parts.forEach(function (p) { var r = parse(p.notes); p.evs = r.evs; p.steps = r.steps; });
+    TRACKS[k].steps = Math.max.apply(null, TRACKS[k].parts.map(function (p) { return p.steps; }));
+  });
+
+  var player = { name: null, wanted: null, timer: null, step: 0, next: 0, bus: null };
+
+  function stopMusic(fade) {
+    if (player.timer) { clearInterval(player.timer); player.timer = null; }
+    if (player.bus) {
+      var b = player.bus, t = ctx.currentTime;
+      b.gain.setValueAtTime(b.gain.value, t);
+      b.gain.linearRampToValueAtTime(0, t + (fade || 0.6));
+      setTimeout(function () { b.disconnect(); }, ((fade || 0.6) + 0.2) * 1000);
+      player.bus = null;
+    }
+    player.name = null;
+  }
+
+  function startMusic(name) {
+    var tr = TRACKS[name];
+    if (!tr) { return; }
+    stopMusic(0.8);
+    player.name = name;
+    player.bus = ctx.createGain();
+    player.bus.gain.setValueAtTime(0, ctx.currentTime);
+    player.bus.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.2);
+    player.bus.connect(musicBus);
+    var stepDur = 60 / tr.bpm / 2;
+    player.step = 0;
+    player.next = ctx.currentTime + 0.1;
+    var bus = player.bus;
+    player.timer = setInterval(function () {
+      while (player.next < ctx.currentTime + 0.25) {
+        var s = player.step % tr.steps, t = player.next;
+        tr.parts.forEach(function (p) {
+          p.evs.forEach(function (ev) {
+            if (ev.step !== s % p.steps) { return; }
+            if (p.inst === 'drum') { drum(bus, ev.note, t, p.vol); return; }
+            tone(bus, p.inst, freq(ev.note), t, ev.len * stepDur * 0.95, p.vol * 0.5,
+              { vibrato: p.vib && ev.len >= 3, decay: p.inst !== 'tri' ? 0.25 : 0, release: 0.06 });
+          });
+        });
+        player.step++;
+        player.next += stepDur;
+      }
+    }, 40);
+  }
+
+  /* ---------- 효과음 ---------- */
+  var VOICE = {  /* 대사가 넘어갈 때 말하는 사람마다 다른 짧은 소리 */
+    h: { inst: 'p125', notes: ['A5', 'D6', 'E6'], len: 0.05 },
+    w: { inst: 'tri', notes: ['D4', 'E4', 'A3'], len: 0.07 },
+    e: { inst: 'p25', notes: ['E5', 'G5', 'A5'], len: 0.05 },
+    i: { inst: 'tri', notes: ['A3', 'E3', 'G3'], len: 0.08 },
+    g: { inst: 'p50', notes: ['C4', 'Eb4', 'G3'], len: 0.06 },
+    n: { inst: 'p125', notes: ['A6'], len: 0.018, vol: 0.25 }
+  };
+
+  var SFX = {
+    voice: function (t, who) {
+      var v = VOICE[who] || VOICE.n;
+      var n = v.notes[Math.floor(Math.random() * v.notes.length)];
+      tone(sfxBus, v.inst, freq(n), t, v.len, v.vol || 0.45);
+      if (who !== 'n') { tone(sfxBus, v.inst, freq(n) * 1.5, t + v.len, v.len * 0.8, (v.vol || 0.45) * 0.6); }
+    },
+    select: function (t) {
+      tone(sfxBus, 'p25', freq('E5'), t, 0.05, 0.5);
+      tone(sfxBus, 'p25', freq('A5'), t + 0.055, 0.09, 0.5);
+    },
+    clash: function (t) {  /* 칼이 부딪는 소리: 높은 펄스 + 노이즈 */
+      drum(sfxBus, 's', t, 1.2);
+      tone(sfxBus, 'p125', 2600, t, 0.12, 0.35, { slideTo: 1900 });
+      tone(sfxBus, 'p125', 3400, t + 0.01, 0.2, 0.22, { slideTo: 3000, decay: 0.05 });
+    },
+    flash: function (t) {
+      drum(sfxBus, 'h', t, 1.5);
+      tone(sfxBus, 'p50', 1200, t, 0.08, 0.3, { slideTo: 600 });
+    },
+    arrow: function (t) {
+      var src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+      src.buffer = noiseBuf;
+      f.type = 'bandpass';
+      f.frequency.setValueAtTime(6000, t);
+      f.frequency.exponentialRampToValueAtTime(800, t + 0.35);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.5, t + 0.15);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+      src.connect(f); f.connect(g); g.connect(sfxBus);
+      src.start(t); src.stop(t + 0.42);
+      drum(sfxBus, 'k', t + 0.38, 0.8);
+    },
+    chime: function (t) {  /* 날짜 자막 */
+      ['A4', 'E5', 'A5'].forEach(function (n, i) { tone(sfxBus, 'p25', freq(n), t + i * 0.12, 0.5, 0.35, { decay: 0.2, release: 0.3 }); });
+    },
+    note: function (t) {
+      tone(sfxBus, 'p125', freq('B5'), t, 0.06, 0.35);
+      tone(sfxBus, 'p125', freq('E6'), t + 0.07, 0.12, 0.35);
+    },
+    memory: function (t) {  /* 인연 기억 획득 */
+      ['D5', 'F#5', 'A5', 'D6'].forEach(function (n, i) { tone(sfxBus, 'p25', freq(n), t + i * 0.09, i === 3 ? 0.5 : 0.08, 0.45, { vibrato: i === 3, release: 0.2 }); });
+      tone(sfxBus, 'tri', freq('D3'), t, 0.6, 0.6);
+    },
+    ending: function (t, id) {
+      var bright = id === 'true' || id === 'someday';
+      var seq = id === 'shura' ? ['A3', 'Bb3', 'E4', 'Bb3', 'A3'] : bright ? ['D5', 'E5', 'F#5', 'A5', 'D6'] : ['E5', 'C5', 'B4', 'A4', 'E4'];
+      seq.forEach(function (n, i) {
+        tone(sfxBus, id === 'shura' ? 'p50' : 'p25', freq(n), t + i * 0.22, i === seq.length - 1 ? 1.4 : 0.22, 0.42, { vibrato: i === seq.length - 1, release: 0.4 });
+      });
+      tone(sfxBus, 'tri', freq(seq[seq.length - 1]) / 4, t, 2.4, 0.7, { release: 0.8 });
+    }
+  };
+
+  /* ---------- 바깥에서 쓰는 함수 ---------- */
+  var BG_MUSIC = { training: 'day', trainingDawn: 'dawn', temple: 'calm', templeEve: 'eve', templeNight: 'night', night: 'night', dark: 'dark' };
+  var TINT_MUSIC = { shura: 'shura', dawn: 'dawn' };
+
+  sw.audio = {
+    tracks: TRACKS,
+    /* 곡을 바꾼다. 같은 곡이면 이어서 튼다. 소리가 아직 막혀 있으면 기억해 두었다가 첫 입력 때 튼다 */
+    music: function (name) {
+      player.wanted = name;
+      if (!ctx || ctx.state !== 'running') { return; }
+      if (player.name === name) { return; }
+      if (!name) { stopMusic(1.2); return; }
+      startMusic(name);
+    },
+    musicForBg: function (bg) { if (BG_MUSIC[bg]) { sw.audio.music(BG_MUSIC[bg]); } },
+    musicForTint: function (tint) { if (TINT_MUSIC[tint]) { sw.audio.music(TINT_MUSIC[tint]); } },
+    sfx: function (name, arg) {
+      if (!ctx || ctx.state !== 'running' || muted || !SFX[name]) { return; }
+      SFX[name](ctx.currentTime + 0.01, arg);
+    },
+    unlock: function () {
+      if (!init()) { return; }
+      var go = function () { if (player.wanted && player.name !== player.wanted) { startMusic(player.wanted); } };
+      if (ctx.state !== 'running') { ctx.resume().then(go); } else { go(); }
+    },
+    isMuted: function () { return muted; },
+    setMuted: function (m) {
+      muted = !!m;
+      try { localStorage.setItem('sw-mute', muted ? '1' : '0'); } catch (e) { /* 저장소 없음 */ }
+      if (master) {
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.setTargetAtTime(muted ? 0 : 1, ctx.currentTime, 0.05);
+      }
+    }
+  };
+
+  ['pointerdown', 'keydown'].forEach(function (ev) {
+    document.addEventListener(ev, sw.audio.unlock, true);
+  });
+})();
+/* twine-user-script #3: "engine.js" */
 /* =========================================================
    Wolf: Sideways — 장면 진행 엔진
    한 장면 = 한 passage. 안의 대사는 클릭/스페이스로 한 줄씩 넘긴다.
@@ -928,6 +1339,8 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
              <<fx "shake">>                     shake | flash | arrow(화살이 화면을 가로지름)
              <<tint "dawn">>                    none | warm | dawn | shura | dim (화면 색 번짐)
              <<stage "all" "hide">>             모두 퇴장. 등장인물: hanbei wolf emma isshin genichiro
+             <<bgm "eve">>                      배경음 직접 지정 (보통은 bg/tint를 따라 자동, audio.js)
+   초상화    <<h "bad">>                        대사 옆 얼굴 변형 지정 (보통은 상태를 따라 자동, portraits.js)
    결말      <<ending "true">>                  결말 카드 + 기록 (id는 sw.endingDefs)
              <<memory "just">>                  인연 기억 카드 획득
    ========================================================= */
@@ -988,6 +1401,23 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   memBtn.id = 'sw-mem-btn';
   memBtn.type = 'button';
   document.body.appendChild(memBtn);
+
+  /* 소리 켜기/끄기 (M 키로도) */
+  var sndBtn = document.createElement('button');
+  sndBtn.id = 'sw-snd-btn';
+  sndBtn.type = 'button';
+  function updateSndBtn() {
+    var off = sw.audio && sw.audio.isMuted();
+    sndBtn.textContent = off ? '♪ 소리 끔' : '♪ 소리 켬';
+    sndBtn.classList.toggle('sw-off', !!off);
+  }
+  sndBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (sw.audio) { sw.audio.setMuted(!sw.audio.isMuted()); }
+    updateSndBtn();
+  });
+  document.body.appendChild(sndBtn);
+  updateSndBtn();
 
   var memPanel = document.createElement('div');
   memPanel.id = 'sw-mem';
@@ -1244,14 +1674,28 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   /* ---------- 장면 진행 ---------- */
   var seq = { items: [], idx: -1, current: null, done: true, root: null };
 
+  /* audio.js가 없거나 막혀 있어도 진행은 멈추지 않게 */
+  function sound(fn, arg, arg2) {
+    try { if (sw.audio) { sw.audio[fn](arg, arg2); } } catch (e) { /* 소리 실패는 무시 */ }
+  }
+
+  /* 대사 한 줄이 나올 때의 소리 */
+  function beatSound(it) {
+    if (it.classList.contains('sw-ending')) { sound('sfx', 'ending', it.getAttribute('data-ending')); return; }
+    if (it.classList.contains('sw-caption')) { sound('sfx', 'chime'); return; }
+    if (it.classList.contains('sw-note')) { sound('sfx', 'note'); return; }
+    sound('sfx', 'voice', it.getAttribute('data-who') || 'n');
+  }
+
   function applyCue(el) {
     var args = JSON.parse(el.getAttribute('data-args') || '[]');
     switch (el.getAttribute('data-cue')) {
-      case 'bg': sw.setBg(args[0]); break;
+      case 'bg': sw.setBg(args[0]); sound('musicForBg', args[0]); break;
       case 'stage': sw.setSprite(args[0], args[1], args[2], args[3]); break;
-      case 'fx': sw.fx(args[0]); break;
-      case 'tint': sw.setTint(args[0]); break;
-      case 'memory': sw.showToast(args[0]); break;
+      case 'fx': sw.fx(args[0]); sound('sfx', args[0] === 'shake' ? 'clash' : args[0]); break;
+      case 'tint': sw.setTint(args[0]); sound('musicForTint', args[0]); break;
+      case 'bgm': sound('music', args[0]); break;
+      case 'memory': sw.showToast(args[0]); sound('sfx', 'memory'); break;
     }
   }
 
@@ -1276,6 +1720,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
       it.classList.add('sw-waiting');
       seq.current = it;
       seq.root.classList.toggle('sw-mode-caption', it.classList.contains('sw-caption'));
+      beatSound(it);
       return;
     }
     seq.done = true;
@@ -1297,10 +1742,13 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 
   $(document).on(':passagestart', function (ev) {
     document.body.setAttribute('data-tags', ev.passage.tags.join(' '));
+    if (ev.passage.tags.indexOf('title') !== -1) { sound('music', 'title'); }
+    updateSndBtn();
   });
   $(document).on(':passagedisplay', startScene);
 
   document.addEventListener('click', function (e) {
+    if (e.target.closest('.sw-choices a, .sw-title-menu a')) { sound('sfx', 'select'); }
     if (e.target.closest('a, button, #sw-mem, .sw-choices')) { return; }
     sw.next();
   });
@@ -1308,6 +1756,11 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   document.addEventListener('keydown', function (e) {
     if (!memPanel.hidden) {
       if (e.key === 'Escape') { sw.closeMemories(); }
+      return;
+    }
+    if ((e.key === 'm' || e.key === 'M') && sw.audio) {
+      sw.audio.setMuted(!sw.audio.isMuted());
+      updateSndBtn();
       return;
     }
     var active = document.activeElement;
@@ -1324,6 +1777,25 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     }
   });
 
+  /* ---------- 대화 초상화 ----------
+     <<h>> 처럼 쓰면 상태에 맞는 얼굴을 고른다. <<h "bad">> 처럼 변형을 직접 고를 수도 있다("plain"은 기본 얼굴). */
+  var FACES = { h: 'hanbei', w: 'wolf', e: 'emma', i: 'isshin', g: 'genichiro' };
+  sw.portraitFor = function (who, variant) {
+    var base = FACES[who];
+    if (!base) { return null; }
+    if (variant) { return variant === 'plain' ? base : base + '_' + variant; }
+    var v = State.variables;
+    if (who === 'h') {
+      if (v.shura >= 3) { return 'hanbei_bad'; }
+      if (v.hanbeiDist >= 3) { return 'hanbei_like'; }
+    }
+    if (who === 'w') {
+      if (v.shura >= 3) { return 'wolf_shura_on'; }
+      if (v.shura >= 2) { return 'wolf_bad'; }
+    }
+    return base;
+  };
+
   /* ---------- 매크로 ---------- */
   function addBeat(name, who, cls) {
     Macro.add(name, {
@@ -1331,6 +1803,17 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
       handler: function () {
         var el = document.createElement('div');
         el.className = 'sw-item sw-beat sw-' + who + (cls ? ' ' + cls : '');
+        el.setAttribute('data-who', who);
+        var face = !cls && sw.portraitFor(who, this.args[0]);
+        var src = face && sw.art.portrait(face);
+        if (src) {
+          var img = document.createElement('img');
+          img.className = 'sw-portrait';
+          img.alt = '';
+          img.src = src;
+          el.appendChild(img);
+          el.classList.add('sw-has-portrait');
+        }
         if (sw.names[who]) {
           var plate = document.createElement('div');
           plate.className = 'sw-name';
@@ -1375,6 +1858,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
       State.variables.lastEnding = id;
       var el = document.createElement('div');
       el.className = 'sw-item sw-beat sw-caption sw-ending sw-ending-' + id;
+      el.setAttribute('data-ending', id);
       el.innerHTML = '<div class="sw-caption-sub"></div><div class="sw-caption-main"></div><div class="sw-ending-note">기록장에 새로운 결말이 남았다.</div>';
       el.children[0].textContent = def.grade;
       el.children[1].textContent = def.title;
@@ -1411,12 +1895,689 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   addCue('stage');
   addCue('fx');
   addCue('tint');
+  addCue('bgm');   /* <<bgm "eve">>: 배경과 다른 곡을 직접 고를 때 */
   addCue('memory', function () {
     var list = State.variables.memories;
     if (list.indexOf(this.args[0]) === -1) { list.push(this.args[0]); }
   });
 })();
-/* twine-user-script #3: "sprites.js" */
+/* twine-user-script #4: "portraits.js" */
+/* 대화 초상화 도트 데이터 — tools/sideways_portraits.py 가 만든 파일. 손으로 고치지 말 것.
+   assets/portraits/*.png 를 64x64 로 줄여 회색 14단계 + 배경(z) + 빨강(r)으로 옮겨 적은 것.
+   그리는 쪽은 art.js 의 sw.art.portrait(). */
+(function () {
+  'use strict';
+  var sw = (setup.sw = setup.sw || {});
+  sw.portraitData = {
+    size: 64,
+    levels: ["#040404", "#0b0b0b", "#131313", "#1b1b1b", "#242424", "#2e2e2e", "#3a3a3a", "#484848", "#585858", "#6a6a6a", "#808080", "#9a9a9a", "#b8b8b8", "#dcdcdc"],
+    chars: '0123456789abcd',
+    red: '#b8262a',
+    faces: {
+      hanbei: { bg: '#7f7f7f', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzza89zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzz879z789zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzz9640202899zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzz987000027zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz5000005zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz98710000139zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzz82000045zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzz760000007zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzz952000000599azzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzza6100000000049zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzza70000000000003zz9zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz700001110000000389zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz800000232000000009zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz8600003332000000019zz99zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz600023333100000008az9zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz600033333100000008z88zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz400033333101000005879zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz9200023333023320018azzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz73000133311232200179zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz940000233202222210257zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz7710001221322022003859zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz986611000000110000103589zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz88a500000000011000010006zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz98z9260000000011100000004zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz85830000000211000000589zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz666500000002100001018a7zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz9786640000001000000189z8azzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz8975880000000000000799z99zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz989559a7000000000004z8zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz8z969zz6000000000006z9zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz89z98zz800000000000007zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz99zz899z3000000000000117zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz7zz900000000000000018zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz98zz400000000000000117azzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz99z80000000000000012129zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz800000000000001210039azzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz70000000000001211011368zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz960001000000001221102210179zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz600010010000001221201221110169azzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz9000000000000012212112211121111369azzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzza700000100000122211222221022222221139zzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz60000000111122222222221102222222222149zzzzzzzzz',
+        'zzzzzzzzzzzzzzzz400000100122222222211211012221112222215zzzzzzzzz',
+        'zzzzzzzzzzzzzz940000001111111122210121111222110101222229zzzzzzzz',
+        'zzzzzzzzzzzzz81000000011101222210012212122210110001222139zzzzzzz',
+        'zzzzzzzzzzzz600000000001011221001221211222100000002222215zzzzzzz',
+        'zzzzzzzzzz731000000000110122111221001012210010000012222217zzzzzz',
+        'zzzzzzzzz6112100000000021101222210000022100100000002222213zzzzzz',
+        'zzzzzzzz922221000000000122111111100002210000021000012222217zzzzz',
+        'zzzzzzzz922221010001010111211111001122100000222100012222212azzzz',
+        'zzzzzzzz81112112000100002112100011122221001222210001222222159zzz',
+        'zzzzzzzz51112112000000002112221211212220001222210111222222229zzz',
+        'zzzzzzzz31211122000000100221221111122210120122210000222222229zzz',
+        'zzzzzzzz31211121000000000122222111221101121122210000122222229zzz',
+        'zzzzzzz92121122110000000011222111122001112101110000012222213zzzz',
+        'zzzzzzz91121022110000000001221111221001122211221000012222215zzzz',
+        'zzzzzzz60021122100000000000111111110012122221222000002222216zzzz',
+        'zzzzzzz31022122100010000000021111100112111221121000002222217zzzz',
+        'zzzzzz901112022100010100000001122100122122222221000002222218zzzz',
+        'zzzzzz701102112100011110000100111001221122222221000002222218zzzz',
+        'zzzzzz401101102100011110000120100111221222222222000001222217zzzz',
+        'zzzzz9100101102110011221000021010000121222222221000001222216zzzz'
+      ] },
+      hanbei_like: { bg: '#979797', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzaa8azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz85777659zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzza89631204azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzza96301129azzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzaa973200117aazzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz86521000007aazzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzaaz50000008zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzaz901000026aazzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzza669710025989zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz9899a4000000159zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz99ba400000000019zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzza9b8000000000004bzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzaaa10000110000008zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzb9300000010000004zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzb800000000000000188zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzza30000000000001008zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzza99a30000000000131206zzbazzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzza78a000010000001100017968azzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzb9120001100000210000011697zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz97aa100002000000100000007887azzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz89a64100011000000000000006z97bzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzbzz7253001121200000000000003aaazzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz9bb7795100000100000000000000329zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzaza9b81200000000000000000000794azzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzaz86615100000000000000000117a7azzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz9a4a69a5000000000000000003337a9zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzb99699z300000000000000000001427bzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzza889b7000000000000000011000252247zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz9za800000000000000000120004200006zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz7100000000000000000000000000009bzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzza54000000000000000000000000000038zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzza602000000000000000000000000012002azzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzza200000000000000000000100000102100138zzzzzzzzz',
+        'zzzzzzzzzzzzzzzzza52200000000000000000000000100001015419zzzzzzzz',
+        'zzzzzzzzzzzzzzzz9223200000000000000000000000110021031443azzzzzzz',
+        'zzzzzzzzzzzzzzza21420000000000000000000000001200410001317zzzzzzz',
+        'zzzzzzzzzzzzzzz603400000000010000000000000001200100000000azzzzzz',
+        'zzzzzzzzzzzzzz95100000000000110000000000000000000010000005azzzzz',
+        'zzzzzzzzzzzzz9665301000000000000000000000000000110000000006zzzzz',
+        'zzzzzzzzzzzzb6565520100000000000000000000000000000000000001azzzz',
+        'zzzzzzzzzzzz85664651200000000000000000000000000000112224454azzzz',
+        'zzzzzzzzzzza666546422200000000000000000000000000001111113449zzzz',
+        'zzzzzzzzzzz8566546134100000000000000000000000000000001000007zzzz',
+        'zzzzzzzzzzb6566535331000000000000000000000000000000000000007zzzz',
+        'zzzzzzzzzz95666434510000000000000000000000000021000000000004azzz',
+        'zzzzzzzzzz856665443000000000000000000000000000100000000000018zzz',
+        'zzzzzzzzza656666412000000210100000000000000000000000000000014zzz',
+        'zzzzzzzzza566666410000000010000100000000000000020000000000004zzz',
+        'zzzzzzzzz8545666400000000000000000000000000000000000000000001azz',
+        'zzzzzzzza6554566301000000000000000000000000000000000000000000azz',
+        'zzzzzzzz956444650000000000000000000000000000000000000000000008zz',
+        'zzzzzzzz856323650000000000000000000000000000000000000000000006zz',
+        'zzzzzzzz756323650000000000000000000000000000000000000000000006zz',
+        'zzzzzzza656424650000000000000000000000000000000000000000000002az',
+        'zzzzzzz8566504650000000000000000000000000000000000000000000001az',
+        'zzzzzzz75555126400000000000000000000000000000000000000000000008z',
+        'zzzzzzz55542004200000000000000000000000000000000000000000000006z',
+        'zzzzzz815530000000000000000000000000000000000000000000000000004z',
+        'zzzzzz403510000000000000000000000000000000000000000000000000001a',
+        'zzzzza000000000000000000000000000000000000000000000000000000000a',
+        'zzzzza000000000000000000000000000000000000000000000000000000001a'
+      ] },
+      hanbei_bad: { bg: '#5c5c5c', rows: [
+        'zzzzzzzzzzzzzzzzzz7zzzz610000000000001547zzz68zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz7100001000001014587zzzz7zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz7200001000001000237z77zz8zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz61000000000011100024767zz8zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz864110000000001211100016678zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz755421100000001144010000235678zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz78757z6400000000021533200003z7788zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz78z68zzz400000000410367320004z76zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz8zz7zzzz62100000233105z6640002876zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz7zzz632000001340025zz8410016767zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz77754110000005650016zz575001125677zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz77652223132000034310016z77510027448zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzz78778z885643000036100003z77610048627zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz7zzzz6235410003532000686z720068777zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz877675100013255000777zz40157787zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz87z7765200003255310445676033587zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz87z7785620000014344315653300136zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz86zz520000001545553665442213677zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz78z8300000000211100221240312257777zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz7z8200000000000000000344331003774758zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz7620000000000000000000001000006757278zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz51000000000000000000000000000002346555zzzzzzzzzzzzz',
+        'zzzzzzzzzzz7200000000000000000000000000000000005z447zzzzzzzzzzzz',
+        'zzzzzzzzzz6100000000000000000000000000000000000455677zzzzzzzzzzz',
+        'zzzzzzzz740000000000000000000000000000000000000025345zzzzzzzzzzz',
+        'zzzzzzz700000000000000000000000000000000000000004516z7zzzzzzzzzz',
+        'zzzzzz8100000000000000000000000000000000000000002325z66zzzzzzzzz',
+        'zzzzzz50000000000000000000000000000000000000000014218zzzzzzzzzzz',
+        'zzzzz700000000000000000000000000000000000000000002306zzz7zzzzzzz',
+        'zzzzz400000000000000000000000000000000000000000000107zz777zzzzzz',
+        'zzzz7100000000000000000000000000000000000000000000002z8767zzzzzz',
+        'zzzz30000000000000000000000000000000000000000000000018z7678zzzzz',
+        'zzz7000000000000000000000000000000000000000000000000078z7z7zzzzz',
+        'zzz20000000000000000000000000000000000000000000000000457zz8zzzzz',
+        'zz600000000000000000000000000000000000000000000000010227z68zzzzz',
+        'zz30000000000000000000000000000000000000000010000001102723768zzz',
+        'z810000000000000000000000000000000000000000220000000004507848zzz',
+        'z600000000000000000000000000000000000000000210000001101028726zzz',
+        'z500000000000000000000000000000000000000000110000001200002335zzz',
+        'z300000000000000000000000000000000000000000010000013300222215zzz',
+        '81000000000000000000000000000000000000000000000000132004660018zz',
+        '70000000000000000000000000000000000000000000000000121001340347zz',
+        '30000000000000000000000000000000000000000010000000020000001156zz',
+        '00000000000000000000000000000000000000000010000000001200120376zz',
+        '000000000000000000000000000000000000000000000000000021002203548z',
+        '000000000000000000000000000000001100000000000000100000001211436z',
+        '0000000000000000000000000000000000000000000000011100000002205338',
+        '0000000000000000000000000000000100000000000000012100001001304444',
+        '0000000000000000000000000000000000000000000000002000000001422342',
+        '0000000000000000000000000000000000000000000100001000100100121343',
+        '0000000000000000000000000000000000000011000000000000100002331234',
+        '0000000000000000000000000000000000002211100010011000000111332022',
+        '0000000000000000000100000000000000014412100000001000000000232022',
+        '0000000000000010000000000000000000123114200000000000000100133123',
+        '0000000000000000000000000000000001213212200000000000000100034233',
+        '0000000000000000000000000000000111001330100000000000000110034212',
+        '0000000000000000000000000000000011000021001101100000000010034302',
+        '0000000000000000000000000000010001100013100001000000000000024320',
+        '0000000000000000000000000000200000111001000101000000000000022200',
+        '0000000000000000000001100000100020001000001330000000000000000000',
+        '0000000000000000000000000001000032000011001330100000000000000000',
+        '0000000000000000000000000001000012000022001430110000000000001100',
+        '0000000000000000000000000010000110000011001420010000000000002000',
+        '0000000000000000000000000000000020000000000410100000000000000000'
+      ] },
+      wolf: { bg: '#737373', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz89zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz989889zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzz889zzz9zz88459z97z9zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz98888887366359a8889zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz8875687304424z749zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz952100000000553zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz99400000000000018zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz9710000000000000147zz8zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzz9886100000000000002458989zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzz988762000000000000004778zz899zz9zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz84000000000000006zzz830014987zz89zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz8895000000000000004z8300000026866769zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz887000000000000000010000000000010127zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzz8882000000100000000000000000000000005zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz8840000000000000000000000000000000038zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz76000000000000000000000000000000000039zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz950000200570000000000000000000000000016zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz93226206z412000000000000000000000000008zzzzzzzzzzzz',
+        'zzzzzzzzzzzzz93698549z773000000000000000000000000006zzzzzzzzzzzz',
+        'zzzzzzzzzzzzz95zzz88zz970000000000000000000000000007zzzzzzzzzzzz',
+        'zzzzzzzzzzzzz8zzzz89az810000000000000000000000000007zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz8875000000000000000000000000000038989zzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz889840000000000000000000000000000178989zzzzzzz',
+        'zzzzzzzzzzzzzzzzz89zz96000000000000000000000000000000178zzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz30000000000000000010000000000004568zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz70000000000000000000000000000000879zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz967820000000000000000000000000000227z8zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz77210000010000000000000000000000146z9zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz98500000000000000000000000000000347zzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz89zz100000000000000000000000000008699zzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz978995110000000011100000000000000088zzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz999865100000110000000000000000010889zzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz89zz9741000000000000000000000044999zzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz78zz7633000000000000000002767zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz831146851000000000000000004z9899zzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz98455410024100000000000000004zz89zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz8622143364202411400000000000002zz89zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz87789874311640000010000000000001zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz997345521003640000000000000000019zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz411000000000001000000000000000189zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz60000000000000000000000000000007azzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz86653100013101000000000000000017zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz776425445443124523200000000000000359zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz8300001200002430132520000000000000015zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz831334400000002100000000000000000000049zzzzzzzzzzzzzz',
+        'zzzzzzzzzzz8775336764000000000000000000000000000028zzzzzzzzzzzzz',
+        'zzzzzzzzzzzz96788752110100000000000000000000000003zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz98520001466530000000000000000000000038zzzzzzzzzzzzzz',
+        'zzzzzzzzz874200123432115420000200000000000000003zzzzzzzzzzzzzzzz',
+        'zzzzzzzzz2000104510000000000003000000000000000007zzzzzzzzzzzzzzz',
+        'zzzzzzz940001010000000000000000000000000000000003zzzzzzzzzzzzzzz',
+        'zzzzzz8200210011000000000000000000000000000000004zzzzzzzzzzzzzzz',
+        'zzzzz81001100043000000000000000000000000000000017zzzzzzzzzzzzzzz',
+        'zzzzz5000100027200000000000000000000000000000007azzzzzzzzzzzzzzz',
+        'zzzz90000000000000000000000000000000000000000004zzzzzzzzzzzzzzzz',
+        'zzzz600004124000000000000000000000000000000000007zzzzzzzzzzzzzzz',
+        'zzzz300066365000000000000000000000000000000000039zzzzzzzzzzzzzzz',
+        'zzz80004716z600000000000000000000000000000000006zzzzzzzzzzzzzzzz',
+        'zzz4000701z9200000000000000000000000000000000005zzzzzzzzzzzzzzzz',
+        'zz8000430783000000000000000000000000000000000005zzzzzzzzzzzzzzzz',
+        'zz10005068400000000000000000000000000000000000029zzzzzzzzzzzzzzz',
+        'z800022299800000000000000000000000000000000000005zzzzzzzzzzzzzzz',
+        'z20000068z600000000000000000000000000000000000002zzzzzzzzzzzzzzz'
+      ] },
+      wolf_bad: { bg: '#323232', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz5334zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz31245zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz421023zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz420121011014zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz410000000003324zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz4100000000002z32124zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzz520000000000002zz43434zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz4122000000000000002zzzzz4zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz4332100000000000000000004zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz30000000000000000000000222zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz2100000000000000000000000034zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz20000000000000000000000000003444zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz41000000000000000000000000100114zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz10000000000000000000111100021325zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz50000000000000000000042z522031222zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz20000000000000000000013zz432134z35zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz310000000000000000000002zzzzzz24zzz4zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz1000000000000000000000013zzzzz33zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz4000000000000000000000014zzzzz4zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz500000000000000000000002zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz200000000000000000000023432zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz200000000000000000000122213z5zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz440000000000000000000002223z4233zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzz340000000000000000000033124zz114zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz4020000000000000000011015zz21234zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz402000000000000000000124z403334zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz3021000000000000001023444112344zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz20022000000000000022z4420024334z5zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz2000200000000000132223201343344z4333zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz412210000000000120014002444313zz334zz5zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzz41302100000000011131123244235zzz33zz34zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz1412zz20000000024223422324z3zzz5432334zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz14334z4100000002143200222431z444z54224zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz3343z4z4100000023100012233024434521034313zzzzzzzzzzz',
+        'zzzzzzzzzzzz41444zz20000000011210235203432zz4220001104zzzzzzzzzz',
+        'zzzzzzzzzzzz51554zzz2000001010112231033104zz4300000001zzzzzzzzzz',
+        'zzzzzzzzzzzz434zzzzz40000100112113112200133z43000000005zzzzzzzzz',
+        'zzzzzzzzzzzz4z34zzzz4000000001201232111432zz32000000002zzzzzzzzz',
+        'zzzzzzzzzzzz4z25zzzz4000000000101310244z2zzz300000000005zzzzzzzz',
+        'zzzzzzzzzzzzzz24zzzzz2000000000000014zzz4zz5300000000004zzzzzzzz',
+        'zzzzzzzzzzzzz4z3zzzzz50000000000000144z44zz4200000000000zzzzzzzz',
+        'zzzzzzzzzzzzz5z5zzzzzz0000000000000243z44zz41000000000003zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz40000000000000223z3zzz10000000000001zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz10000000000000323z4zz400000000000004zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz500000000000000214545z400000000000004zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz3000000000000001132234300000000000001zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz1000000000000000112534100000000000001zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz100000000000000011233z100000000000001zzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz200000000000000002223351000000000000005zzzzzz',
+        'zzzzzzzzzzzzzzzzzzz000000000000000003345342000000000000005zzzzzz',
+        'zzzzzzzzzzzzzzzzzz40000000000000000014zz340000000000000004zzzzzz',
+        'zzzzzzzzzzzzzzzzzz50000000000000000025z3440000000000000005zzzzzz',
+        'zzzzzzzzzzzzzzzzzz5000000000000000011441zz0000000000000004zzzzzz',
+        'zzzzzzzzzzzzzzzzzz4000000000000000000511z40000000000000004zzzzzz',
+        'zzzzzzzzzzzzzzzzzz1000000000000000001411230000000000000005zzzzzz',
+        'zzzzzzzzzzzzzzzzzz2000000000000000000431130000000000000001zzzzzz',
+        'zzzzzzzzzzzzzzzzzz1000000000000000000121020000000000000002zzzzzz',
+        'zzzzzzzzzzzzzzzzz400000000000000000000301z1000000000000003zzzzzz',
+        'zzzzzzzzzzzzzzzzz100000000000000000002201z4000000000000002zzzzzz',
+        'zzzzzzzzzzzzzzzz40000000000000000000041134z100000000000002zzzzzz',
+        'zzzzzzzzzzzzzzzz30000000000000000000042344z110000000000001zzzzzz',
+        'zzzzzzzzzzzzzzzz10000000000000000000340143z100000000000002zzzzzz',
+        'zzzzzzzzzzzzzzzz100000000000000000003223024000000000000004zzzzzz'
+      ] },
+      wolf_shura_on: { bg: '#525252', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzz6zzzzzzzzz51zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz7z7zz657z7401356z64zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz652111111100110001533zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz776533520001420000002z6zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzz6666z6443310000120000002zz7z7zz7zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzz667zz7315100000000000006z6z6z66zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz664454000000000000003866467zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz51000000000000000047553zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz721000000000000000140116zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz732100000000000000002566zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz50000000000000000001654zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz513000000000000000002737zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz64411100000000000000011047zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz421000000000000000000026zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz5000000000000000000000025666677zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz6730111200000000000000000137z6667zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz454462000000000000000003667zzz5zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz647z7300000000000000000013666zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz56zz40000000000000000000000136zzz7zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz57z6300000000000000000000003777667zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz51000000000000000000000006zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz42000000000000000000000002zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz42000000000000000000000000136zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz71200000000000000000000000016667zzzzzzzzzzzz',
+        '7zzzzzzzzzzzzzzz7zz765200000000000000000000000006zz7zzzzzzzzzzzz',
+        '236zzzzzzzzzz665776zz2000000000000000000000000104zzzzzzzzzzzzzzz',
+        '236zzzzzzzzz67zzzzz523000000000000000000000000216zzzzzzzzzzzzzzz',
+        '268zzzzzzzzzzzzz65526300000000000000000000000052zzzzzzzzzzzzzzzz',
+        '7567zzzzzzzzzzzzzzz661000000000000000000000000446zzzzzzzzzzzzzzz',
+        '63247zz767z666z5474420000000000000000000000001533zzzzzzzzzzzzzzz',
+        '22257z6356514zzz741202000000000000000000000001455zz77zzzzzzzzzzz',
+        '22223322322225zzz66200100000000000000000000004566657zzzzzzzzzzzz',
+        '332222222222226z7620363540000000000000000000045757zzzzzzzzzzzzzz',
+        '2235322222222357z715z54631000000000000000000056z57zzzzzzzzzzzzzz',
+        '2225532222223566734z622232000000000000000000076z6zzzzzzzzzzzzzzz',
+        '333246322222323z6667z6333321000000000000000012256zzzzzzzzzzzzzzz',
+        '677423322222224zzzzz77433333210000000000000122127zzzzzzzzzzzzzzz',
+        'zzzz75222222224zz67zz743333333210000000000121226zzzzzzzzzzzzzzzz',
+        '35776752222222466665563333223333210010001122223zzzzzzzzzzzzzzzzz',
+        '4234445222233234555622333332121333122201221231037zzzzzzzzzzzzzzz',
+        'z7zzz43222244332222422233322221122222211222210005zzzzzzzzzzzzzzz',
+        'zzzzz522222344453333322233332211100122101100000027zzzzzzzzzzzzzz',
+        'zzzzzz6322222223233333222222222222111100000000000025zzzzzzzzzzzz',
+        'zzzzzzz7422222222233321323321111122222100000000000016zzzzzzzzzzz',
+        'zzzzzzzzz3222355523312332233211222222200000000000006zzzzzzzzzzzz',
+        'zzzzzzzzz6235z7433331122221223332100010000000000000236zzzzzzzzzz',
+        'zzzzzzzzzz77zz74332110221000001111111100001100000000017zzzzzzzzz',
+        'zzzzzzzzzzzzzzz53223321332100000000000000110000000000026zzzzzzzz',
+        'zzzzzzzzzzzzzzz632322221233200000000000000000000000000006zzzzzzz',
+        'zzzzzzzzzzzzzz54322132322233200000000011000000000000000037zzzzzz',
+        'zzzzzzzzzzzzz6220112333322233210001111100000100000000000004zzzzz',
+        'zzzzzzzzzzz75422001222233123333200000000112100000000000000015zzz',
+        'zzzzzzzzzz7z622102201023321233333200001011001000000000000000026z',
+        'zzzzzzzzzz774211121021133210232210112310001100000000000000000002',
+        'zzzzzzzzz7322332232233202221011112332101210000000000000000000001',
+        'zzzzzz7662133332332212210133101111110111000000000000000000000000',
+        'zzzzzzz512333332331112332013310110001000000000000000000000000000',
+        'zzzzzzz213333333332222333100232000111000000000000000000000000000',
+        'zzzzzz5323223313332233333220012200000000000000000000000000000000',
+        'zzzzzz4333323213331333333222000111110000000000000000000000000000',
+        'zzzzz74333333223332332233323210001100010000000000000000000000000',
+        'zzzzz62333333223333332233322322210000020000000000000000000000000',
+        'zzzzz65233333233333333123333321321000000000000000000000000000000',
+        'zzzzz6z333333233332233121333331111000001000000000000000000000000'
+      ] },
+      wolf_shura_end: { bg: '#888888', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzza444a6011115407978zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzb91043111111112454799zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzza896064111111111368zazzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz76427b84111111111107zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz8a8aa6111111111111115zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz9azzzzzzaz8201111111111111115azzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz969azzzzzz811111111111111111106zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz9558zzzzzz411111111111111111113zzzzzzzzzzzzzzz99zz',
+        'zzzzzzzzzzzzzz9557azzzzz3111111111111111113446zzzzzzzzzzzzza8zzz',
+        'zzzzzzzzzzzzza6666zzzzz811111111111111111137669zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzza87658zzz93111111111111111155284z9zzzzzzzzzzzz98zzz',
+        'zzzzzzzzzzzzzz8657azz521111111111111111125285zzzzzzaaza9az856zzz',
+        'zzzzzzzzzzzzza8869zz7731111111111111111111177zzzzza79za769856zzz',
+        'zzzzzzzzzzzzza8759zz7511111111111111111111104zzzzz808zz856558zzz',
+        'zzzzzzzzzzzaa8878zz940111111111111111111111759zzzz84588655559zzz',
+        'zzzzzzzzzzz857857zz515111111r11111111111111a88zzzz81245555669zzz',
+        'zzzzzzzzzzz704556az5521111111111111111111458a99zzz711245559zzzzz',
+        'zzzzzzzzzza811235z98811111111111111111111395997aza311124479zzzzz',
+        'zzzzzzzzzzz9211258993111111111111111111122896579za42111358zzzzzz',
+        'zzzzzzzzzzz96311348784411111111111111111256722489632111257zzzzzz',
+        'zzzzzzzzzzzz9511358996711111123321111111142112554231111358zzzzzz',
+        'zzzzzzzzzzzz7311245755111111111211111111111111111111111249zzzzzz',
+        'zzzzzzzzzz977421124411111111111111111111111111111111111129zzzzzz',
+        'zzzzzzzzzaa46411121211111111111111111111111111111111111139zzzzzz',
+        'zzzzzzzzz983321111111111111111111111111111111111111111115azzzzzz',
+        'zzzzzzza9842111111111111111111111111111111111111111111125zzzzzzz',
+        'zzzzzzz97521111111111111111111111111111111111111111111127zzzzzzz',
+        'zzzzzzz95111111111111111111111111111111111111111111111119zzzzzzz',
+        'zzzzzzzz611111111111111111111111111111111111111111111114azzzzzzz',
+        'zzzzzzzz611111111111111111111111111111111111111111111115azzzzzzz',
+        'zzzzzzza4111211111111111111111111111111111111111111111139zzzzzzz',
+        'zzzzzzz91111111111111111111111111111111111111111111111159zzzzzzz',
+        'zzzzzzz93111111111111111111111111111111111111111111111159zzzzzzz',
+        'zzzzzzz61111111111111111111111111111111111111111111111146azzzzzz',
+        'zzzzzzz921111111111111111111111111111111111111111111113217zzzzzz',
+        'zzzzzzz921111111111111111111111111111111111111111111113314zzzzzz',
+        'zzzzzzzz51111111111111111111111111111111111111111111111114zzzzzz',
+        'zzzzzzz831111111111111111111111111111111111111111111111116zzzzzz',
+        'zzzzzza411111111111111111111111111111111111111111111111117zzzzzz',
+        'zzzzzza411111111111111111111111111111111111111111111111119zzzzzz',
+        'zzzzzzz81111111111111111111111111111111111111111111111115azzzzzz',
+        'zzzzzzz92111111111111111111111111111111111111111111111116zzzzzzz',
+        'zzzzzzz92111111111111111111111111111111111111111111111147azzzzzz',
+        'zzzzzzzz611111111111111111111111111111111111111111111118a9zzzzzz',
+        'zzzzzzzz921111111111111111111111111111111111111111111115zzzzzzzz',
+        'zzzzzzzza311111111111111111111111111111111111111111111119zzzzzzz',
+        'zzzzzzzz811111111111111111111111111111111111111111111117zzzzzzzz',
+        'zzzzzzza311111111111111111111111111111111111111111111116zzzzzzzz',
+        'zzzzzzz7011111111111111111111111111111111111111111111114azzzzzzz',
+        'zzzzzz811111111111111111111111111111111111111111111111118zzzzzzz',
+        'zzzzzz511111111111111111111111111111111111111111111111129zzzzzzz',
+        'zzzzzz511111111111111111111111111111111111111111111111117zzzzzzz',
+        'zzzzza311111111111111111111111111111111111111111111111113azzzzzz',
+        'zzzzz70111111111111111111111111111111111111111111111111117zzzzzz',
+        'zzzza211111111111111111111111111111111111111111111111111119zzzzz',
+        'zzzz6111111111111133111111111111111111111111111111111111119zzzzz',
+        'zzzz51111111111113a41111111111111111111111111111111111111149zzzz',
+        'zzzz81111111111106z2111111111111111111111111111111111111111158az',
+        'zzzz92111111111129z811111111111111111111111111111111111111111158',
+        'zzza3111111111106bb6011111111111111111111111111111111111111113az',
+        'zzz60111111111107z8111111111111111111111111111111111111111111254',
+        'zz91111111111115z60111111111111111111111111111111111111111111187',
+        'zz911111111111079211111111111111111111111111111111111111111112ab',
+        'zz711111111111167111111111111111111111111111111111111111111112az'
+      ] },
+      emma: { bg: '#7d7d7d', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzz73458zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz841011159zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz80011221118zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz9601111111039zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz71111111111279zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz50111111111149zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz9501111111111049zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz9611122111111116zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz986111221111211118zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz993112111212211103azzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz701111222122111107zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz501111221122111105zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzza311111111111111116zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz8111111111111111118zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz921111111111111105zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz50111111111111139zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz9411111111111105azzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz9411111111111104zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz85421111111111229zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz97741111111111459zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz8851111111111579zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz998211111111268zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz8211111111279zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz911111111113zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz951111111111169zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz83111111111111239zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz743311111111121133369zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz8423321111111112113333479zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz613423111111111122133234348zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz60343232111111111222343334229zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz912443221111111111222343233325zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz6134322211111111112322432233229zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz92233322211111111112322332232217zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz812233211111111111123223322222139zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz611223211111111111112223323122127zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz9321133211111111111112223322122124zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz82211232111111111111222223121211228zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz52211231111111111111122222121111125zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz9232212311111111111111222221111111228zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzz7222211311111211111111121221111111224zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzza32221112111112111111111212211111112228zzzzzzzzzzzz',
+        'zzzzzzzzzzzzz812221112211121121111111112211111112224zzzzzzzzzzzz',
+        'zzzzzzzzzzzzz5122221121111221321111111122111111122228zzzzzzzzzzz',
+        'zzzzzzzzzzzz81212221121111221321111111112111111122216zzzzzzzzzzz',
+        'zzzzzzzzzzzz622222111111112212211111111111111111222129zzzzzzzzzz',
+        'zzzzzzzzzzz9222222111111112211211111111111111111121117zzzzzzzzzz',
+        'zzzzzzzzzzz8122112111111112211111111111111111111121114zzzzzzzzzz',
+        'zzzzzzzzzz941222111111111121111111111111111111111111129zzzzzzzzz',
+        'zzzzzzzzzz612222211111111111111111111111111111111111117zzzzzzzzz',
+        'zzzzzzzzzz312222222111111111111111111111111111111111114zzzzzzzzz',
+        'zzzzzzzzz71222222222111111111111111111111111111111111129zzzzzzzz',
+        'zzzzzzzz921111111112111111111111111111111111111111111107zzzzzzzz',
+        'zzzzzzzz701111231111111121111111111111111111111111111114zzzzzzzz',
+        'zzzzzzzz7012222211222222211111111111111111111111111111119zzzzzzz',
+        'zzzzzzzz8122221122222222221111111111111111111111111111116zzzzzzz'
+      ] },
+      isshin: { bg: '#727272', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz9zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz8757zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz62225zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz711239zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzz511128zzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzz72111148zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzz5111111116zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz611111111127zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz81111111111249zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz61111111111148zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz61111111111128zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz71111111111127zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz9611111111111269zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz96211111111111227zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz7111111111111117zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz8111111111111117zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz921111111111113zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz71111111111116zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz6111111111249zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz86111111111279zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz88621111111238zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz96211111122489zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz97711111122148zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz7311111122114zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz86211111112211159zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz7111111111211121247zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz6111111111221122122258zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz95111111111122112222322369zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz852111111111112211211232232368zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz94111111111111111211221232223222479zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz6211111111111111112112212321223332248zzzzzzzzzzzz',
+        'zzzzzzzzzzzzz731111111111111111112112212321123333324zzzzzzzzzzzz',
+        'zzzzzzzzzzzz81111111111111111111121122123211233333328zzzzzzzzzzz',
+        'zzzzzzzzzzzz41111111111111111111121232123211123332327zzzzzzzzzzz',
+        'zzzzzzzzzzz811111111111111111111111232123321113322327zzzzzzzzzzz',
+        'zzzzzzzzzzz811111111111111111111111232122321112322325zzzzzzzzzzz',
+        'zzzzzzzzzzz6111111111111111111111112311223211112222238zzzzzzzzzz',
+        'zzzzzzzzzz92111111111111111111111113211223311112122227zzzzzzzzzz',
+        'zzzzzzzzzz71111111111111111111111123211223321122132225zzzzzzzzzz',
+        'zzzzzzzzzz51111111111111111111111123211222321112232224zzzzzzzzzz',
+        'zzzzzzzzz9211111111111111111111111232112233211122322338zzzzzzzzz',
+        'zzzzzzzzz7111111111111111111111111232112333211122323326zzzzzzzzz',
+        'zzzzzzzzz41111111111111111111111112311123232111112233338zzzzzzzz',
+        'zzzzzzzz811111111111111111111111123211123222211112233325zzzzzzzz',
+        'zzzzzzzz7111111111111111111111111232111232222111122333328zzzzzzz',
+        'zzzzzzzz6111111111111111111111111232111232121111222233324zzzzzzz',
+        'zzzzzzzz51111111111111111111111112212112321221112212333328zzzzzz',
+        'zzzzzzz921111111111111111111111112212112331221111111233327zzzzzz',
+        'zzzzzzz511111111111111111111111113212112332221111111233325zzzzzz',
+        'zzzzzz81111111111111111111111111121121113321321111112333328zzzzz',
+        'zzzzzz51111111111111111111111111121121112322321112111222225zzzzz',
+        'zzzzz9211111111111111111111111112111211123223311111112222228zzzz',
+        'zzzzz7111111111111111111111111112111211123213321111111123327zzzz',
+        'zzzzz5111111111111111111111111121222211113212321111111223225zzzz',
+        'zzzzz6111111111111111111111111121211211112212321111112222224zzzz',
+        'zzzzz71111111111111111111111112112122111122123211111111123328zzz',
+        'zzzzz71111111111111111111111111112122111112112111111112233227zzz',
+        'zzzzz71111111111111111111111111112122111112112111111122222224zzz',
+        'zzzzz71111111111111111111111111112122111112112211111111111115zzz',
+        'zzzzz61111111111111111111111111111122111112111211122222111118zzz'
+      ] },
+      genichiro: { bg: '#707070', rows: [
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz99zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzz864378z969zzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz95000001584268zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz8200000001660007zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz3000000001110004zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz80000000000110006zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz93000000000000137zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz4011000000000005azzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz814110000000000049zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz543100000000000079zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz945300000000000006zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz9745000000000000049zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz864800000000000006zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz874700000000010018zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz874800000000011028zzzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz8759600000000122068zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz76zz20000000022115zzzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz779z600000000221548zzzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz77997500000001146669zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz87978702710000135657zzzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz889zz8z9100001025667zzzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz8zzzzz80000010044347zzzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzza500000000001567zzzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzzzz71000000000046656zzzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz83000000000000156656zzzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzzz400000000000000256656zzzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz70000000000000000156657zzzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz400000000000000000466669zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzzz100000000000000000445658zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz8000000000000000000404567zzzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzzz40000000000000000013023668zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz800000000000000000002001657zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz700000000000000000002000566zzzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz6000000000000000000010005669zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzzz4000000000000000000000005648zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz91000000000000000000000004628zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz80000000000000000000000004616zzzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz600000000000000000000000035059zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzzz400000000000000000000000036128zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz9100000000000000000000000036208zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz8000000000000000000000000026207zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz7000000000000000000000000016404zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzzz5000000000000000000000000026525zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz80000000000000000000000000026656zzzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz500000000000000000000000000166659zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzzz100000000000000000000000000166449zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz8000000000000000000000000000056548zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz5000000000000000000000000000056657zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz91000000000000000000000000000056557zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz70000000000000000000000000000056557zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz40000000000000000000000000000046656zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz910000000000000000000000000000046656zzzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz7000000000000000000000000000000366558zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz4000000000000000000000000000000266648zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz91000000000000000000000000000000166646zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz80000000000000000000000000000000056657zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz40000000000000000000000000000000056667zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzz71000000000000000000000000000000046666zzzzzzzzzzz',
+        'zzzzzzzzzzzzzzzz82000000000000000000000000000000466669zzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzz9300000000000000000000000000000566669zzzzzzzzzz',
+        'zzzzzzzzzzzzzzzzzz600000000000000000000000000000136669zzzzzzzzzz'
+      ] }
+    }
+  };
+})();
+/* twine-user-script #5: "sprites.js" */
 /* =========================================================
    Wolf: Sideways — 캐릭터 도트 데이터 (32x44, 오른쪽을 보는 기준)
    한 줄 = "시작열:픽셀들". '.'는 투명, '_'는 지우기.
@@ -4338,7 +5499,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 
 그 생각이 잠시 너무 쉽게 지나갔다.
 &lt;&lt;/n&gt;&gt;
-&lt;&lt;h&gt;&gt;
+&lt;&lt;h &quot;bad&quot;&gt;&gt;
 ……그래.
 
 역시 자네 손이 제일 잘 맞겠지.
@@ -4367,12 +5528,12 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 한베가 아니라,
 그 사이에 놓인 모든 것을 향해.
 &lt;&lt;/n&gt;&gt;
-&lt;&lt;h&gt;&gt;
+&lt;&lt;h &quot;bad&quot;&gt;&gt;
 ……그게
 
 자네가 고른 건가.
 &lt;&lt;/h&gt;&gt;
-&lt;&lt;w&gt;&gt;
+&lt;&lt;w &quot;shura_end&quot;&gt;&gt;
 그렇다.
 &lt;&lt;/w&gt;&gt;
 &lt;&lt;tint &quot;shura&quot;&gt;&gt;&lt;&lt;fx &quot;shake&quot;&gt;&gt;

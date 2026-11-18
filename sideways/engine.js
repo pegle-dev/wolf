@@ -13,6 +13,8 @@
              <<fx "shake">>                     shake | flash | arrow(화살이 화면을 가로지름)
              <<tint "dawn">>                    none | warm | dawn | shura | dim (화면 색 번짐)
              <<stage "all" "hide">>             모두 퇴장. 등장인물: hanbei wolf emma isshin genichiro
+             <<bgm "eve">>                      배경음 직접 지정 (보통은 bg/tint를 따라 자동, audio.js)
+   초상화    <<h "bad">>                        대사 옆 얼굴 변형 지정 (보통은 상태를 따라 자동, portraits.js)
    결말      <<ending "true">>                  결말 카드 + 기록 (id는 sw.endingDefs)
              <<memory "just">>                  인연 기억 카드 획득
    ========================================================= */
@@ -73,6 +75,23 @@
   memBtn.id = 'sw-mem-btn';
   memBtn.type = 'button';
   document.body.appendChild(memBtn);
+
+  /* 소리 켜기/끄기 (M 키로도) */
+  var sndBtn = document.createElement('button');
+  sndBtn.id = 'sw-snd-btn';
+  sndBtn.type = 'button';
+  function updateSndBtn() {
+    var off = sw.audio && sw.audio.isMuted();
+    sndBtn.textContent = off ? '♪ 소리 끔' : '♪ 소리 켬';
+    sndBtn.classList.toggle('sw-off', !!off);
+  }
+  sndBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (sw.audio) { sw.audio.setMuted(!sw.audio.isMuted()); }
+    updateSndBtn();
+  });
+  document.body.appendChild(sndBtn);
+  updateSndBtn();
 
   var memPanel = document.createElement('div');
   memPanel.id = 'sw-mem';
@@ -329,14 +348,28 @@
   /* ---------- 장면 진행 ---------- */
   var seq = { items: [], idx: -1, current: null, done: true, root: null };
 
+  /* audio.js가 없거나 막혀 있어도 진행은 멈추지 않게 */
+  function sound(fn, arg, arg2) {
+    try { if (sw.audio) { sw.audio[fn](arg, arg2); } } catch (e) { /* 소리 실패는 무시 */ }
+  }
+
+  /* 대사 한 줄이 나올 때의 소리 */
+  function beatSound(it) {
+    if (it.classList.contains('sw-ending')) { sound('sfx', 'ending', it.getAttribute('data-ending')); return; }
+    if (it.classList.contains('sw-caption')) { sound('sfx', 'chime'); return; }
+    if (it.classList.contains('sw-note')) { sound('sfx', 'note'); return; }
+    sound('sfx', 'voice', it.getAttribute('data-who') || 'n');
+  }
+
   function applyCue(el) {
     var args = JSON.parse(el.getAttribute('data-args') || '[]');
     switch (el.getAttribute('data-cue')) {
-      case 'bg': sw.setBg(args[0]); break;
+      case 'bg': sw.setBg(args[0]); sound('musicForBg', args[0]); break;
       case 'stage': sw.setSprite(args[0], args[1], args[2], args[3]); break;
-      case 'fx': sw.fx(args[0]); break;
-      case 'tint': sw.setTint(args[0]); break;
-      case 'memory': sw.showToast(args[0]); break;
+      case 'fx': sw.fx(args[0]); sound('sfx', args[0] === 'shake' ? 'clash' : args[0]); break;
+      case 'tint': sw.setTint(args[0]); sound('musicForTint', args[0]); break;
+      case 'bgm': sound('music', args[0]); break;
+      case 'memory': sw.showToast(args[0]); sound('sfx', 'memory'); break;
     }
   }
 
@@ -361,6 +394,7 @@
       it.classList.add('sw-waiting');
       seq.current = it;
       seq.root.classList.toggle('sw-mode-caption', it.classList.contains('sw-caption'));
+      beatSound(it);
       return;
     }
     seq.done = true;
@@ -382,10 +416,13 @@
 
   $(document).on(':passagestart', function (ev) {
     document.body.setAttribute('data-tags', ev.passage.tags.join(' '));
+    if (ev.passage.tags.indexOf('title') !== -1) { sound('music', 'title'); }
+    updateSndBtn();
   });
   $(document).on(':passagedisplay', startScene);
 
   document.addEventListener('click', function (e) {
+    if (e.target.closest('.sw-choices a, .sw-title-menu a')) { sound('sfx', 'select'); }
     if (e.target.closest('a, button, #sw-mem, .sw-choices')) { return; }
     sw.next();
   });
@@ -393,6 +430,11 @@
   document.addEventListener('keydown', function (e) {
     if (!memPanel.hidden) {
       if (e.key === 'Escape') { sw.closeMemories(); }
+      return;
+    }
+    if ((e.key === 'm' || e.key === 'M') && sw.audio) {
+      sw.audio.setMuted(!sw.audio.isMuted());
+      updateSndBtn();
       return;
     }
     var active = document.activeElement;
@@ -409,6 +451,25 @@
     }
   });
 
+  /* ---------- 대화 초상화 ----------
+     <<h>> 처럼 쓰면 상태에 맞는 얼굴을 고른다. <<h "bad">> 처럼 변형을 직접 고를 수도 있다("plain"은 기본 얼굴). */
+  var FACES = { h: 'hanbei', w: 'wolf', e: 'emma', i: 'isshin', g: 'genichiro' };
+  sw.portraitFor = function (who, variant) {
+    var base = FACES[who];
+    if (!base) { return null; }
+    if (variant) { return variant === 'plain' ? base : base + '_' + variant; }
+    var v = State.variables;
+    if (who === 'h') {
+      if (v.shura >= 3) { return 'hanbei_bad'; }
+      if (v.hanbeiDist >= 3) { return 'hanbei_like'; }
+    }
+    if (who === 'w') {
+      if (v.shura >= 3) { return 'wolf_shura_on'; }
+      if (v.shura >= 2) { return 'wolf_bad'; }
+    }
+    return base;
+  };
+
   /* ---------- 매크로 ---------- */
   function addBeat(name, who, cls) {
     Macro.add(name, {
@@ -416,6 +477,17 @@
       handler: function () {
         var el = document.createElement('div');
         el.className = 'sw-item sw-beat sw-' + who + (cls ? ' ' + cls : '');
+        el.setAttribute('data-who', who);
+        var face = !cls && sw.portraitFor(who, this.args[0]);
+        var src = face && sw.art.portrait(face);
+        if (src) {
+          var img = document.createElement('img');
+          img.className = 'sw-portrait';
+          img.alt = '';
+          img.src = src;
+          el.appendChild(img);
+          el.classList.add('sw-has-portrait');
+        }
         if (sw.names[who]) {
           var plate = document.createElement('div');
           plate.className = 'sw-name';
@@ -460,6 +532,7 @@
       State.variables.lastEnding = id;
       var el = document.createElement('div');
       el.className = 'sw-item sw-beat sw-caption sw-ending sw-ending-' + id;
+      el.setAttribute('data-ending', id);
       el.innerHTML = '<div class="sw-caption-sub"></div><div class="sw-caption-main"></div><div class="sw-ending-note">기록장에 새로운 결말이 남았다.</div>';
       el.children[0].textContent = def.grade;
       el.children[1].textContent = def.title;
@@ -496,6 +569,7 @@
   addCue('stage');
   addCue('fx');
   addCue('tint');
+  addCue('bgm');   /* <<bgm "eve">>: 배경과 다른 곡을 직접 고를 때 */
   addCue('memory', function () {
     var list = State.variables.memories;
     if (list.indexOf(this.args[0]) === -1) { list.push(this.args[0]); }

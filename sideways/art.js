@@ -449,6 +449,27 @@
       }
       return cache[key];
     },
+    /* 대화 초상화: portraits.js의 64x64 도트 데이터를 그대로 칠한다 */
+    portrait: function (name) {
+      var key = 'p:' + name;
+      if (!cache[key]) {
+        var d = sw.portraitData, face = d && d.faces[name];
+        if (!face) { return ''; }
+        var c = document.createElement('canvas');
+        c.width = c.height = d.size;
+        var g = c.getContext('2d');
+        for (var y = 0; y < d.size; y++) {
+          var row = face.rows[y];
+          for (var x = 0; x < d.size; x++) {
+            var ch = row.charAt(x);
+            g.fillStyle = ch === 'z' ? face.bg : ch === 'r' ? d.red : d.levels[d.chars.indexOf(ch)];
+            g.fillRect(x, y, 1, 1);
+          }
+        }
+        cache[key] = c.toDataURL('image/png');
+      }
+      return cache[key];
+    },
     bg: function (name) {
       var key = 'b:' + name;
       if (!cache[key]) { cache[key] = (BGS[name] || BGS.dark).draw(); }
