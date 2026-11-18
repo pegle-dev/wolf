@@ -1,0 +1,313 @@
+/* Wolf: Sideways — 화면 스타일 */
+@font-face {
+  font-family: 'SwBody';
+  src: url('assets/Font/NotoSerifKR-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+}
+@font-face {
+  font-family: 'SwPixel';
+  src: url('assets/Font/Galmuri11.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'SwTitle';
+  src: url('assets/Font/Cinzel-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 900;
+}
+
+:root {
+  --sw-bg: #070707;
+  --sw-box: rgba(8, 8, 8, 0.86);
+  --sw-line: #3a3a3a;
+  --sw-text: #e6e6e6;
+  --sw-narr: #b9b9b9;
+  --sw-dim: #7d7d7d;
+  --sw-accent: #e08a3c;   /* 포인트 컬러: 4일차부터 사용 */
+  --sw-ground: 27vh;      /* 스프라이트 발 위치 (화면 아래에서). engine.js가 실제 값으로 덮어쓴다 */
+}
+
+html, body {
+  background: var(--sw-bg);
+  color: var(--sw-text);
+  margin: 0;
+  overflow: hidden;
+}
+
+body { font-family: 'SwBody', serif; }
+
+#ui-bar, #ui-overlay { display: none; }
+
+#story {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ---------- 무대 ---------- */
+#sw-stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+
+/* 위치와 크기는 engine.js의 sw.layout()이 배경 픽셀 배율에 맞춰 정한다 */
+#sw-bg,
+#sw-particles {
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+#sw-bg:not([src]) { visibility: hidden; }
+#sw-bg.sw-fade-in { animation: sw-fade 0.8s ease-out; }
+#sw-particles { pointer-events: none; }
+
+.sw-sprite {
+  position: absolute;
+  transform: translateX(-50%);
+  image-rendering: pixelated;
+  transition: left 0.9s cubic-bezier(.3, .7, .3, 1);
+}
+
+.sw-sprite.sw-face-left { transform: translateX(-50%) scaleX(-1); }
+
+#sw-fx { position: absolute; inset: 0; pointer-events: none; }
+#sw-fx.sw-flash { animation: sw-flash 0.35s ease-out; }
+#sw-stage.sw-shake { animation: sw-shake 0.35s steps(4); }
+
+body[data-tags~="title"] #sw-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- 대사 상자 ---------- */
+#passages {
+  /* transform을 쓰지 않는다: 자막 카드(position: fixed)가 화면 전체를 덮어야 해서 */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  margin: 0 auto;
+  width: min(860px, calc(100% - 32px));
+  pointer-events: auto;
+}
+
+#passages .passage { margin: 0; }
+
+#passages .passage > br,
+.sw-choices br,
+.sw-title br { display: none; }
+
+#passages.sw-has-items .passage {
+  background: var(--sw-box);
+  border: 1px solid var(--sw-line);
+  padding: 18px 22px 20px;
+  min-height: min(calc(var(--sw-ground) - 40px), 30vh);
+  box-sizing: border-box;
+}
+
+#passages.sw-mode-caption .passage {
+  background: transparent;
+  border-color: transparent;
+}
+
+.sw-hidden { display: none !important; }
+.sw-cue { display: none; }
+
+.sw-beat { position: relative; animation: sw-rise 0.25s ease-out; }
+
+.sw-name {
+  font-family: 'SwPixel', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--sw-text);
+  display: inline-block;
+  border-bottom: 1px solid var(--sw-dim);
+  margin-bottom: 8px;
+  padding-bottom: 2px;
+}
+
+.sw-text { font-size: 1.05rem; line-height: 1.85; }
+.sw-n .sw-text { color: var(--sw-narr); }
+.sw-h .sw-text, .sw-w .sw-text { color: var(--sw-text); }
+
+.sw-note .sw-text {
+  font-family: 'SwPixel', monospace;
+  font-size: 0.9rem;
+  color: var(--sw-dim);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.sw-waiting::after {
+  content: '▼';
+  position: absolute;
+  right: -4px;
+  bottom: -8px;
+  font-size: 0.7rem;
+  color: var(--sw-dim);
+  animation: sw-blink 1s steps(2) infinite;
+}
+
+/* 자막 카드 (1일째 · 낮) */
+.sw-caption {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  animation: sw-fade 0.6s ease-out;
+}
+.sw-caption::after { right: auto; bottom: 22%; }
+.sw-caption-main { font-family: 'SwPixel', monospace; font-size: 2rem; letter-spacing: 0.2em; }
+.sw-caption-sub { font-family: 'SwPixel', monospace; color: var(--sw-dim); letter-spacing: 0.4em; }
+
+/* 선택지 */
+.sw-choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+
+.sw-choices a {
+  display: block;
+  padding: 10px 14px;
+  border: 1px solid var(--sw-line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--sw-text);
+  text-decoration: none;
+  font-size: 1rem;
+  counter-increment: sw-choice;
+}
+.sw-choices { counter-reset: sw-choice; }
+.sw-choices a::before {
+  content: counter(sw-choice) '  ';
+  font-family: 'SwPixel', monospace;
+  color: var(--sw-dim);
+}
+.sw-choices a:hover,
+.sw-choices a:focus-visible {
+  border-color: var(--sw-narr);
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+/* ---------- 타이틀 ---------- */
+body[data-tags~="title"] #passages { top: 0; bottom: 0; width: 100%; height: 100%; }
+.sw-title {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+}
+.sw-title-logo { font-family: 'SwTitle', serif; font-size: clamp(3rem, 12vw, 6rem); letter-spacing: 0.25em; font-weight: 700; }
+.sw-title-sub { font-family: 'SwTitle', serif; color: var(--sw-narr); letter-spacing: 0.4em; }
+.sw-title-copy { margin-top: 28px; color: var(--sw-dim); }
+.sw-title-menu { margin-top: 36px; }
+.sw-title-menu a {
+  font-family: 'SwPixel', monospace;
+  color: var(--sw-text);
+  text-decoration: none;
+  border: 1px solid var(--sw-line);
+  padding: 10px 28px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.sw-title-menu a:hover { border-color: var(--sw-narr); }
+
+/* ---------- 인연 기억 ---------- */
+#sw-mem-btn {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 20;
+  font-family: 'SwPixel', monospace;
+  font-size: 0.8rem;
+  color: var(--sw-narr);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--sw-line);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+body[data-tags~="title"] #sw-mem-btn { display: none; }
+
+#sw-mem {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: flex-end;
+}
+#sw-mem[hidden] { display: none; }
+.sw-mem-inner {
+  width: min(380px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(16, 16, 16, 0.96);
+  border-left: 1px solid var(--sw-line);
+  padding: 22px 20px;
+  box-sizing: border-box;
+}
+.sw-mem-head { font-family: 'SwPixel', monospace; letter-spacing: 0.1em; margin-bottom: 16px; }
+.sw-mem-inner ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.sw-mem-inner li { border: 1px solid var(--sw-line); padding: 10px 12px; }
+.sw-mem-inner li.sw-locked { color: var(--sw-dim); }
+.sw-mem-title { font-size: 0.95rem; }
+.sw-mem-text { margin-top: 6px; font-size: 0.85rem; color: var(--sw-narr); line-height: 1.6; }
+.sw-mem-close {
+  margin-top: 18px;
+  width: 100%;
+  font-family: 'SwPixel', monospace;
+  background: transparent;
+  color: var(--sw-text);
+  border: 1px solid var(--sw-line);
+  padding: 8px;
+  cursor: pointer;
+}
+
+#sw-toast {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translate(-50%, -140%);
+  z-index: 25;
+  background: rgba(10, 10, 10, 0.92);
+  border: 1px solid var(--sw-narr);
+  padding: 10px 22px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+}
+#sw-toast.sw-show { animation: sw-toast 3.2s ease-out forwards; }
+.sw-toast-label { font-family: 'SwPixel', monospace; font-size: 0.75rem; color: var(--sw-dim); letter-spacing: 0.2em; }
+.sw-toast-title { margin-top: 4px; }
+
+/* ---------- 애니메이션 ---------- */
+@keyframes sw-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sw-rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes sw-blink { 50% { opacity: 0; } }
+@keyframes sw-flash { 0% { background: rgba(255, 255, 255, 0.55); } 100% { background: transparent; } }
+@keyframes sw-shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-6px, 2px); }
+  50% { transform: translate(5px, -2px); }
+  75% { transform: translate(-3px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes sw-toast {
+  0% { opacity: 0; transform: translate(-50%, -140%); }
+  12% { opacity: 1; transform: translate(-50%, 0); }
+  80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -140%); }
+}
+
+@media (max-width: 600px) {
+  .sw-text { font-size: 0.98rem; line-height: 1.75; }
+  #passages.sw-has-items .passage { padding: 14px 16px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-sprite { transition: none; }
+  #sw-stage.sw-shake, #sw-fx.sw-flash, .sw-beat, #sw-bg.sw-fade-in { animation: none; }
+}

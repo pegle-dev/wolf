@@ -1,0 +1,429 @@
+/* =========================================================
+   Wolf: Sideways — 장면 진행 엔진
+   한 장면 = 한 passage. 안의 대사는 클릭/스페이스로 한 줄씩 넘긴다.
+
+   대사      <<n>>나레이션<</n>>  <<h>>한베<</h>>  <<w>>늑대<</w>>
+   안내      <<note>>거리가 조금 줄었다.<</note>>
+   자막      <<caption "1일째" "낮">>
+   선택지    <<choices>>[[라벨|Passage]]<</choices>>
+   연출(즉시 실행, 클릭 없이 다음으로)
+             <<bg "training">>                 training | temple | night | dark
+             <<stage "hanbei" 76 "shoulder" "l">>  x(%) 또는 "dist", 자세, 방향(l/r)
+             <<stage "wolf" "hide">>
+             <<fx "shake">>                     shake | flash | arrow(화살이 화면을 가로지름)
+             <<memory "just">>                  인연 기억 카드 획득
+   ========================================================= */
+(function () {
+  'use strict';
+
+  var sw = (setup.sw = setup.sw || {});
+
+  sw.names = { h: '한베', w: '늑대' };
+  sw.distX = [24, 40, 54, 60, 64];   /* 거리 단계별 늑대 위치 (한베는 76) */
+
+  sw.memoryDefs = [
+    { id: 'just', title: '그냥 온 날', text: '늑대는 검을 뽑지 않고 한베를 찾아갔다.' },
+    { id: 'spar', title: '첫 대련', text: '익숙한 소리, 익숙한 자세, 익숙한 거리.' },
+    { id: 'hurt', title: '아프냐고 물은 날' },
+    { id: 'sit', title: '대련하지 않은 날' },
+    { id: 'sake', title: '잔을 나눈 날' },
+    { id: 'mask', title: '얼굴을 본 날' },
+    { id: 'envy', title: '끝을 부러워한 날' },
+    { id: 'away', title: '돌아가라던 날' }
+  ];
+
+  /* ---------- SugarCube 설정 ---------- */
+  Config.history.controls = false;
+  try { UIBar.destroy(); } catch (e) { /* 이미 없음 */ }
+
+  /* ---------- 무대 DOM ---------- */
+  var stage = document.createElement('div');
+  stage.id = 'sw-stage';
+  stage.innerHTML =
+    '<img id="sw-bg" alt="">' +
+    '<canvas id="sw-particles"></canvas>' +
+    '<img id="sw-sprite-wolf" class="sw-sprite" alt="" hidden>' +
+    '<img id="sw-sprite-hanbei" class="sw-sprite" alt="" hidden>' +
+    '<div id="sw-fx"></div>';
+  document.body.insertBefore(stage, document.body.firstChild);
+
+  var memBtn = document.createElement('button');
+  memBtn.id = 'sw-mem-btn';
+  memBtn.type = 'button';
+  document.body.appendChild(memBtn);
+
+  var memPanel = document.createElement('div');
+  memPanel.id = 'sw-mem';
+  memPanel.hidden = true;
+  document.body.appendChild(memPanel);
+
+  var toast = document.createElement('div');
+  toast.id = 'sw-toast';
+  document.body.appendChild(toast);
+
+  var spriteState = {
+    hanbei: { x: 76, pose: 'shoulder', facing: 'l', hidden: true },
+    wolf: { x: 24, pose: 'stand', facing: 'r', hidden: true }
+  };
+  var currentBg = 'dark';
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var idleFrame = 0;
+
+  /* ---------- 배치: 배경과 스프라이트를 같은 픽셀 배율로 ---------- */
+  var view = { s: 1, left: 0, top: 0, ss: 1 };
+
+  sw.layout = function () {
+    var A = sw.art, vw = window.innerWidth, vh = window.innerHeight;
+    var s = Math.max(vw / A.W, vh / A.H);
+    view.s = s;
+    view.left = (vw - A.W * s) / 2;
+    view.top = (vh - A.H * s) / 2;
+    view.ss = Math.min(s, vw / 84);       /* 좁은 화면에서는 캐릭터만 조금 줄인다 */
+
+    ['sw-bg', 'sw-particles'].forEach(function (id) {
+      var el = document.getElementById(id);
+      el.style.width = A.W * s + 'px';
+      el.style.height = A.H * s + 'px';
+      el.style.left = view.left + 'px';
+      el.style.top = view.top + 'px';
+    });
+
+    var feet = view.top + A.ground(currentBg) * s;
+    ['wolf', 'hanbei'].forEach(function (who) {
+      var el = document.getElementById('sw-sprite-' + who);
+      el.style.width = A.SPRITE_W * view.ss + 'px';
+      el.style.height = A.SPRITE_H * view.ss + 'px';
+      el.style.top = feet - A.SPRITE_FOOT * view.ss + 'px';
+    });
+    document.documentElement.style.setProperty('--sw-ground', Math.max(0, window.innerHeight - feet) + 'px');
+  };
+
+  function renderSprite(who) {
+    var s = spriteState[who];
+    var el = document.getElementById('sw-sprite-' + who);
+    el.hidden = s.hidden;
+    if (s.hidden) { return; }
+    var frame = reducedMotion ? 0 : (idleFrame + (who === 'wolf' ? 1 : 0)) % 2;
+    el.src = sw.art.sprite(who, s.pose, frame);
+    el.style.left = s.x + '%';
+    el.classList.toggle('sw-face-left', s.facing === 'l');
+  }
+
+  sw.setBg = function (name) {
+    if (name === currentBg && document.getElementById('sw-bg').getAttribute('src')) { return; }
+    currentBg = name;
+    var bg = document.getElementById('sw-bg');
+    bg.src = sw.art.bg(name);
+    bg.classList.remove('sw-fade-in');
+    void bg.offsetWidth;
+    bg.classList.add('sw-fade-in');
+    sw.layout();
+    particles.reset(sw.art.particles(name));
+  };
+
+  /* ---------- 움직임: 숨쉬기와 날리는 입자 ---------- */
+  if (!reducedMotion) {
+    setInterval(function () {
+      idleFrame = (idleFrame + 1) % 2;
+      renderSprite('wolf');
+      renderSprite('hanbei');
+    }, 700);
+  }
+
+  var particles = (function () {
+    var cvs = stage.querySelector('#sw-particles');
+    var A = sw.art;
+    cvs.width = A.W;
+    cvs.height = A.H;
+    var g = cvs.getContext('2d');
+    var kind = null, list = [], arrow = null, last = 0;
+
+    function spawn(p, fresh) {
+      if (kind === 'leaves') {
+        p.x = fresh ? Math.random() * A.W : -4;
+        p.y = Math.random() * A.H * 0.7;
+        p.vx = 0.6 + Math.random() * 0.7;
+        p.vy = 0.25 + Math.random() * 0.3;
+      } else if (kind === 'dust') {
+        p.x = Math.random() * A.W;
+        p.y = 40 + Math.random() * (A.H - 60);
+        p.vx = (Math.random() - 0.5) * 0.2;
+        p.vy = -0.05 - Math.random() * 0.1;
+      } else {
+        p.x = Math.random() * A.W;
+        p.y = fresh ? Math.random() * A.H : -2;
+        p.vx = 0.1 + Math.random() * 0.15;
+        p.vy = 0.2 + Math.random() * 0.25;
+      }
+      p.ph = Math.random() * 6.28;
+      p.c = Math.random() < 0.5 ? 0 : 1;
+    }
+
+    function step(t) {
+      requestAnimationFrame(step);
+      if (t - last < 80) { return; }   /* 약 12fps: 픽셀 게임 느낌 */
+      last = t;
+      g.clearRect(0, 0, A.W, A.H);
+      list.forEach(function (p) {
+        p.ph += 0.25;
+        p.x += p.vx + (kind === 'leaves' ? Math.sin(p.ph) * 0.4 : 0);
+        p.y += p.vy + (kind === 'leaves' ? Math.cos(p.ph * 0.7) * 0.2 : 0);
+        if (p.x > A.W + 4 || p.y > A.H + 4 || p.y < -4) { spawn(p, false); }
+        var x = Math.round(p.x), y = Math.round(p.y);
+        if (kind === 'leaves') {
+          g.fillStyle = p.c ? A.PAL[2] : A.PAL[6];
+          g.fillRect(x, y, 2, 1);
+          if (Math.sin(p.ph) > 0) { g.fillRect(x + 1, y + 1, 1, 1); }
+        } else if (kind === 'dust') {
+          if (Math.sin(p.ph) > -0.3) { g.fillStyle = A.PAL[8]; g.fillRect(x, y, 1, 1); }
+        } else {
+          g.fillStyle = p.c ? A.PAL[4] : A.PAL[5];
+          g.fillRect(x, y, 1, 1);
+        }
+      });
+      if (arrow) {
+        arrow.x -= 26;
+        var ax = Math.round(arrow.x);
+        g.fillStyle = A.PAL[6];
+        g.fillRect(ax + 3, arrow.y, 18, 1);
+        g.fillStyle = A.PAL[9];
+        g.fillRect(ax, arrow.y, 4, 1);
+        g.fillRect(ax + 1, arrow.y - 1, 1, 3);
+        if (arrow.x < -30) { arrow = null; }
+      }
+    }
+
+    if (!reducedMotion) { requestAnimationFrame(step); }
+
+    return {
+      reset: function (k) {
+        kind = k;
+        var n = k === 'leaves' ? 9 : k === 'dust' ? 16 : 24;
+        list = [];
+        for (var i = 0; i < n; i++) { var p = {}; spawn(p, true); list.push(p); }
+      },
+      arrow: function () {
+        arrow = { x: A.W + 10, y: Math.round(A.ground(currentBg) - 33) };
+      }
+    };
+  })();
+
+  window.addEventListener('resize', sw.layout);
+
+  sw.setSprite = function (who, x, pose, facing) {
+    var s = spriteState[who];
+    if (!s) { return; }
+    if (x === 'hide') { s.hidden = true; renderSprite(who); return; }
+    s.hidden = false;
+    if (x === 'dist') { x = sw.distX[Math.min(State.variables.hanbeiDist || 0, sw.distX.length - 1)]; }
+    if (typeof x === 'number') { s.x = x; }
+    if (pose) { s.pose = pose; }
+    if (facing) { s.facing = facing; }
+    renderSprite(who);
+  };
+
+  sw.fx = function (kind) {
+    if (kind === 'arrow') { particles.arrow(); kind = 'flash'; }
+    var target = kind === 'shake' ? stage : document.getElementById('sw-fx');
+    var cls = 'sw-' + kind;
+    target.classList.remove(cls);
+    void target.offsetWidth;
+    target.classList.add(cls);
+  };
+
+  /* ---------- 인연 기억 ---------- */
+  function memDef(id) {
+    for (var i = 0; i < sw.memoryDefs.length; i++) {
+      if (sw.memoryDefs[i].id === id) { return sw.memoryDefs[i]; }
+    }
+    return { id: id, title: id };
+  }
+
+  sw.updateMemBtn = function () {
+    var got = (State.variables.memories || []).length;
+    memBtn.textContent = '인연 기억 ' + got + '/' + sw.memoryDefs.length;
+  };
+
+  sw.showToast = function (id) {
+    var def = memDef(id);
+    toast.innerHTML = '<div class="sw-toast-label">인연 기억</div><div class="sw-toast-title">「' +
+      def.title + '」</div>';
+    toast.classList.remove('sw-show');
+    void toast.offsetWidth;
+    toast.classList.add('sw-show');
+    sw.updateMemBtn();
+  };
+
+  sw.openMemories = function () {
+    var got = State.variables.memories || [];
+    var html = '<div class="sw-mem-inner"><div class="sw-mem-head">인연 기억 · 한베</div><ul>';
+    sw.memoryDefs.forEach(function (def) {
+      var has = got.indexOf(def.id) !== -1;
+      html += '<li class="' + (has ? 'sw-has' : 'sw-locked') + '"><div class="sw-mem-title">' +
+        (has ? '「' + def.title + '」' : '???') + '</div>' +
+        (has && def.text ? '<div class="sw-mem-text">' + def.text + '</div>' : '') + '</li>';
+    });
+    html += '</ul><button type="button" class="sw-mem-close">닫는다</button></div>';
+    memPanel.innerHTML = html;
+    memPanel.hidden = false;
+  };
+
+  sw.closeMemories = function () { memPanel.hidden = true; };
+
+  memBtn.addEventListener('click', function (e) { e.stopPropagation(); sw.openMemories(); });
+  memPanel.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (e.target === memPanel || e.target.classList.contains('sw-mem-close')) { sw.closeMemories(); }
+  });
+
+  /* ---------- 장면 진행 ---------- */
+  var seq = { items: [], idx: -1, current: null, done: true, root: null };
+
+  function applyCue(el) {
+    var args = JSON.parse(el.getAttribute('data-args') || '[]');
+    switch (el.getAttribute('data-cue')) {
+      case 'bg': sw.setBg(args[0]); break;
+      case 'stage': sw.setSprite(args[0], args[1], args[2], args[3]); break;
+      case 'fx': sw.fx(args[0]); break;
+      case 'memory': sw.showToast(args[0]); break;
+    }
+  }
+
+  sw.next = function () {
+    if (seq.done || !memPanel.hidden) { return; }
+    while (++seq.idx < seq.items.length) {
+      var it = seq.items[seq.idx];
+      if (it.classList.contains('sw-cue')) { applyCue(it); continue; }
+
+      if (it.classList.contains('sw-choices')) {
+        if (seq.current) { seq.current.classList.remove('sw-waiting'); }
+        it.classList.remove('sw-hidden');
+        seq.root.classList.remove('sw-mode-caption');
+        seq.done = true;
+        var first = it.querySelector('a, button');
+        if (first) { first.focus({ preventScroll: true }); }
+        return;
+      }
+
+      if (seq.current) { seq.current.classList.add('sw-hidden'); seq.current.classList.remove('sw-waiting'); }
+      it.classList.remove('sw-hidden');
+      it.classList.add('sw-waiting');
+      seq.current = it;
+      seq.root.classList.toggle('sw-mode-caption', it.classList.contains('sw-caption'));
+      return;
+    }
+    seq.done = true;
+    if (seq.current) { seq.current.classList.remove('sw-waiting'); }
+  };
+
+  function startScene() {
+    var root = document.getElementById('passages');
+    var items = Array.prototype.slice.call(root.querySelectorAll('.sw-item')).filter(function (el) {
+      return !el.parentElement.closest('.sw-item');
+    });
+    items.forEach(function (el) { if (!el.classList.contains('sw-cue')) { el.classList.add('sw-hidden'); } });
+    seq = { items: items, idx: -1, current: null, done: items.length === 0, root: root };
+    root.classList.remove('sw-mode-caption');
+    root.classList.toggle('sw-has-items', items.some(function (el) { return !el.classList.contains('sw-cue'); }));
+    sw.updateMemBtn();
+    sw.next();
+  }
+
+  $(document).on(':passagestart', function (ev) {
+    document.body.setAttribute('data-tags', ev.passage.tags.join(' '));
+  });
+  $(document).on(':passagedisplay', startScene);
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a, button, #sw-mem, .sw-choices')) { return; }
+    sw.next();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!memPanel.hidden) {
+      if (e.key === 'Escape') { sw.closeMemories(); }
+      return;
+    }
+    var active = document.activeElement;
+    var onLink = active && active.closest && active.closest('a, button');
+    if ((e.key === ' ' || e.key === 'Enter') && !(onLink && seq.done)) {
+      e.preventDefault();
+      sw.next();
+      return;
+    }
+    if (/^[1-9]$/.test(e.key) && seq.done) {
+      var links = document.querySelectorAll('#passages .sw-choices:not(.sw-hidden) a');
+      var link = links[Number(e.key) - 1];
+      if (link) { e.preventDefault(); link.click(); }
+    }
+  });
+
+  /* ---------- 매크로 ---------- */
+  function addBeat(name, who, cls) {
+    Macro.add(name, {
+      tags: null,
+      handler: function () {
+        var el = document.createElement('div');
+        el.className = 'sw-item sw-beat sw-' + who + (cls ? ' ' + cls : '');
+        if (sw.names[who]) {
+          var plate = document.createElement('div');
+          plate.className = 'sw-name';
+          plate.textContent = sw.names[who];
+          el.appendChild(plate);
+        }
+        var body = document.createElement('div');
+        body.className = 'sw-text';
+        $(body).wiki(this.payload[0].contents.trim());
+        el.appendChild(body);
+        this.output.appendChild(el);
+      }
+    });
+  }
+
+  addBeat('n', 'n');
+  addBeat('h', 'h');
+  addBeat('w', 'w');
+  addBeat('note', 'n', 'sw-note');
+
+  Macro.add('caption', {
+    handler: function () {
+      var el = document.createElement('div');
+      el.className = 'sw-item sw-beat sw-caption';
+      el.innerHTML = '<div class="sw-caption-main"></div><div class="sw-caption-sub"></div>';
+      el.firstChild.textContent = this.args[0] || '';
+      el.lastChild.textContent = this.args[1] || '';
+      this.output.appendChild(el);
+    }
+  });
+
+  Macro.add('choices', {
+    tags: null,
+    handler: function () {
+      var el = document.createElement('div');
+      el.className = 'sw-item sw-choices';
+      $(el).wiki(this.payload[0].contents.trim());
+      this.output.appendChild(el);
+    }
+  });
+
+  function addCue(name, onRender) {
+    Macro.add(name, {
+      handler: function () {
+        var el = document.createElement('div');
+        el.className = 'sw-item sw-cue';
+        el.setAttribute('data-cue', name);
+        el.setAttribute('data-args', JSON.stringify(this.args.slice()));
+        this.output.appendChild(el);
+        if (onRender) { onRender.call(this); }
+      }
+    });
+  }
+
+  addCue('bg');
+  addCue('stage');
+  addCue('fx');
+  addCue('memory', function () {
+    var list = State.variables.memories;
+    if (list.indexOf(this.args[0]) === -1) { list.push(this.args[0]); }
+  });
+})();

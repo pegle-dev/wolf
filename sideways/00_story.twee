@@ -1,0 +1,74 @@
+:: StoryTitle
+Wolf: Sideways
+
+:: StoryData
+{
+  "ifid": "A076289A-9799-4475-8310-5E6966FB66A2",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start"
+}
+
+:: StoryInit
+/* Sideways 한베 루트 변수. 기획: docs/Wolf_Sideways_Hanbei.md */
+<<set $day to 1>>
+<<set $hanbeiDist to 0>>        /* 거리 0~4: 대련 / 검 하나 / 곁에 앉음 / 어깨 / 등 */
+<<set $hanbeiCrack to 0>>       /* 균열 0~3: 늑대가 솔직해진 횟수 */
+<<set $hanbeiVisits to 0>>      /* 한베를 찾아간 날 수 */
+<<set $skippedYesterday to false>>
+<<set $memories to []>>         /* 인연 기억 카드 id 목록 */
+
+:: Start [title nobr]
+<<bg "night">><<stage "hanbei" "hide">><<stage "wolf" "hide">>
+<div class="sw-title">
+  <div class="sw-title-logo">WOLF</div>
+  <div class="sw-title-sub">— SIDEWAYS —</div>
+  <div class="sw-title-copy">검을 거두고, 그냥 찾아간다.</div>
+  <div class="sw-title-menu">[[처음부터|Intro]]</div>
+</div>
+
+:: Intro [dark]
+<<bg "dark">><<stage "hanbei" "hide">><<stage "wolf" "hide">>
+<<n>>
+전란의 시대였다.
+<</n>>
+<<n>>
+늑대가 처음으로 '생'을 느낀 것은,
+어릴 적 양부의 검날을 붙잡았을 때였다.
+<</n>>
+<<n>>
+손바닥을 찢고 흐르던 뜨거운 피.
+
+그 순간 깨달았다.
+
+그 전까지의 자신은,
+그저 숨 쉬는 망령에 불과했다는 것을.
+<</n>>
+<<n>>
+주군을 모시게 된 뒤에는,
+비로소 '인'이라는 것을 알게 되었다.
+<</n>>
+<<n>>
+하지만 결국 도구는 도구.
+
+늑대는 '임무'라는 이름 아래
+수많은 목숨을 베어 왔다.
+<</n>>
+<<n>>
+하지만 언젠가.
+
+이곳, 시공의 샛길로 빠진 아시나에서
+새로운 길을 찾아낼 수 있을까.
+<</n>>
+<<n>>
+누군가의 곁에 남을 수 있을까.
+<</n>>
+<<n>>
+아직은 알 수 없다.
+
+그는 아직,
+길을 잃은 들개에 불과하니까.
+<</n>>
+<<choices>>
+[[눈을 뜬다|D1_Morning]]
+<</choices>>

@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "TWEEGO_PATH=tools/tweego tools/tweego/tweego -o index.html src",
+    "build:sideways": "TWEEGO_PATH=tools/tweego tools/tweego/tweego -o sideways.html sideways",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed"
   },

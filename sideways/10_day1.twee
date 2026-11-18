@@ -1,0 +1,389 @@
+:: D1_Morning
+/* 1일째 — 한베: 그냥 온 날. 원문 docx Hanbei01_* / 기획 docs/Wolf_Sideways_Hanbei.md §7 */
+<<bg "temple">><<stage "hanbei" "hide">><<stage "wolf" 50 "stand" "r">>
+<<caption "1일째" "낮">>
+<<n>>
+황폐한 절이다.
+
+사실.
+그렇게 황폐하지만은 않다.
+<</n>>
+<<n>>
+멀리, 훈련장 쪽에서
+검이 바람을 가르는 소리가 들린다.
+
+혼자서.
+몇 번이고.
+<</n>>
+<<n>>
+늑대는 어디로 향하나?
+<</n>>
+<<choices>>
+[[훈련장으로 간다|D1_Training]]
+[[절에 머문다|D1_StayTemple]]
+<</choices>>
+
+
+:: D1_StayTemple
+<<set $skippedYesterday to true>>
+<<bg "temple">><<stage "hanbei" "hide">><<stage "wolf" 50 "stand" "l">>
+<<n>>
+늑대는 절의 마루 끝에 걸터앉았다.
+<</n>>
+<<n>>
+검을 휘두르는 소리는
+해가 기울 때까지 그치지 않았다.
+<</n>>
+<<n>>
+누군가를 기다리는 소리처럼.
+
+…아니, 그럴 리가.
+<</n>>
+<<choices>>
+[[밤이 온다|D1_Night]]
+<</choices>>
+
+
+:: D1_Training
+<<set $hanbeiVisits += 1>><<set $skippedYesterday to false>>
+<<bg "training">><<stage "wolf" 24 "stand" "r">><<stage "hanbei" 76 "shoulder" "l">>
+<<n>>
+황폐한 절에서 조금 떨어진 공터.
+
+흙바닥에는 수없이 많은 발자국이 남아 있다.
+<</n>>
+<<n>>
+그리고.
+
+예상했던 사람이 있었다.
+<</n>>
+<<n>>
+그는 검을 어깨에 걸친 채 손을 흔들었다.
+
+마치 오래된 친구를 맞이하는 것처럼.
+<</n>>
+<<h>>
+오.
+
+왔나?
+<</h>>
+<<w>>
+…
+<</w>>
+<<choices>>
+[[시선을 피한다|D1_Greet_Away]]
+[[고개를 끄덕인다|D1_Greet_Nod]]
+<</choices>>
+
+
+:: D1_Greet_Away
+<<bg "training">><<stage "hanbei" 76 "shoulder" "l">><<stage "wolf" 24 "stand" "l">>
+<<h>>
+뭐야.
+
+그 얼굴.
+<</h>>
+<<h>>
+오늘도 날 베러 온 거 맞구만.
+<</h>>
+<<include "D1_Draw">>
+
+
+:: D1_Greet_Nod
+<<set $hanbeiCrack += 1>>
+<<bg "training">><<stage "hanbei" 76 "shoulder" "l">><<stage "wolf" 24 "stand" "r">>
+<<h>>
+……오.
+
+대답을 다 하는군.
+<</h>>
+<<n>>
+한베는 잠깐 말을 잃었다.
+
+아주 잠깐.
+<</n>>
+<<h>>
+하하하!
+
+오늘 무슨 날인가?
+<</h>>
+<<include "D1_Draw">>
+
+
+:: D1_Draw
+<<stage "wolf" 24 "stand" "r">><<stage "hanbei" 76 "draw" "l">>
+<<n>>
+한베는 하하 웃으며 검을 고쳐 쥐었다.
+
+익숙한 소리.
+익숙한 자세.
+익숙한 거리.
+<</n>>
+<<h>>
+좋아.
+
+그럼 어디 한번 해보자고.
+<</h>>
+<<choices>>
+[[대련하러 왔다|D1_Spar]]
+[[그냥 왔다|D1_Just]]
+<</choices>>
+
+
+:: D1_Spar
+<<bg "training">><<stage "hanbei" 76 "draw" "l">><<stage "wolf" 24 "stand" "r">>
+<<w>>
+한 수 부탁하지.
+<</w>>
+<<h>>
+솔직히 말하면.
+
+난 자네가 말 거는 것보다 이게 편하더군.
+<</h>>
+<<h>>
+검은 거짓말을 하지 않지 않나?
+<</h>>
+<<stage "wolf" 52 "guard">><<fx "shake">>
+<<n>>
+챙.
+<</n>>
+<<stage "hanbei" 66>><<stage "wolf" 38>><<fx "flash">>
+<<n>>
+챙.
+
+두 번, 세 번.
+<</n>>
+<<stage "wolf" 24 "stand">><<stage "hanbei" 76 "shoulder">>
+<<n>>
+짧은 대련이 끝났다.
+<</n>>
+<<h>>
+음.
+
+조금 빨라졌네.
+<</h>>
+<<w>>
+…
+<</w>>
+<<h>>
+칭찬이라구.
+<</h>>
+<<h>>
+다음에도 오게.
+
+아직 뒷마무리가 허술해.
+인살할 기회를 자꾸 놓치지 않나.
+<</h>>
+<<memory "spar">>
+<<include "D1_Leave">>
+
+
+:: D1_Just
+<<bg "training">><<stage "hanbei" 76 "draw" "l">><<stage "wolf" 24 "stand" "r">>
+<<w>>
+…그냥 왔다.
+<</w>>
+<<h>>
+그냥…?
+<</h>>
+<<w>>
+그렇다.
+<</w>>
+<<n>>
+잠시 침묵.
+<</n>>
+<<stage "hanbei" 76 "rest">>
+<<n>>
+한베는 검을 바닥에 내려놓았다.
+<</n>>
+<<h>>
+하하하!
+
+그것도 좋네.
+매번 검만 휘두르는 것도 질리거든.
+<</h>>
+<<n>>
+그는 웃으며 말했다.
+
+그런데.
+그 말은 이상하게도,
+조금 외롭게 들렸다.
+<</n>>
+<<h>>
+그럼 잠깐 쉬었다 가게나.
+
+어차피 난 여기 있으니까.
+<</h>>
+<<w>>
+…
+<</w>>
+<<choices>>
+[[그 자리에 선 채 기다린다|D1_Just_Wait]]
+[[한 걸음 다가간다|D1_Just_Step]]
+<</choices>>
+
+
+:: D1_Just_Wait
+<<bg "training">><<stage "hanbei" 76 "rest" "l">><<stage "wolf" 24 "stand" "r">>
+<<n>>
+늑대는 그 자리에 섰다.
+
+대련할 때와 같은 거리.
+<</n>>
+<<h>>
+서서 쉬는 사람은 처음 보네.
+<</h>>
+<<h>>
+……뭐, 자네답다.
+<</h>>
+<<memory "just">>
+<<include "D1_Leave">>
+
+
+:: D1_Just_Step
+<<set $hanbeiDist to Math.max($hanbeiDist, 1)>>
+<<bg "training">><<stage "hanbei" 76 "rest" "l">><<stage "wolf" 24 "stand" "r">>
+<<n>>
+늑대는 한 걸음 다가갔다.
+<</n>>
+<<stage "wolf" 40>>
+<<n>>
+검끝이 닿지 않는 거리.
+
+대련할 때보다,
+한 걸음 가까웠다.
+<</n>>
+<<h>>
+……
+<</h>>
+<<h>>
+오해는 하지 말게.
+
+놀란 거 아니야.
+<</h>>
+<<note>>
+거리가 조금 줄었다.
+<</note>>
+<<memory "just">>
+<<include "D1_Leave">>
+
+
+:: D1_Leave
+<<n>>
+늑대는 잠시 그를 바라보았다.
+<</n>>
+<<n>>
+늘 그 자리에 있는 사람.
+늘 같은 자리에 있는 사람.
+
+이상하게도.
+그 사실이 당연하게 느껴졌다.
+<</n>>
+<<h>>
+무슨 일인가.
+
+그 얼굴.
+<</h>>
+<<h>>
+설마 걱정이라도 해주는 건가?
+<</h>>
+<<w>>
+…
+<</w>>
+<<h>>
+하하하!
+
+됐다네.
+자네의 그런 표정이면 충분하니.
+<</h>>
+<<choices>>
+[[황폐한 절로 돌아간다|D1_Night]]
+<</choices>>
+
+
+:: D1_Night [night]
+<<bg "night">><<stage "hanbei" "hide">><<stage "wolf" 30 "stand" "r">>
+<<caption "1일째" "밤">>
+<<if $skippedYesterday>>
+<<n>>
+밤이 되자 검 소리도 그쳤다.
+
+늑대는 지붕 위로 올라갔다.
+<</n>>
+<<else>>
+<<n>>
+어둠이 내려앉은 심야.
+
+늑대는 아시나 병사들의 눈을 피해
+지붕 위를 내달리고 있다.
+<</n>>
+<</if>>
+<<stage "wolf" 62 "guard">><<fx "arrow">>
+<<n>>
+불화살이 뺨을 스친다.
+
+아슬아슬하게.
+<</n>>
+<<stage "wolf" 62 "stand">>
+<<n>>
+몸은 늘 하던 대로 움직였다.
+
+피하고, 숨고, 기다린다.
+<</n>>
+<<if $skippedYesterday>>
+<<n>>
+훈련장 쪽은 어두웠다.
+
+거기 누가 있었는지,
+늑대는 생각하지 않기로 했다.
+<</n>>
+<<else>>
+<<n>>
+멀리 훈련장 쪽에서
+낮의 웃음소리가 아직 남아 있는 것 같았다.
+
+…이상한 일이다.
+<</n>>
+<</if>>
+<<choices>>
+[[날이 밝는다|D1_End]]
+<</choices>>
+
+
+:: D1_End
+<<set $day to 2>>
+<<bg "training">><<stage "wolf" "dist" "stand" "r">><<stage "hanbei" 76 "shoulder" "l">>
+<<caption "2일째" "낮">>
+<<if $skippedYesterday>>
+<<h>>
+어제는 안 오더군.
+<</h>>
+<<h>>
+……아니, 기다렸다는 말은 아니고.
+<</h>>
+<<elseif $hanbeiDist gte 1>>
+<<h>>
+오. 또 왔나?
+<</h>>
+<<n>>
+한베는 늑대가 멈춰 선 자리를 보았다.
+
+어제보다 한 걸음 가까운 자리.
+<</n>>
+<<h>>
+……그 거리, 마음에 든 모양이군.
+<</h>>
+<<else>>
+<<h>>
+오. 또 왔나?
+
+오늘도 날 베러 온 거 맞구만.
+<</h>>
+<</if>>
+<<note>>
+— 1일차 끝 · 2일차는 아직 만들어지지 않았다 —
+<</note>>
+<<choices>>
+<<link "인연 기억 보기">><<run setup.sw.openMemories()>><</link>>
+<<link "처음부터 다시">><<run Engine.restart()>><</link>>
+<</choices>>
