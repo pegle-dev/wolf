@@ -15,8 +15,11 @@ Wolf: Sideways
 <<set $hanbeiDist to 0>>        /* 거리 0~4: 대련 / 검 하나 / 곁에 앉음 / 어깨 / 등 */
 <<set $hanbeiCrack to 0>>       /* 균열 0~3: 늑대가 솔직해진 횟수 */
 <<set $hanbeiVisits to 0>>      /* 한베를 찾아간 날 수 */
-<<set $skippedYesterday to false>>
+<<set $skippedYesterday to false>>   /* 직전 낮에 한베를 찾아가지 않았는가 */
 <<set $memories to []>>         /* 인연 기억 카드 id 목록 */
+<<set $hanbeiSkips to 0>>       /* 한베를 찾아가지 않은 날 수 */
+<<set $hanbeiApologized to false>>  /* 2일차: 미안하다고 했는가 */
+<<set $honestToday to false>>   /* 그날 솔직했는가 (하루 끝에 균열 +1) */
 
 :: Start [title nobr]
 <<bg "night">><<stage "hanbei" "hide">><<stage "wolf" "hide">>

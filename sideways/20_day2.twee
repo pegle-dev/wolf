@@ -1,0 +1,498 @@
+:: D2_Morning
+/* 2일째 — 한베: 아프냐고 물은 날. 원문 src/routes/hanbei.twee Hanbei_MidConflict_* / 기획 docs/Wolf_Sideways_Hanbei.md §3 */
+<<set $day to 2>><<set $honestToday to false>>
+<<bg "temple">><<stage "hanbei" "hide">><<stage "wolf" 50 "stand" "r">>
+<<caption "2일째" "낮">>
+<<if $skippedYesterday>>
+<<n>>
+아침이 왔다.
+
+어제 그친 검 소리가,
+오늘은 해가 뜨기도 전부터 들려왔다.
+<</n>>
+<<n>>
+평소보다 조금 거칠게.
+<</n>>
+<<else>>
+<<n>>
+아침이 왔다.
+
+절 마당에는 밤새 떨어진 잎이 쌓여 있었다.
+<</n>>
+<<n>>
+훈련장 쪽에서는
+오늘도 검 소리가 들린다.
+
+어제와 같은 박자로.
+<</n>>
+<</if>>
+<<n>>
+늑대는 어디로 향하나?
+<</n>>
+<<choices>>
+[[훈련장으로 간다|D2_Training]]
+[[절에 머문다|D2_StayTemple]]
+<</choices>>
+
+
+:: D2_StayTemple
+<<set $skippedYesterday to true>><<set $hanbeiSkips += 1>>
+<<bg "temple">><<stage "hanbei" "hide">><<stage "wolf" 50 "stand" "l">>
+<<if $hanbeiSkips gte 2>>
+<<n>>
+이틀째, 늑대는 절에 머물렀다.
+<</n>>
+<<n>>
+검 소리는 한참 이어지다가
+어느 순간 뚝 그쳤다.
+
+그 뒤로는 바람 소리뿐이었다.
+<</n>>
+<<else>>
+<<n>>
+늑대는 절의 마루 끝에 걸터앉았다.
+<</n>>
+<<n>>
+오늘의 검 소리는
+어제보다 늦게 시작해서,
+어제보다 일찍 그쳤다.
+<</n>>
+<</if>>
+<<choices>>
+[[밤이 온다|D2_Night]]
+<</choices>>
+
+
+:: D2_Training
+<<set $hanbeiVisits += 1>>
+<<bg "training">><<stage "wolf" "dist" "stand" "r">><<stage "hanbei" 76 "shoulder" "l">>
+<<if $skippedYesterday>>
+<<h>>
+어제는 안 오더군.
+<</h>>
+<<h>>
+……아니, 기다렸다는 말은 아니고.
+<</h>>
+<<elseif $hanbeiDist gte 1>>
+<<h>>
+오. 또 왔나?
+<</h>>
+<<n>>
+한베는 늑대가 멈춰 선 자리를 보았다.
+
+어제보다 한 걸음 가까운 자리.
+<</n>>
+<<h>>
+……그 거리, 마음에 든 모양이군.
+<</h>>
+<<else>>
+<<h>>
+오. 또 왔나?
+
+오늘도 날 베러 온 거 맞구만.
+<</h>>
+<</if>>
+<<set $skippedYesterday to false>>
+<<stage "hanbei" 76 "draw">>
+<<h>>
+그럼 오늘은 제대로 한 판 하지.
+<</h>>
+<<choices>>
+[[검을 뽑는다|D2_Spar]]
+<</choices>>
+
+
+:: D2_Spar
+<<bg "training">><<stage "hanbei" 76 "draw" "l">><<stage "wolf" "dist" "guard" "r">>
+<<n>>
+검이 다시 부딪쳤다.
+<</n>>
+<<stage "wolf" 50>><<stage "hanbei" 68>><<fx "shake">>
+<<n>>
+처음에는 평소와 같았다.
+
+한베는 가볍게 웃었고,
+늑대는 말없이 검을 받았다.
+<</n>>
+<<fx "flash">>
+<<n>>
+한 번.
+두 번.
+<</n>>
+<<stage "wolf" 56>><<fx "shake">>
+<<n>>
+늑대는 맞아도 물러나지 않았다.
+
+몸을 버리듯 앞으로 들어왔다.
+<</n>>
+<<stage "hanbei" 70 "stand">>
+<<n>>
+세 번째 검이 닿기 전에,
+한베가 검을 멈췄다.
+<</n>>
+<<h>>
+그만.
+<</h>>
+<<w>>
+아직 끝나지 않았다.
+<</w>>
+<<h>>
+끝났네.
+
+내가 끝냈다.
+<</h>>
+<<stage "wolf" 56 "stand">>
+<<n>>
+한베가 검을 멈춘 채 묻는다.
+<</n>>
+<<h>>
+아파?
+<</h>>
+<<choices>>
+[[문제없다.|D2_Q1_Fine]]
+[[아프다.|D2_Q1_Hurts]]
+[[대련을 계속한다.|D2_Q1_Continue]]
+[[……|D2_Q1_Silence]]
+<</choices>>
+
+
+:: D2_Q1_Fine
+<<h>>
+문제없다라.
+<</h>>
+<<h>>
+그 말, 자네 입버릇으로 등록해도 되겠군.
+
+문제없다는 말 할 때마다
+진짜 문제가 생기는 얼굴이야.
+<</h>>
+<<include "D2_Q2">>
+
+
+:: D2_Q1_Hurts
+<<set $honestToday to true>>
+<<h>>
+……
+<</h>>
+<<n>>
+한베는 웃지 않았다.
+
+대신, 검을 내렸다.
+<</n>>
+<<h>>
+그래.
+
+그거면 됐어.
+<</h>>
+<<include "D2_Q2">>
+
+
+:: D2_Q1_Continue
+<<stage "wolf" 56 "guard">>
+<<h>>
+싫네.
+
+오늘은 내가 그만두는 쪽이야.
+<</h>>
+<<stage "wolf" 56 "stand">>
+<<include "D2_Q2">>
+
+
+:: D2_Q1_Silence
+<<h>>
+대답 안 하는 것도 대답이야.
+<</h>>
+<<h>>
+자네, 정말 나쁜 버릇이 들었군.
+<</h>>
+<<include "D2_Q2">>
+
+
+:: D2_Q2
+<<n>>
+한베가 검끝을 땅에 내린다.
+<</n>>
+<<h>>
+죽는 게 무섭나?
+<</h>>
+<<choices>>
+[[나는 닌자다.|D2_Q2_Ninja]]
+[[무섭지 않다.|D2_Q2_NotAfraid]]
+[[잘 모르겠다.|D2_Q2_DontKnow]]
+[[……|D2_Q2_Silence]]
+<</choices>>
+
+
+:: D2_Q2_Ninja
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+나는 닌자다.
+<</w>>
+<<h>>
+그 말도 이제 지겹군.
+
+닌자면 아프지 않아도 되나?
+<</h>>
+<<include "D2_Talk">>
+
+
+:: D2_Q2_NotAfraid
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+무섭지 않다.
+<</w>>
+<<h>>
+거짓말은 좀 더 잘하게.
+
+무섭지 않은 사람은
+그렇게 빨리 대답하지 않아.
+<</h>>
+<<include "D2_Talk">>
+
+
+:: D2_Q2_DontKnow
+<<set $honestToday to true>>
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+……잘 모르겠다.
+<</w>>
+<<h>>
+그래.
+
+그 대답은 자네 말 같군.
+<</h>>
+<<include "D2_Talk">>
+
+
+:: D2_Q2_Silence
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+……
+<</w>>
+<<h>>
+오래 걸리는군.
+
+그럼 무섭긴 한 거다.
+<</h>>
+<<include "D2_Talk">>
+
+
+:: D2_Talk
+<<h>>
+나는 죽지 못해.
+
+자네는 죽고도 돌아오고.
+<</h>>
+<<h>>
+비슷해 보여도 달라.
+
+그러니 너무 쉽게 말하지 말게.
+<</h>>
+<<h>>
+아프면 아프다고 하게.
+
+사람한테는 그런 말이 필요하다.
+<</h>>
+<<n>>
+바람이 훈련장의 흙을 쓸고 지나갔다.
+<</n>>
+<<h>>
+……자네가 나처럼 되지 않았으면 좋겠네.
+<</h>>
+<<choices>>
+[[……미안하다.|D2_Apologize]]
+[[불사는 무기다.|D2_Weapon]]
+[[아픈 것은 익숙하다.|D2_UsedToPain]]
+<</choices>>
+
+
+:: D2_Apologize
+<<set $hanbeiApologized to true>><<set $hanbeiDist to Math.max($hanbeiDist, 1)>>
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+……미안하다.
+<</w>>
+<<h>>
+사과까지 할 줄 알았나.
+
+큰일이군. 내일 눈 오겠어.
+<</h>>
+<<h>>
+그래.
+
+그럼 내가 좀 울었다고 치지.
+<</h>>
+<<h>>
+내일 다시 하세.
+
+대련 말고.
+<</h>>
+<<h>>
+사는 연습.
+<</h>>
+<<include "D2_Leave">>
+
+
+:: D2_Weapon
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+불사는 무기다.
+<</w>>
+<<h>>
+그래.
+
+그럼 오늘 대련은 끝이다.
+<</h>>
+<<stage "hanbei" 72 "shoulder" "r">>
+<<n>>
+한베는 검을 거두고 등을 돌렸다.
+<</n>>
+<<h>>
+아직 움직일 수 있다는 게 문제라고,
+그 말을 하고 있잖나.
+<</h>>
+<<include "D2_Leave">>
+
+
+:: D2_UsedToPain
+<<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
+<<w>>
+아픈 것은 익숙하다.
+<</w>>
+<<h>>
+익숙해지면 안 되는 것도 있네.
+<</h>>
+<<n>>
+한베는 잠시 말을 고르는 것 같았다.
+<</n>>
+<<h>>
+……특히 그런 건.
+<</h>>
+<<include "D2_Leave">>
+
+
+:: D2_Leave
+<<if $honestToday>><<set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)>><</if>>
+<<memory "hurt">>
+<<stage "wolf" 30 "stand" "l">>
+<<n>>
+늑대는 훈련장을 나섰다.
+<</n>>
+<<h>>
+늑대.
+<</h>>
+<<stage "wolf" 30 "stand" "r">>
+<<if $hanbeiApologized>>
+<<h>>
+내일은 검 두고 와도 되네.
+<</h>>
+<<n>>
+농담인지 아닌지,
+늑대는 끝내 알 수 없었다.
+<</n>>
+<<else>>
+<<h>>
+아까 그 질문.
+
+내일 또 묻겠네.
+<</h>>
+<<n>>
+한베는 그렇게 말하고 웃었다.
+
+평소보다 조금 늦게.
+<</n>>
+<</if>>
+<<choices>>
+[[황폐한 절로 돌아간다|D2_Night]]
+<</choices>>
+
+
+:: D2_Night [night]
+<<bg "night">><<stage "hanbei" "hide">><<stage "wolf" 40 "stand" "r">>
+<<caption "2일째" "밤">>
+<<n>>
+밤길 끝에서,
+이름 모를 노파가 늑대를 불러 세웠다.
+<</n>>
+<<n>>
+그녀는 늑대가 누구인지도 묻지 않고,
+작은 부적 하나를 손에 쥐여주었다.
+<</n>>
+<<if not $skippedYesterday and not $honestToday>>
+<<n>>
+"아픈 데가 있거든,
+아프다고 하시오."
+<</n>>
+<<n>>
+늑대는 대답하지 않았다.
+
+하루에 같은 말을 두 번 들었다.
+<</n>>
+<<elseif not $skippedYesterday>>
+<<n>>
+"얼굴이 낮보다는 낫구려."
+<</n>>
+<<n>>
+늑대는 부적을 쥔 손을 내려다보았다.
+
+아프다고 말한 입이,
+아직 조금 낯설었다.
+<</n>>
+<<else>>
+<<n>>
+"누굴 기다리게 해놓은 얼굴이구려."
+<</n>>
+<<n>>
+늑대는 대답하지 않았다.
+
+훈련장 쪽은,
+오늘 밤도 어두웠다.
+<</n>>
+<</if>>
+<<n>>
+혼자가 아닌 밤도 있다.
+<</n>>
+<<choices>>
+[[날이 밝는다|D2_End]]
+<</choices>>
+
+
+:: D2_End
+<<set $day to 3>>
+<<bg "training">><<stage "wolf" "dist" "stand" "r">><<stage "hanbei" 76 "sit" "l">>
+<<caption "3일째" "낮">>
+<<n>>
+한베는 오늘,
+검을 뽑지 않고 앉아 있었다.
+<</n>>
+<<if $skippedYesterday and $hanbeiSkips gte 2>>
+<<h>>
+이틀 연속이면,
+나도 좀 서운하다네.
+<</h>>
+<<elseif $skippedYesterday>>
+<<h>>
+어제는 안 오더군.
+
+……이번엔 기다렸다는 말 맞네.
+<</h>>
+<<elseif $hanbeiApologized>>
+<<h>>
+왔나.
+
+진짜로 검을 두고 올 줄은 몰랐는데.
+<</h>>
+<<else>>
+<<h>>
+왔나.
+
+오늘은 대련 안 하네.
+<</h>>
+<</if>>
+<<note>>
+— 2일차 끝 · 3일차는 아직 만들어지지 않았다 —
+<</note>>
+<<choices>>
+<<link "인연 기억 보기">><<run setup.sw.openMemories()>><</link>>
+<<link "처음부터 다시">><<run Engine.restart()>><</link>>
+<</choices>>

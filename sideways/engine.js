@@ -24,7 +24,7 @@
   sw.memoryDefs = [
     { id: 'just', title: '그냥 온 날', text: '늑대는 검을 뽑지 않고 한베를 찾아갔다.' },
     { id: 'spar', title: '첫 대련', text: '익숙한 소리, 익숙한 자세, 익숙한 거리.' },
-    { id: 'hurt', title: '아프냐고 물은 날' },
+    { id: 'hurt', title: '아프냐고 물은 날', text: '한베가 먼저 검을 멈추고 물었다. 아프냐고.' },
     { id: 'sit', title: '대련하지 않은 날' },
     { id: 'sake', title: '잔을 나눈 날' },
     { id: 'mask', title: '얼굴을 본 날' },
@@ -198,6 +198,8 @@
     return {
       reset: function (k) {
         kind = k;
+        arrow = null;
+        g.clearRect(0, 0, A.W, A.H);
         var n = k === 'leaves' ? 9 : k === 'dust' ? 16 : 24;
         list = [];
         for (var i = 0; i < n; i++) { var p = {}; spawn(p, true); list.push(p); }
@@ -402,6 +404,8 @@
       var el = document.createElement('div');
       el.className = 'sw-item sw-choices';
       $(el).wiki(this.payload[0].contents.trim());
+      /* 선택지가 3개 이상이면 두 줄로 놓아 캐릭터를 가리지 않게 */
+      if (el.querySelectorAll('a').length >= 3) { el.classList.add('sw-grid'); }
       this.output.appendChild(el);
     }
   });

@@ -178,6 +178,7 @@ body[data-tags~="title"] #sw-stage::after {
   counter-increment: sw-choice;
 }
 .sw-choices { counter-reset: sw-choice; }
+.sw-choices.sw-grid { display: grid; grid-template-columns: 1fr 1fr; }
 .sw-choices a::before {
   content: counter(sw-choice) '  ';
   font-family: 'SwPixel', monospace;
@@ -303,6 +304,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 }
 
 @media (max-width: 600px) {
+  .sw-choices.sw-grid { grid-template-columns: 1fr; }
   .sw-text { font-size: 0.98rem; line-height: 1.75; }
   #passages.sw-has-items .passage { padding: 14px 16px 16px; }
 }

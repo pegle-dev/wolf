@@ -25,7 +25,7 @@
 
 
 :: D1_StayTemple
-<<set $skippedYesterday to true>>
+<<set $skippedYesterday to true>><<set $hanbeiSkips += 1>>
 <<bg "temple">><<stage "hanbei" "hide">><<stage "wolf" 50 "stand" "l">>
 <<n>>
 늑대는 절의 마루 끝에 걸터앉았다.
@@ -346,44 +346,5 @@
 <</n>>
 <</if>>
 <<choices>>
-[[날이 밝는다|D1_End]]
-<</choices>>
-
-
-:: D1_End
-<<set $day to 2>>
-<<bg "training">><<stage "wolf" "dist" "stand" "r">><<stage "hanbei" 76 "shoulder" "l">>
-<<caption "2일째" "낮">>
-<<if $skippedYesterday>>
-<<h>>
-어제는 안 오더군.
-<</h>>
-<<h>>
-……아니, 기다렸다는 말은 아니고.
-<</h>>
-<<elseif $hanbeiDist gte 1>>
-<<h>>
-오. 또 왔나?
-<</h>>
-<<n>>
-한베는 늑대가 멈춰 선 자리를 보았다.
-
-어제보다 한 걸음 가까운 자리.
-<</n>>
-<<h>>
-……그 거리, 마음에 든 모양이군.
-<</h>>
-<<else>>
-<<h>>
-오. 또 왔나?
-
-오늘도 날 베러 온 거 맞구만.
-<</h>>
-<</if>>
-<<note>>
-— 1일차 끝 · 2일차는 아직 만들어지지 않았다 —
-<</note>>
-<<choices>>
-<<link "인연 기억 보기">><<run setup.sw.openMemories()>><</link>>
-<<link "처음부터 다시">><<run Engine.restart()>><</link>>
+[[날이 밝는다|D2_Morning]]
 <</choices>>
