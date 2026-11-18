@@ -20,6 +20,16 @@ Wolf: Sideways
 <<set $hanbeiSkips to 0>>       /* 한베를 찾아가지 않은 날 수 */
 <<set $hanbeiApologized to false>>  /* 2일차: 미안하다고 했는가 */
 <<set $honestToday to false>>   /* 그날 솔직했는가 (하루 끝에 균열 +1) */
+<<set $shura to 0>>             /* 수라 씨앗: 베는 쪽으로 기운 선택 수. 3 이상이면 마지막에 수라 선택지 */
+<<set $color to false>>         /* 4일차 술잔 이후 색이 돌아온다 (늑대의 목도리 등) */
+<<set $hanbeiSake to false>>    /* 4일차: 잔을 받았는가 */
+<<set $lookedMask to false>>    /* 4일차: 술잔 대신 얼굴을 보았는가 */
+<<set $saidNoCut to false>>     /* 6일차: 베고 싶지 않다고 말했는가 */
+<<set $promised to false>>      /* 6일차: 부탁을 받아들였는가 */
+<<set $sawFace to false>>       /* 6일차: 가면 아래 얼굴을 보았는가 */
+<<set $leftHim to false>>       /* 7일차: 돌아섰는가 */
+<<set $emptyKind to "silence">>
+<<set $lastEnding to "">>
 
 :: Start [title nobr]
 <<bg "night">><<stage "hanbei" "hide">><<stage "wolf" "hide">>
@@ -28,6 +38,7 @@ Wolf: Sideways
   <div class="sw-title-sub">— SIDEWAYS —</div>
   <div class="sw-title-copy">검을 거두고, 그냥 찾아간다.</div>
   <div class="sw-title-menu">[[처음부터|Intro]]</div>
+  <<if setup.sw.seenEndings().length gt 0>><div class="sw-title-record">본 결말 <<= setup.sw.seenEndings().length>> / <<= setup.sw.endingDefs.length>></div><</if>>
 </div>
 
 :: Intro [dark]

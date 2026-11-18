@@ -175,6 +175,31 @@ body { font-family: 'SwBody', serif; }
 .sw-sprite.sw-face-left { transform: translateX(-50%) scaleX(-1); }
 
 #sw-fx { position: absolute; inset: 0; pointer-events: none; }
+
+/* 화면 색 번짐. 회색 세계에 색이 들어오는 순간에만 쓴다 */
+#sw-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2.4s ease, background 2.4s ease;
+}
+#sw-tint.sw-tint-warm {
+  opacity: 1;
+  background: radial-gradient(ellipse at 60% 62%, rgba(224, 138, 60, 0.28), rgba(224, 138, 60, 0) 55%);
+  mix-blend-mode: screen;
+}
+#sw-tint.sw-tint-dawn {
+  opacity: 1;
+  background: linear-gradient(to bottom, rgba(246, 194, 122, 0.10), rgba(224, 138, 60, 0.42) 58%, rgba(120, 60, 30, 0.25));
+  mix-blend-mode: overlay;
+}
+#sw-tint.sw-tint-shura {
+  opacity: 1;
+  background: linear-gradient(to bottom, rgba(120, 10, 10, 0.25), rgba(158, 43, 37, 0.55));
+  mix-blend-mode: multiply;
+}
+#sw-tint.sw-tint-dim { opacity: 1; background: rgba(0, 0, 0, 0.45); }
 #sw-fx.sw-flash { animation: sw-flash 0.35s ease-out; }
 #sw-stage.sw-shake { animation: sw-shake 0.35s steps(4); }
 
@@ -269,9 +294,14 @@ body[data-tags~="title"] #sw-stage::after {
 .sw-caption::after { right: auto; bottom: 22%; }
 .sw-caption-main { font-family: 'SwPixel', monospace; font-size: 2rem; letter-spacing: 0.2em; }
 .sw-caption-sub { font-family: 'SwPixel', monospace; color: var(--sw-dim); letter-spacing: 0.4em; }
+.sw-ending { background: rgba(0, 0, 0, 0.72); }
+.sw-ending .sw-caption-main { font-family: 'SwBody', serif; font-size: 2.2rem; letter-spacing: 0.3em; }
+.sw-ending-true .sw-caption-sub { color: var(--sw-accent); }
+.sw-ending-shura .sw-caption-sub { color: #c0473f; }
+.sw-ending-note { margin-top: 18px; font-family: 'SwPixel', monospace; font-size: 0.8rem; color: var(--sw-dim); }
 
 /* 선택지 */
-.sw-choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.sw-choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 2; }
 
 .sw-choices a {
   display: block;
@@ -312,6 +342,7 @@ body[data-tags~="title"] #passages { top: 0; bottom: 0; width: 100%; height: 100
 .sw-title-sub { font-family: 'SwTitle', serif; color: var(--sw-narr); letter-spacing: 0.4em; }
 .sw-title-copy { margin-top: 28px; color: var(--sw-dim); }
 .sw-title-menu { margin-top: 36px; }
+.sw-title-record { margin-top: 22px; font-family: 'SwPixel', monospace; font-size: 0.8rem; color: var(--sw-dim); letter-spacing: 0.1em; }
 .sw-title-menu a {
   font-family: 'SwPixel', monospace;
   color: var(--sw-text);
@@ -357,6 +388,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   box-sizing: border-box;
 }
 .sw-mem-head { font-family: 'SwPixel', monospace; letter-spacing: 0.1em; margin-bottom: 16px; }
+.sw-mem-head-2 { margin-top: 22px; }
 .sw-mem-inner ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .sw-mem-inner li { border: 1px solid var(--sw-line); padding: 10px 12px; }
 .sw-mem-inner li.sw-locked { color: var(--sw-dim); }
@@ -423,7 +455,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 /* =========================================================
    Wolf: Sideways — 코드로 그리는 픽셀 아트
    - 배경: 256x144 캔버스. 그라데이션은 평평한 띠로 칠하고, 띠 경계에만 디더링을 넣는다.
-   - 스프라이트: 32x44(+외곽선 1px). 숨쉬기 2프레임.
+   - 스프라이트: 32x44(+외곽선 1px). 숨쉬기 2프레임. 도트 데이터는 sprites.js.
    - 배경과 스프라이트는 같은 배율로 확대한다 (engine.js의 layout).
    - 결과는 dataURL로 캐시.
    ========================================================= */
@@ -477,6 +509,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 
   /* v: 0~9 연속값. 소수부가 0.5 근처일 때만 두 단계를 디더링으로 섞는다. */
   Painter.prototype.tone = function (x, y, v) {
+    if (this.mood && !this.noMood) { v = this.mood(v, x, y); }
     if (v < 0) { v = 0; }
     if (v > TOP) { v = TOP; }
     var lo = Math.floor(v);
@@ -583,7 +616,9 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     p.fill(x - 5, baseY - 25, 11, 3, 1.0);
     p.fill(x - 1, baseY - 27, 3, 2, 1.0);
     p.fill(x - 5, baseY - 19, 11, 7, 1.7);
+    p.noMood = true;
     p.fill(x - 2, baseY - 17, 5, 3, 6.0);
+    p.noMood = false;
     p.fill(x - 2, baseY - 12, 5, 7, 2.0);
     p.fill(x - 6, baseY - 5, 13, 5, 2.5);
   }
@@ -598,9 +633,21 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   var W = 256, H = 144;
 
   /* ---------- 배경: 훈련장 (흐린 낮) ---------- */
-  function bgTraining() {
+  var MOODS = {
+    dawn: function (v, x, y) { return v * 0.62 + (y < 88 ? Math.max(0, (y - 20) / 68) * 1.9 : 0.2); },
+    eve: function (v) { return v * 0.6 + 0.35; },
+    night: function (v) { return v * 0.32 + 0.25; }
+  };
+
+  function stars(p, seed, maxY) {
+    var r = rng(seed);
+    for (var i = 0; i < 60; i++) { p.dot(r() * p.w, r() * maxY, PAL[3 + Math.floor(r() * 3)]); }
+  }
+
+  function bgTraining(mood) {
     var p = new Painter(W, H), r = rng(11), i, x, y;
     var GY = 88;
+    p.mood = MOODS[mood] || null;
 
     p.fill(0, 0, W, GY, function (x, y) { return 6.8 - y * 0.017; });
 
@@ -690,11 +737,13 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   }
 
   /* ---------- 배경: 황폐한 절 ---------- */
-  function bgTemple() {
+  function bgTemple(mood) {
     var p = new Painter(W, H), r = rng(23), i, x;
     var cx = 128;
+    p.mood = MOODS[mood] || null;
 
     p.fill(0, 0, W, 104, function (x, y) { return 6.5 - y * 0.015; });
+    if (mood === 'night') { stars(p, 41, 40); }
 
     /* 삼나무 실루엣 */
     [12, 30, 52, 196, 220, 244].forEach(function (tx, k) {
@@ -823,172 +872,12 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     return p.url();
   }
 
-  /* ---------- 스프라이트 (오른쪽을 보는 기준, 32x44) ----------
-     f = 숨쉬기 프레임(0/1): 상체를 1px 내린다. 발 바닥은 y=41. */
-  var K = '#0d0d0d', G = '#262626', G2 = '#3a3a3a', L = '#b4b4b4', E = '#dadada', W2 = '#5a5a5a';
-
-  function hanbeiUpper(p, dy) {
-    var y = dy;
-    /* 투구 장식 */
-    p.line(11, y + 0, 13, y + 4, K);
-    p.line(20, y + 0, 18, y + 4, K);
-    p.rect(15, y + 2, 2, 3, G);
-    /* 투구와 목가리개 */
-    p.rect(12, y + 4, 8, 1, K);
-    p.rect(11, y + 5, 10, 4, K);
-    p.rect(9, y + 9, 13, 1, G);
-    p.rect(8, y + 10, 8, 3, G);
-    /* 얼굴(면갑) */
-    p.rect(14, y + 9, 7, 5, K);
-    p.rect(15, y + 12, 6, 2, G);
-    p.dot(19, y + 10, E);
-    /* 목 */
-    p.rect(12, y + 14, 8, 2, G);
-    /* 몸통 */
-    p.rect(11, y + 16, 10, 9, K);
-    p.rect(12, y + 18, 8, 1, G2);
-    p.rect(12, y + 21, 8, 1, G2);
-    /* 뒤쪽 어깨 갑옷과 팔 */
-    p.rect(7, y + 15, 5, 8, G);
-    p.rect(7, y + 17, 5, 1, K);
-    p.rect(7, y + 20, 5, 1, K);
-    p.rect(8, y + 23, 3, 4, K);
-    /* 앞쪽 어깨 갑옷 */
-    p.rect(19, y + 15, 6, 8, G);
-    p.rect(19, y + 17, 6, 1, K);
-    p.rect(19, y + 20, 6, 1, K);
-    /* 허리 */
-    p.rect(11, y + 25, 10, 1, G2);
-    p.rect(9, y + 26, 14, 6, G);
-    [12, 15, 18, 21].forEach(function (gx) { p.rect(gx, y + 26, 1, 6, K); });
-  }
-
-  function drawHanbei(p, pose, f) {
-    if (pose === 'sit') {
-      hanbeiUpper(p, 9 + f);
-      p.rect(8, 35, 18, 4, K);
-      p.rect(9, 37, 6, 2, G);
-      p.rect(19, 37, 6, 2, G);
-      p.rect(7, 39, 20, 2, K);
-      p.rect(21, 33, 3, 4, K);
-      p.line(2, 41, 18, 41, L);
-      p.rect(0, 41, 3, 1, G2);
-      return;
-    }
-
-    if (pose === 'shoulder') {          /* 칼날은 몸 뒤로 지나가게 먼저 그린다 */
-      p.line(24, 21 + f, 1, 9 + f, L);
-      p.line(24, 22 + f, 1, 10 + f, L);
-    }
-
-    /* 다리 */
-    p.rect(11, 32, 4, 8, K);
-    p.rect(17, 32, 4, 8, K);
-    p.rect(11, 35, 4, 3, G);
-    p.rect(17, 35, 4, 3, G);
-    p.rect(10, 40, 5, 2, K);
-    p.rect(17, 40, 6, 2, K);
-
-    hanbeiUpper(p, f);
-
-    if (pose === 'shoulder') {          /* 검을 어깨에 걸침: 앞에는 칼자루와 손 */
-      p.rect(23, 20 + f, 3, 4, G2);
-      p.rect(21, 22 + f, 3, 3, K);
-    } else if (pose === 'draw') {       /* 검을 앞으로 겨눔 */
-      p.rect(21, 22 + f, 5, 3, K);
-      p.rect(25, 21 + f, 2, 4, G2);
-      p.line(27, 21 + f, 31, 12 + f, L);
-      p.line(27, 20 + f, 30, 13 + f, L);
-    } else if (pose === 'rest') {       /* 검을 바닥에 내려놓음 */
-      p.rect(21, 23 + f, 3, 6, K);
-      p.line(13, 42, 31, 42, L);
-      p.rect(9, 42, 4, 1, G2);
-    } else {                            /* 기본: 검을 세워 짚음 */
-      p.rect(21, 23 + f, 3, 4, K);
-      p.rect(24, 22, 2, 5, G2);
-      p.rect(23, 27, 4, 1, G);
-      p.line(24, 28, 24, 41, L);
-      p.line(25, 28, 25, 41, L);
-    }
-  }
-
-  function wolfUpper(p, dy, f) {
-    var y = dy;
-    /* 상투와 뒤로 묶은 머리 */
-    p.rect(14, y + 1, 4, 2, K);
-    p.dot(15, y + 0, K);
-    p.rect(11, y + 3, 2, 3, K);
-    p.rect(10, y + 5, 2, 3, K);
-    /* 머리 */
-    p.rect(13, y + 3, 6, 8, K);
-    p.rect(12, y + 4, 1, 5, K);
-    p.dot(17, y + 6, E);
-    /* 목도리와 끝자락 (바람에 흔들림) */
-    p.rect(12, y + 11, 8, 3, G);
-    for (var k = 0; k < 3; k++) {
-      p.line(12, y + 12 + k, 4 + k, y + 17 + k + f, G);
-      p.line(11, y + 12 + k, 3 + k, y + 17 + k + f, G);
-    }
-    /* 몸통 */
-    p.rect(13, y + 14, 7, 11, K);
-    p.line(16, y + 14, 18, y + 17, G);
-    /* 허리띠 */
-    p.rect(13, y + 25, 7, 2, G);
-    /* 허리의 칼집 */
-    p.line(5, y + 28, 19, y + 24, G2);
-  }
-
-  function prosthetic(p, x, y, horizontal) {
-    if (horizontal) {
-      p.rect(x, y, 6, 3, G2);
-      p.dot(x + 2, y + 1, W2);
-      p.dot(x + 4, y + 1, W2);
-    } else {
-      p.rect(x, y, 3, 9, G2);
-      p.dot(x + 1, y + 3, W2);
-      p.dot(x + 1, y + 6, W2);
-      p.rect(x, y + 9, 3, 2, K);
-    }
-  }
-
-  function drawWolf(p, pose, f) {
-    if (pose === 'sit') {
-      wolfUpper(p, 9 + f, f);
-      prosthetic(p, 16, 26 + f, false);
-      p.rect(10, 36, 15, 3, K);
-      p.rect(9, 39, 17, 2, K);
-      p.rect(24, 39, 3, 2, K);
-      return;
-    }
-
-    /* 하카마와 다리 */
-    p.rect(12, 27, 9, 5, K);
-    p.rect(11, 31, 11, 3, K);
-    p.rect(13, 34, 3, 6, K);
-    p.rect(18, 34, 3, 6, K);
-    p.rect(13, 37, 3, 2, G);
-    p.rect(18, 37, 3, 2, G);
-    p.rect(12, 40, 4, 2, K);
-    p.rect(18, 40, 5, 2, K);
-
-    wolfUpper(p, f, f);
-
-    if (pose === 'guard') {             /* 칼을 뽑아 겨눔 */
-      p.rect(18, 18 + f, 5, 3, K);
-      prosthetic(p, 17, 20 + f, true);
-      p.rect(23, 18 + f, 2, 3, G2);
-      p.line(25, 18 + f, 31, 9 + f, L);
-      p.line(25, 17 + f, 30, 9 + f, L);
-    } else {
-      p.line(19, 24 + f, 23, 22 + f, K);  /* 칼자루 */
-      prosthetic(p, 16, 15 + f, false);
-    }
-  }
-
-  var SPRITES = { hanbei: drawHanbei, wolf: drawWolf };
   var BGS = {
     training: { draw: bgTraining, ground: 106, particles: 'leaves' },
+    trainingDawn: { draw: function () { return bgTraining('dawn'); }, ground: 106, particles: 'dust' },
     temple: { draw: bgTemple, ground: 101, particles: 'dust' },
+    templeEve: { draw: function () { return bgTemple('eve'); }, ground: 101, particles: 'leaves' },
+    templeNight: { draw: function () { return bgTemple('night'); }, ground: 101, particles: 'dust' },
     night: { draw: bgNight, ground: 101, particles: 'ash' },
     dark: { draw: bgDark, ground: 108, particles: 'ash' }
   };
@@ -999,16 +888,17 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     H: H,
     SPRITE_W: 34,
     SPRITE_H: 46,
-    SPRITE_FOOT: 43,   /* 스프라이트 이미지에서 발바닥 외곽선이 놓이는 행 */
+    SPRITE_FOOT: 45,   /* 스프라이트 이미지에서 발바닥 아래 경계가 놓이는 행 */
     PAL: PAL,
-    sprite: function (who, pose, frame) {
-      var key = 's:' + who + ':' + pose + ':' + (frame || 0);
+    /* 캐릭터 도트는 sprites.js. colorOn이면 늑대의 목도리 등에 색이 돌아온다 */
+    sprite: function (who, pose, frame, colorOn) {
+      var key = 's:' + who + ':' + pose + ':' + (frame || 0) + ':' + (colorOn ? 1 : 0);
       if (!cache[key]) {
         var p = new Painter(34, 46);
         p.ox = 1;
         p.oy = 1;
-        SPRITES[who](p, pose, frame || 0);
-        p.outline('#737373');
+        sw.spriteData.draw(p, who, pose, frame || 0, colorOn);
+        p.outline('#5e5e5e');
         cache[key] = p.url();
       }
       return cache[key];
@@ -1036,6 +926,9 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
              <<stage "hanbei" 76 "shoulder" "l">>  x(%) 또는 "dist", 자세, 방향(l/r)
              <<stage "wolf" "hide">>
              <<fx "shake">>                     shake | flash | arrow(화살이 화면을 가로지름)
+             <<tint "dawn">>                    none | warm | dawn | shura | dim (화면 색 번짐)
+             <<stage "all" "hide">>             모두 퇴장. 등장인물: hanbei wolf emma isshin genichiro
+   결말      <<ending "true">>                  결말 카드 + 기록 (id는 sw.endingDefs)
              <<memory "just">>                  인연 기억 카드 획득
    ========================================================= */
 (function () {
@@ -1043,19 +936,39 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 
   var sw = (setup.sw = setup.sw || {});
 
-  sw.names = { h: '한베', w: '늑대' };
+  sw.names = { h: '한베', w: '늑대', e: '에마', i: '잇신', g: '겐이치로' };
   sw.distX = [24, 40, 54, 60, 64];   /* 거리 단계별 늑대 위치 (한베는 76) */
 
   sw.memoryDefs = [
     { id: 'just', title: '그냥 온 날', text: '늑대는 검을 뽑지 않고 한베를 찾아갔다.' },
     { id: 'spar', title: '첫 대련', text: '익숙한 소리, 익숙한 자세, 익숙한 거리.' },
     { id: 'hurt', title: '아프냐고 물은 날', text: '한베가 먼저 검을 멈추고 물었다. 아프냐고.' },
-    { id: 'sit', title: '대련하지 않은 날' },
-    { id: 'sake', title: '잔을 나눈 날' },
-    { id: 'mask', title: '얼굴을 본 날' },
-    { id: 'envy', title: '끝을 부러워한 날' },
-    { id: 'away', title: '돌아가라던 날' }
+    { id: 'sit', title: '대련하지 않은 날', text: '검을 뽑지 않고 나란히 앉았다. 바람 소리만 들렸다.' },
+    { id: 'sake', title: '잔을 나눈 날', text: '취하는 법을 잊었다는 사람과 술잔 사이에 앉았다.' },
+    { id: 'mask', title: '얼굴을 본 날', text: '자네의 얼굴이 보고 싶다고, 늑대가 먼저 말했다.' },
+    { id: 'envy', title: '끝을 부러워한 날', text: '죽지 않는 무사가, 끝이라는 것이 부럽다고 했다.' },
+    { id: 'away', title: '돌아가라던 날', text: '밀어낸 만큼의 거리를, 검이 아니라 무릎으로 좁혔다.' }
   ];
+
+  /* 결말: 등급은 docs/Wolf_Sideways_Hanbei.md §4 */
+  sw.endingDefs = [
+    { id: 'true', grade: 'True End', title: '새벽의 대련' },
+    { id: 'empty', grade: 'End', title: '빈자리' },
+    { id: 'someday', grade: 'End', title: '언젠가의 끝' },
+    { id: 'distant', grade: 'End', title: '멀어지는 날들' },
+    { id: 'hilt', grade: 'Bad End', title: '잘 맞는 칼자루' },
+    { id: 'shura', grade: 'Shura End', title: '베어낸다' }
+  ];
+
+  sw.seenEndings = function () {
+    try { return recall('swEndings', []) || []; } catch (e) { return []; }
+  };
+  sw.recordEnding = function (id) {
+    try {
+      var seen = sw.seenEndings().slice();
+      if (seen.indexOf(id) === -1) { seen.push(id); memorize('swEndings', seen); }
+    } catch (e) { /* 저장소를 못 쓰는 환경 */ }
+  };
 
   /* ---------- SugarCube 설정 ---------- */
   Config.history.controls = false;
@@ -1067,8 +980,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   stage.innerHTML =
     '<img id="sw-bg" alt="">' +
     '<canvas id="sw-particles"></canvas>' +
-    '<img id="sw-sprite-wolf" class="sw-sprite" alt="" hidden>' +
-    '<img id="sw-sprite-hanbei" class="sw-sprite" alt="" hidden>' +
+    '<div id="sw-tint"></div>' +
     '<div id="sw-fx"></div>';
   document.body.insertBefore(stage, document.body.firstChild);
 
@@ -1086,10 +998,21 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   toast.id = 'sw-toast';
   document.body.appendChild(toast);
 
-  var spriteState = {
-    hanbei: { x: 76, pose: 'shoulder', facing: 'l', hidden: true },
-    wolf: { x: 24, pose: 'stand', facing: 'r', hidden: true }
-  };
+  /* 등장인물은 처음 무대에 오를 때 만든다 (hanbei, wolf, emma, isshin, genichiro) */
+  var spriteState = {};
+  function actor(who) {
+    if (!spriteState[who]) {
+      spriteState[who] = { x: 50, pose: who === 'wolf' || who === 'hanbei' ? 'stand' : 'stand', facing: 'r', hidden: true };
+      var el = document.createElement('img');
+      el.id = 'sw-sprite-' + who;
+      el.className = 'sw-sprite';
+      el.alt = '';
+      el.hidden = true;
+      stage.insertBefore(el, document.getElementById('sw-tint'));
+      sw.layout();
+    }
+    return spriteState[who];
+  }
   var currentBg = 'dark';
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var idleFrame = 0;
@@ -1114,7 +1037,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     });
 
     var feet = view.top + A.ground(currentBg) * s;
-    ['wolf', 'hanbei'].forEach(function (who) {
+    Object.keys(spriteState).forEach(function (who) {
       var el = document.getElementById('sw-sprite-' + who);
       el.style.width = A.SPRITE_W * view.ss + 'px';
       el.style.height = A.SPRITE_H * view.ss + 'px';
@@ -1129,7 +1052,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     el.hidden = s.hidden;
     if (s.hidden) { return; }
     var frame = reducedMotion ? 0 : (idleFrame + (who === 'wolf' ? 1 : 0)) % 2;
-    el.src = sw.art.sprite(who, s.pose, frame);
+    el.src = sw.art.sprite(who, s.pose, frame, !!State.variables.color);
     el.style.left = s.x + '%';
     el.classList.toggle('sw-face-left', s.facing === 'l');
   }
@@ -1150,8 +1073,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   if (!reducedMotion) {
     setInterval(function () {
       idleFrame = (idleFrame + 1) % 2;
-      renderSprite('wolf');
-      renderSprite('hanbei');
+      Object.keys(spriteState).forEach(renderSprite);
     }, 700);
   }
 
@@ -1238,8 +1160,11 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   window.addEventListener('resize', sw.layout);
 
   sw.setSprite = function (who, x, pose, facing) {
-    var s = spriteState[who];
-    if (!s) { return; }
+    if (who === 'all') {
+      Object.keys(spriteState).forEach(function (k) { spriteState[k].hidden = true; renderSprite(k); });
+      return;
+    }
+    var s = actor(who);
     if (x === 'hide') { s.hidden = true; renderSprite(who); return; }
     s.hidden = false;
     if (x === 'dist') { x = sw.distX[Math.min(State.variables.hanbeiDist || 0, sw.distX.length - 1)]; }
@@ -1247,6 +1172,12 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
     if (pose) { s.pose = pose; }
     if (facing) { s.facing = facing; }
     renderSprite(who);
+  };
+
+  /* 화면 전체 색 번짐: none | warm(따뜻한 빛) | dawn(새벽, 색이 번진다) | shura(붉음) | dim */
+  sw.setTint = function (name) {
+    var el = document.getElementById('sw-tint');
+    el.className = name && name !== 'none' ? 'sw-tint-' + name : '';
   };
 
   sw.fx = function (kind) {
@@ -1290,6 +1221,13 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
         (has ? '「' + def.title + '」' : '???') + '</div>' +
         (has && def.text ? '<div class="sw-mem-text">' + def.text + '</div>' : '') + '</li>';
     });
+    var seen = sw.seenEndings();
+    html += '</ul><div class="sw-mem-head sw-mem-head-2">결말 ' + seen.length + '/' + sw.endingDefs.length + '</div><ul>';
+    sw.endingDefs.forEach(function (def) {
+      var has = seen.indexOf(def.id) !== -1;
+      html += '<li class="' + (has ? 'sw-has' : 'sw-locked') + '"><div class="sw-mem-title">' +
+        (has ? '[' + def.grade + '] ' + def.title : '???') + '</div></li>';
+    });
     html += '</ul><button type="button" class="sw-mem-close">닫는다</button></div>';
     memPanel.innerHTML = html;
     memPanel.hidden = false;
@@ -1312,6 +1250,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
       case 'bg': sw.setBg(args[0]); break;
       case 'stage': sw.setSprite(args[0], args[1], args[2], args[3]); break;
       case 'fx': sw.fx(args[0]); break;
+      case 'tint': sw.setTint(args[0]); break;
       case 'memory': sw.showToast(args[0]); break;
     }
   }
@@ -1410,6 +1349,9 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   addBeat('n', 'n');
   addBeat('h', 'h');
   addBeat('w', 'w');
+  addBeat('e', 'e');
+  addBeat('i', 'i');
+  addBeat('g', 'g');
   addBeat('note', 'n', 'sw-note');
 
   Macro.add('caption', {
@@ -1419,6 +1361,23 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
       el.innerHTML = '<div class="sw-caption-main"></div><div class="sw-caption-sub"></div>';
       el.firstChild.textContent = this.args[0] || '';
       el.lastChild.textContent = this.args[1] || '';
+      this.output.appendChild(el);
+    }
+  });
+
+  /* <<ending "true">>: 결말 카드. 렌더 시점에 기록한다 */
+  Macro.add('ending', {
+    handler: function () {
+      var id = this.args[0], def = null;
+      sw.endingDefs.forEach(function (d) { if (d.id === id) { def = d; } });
+      if (!def) { return this.error('unknown ending: ' + id); }
+      sw.recordEnding(id);
+      State.variables.lastEnding = id;
+      var el = document.createElement('div');
+      el.className = 'sw-item sw-beat sw-caption sw-ending sw-ending-' + id;
+      el.innerHTML = '<div class="sw-caption-sub"></div><div class="sw-caption-main"></div><div class="sw-ending-note">기록장에 새로운 결말이 남았다.</div>';
+      el.children[0].textContent = def.grade;
+      el.children[1].textContent = def.title;
       this.output.appendChild(el);
     }
   });
@@ -1451,10 +1410,422 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   addCue('bg');
   addCue('stage');
   addCue('fx');
+  addCue('tint');
   addCue('memory', function () {
     var list = State.variables.memories;
     if (list.indexOf(this.args[0]) === -1) { list.push(this.args[0]); }
   });
+})();
+/* twine-user-script #3: "sprites.js" */
+/* =========================================================
+   Wolf: Sideways — 캐릭터 도트 데이터 (32x44, 오른쪽을 보는 기준)
+   한 줄 = "시작열:픽셀들". '.'는 투명, '_'는 지우기.
+   빛은 왼쪽 위에서. 발바닥은 43행.
+
+   디자인 메모
+   - 한베: 텐구풍 차림. 토킨(작은 검은 모자), 코가 긴 반가면, 가슴의 방울 장식(본텐),
+           낡은 갑옷의 어깨·허리 미늘. 원작에서 확인한 것은 "텐구풍 가면과 갑옷"까지이고
+           토킨·본텐은 텐구/야마부시 차림에서 가져온 해석이다.
+   - 늑대: 헝클어진 상투, 해진 목도리(원작은 주황 — 4일차부터 색이 돌아온다), 겉옷,
+           왼팔 의수(관절), 왼허리의 쿠사비마루, 밝은 각반.
+   ========================================================= */
+(function () {
+  'use strict';
+
+  var sw = (setup.sw = setup.sw || {});
+
+  var GREY = {
+    k: '#080808', d: '#181818', m: '#272727', g: '#3a3a3a', l: '#555555',
+    L: '#7c7c7c', w: '#a9a9a9', W: '#dddddd', f: '#8b8b8b', F: '#646464',
+    S: '#8e8e8e', s: '#5f5f5f', o: '#e08a3c', O: '#f6c27a', r: '#9e2b25'
+  };
+  var COLOR = { S: '#c8692e', s: '#86401f' };   /* 색이 돌아온 뒤의 목도리 */
+
+  /* ---------- 한베 ---------- */
+  var H_UPPER = [
+    '',
+    '14:kk',
+    '13:kmmk',
+    '12:kmggmk',
+    '12:kkmmkk',
+    '10:kdddddddk',
+    '9:kdddddddddddk',
+    '9:kddddddffffk',
+    '9:kddddddfkffk',
+    '9:kdddddkLLLLwwwwk',
+    '9:kdddddkLLLLLLLLk',
+    '9:kdddddkLgLgLk',
+    '10:kddddkLLLLk',
+    '10:kkkkkkkkkk',
+    '11:kmmmmmmk',
+    '5:kkkkkkkkkkkkkkkk',
+    '4:kgggggkgggggggkdWWk',
+    '4:kmmmmmkmmmmmmmkWwwWk',
+    '4:kkkkkkkkkkkkkkkWwwWk',
+    '4:kgggggkgggggggkdWWk',
+    '4:kmmmmmkmmmmmmmkWwwWk',
+    '5:kkkkkkkkkkkkkkWwwWk',
+    '9:kddddddddkdWWk',
+    '9:kddddddddkWwwWk',
+    '9:kddddddddkkWWkk',
+    '9:kggggggggggggk',
+    '8:kmmmkmmmkmmmkmmmk',
+    '8:kgmmkgmmkgmmkgmmk',
+    '7:kmmmmkmmmmkmmmmkmmmk',
+    '7:kgmmmkgmmmkgmmmkgmmk',
+    '7:kmmmmkmmmmkmmmmkmmmk',
+    '7:kkkkkkkkkkkkkkkkkkkk'
+  ];
+  var H_LEGS = [
+    '9:kddddk..kddddk',
+    '9:kddddk..kddddk',
+    '9:kmgmmk..kmgmmk',
+    '9:kddddk..kddddk',
+    '10:kddk....kddk',
+    '10:kLLk....kLLk',
+    '10:kggk....kggk',
+    '10:kggk....kggk',
+    '10:kggk....kggk',
+    '9:kkddkk..kkddkk',
+    '9:kddddddk.kddddddk',
+    '9:kkkkkkkk.kkkkkkkk'
+  ];
+  var H_LAP = [
+    '6:kddddddddddddddddddk',
+    '5:kdgmmmmmmmmmmmmmmgmdk',
+    '5:kdddddddddddddddddddddk',
+    '5:kmmmmmmmmmmmmmmmmmmmmmk',
+    '5:kddddddddddddddddddddddkk',
+    '5:kkkkkkkkkkkkkkkkkkkkkkkkk'
+  ];
+  var H_ARM_HANG = ['kmmmk', 'kdddk', 'kdddk', '.kddk', '.kddk', '.kmmmk', '..kkk'];
+  var H_ARM_KNEE = ['kmmmk', '.kdddk', '..kdddk', '...kdddk', '....kmmmk', '.....kkk'];
+  var H_ARM_CARRY = [
+    '........kmmk',
+    '.......kddk',
+    '......kddk',
+    '.kmmmkddk',
+    '.kdddddk',
+    '..kkkkk'
+  ];
+  var H_ARM_DRAW = ['kmmmk', 'kddddkkk', '.kddddddmk', '..kkkkkkk'];
+  var H_ARM_CUP = [
+    '.......koOk',
+    '......kmmk',
+    '.....kddk',
+    '.kmmkddk',
+    '.kdddddk',
+    '..kkkkk'
+  ];
+  var H_FACE = [                 /* 가면을 벗은 얼굴 (9~12행 위에 덮는다) */
+    '15:kffffk____',
+    '15:kffffFk___',
+    '15:kfFFfk',
+    '15:kffffk'
+  ];
+  var H_MASK_HELD = ['kLLLLwwk', 'kLgLgLk', '.kkkkk'];
+
+  /* ---------- 늑대 ---------- */
+  var W_UPPER = [
+    '14:k',
+    '12:kkdk.k',
+    '11:kddddkdk',
+    '10:kddddddk',
+    '8:kkdddddddddk',
+    '7:kdddddddddffk',
+    '6:kddddddddddfffk',
+    '6:kdddddddddffkfk',
+    '7:kddddddddfffffk',
+    '8:kddddddkfffFk',
+    '9:kddddkkFFFk',
+    '7:kSSSSSSSSSSSSk',
+    '4:kSSSsSSSSSSSSSSSk',
+    '2:kSSsk.kgSSSSSSSgk',
+    '1:kSsk..kggsSSSsggk',
+    '0:kSk...kgggssgggggk',
+    '0:kk....kgmmmmmmmggk',
+    '8:kgmmmmmmmmgk',
+    '8:kgmmmmmmmmgk',
+    '8:kgmmmmmmmmgk',
+    '8:kggmmmmmmggk',
+    '8:kllllllllllk',
+    '8:kgmmmmmmmmmgk',
+    '7:kgmmmmmmmmmmgk',
+    '7:kgmmmmmmmmmmgk',
+    '6:kgmmmmmmmmmmmmgk',
+    '6:kgmgmmmgmmmgmmgk',
+    '6:kk.kkk.kkk.kk.kk'
+  ];
+  var W_LEGS = [                 /* 27행부터 */
+    '9:kddddk.kddddk',
+    '9:kddddk.kddddk',
+    '9:kddddk.kddddk',
+    '9:kddddk.kddddk',
+    '9:kddddk.kddddk',
+    '9:kddddk.kddddk',
+    '10:kddk...kddk',
+    '10:kLLk...kLLk',
+    '10:kLlk...kLlk',
+    '10:kLLk...kLLk',
+    '10:kLlk...kLlk',
+    '10:kLLk...kLLk',
+    '10:kLlk...kLlk',
+    '10:kLLk...kLLk',
+    '9:kkddkk.kkddkk',
+    '9:kddddddkddddddk',
+    '9:kkkkkkkkkkkkkkk'
+  ];
+  var W_LAP = [
+    '6:kddddddddddddddddk',
+    '5:kdgddddddddddddgdk',
+    '5:kLLdddddddddddLLddk',
+    '5:kddddddddddddddddddkk',
+    '5:kdddddddddddddddddddkk',
+    '5:kkkkkkkkkkkkkkkkkkkkkk'
+  ];
+  var W_ARM_HANG = ['kLLk', 'kLlk', 'klLk', 'kmmk', 'kmgk', 'kLLk', 'kllk', 'kmmk', 'klllk', 'kLkLk', '.k.k'];
+  var W_ARM_GUARD = ['kLLk', 'kLlk', '.klLk', '..kmmkk', '...kmmLLk', '....kkLLLkk', '.......kkk'];
+  var W_ARM_CUP = ['kLLk', 'kLlk', 'klLk', 'kmmk', 'kmgkk', '.kLLLk', '..kllkkoOk', '...kmmmkk'];
+  var W_ARM_REACH = ['kLLk', 'kLlkkkkkkkkk', 'klLLLlLLLlLLk', '.kkkkkkkkkkkWk'];
+
+  /* ---------- 조연 ---------- */
+  var EMMA = [
+    '', '', '', '',
+    '13:kkk',
+    '12:kdddk',
+    '11:kkdddkk',
+    '10:kddddddk',
+    '9:kdddddddk',
+    '9:kddddffffk',
+    '9:kdddfffkfk',
+    '9:kdddffffk',
+    '10:kddfffk',
+    '10:kkffkk',
+    '9:kLLLwLLLk',
+    '8:kLLLLwLLLLk',
+    '8:kLLLLLwLLLk',
+    '8:kLLLLLLLLLk',
+    '8:kLlLLLLLlLk',
+    '8:kmmmmmmmmmk',
+    '8:kmgmmmmmmmk',
+    '8:kLLLLLLLLLk',
+    '8:kLLLLLLLLLk',
+    '8:kLLLLLLLLLk',
+    '8:kLlLLLLLLLk',
+    '8:kLLLLLLLLLk',
+    '8:kLLLLLLLLLLk',
+    '8:kLLLLLLLLLLk',
+    '7:kLlLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLLlLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLlLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLlLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kLLLLLLLLLLLk',
+    '7:kkkkkkkkkkkkk',
+    '8:kddk..kdddk',
+    '8:kkkk..kkkkk'
+  ];
+  var EMMA_ARM = ['kLLLk', 'kLLLLk', 'kLLLLLk', '.kLLLLLk', '..kkfkgk', '....kggk', '....kkkk'];
+
+  var ISSHIN = [
+    '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+    '12:kwwk',
+    '11:kwWWwk',
+    '10:kwwwwwwk',
+    '9:kwwwwwwffk',
+    '9:kwwwwfkffk',
+    '9:kwwwwffffk',
+    '10:kwwwWWWk',
+    '10:kkwWWWkk',
+    '7:kmmmmLLLmmmk',
+    '6:kmmmmmmLmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kmgmmmmmmmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kmmmmmmmmmmmmmk',
+    '6:kgggggggggggggk',
+    '5:kmmmmmmmmmmmmmmmk',
+    '5:kmmmmmmmmmmmmmmmk',
+    '5:kmmmmmmmmmmmmmmmk',
+    '5:kmmmmmmmmmmmmmmmk',
+    '5:kddddddddddddddddddk',
+    '4:kdgddddddddddddddgddk',
+    '4:kddddddddddddddddddddk',
+    '4:kddddddddddddddddddddk',
+    '4:kddddddddddddddddddddk',
+    '4:kkkkkkkkkkkkkkkkkkkkkk'
+  ];
+  var ISSHIN_GOURD = ['.kk', 'kLLk', 'kwLk', '.kk', 'kLLLk', 'kLwLLk', 'kLLLLk', 'kLLLLk', '.kkkk'];
+  var ISSHIN_ARM = ['kmmmk', '.kmmmk', '..kmmmk', '...kffk', '....kk'];
+
+  var GEN_HEAD = [
+    '',
+    '13:kkk',
+    '12:kdddk',
+    '11:kdddddk',
+    '10:kdddddddk',
+    '9:kdddddddddk',
+    '8:kddddddddffk',
+    '7:kdddddddddfkk',
+    '6:kddddddddddffk',
+    '6:kdddddddddfffk',
+    '5:kddddddddkFfk',
+    '5:kdddddddkkkk',
+    '5:kdddddddk',
+    '6:kdddddk'
+  ];
+
+  /* ---------- 그리기 ---------- */
+  function stamp(p, rows, ox, oy, pal) {
+    for (var y = 0; y < rows.length; y++) {
+      var row = rows[y];
+      if (!row) { continue; }
+      var off = 0, m = /^(\d+):(.*)$/.exec(row);
+      if (m) { off = Number(m[1]); row = m[2]; }
+      for (var i = 0; i < row.length; i++) {
+        var ch = row.charAt(i);
+        if (ch === '.') { continue; }
+        var x = ox + off + i, yy = oy + y;
+        if (ch === '_') {
+          p.g.clearRect(x + p.ox, yy + p.oy, 1, 1);
+        } else {
+          p.dot(x, yy, pal[ch] || '#ff00ff');
+        }
+      }
+    }
+  }
+
+  function line(p, x0, y0, x1, y1, col) { p.line(x0, y0, x1, y1, col); }
+
+  /* 겐이치로 상체: 한베의 갑옷 몸통에서 방울 장식을 빼고 긴 머리를 얹는다 */
+  var GEN_UPPER = GEN_HEAD.concat(H_UPPER.slice(14).map(function (row) {
+    var m = /^(\d+):(.*)$/.exec(row);
+    if (!m) { return row; }
+    var off = Number(m[1]), s = m[2].replace(/[Ww]/g, 'd');
+    var cut = Math.max(0, 19 - off);
+    if (off + s.length > 20 && /W|w/.test(m[2])) { s = s.slice(0, cut) + 'k'; }
+    return off + ':' + s;
+  }));
+
+  var POSES = {
+    hanbei: function (p, pose, f, pal) {
+      var sit = /^sit|^unmask/.test(pose);
+      var dy = (sit ? 10 : 0) + f;
+      if (pose === 'shoulder') {          /* 칼날은 몸 뒤로 */
+        line(p, 21, 18 + f, 1, 6 + f, pal.W);
+        line(p, 21, 19 + f, 1, 7 + f, pal.w);
+      }
+      if (pose === 'rest') { line(p, 2, 43, 30, 43, pal.W); stamp(p, ['kgggk'], 0, 43, pal); }
+      if (sit) { line(p, 0, 43, 4, 43, pal.W); }
+      if (!sit) { stamp(p, H_LEGS, 0, 32, pal); }
+      stamp(p, H_UPPER, 0, dy, pal);
+      if (sit) { stamp(p, H_LAP, 0, 38, pal); }
+
+      if (pose === 'shoulder') {
+        stamp(p, H_ARM_CARRY, 12, 19 + f, pal);
+        stamp(p, ['kgk', 'klk', 'kgk'], 21, 17 + f, pal);
+      } else if (pose === 'draw') {
+        stamp(p, H_ARM_DRAW, 12, 21 + f, pal);
+        line(p, 22, 22 + f, 24, 21 + f, pal.g);
+        line(p, 25, 20 + f, 31, 13 + f, pal.W);
+        line(p, 25, 21 + f, 31, 14 + f, pal.w);
+      } else if (pose === 'stand') {
+        stamp(p, H_ARM_KNEE, 13, 22 + f, pal);
+        stamp(p, ['kgk', 'klk', 'klk', 'kgk', 'kLk'], 21, 24, pal);
+        stamp(p, ['kwwwk'], 20, 29, pal);
+        line(p, 22, 30, 22, 42, pal.W);
+        line(p, 23, 30, 23, 42, pal.w);
+      } else if (pose === 'sitcup') {
+        stamp(p, H_ARM_CUP, 12, 20 + dy, pal);
+      } else if (pose === 'unmask') {
+        stamp(p, H_FACE, 0, 9 + dy, pal);
+        stamp(p, H_ARM_KNEE, 13, 22 + dy - 4, pal);
+        stamp(p, H_MASK_HELD, 19, 35, pal);
+      } else if (sit) {
+        stamp(p, H_ARM_KNEE, 13, 22 + dy - 4, pal);
+      } else {
+        stamp(p, H_ARM_HANG, 12, 22 + f, pal);
+      }
+    },
+
+    wolf: function (p, pose, f, pal) {
+      var sit = /^sit|^reach/.test(pose);
+      var dy = (sit ? 10 : 0) + f;
+      if (sit) {
+        line(p, 1, 43, 14, 43, pal.m);
+      } else {
+        stamp(p, W_LEGS, 0, 27, pal);
+      }
+      stamp(p, W_UPPER, 0, dy, pal);
+      /* 목도리 끝자락이 숨쉬기와 엇갈려 흔들린다 */
+      if (f) { stamp(p, ['kSk', 'kk'], 0, 16 + dy - f, pal); }
+      if (sit) { stamp(p, W_LAP, 0, 38, pal); }
+      /* 왼허리의 쿠사비마루 */
+      line(p, 3, 22 + dy, 15, 19 + dy, pal.m);
+      line(p, 3, 23 + dy, 15, 20 + dy, pal.g);
+      if (pose !== 'guard') {
+        stamp(p, ['w'], 15, 19 + dy, pal);
+        line(p, 16, 19 + dy, 20, 17 + dy, pal.L);
+        line(p, 16, 18 + dy, 19, 17 + dy, pal.l);
+      }
+
+      if (pose === 'guard') {
+        stamp(p, W_ARM_GUARD, 11, 13 + dy, pal);
+        line(p, 22, 17 + dy, 31, 8 + dy, pal.W);
+        line(p, 22, 18 + dy, 31, 9 + dy, pal.w);
+      } else if (pose === 'sitcup') {
+        stamp(p, W_ARM_CUP, 11, 13 + dy, pal);
+      } else if (pose === 'reach') {
+        stamp(p, W_ARM_REACH, 11, 13 + dy, pal);
+      } else {
+        stamp(p, W_ARM_HANG, 11, 13 + dy, pal);
+      }
+    },
+
+    emma: function (p, pose, f, pal) {
+      stamp(p, EMMA, 0, 0, pal);
+      stamp(p, EMMA_ARM, 11, 15 + f, pal);
+    },
+
+    isshin: function (p, pose, f, pal) {
+      stamp(p, ISSHIN, 0, f, pal);
+      stamp(p, ISSHIN_GOURD, 20, 22 + f, pal);
+      stamp(p, ISSHIN_ARM, 15, 23 + f, pal);
+    },
+
+    genichiro: function (p, pose, f, pal) {
+      /* 등 뒤의 큰 활 */
+      line(p, 25, 1, 29, 12, pal.m);
+      line(p, 29, 12, 30, 22, pal.m);
+      line(p, 30, 22, 29, 32, pal.m);
+      line(p, 29, 32, 25, 42, pal.m);
+      line(p, 25, 1, 25, 42, pal.L);
+      stamp(p, H_LEGS, 0, 32, pal);
+      stamp(p, GEN_UPPER, 0, f, pal);
+      stamp(p, H_ARM_KNEE, 13, 22 + f, pal);
+    }
+  };
+
+  sw.spriteData = {
+    draw: function (p, who, pose, frame, colorOn) {
+      var pal = {};
+      for (var k in GREY) { pal[k] = GREY[k]; }
+      if (colorOn) { for (var c in COLOR) { pal[c] = COLOR[c]; } }
+      (POSES[who] || POSES.wolf)(p, pose, frame || 0, pal);
+    },
+    rows: { H_UPPER: H_UPPER, H_LEGS: H_LEGS, W_UPPER: W_UPPER, W_LEGS: W_LEGS }
+  };
 })();
 </script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">/* Sideways 한베 루트 변수. 기획: docs/Wolf_Sideways_Hanbei.md */
 &lt;&lt;set $day to 1&gt;&gt;
@@ -1465,12 +1836,23 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 &lt;&lt;set $memories to []&gt;&gt;         /* 인연 기억 카드 id 목록 */
 &lt;&lt;set $hanbeiSkips to 0&gt;&gt;       /* 한베를 찾아가지 않은 날 수 */
 &lt;&lt;set $hanbeiApologized to false&gt;&gt;  /* 2일차: 미안하다고 했는가 */
-&lt;&lt;set $honestToday to false&gt;&gt;   /* 그날 솔직했는가 (하루 끝에 균열 +1) */</tw-passagedata><tw-passagedata pid="2" name="Start" tags="title nobr" position="225,100" size="100,100">&lt;&lt;bg &quot;night&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;hide&quot;&gt;&gt;
+&lt;&lt;set $honestToday to false&gt;&gt;   /* 그날 솔직했는가 (하루 끝에 균열 +1) */
+&lt;&lt;set $shura to 0&gt;&gt;             /* 수라 씨앗: 베는 쪽으로 기운 선택 수. 3 이상이면 마지막에 수라 선택지 */
+&lt;&lt;set $color to false&gt;&gt;         /* 4일차 술잔 이후 색이 돌아온다 (늑대의 목도리 등) */
+&lt;&lt;set $hanbeiSake to false&gt;&gt;    /* 4일차: 잔을 받았는가 */
+&lt;&lt;set $lookedMask to false&gt;&gt;    /* 4일차: 술잔 대신 얼굴을 보았는가 */
+&lt;&lt;set $saidNoCut to false&gt;&gt;     /* 6일차: 베고 싶지 않다고 말했는가 */
+&lt;&lt;set $promised to false&gt;&gt;      /* 6일차: 부탁을 받아들였는가 */
+&lt;&lt;set $sawFace to false&gt;&gt;       /* 6일차: 가면 아래 얼굴을 보았는가 */
+&lt;&lt;set $leftHim to false&gt;&gt;       /* 7일차: 돌아섰는가 */
+&lt;&lt;set $emptyKind to &quot;silence&quot;&gt;&gt;
+&lt;&lt;set $lastEnding to &quot;&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Start" tags="title nobr" position="225,100" size="100,100">&lt;&lt;bg &quot;night&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;hide&quot;&gt;&gt;
 &lt;div class=&quot;sw-title&quot;&gt;
   &lt;div class=&quot;sw-title-logo&quot;&gt;WOLF&lt;/div&gt;
   &lt;div class=&quot;sw-title-sub&quot;&gt;— SIDEWAYS —&lt;/div&gt;
   &lt;div class=&quot;sw-title-copy&quot;&gt;검을 거두고, 그냥 찾아간다.&lt;/div&gt;
   &lt;div class=&quot;sw-title-menu&quot;&gt;[[처음부터|Intro]]&lt;/div&gt;
+  &lt;&lt;if setup.sw.seenEndings().length gt 0&gt;&gt;&lt;div class=&quot;sw-title-record&quot;&gt;본 결말 &lt;&lt;= setup.sw.seenEndings().length&gt;&gt; / &lt;&lt;= setup.sw.endingDefs.length&gt;&gt;&lt;/div&gt;&lt;&lt;/if&gt;&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="Intro" tags="dark" position="350,100" size="100,100">&lt;&lt;bg &quot;dark&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;hide&quot;&gt;&gt;
 &lt;&lt;n&gt;&gt;
 전란의 시대였다.
@@ -1983,7 +2365,8 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 
 그거면 됐어.
 &lt;&lt;/h&gt;&gt;
-&lt;&lt;include &quot;D2_Q2&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="D2_Q1_Continue" tags="" position="225,350" size="100,100">&lt;&lt;stage &quot;wolf&quot; 56 &quot;guard&quot;&gt;&gt;
+&lt;&lt;include &quot;D2_Q2&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="D2_Q1_Continue" tags="" position="225,350" size="100,100">&lt;&lt;set $shura += 1&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 56 &quot;guard&quot;&gt;&gt;
 &lt;&lt;h&gt;&gt;
 싫네.
 
@@ -2093,7 +2476,8 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 &lt;&lt;h&gt;&gt;
 사는 연습.
 &lt;&lt;/h&gt;&gt;
-&lt;&lt;include &quot;D2_Leave&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="D2_Weapon" tags="" position="100,475" size="100,100">&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 70 &quot;stand&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 56 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;include &quot;D2_Leave&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="D2_Weapon" tags="" position="100,475" size="100,100">&lt;&lt;set $shura += 1&gt;&gt;
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 70 &quot;stand&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 56 &quot;stand&quot; &quot;r&quot;&gt;&gt;
 &lt;&lt;w&gt;&gt;
 불사는 무기다.
 &lt;&lt;/w&gt;&gt;
@@ -2200,13 +2584,58 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 혼자가 아닌 밤도 있다.
 &lt;&lt;/n&gt;&gt;
 &lt;&lt;choices&gt;&gt;
-[[날이 밝는다|D2_End]]
-&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="D2_End" tags="" position="600,475" size="100,100">&lt;&lt;set $day to 3&gt;&gt;
-&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+[[날이 밝는다|D3_Morning]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="D3_Morning" tags="" position="600,475" size="100,100">/* 3일째 — 한베: 대련하지 않은 날. 원문 hanbei.twee Hanbei03_* / 밤: 겐이치로 */
+&lt;&lt;set $day to 3&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 50 &quot;stand&quot; &quot;r&quot;&gt;&gt;
 &lt;&lt;caption &quot;3일째&quot; &quot;낮&quot;&gt;&gt;
+&lt;&lt;if $skippedYesterday&gt;&gt;
+&lt;&lt;n&gt;&gt;
+아침이 왔다.
+
+오늘은 검 소리가 들리지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그래서 더,
+훈련장 쪽이 신경 쓰였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;n&gt;&gt;
+아침이 왔다.
+
+오늘은 검 소리가 들리지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+대신, 훈련장 쪽에서
+누군가 흥얼거리는 소리가 났다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 어디로 향하나?
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[훈련장으로 간다|D3_Training]]
+[[절에 머문다|D3_StayTemple]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="D3_StayTemple" tags="" position="725,475" size="100,100">&lt;&lt;set $skippedYesterday to true&gt;&gt;&lt;&lt;set $hanbeiSkips += 1&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 50 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 절에 머물렀다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+하루 종일 검 소리는 들리지 않았다.
+
+흥얼거리던 소리도,
+해가 질 무렵에는 그쳤다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D3_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="D3_Training" tags="" position="850,475" size="100,100">&lt;&lt;set $hanbeiVisits += 1&gt;&gt;
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;
 &lt;&lt;n&gt;&gt;
 한베는 오늘,
 검을 뽑지 않고 앉아 있었다.
+
+검은 그의 곁 흙바닥에 눕혀져 있었다.
 &lt;&lt;/n&gt;&gt;
 &lt;&lt;if $skippedYesterday and $hanbeiSkips gte 2&gt;&gt;
 &lt;&lt;h&gt;&gt;
@@ -2232,10 +2661,1769 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
 오늘은 대련 안 하네.
 &lt;&lt;/h&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;note&gt;&gt;
-— 2일차 끝 · 3일차는 아직 만들어지지 않았다 —
-&lt;&lt;/note&gt;&gt;
+&lt;&lt;set $skippedYesterday to false&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 검집에 손을 얹은 채 가만히 서 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……?
+
+왜 그러나? 설마 다쳤나?
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+아니다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그럼.
+
+오늘은 안 베나?
+&lt;&lt;/h&gt;&gt;
 &lt;&lt;choices&gt;&gt;
+[[그냥 왔다|D3_Just]]
+[[한 수 부탁한다|D3_Fight]]
+[[돌아간다|D3_Leave]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="D3_Just" tags="" position="975,475" size="100,100">&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그냥 왔다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+잠시 침묵.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……
+
+뭐?
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+바람이 분다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그냥.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+잠시.
+
+정말 잠시.
+
+한베가 말을 잃는다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하하하하하!
+
+그게 뭔가!
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;if $memories.includes(&quot;just&quot;)&gt;&gt;
+&lt;&lt;h&gt;&gt;
+또 그냥이라니.
+
+자네, 그 말에 맛을 들였군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그냥?
+
+진짜 그냥 왔단 말인가?
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그렇다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+이야.
+
+살다 보니 별일이 다 있군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+좋아. 그럼 오늘은 쉬자.
+
+앉게.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[곁에 앉는다|D3_Sit]]
+[[선 채로 있는다|D3_Stand]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="D3_Sit" tags="" position="1100,475" size="100,100">&lt;&lt;set $hanbeiDist to Math.max($hanbeiDist, 2)&gt;&gt;
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 63 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 말없이 그의 곁에 앉았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……
+
+이거 좀 신기하군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+뭐가?
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네와 이렇게 있는 거 말일세.
+
+생각보다 나쁘지 않더군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+잠시 침묵.
+
+바람 소리만 들린다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+아.
+
+오해는 하지 말게.
+대련 안 해서 좋다는 말이야.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그는 웃었다.
+
+하지만.
+그 웃음은 평소보다 조금 조용했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;note&gt;&gt;
+거리가 조금 줄었다.
+&lt;&lt;/note&gt;&gt;
+&lt;&lt;memory &quot;sit&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[해가 질 때까지 앉아 있는다|D3_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="D3_Stand" tags="" position="1225,475" size="100,100">&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;if $memories.includes(&quot;just&quot;) and $hanbeiDist lt 1&gt;&gt;
+&lt;&lt;h&gt;&gt;
+서서 쉬는 사람은
+두 번째 보는군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;h&gt;&gt;
+앉으라니까.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 그 자리에 서서 바람을 맞았다.
+
+한베도 더 권하지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……뭐, 그것도 자네 방식이지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+둘은 그렇게,
+검을 뽑지 않은 채 해를 보냈다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;memory &quot;sit&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[해가 진다|D3_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="D3_Fight" tags="" position="100,600" size="100,100">&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;w&gt;&gt;
+한 수 부탁하지.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하하.
+
+역시 그럴 줄 알았네. 좋아.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;stage &quot;hanbei&quot; 76 &quot;draw&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;guard&quot;&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그럼 조금만 봐주게.
+
+솔직히 어제 것도 아직 아프거든.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 52&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 68&gt;&gt;&lt;&lt;fx &quot;shake&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+챙.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; &quot;dist&quot; &quot;stand&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;stand&quot;&gt;&gt;
+&lt;&lt;if $honestToday&gt;&gt;
+&lt;&lt;h&gt;&gt;
+아프다는 말, 해보니 별거 아니더군.
+
+자네한테 배운 걸세.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……음.
+
+오늘은 자네 검이 좀 무겁군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[해가 진다|D3_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="D3_Leave" tags="" position="225,600" size="100,100">&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 76 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;w&gt;&gt;
+가보겠다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+어이.
+
+왔다가 그냥 가는 건 또 처음이군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하하하.
+
+다음엔 좀 더 있다 가게.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D3_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="D3_Night" tags="night" position="350,600" size="100,100">&lt;&lt;bg &quot;night&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 32 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;3일째&quot; &quot;밤&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+지붕 위.
+
+누군가 먼저 와 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;genichiro&quot; 70 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;g&gt;&gt;
+……늑대인가.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;if $hanbeiVisits gte 2&gt;&gt;
+&lt;&lt;g&gt;&gt;
+요즘 그 죽지 않는 무사에게
+자주 간다지.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;g&gt;&gt;
+요즘 절 근처를
+서성인다지.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;g&gt;&gt;
+베지도 못할 상대에게 검을 뽑는 건,
+연습인가. 미련인가.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[연습이다.|D3_Gen_Practice]]
+[[미련이다.|D3_Gen_Lingering]]
+[[……|D3_Gen_Silence]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="D3_Gen_Practice" tags="" position="475,600" size="100,100">&lt;&lt;w&gt;&gt;
+연습이다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;g&gt;&gt;
+그렇다면 다행이군.
+
+그 검은 아직,
+베어야 할 것을 향해 있겠지.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;include &quot;D3_Gen_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="D3_Gen_Lingering" tags="" position="600,600" size="100,100">&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;w&gt;&gt;
+미련이다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;g&gt;&gt;
+……미련이라.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;g&gt;&gt;
+칼을 쥔 자가 할 말은 아니군.
+
+……그러나 나쁘지 않은 대답이다.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;include &quot;D3_Gen_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="D3_Gen_Silence" tags="" position="725,600" size="100,100">&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;g&gt;&gt;
+대답이 없군.
+
+뭐, 그것도 대답이지.
+&lt;&lt;/g&gt;&gt;
+&lt;&lt;include &quot;D3_Gen_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="D3_Gen_End" tags="" position="850,600" size="100,100">&lt;&lt;stage &quot;genichiro&quot; &quot;hide&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+겐이치로는 활을 고쳐 메고
+어둠 속으로 사라졌다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+훈련장 쪽은 조용했다.
+
+오늘은, 그게 이상하지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[날이 밝는다|D4_Morning]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="D4_Morning" tags="" position="975,600" size="100,100">/* 4일째 — 한베: 잔을 나눈 날. 원문 hanbei.twee Hanbei_04_Sake_* / 밤: 에마 편들기. 이날부터 색이 돌아온다 */
+&lt;&lt;set $day to 4&gt;&gt;
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;4일째&quot; &quot;낮&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+훈련장은 비어 있었다.
+
+눕혀둔 검도,
+앉아 있던 사람도 없었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+대신 절 쪽에서,
+병이 흔들리는 소리가 났다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 어디로 향하나?
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[절로 돌아가 본다|D4_Sake]]
+[[훈련장에 남는다|D4_Alone]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="D4_Alone" tags="" position="1100,600" size="100,100">&lt;&lt;set $skippedYesterday to true&gt;&gt;&lt;&lt;set $hanbeiSkips += 1&gt;&gt;
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 50 &quot;guard&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 혼자 검을 휘둘렀다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;fx &quot;shake&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+받아주는 검이 없으니,
+베는 소리만 허공에 남았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 50 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+해가 기울 무렵,
+늑대는 이 공터가 이렇게 넓었는지 처음 알았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D4_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="D4_Sake" tags="" position="1225,600" size="100,100">&lt;&lt;set $hanbeiVisits += 1&gt;&gt;&lt;&lt;set $color to true&gt;&gt;
+&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 28 &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+황폐한 절이다.
+
+한베는 마루 끝, 평소와 같은 자리에 앉아 있었다.
+다만 오늘은 곁에 작은 술병이 놓여 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;if $skippedYesterday&gt;&gt;
+&lt;&lt;h&gt;&gt;
+왔는가, 늑대.
+
+……어제 일은 묻지 않겠네. 오늘 왔으니.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;h&gt;&gt;
+왔는가, 늑대.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $skippedYesterday to false&gt;&gt;
+&lt;&lt;h&gt;&gt;
+오늘은 검 대신 이쪽일세.
+
+뭐, 베이는 맛은 없겠지만 말이네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sitcup&quot;&gt;&gt;&lt;&lt;tint &quot;warm&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 술병을 기울여 잔을 채웠다.
+
+잔 안에서,
+등불 같은 것이 흔들렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;note&gt;&gt;
+처음으로, 색이 보였다.
+&lt;&lt;/note&gt;&gt;
+&lt;&lt;w&gt;&gt;
+술인가.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그렇다네.
+
+좋은 술인지는 모르겠네만.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네는 술을 마시면 어떠한가?
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+모른다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하하. 자네답군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃었다.
+
+평소와 같은 웃음이었다.
+그러나 그 웃음 뒤에, 잠깐 빈틈 같은 것이 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+난 도통 모르겠더군.
+
+취하는 법을 잊어버려서.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 대수롭지 않다는 듯 말했다.
+
+죽지 않는 자의 농담은,
+가끔 너무 오래 살아남은 말처럼 들렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[잔을 받는다|D4_Accept]]
+[[거절한다|D4_Refuse]]
+[[한베의 얼굴을 본다|D4_Look]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="D4_Accept" tags="" position="100,725" size="100,100">&lt;&lt;set $hanbeiSake to true&gt;&gt;&lt;&lt;set $hanbeiDist to Math.max($hanbeiDist, 2)&gt;&gt;
+&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sitcup&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 53 &quot;sitcup&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 잔을 받았다.
+
+손끝에 닿은 잔은 차가웠다.
+그 안의 술은, 오래된 절의 저녁처럼 흐렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+오.
+
+받는가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+받았다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그렇군.
+
+그럼 됐네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 술을 마셨다.
+
+목이 뜨거웠다.
+숨이 한 번 늦게 들어왔다.
+
+살아 있는 것처럼.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+너도 그런 얼굴을 할 줄 아는구나.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……아니, 자네 말일세.
+
+말이 헛나왔군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 말을 고쳤다.
+
+고친 말보다,
+헛나온 말이 더 오래 남았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;memory &quot;sake&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D4_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="D4_Refuse" tags="" position="225,725" size="100,100">&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sitcup&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 28 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 잔을 받지 않았다.
+
+한베는 잠시 잔을 든 채 있다가,
+별일 아니라는 듯 제 몫의 술을 기울였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그럴 줄 알았네.
+
+자네는 참, 빈틈이 없군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+필요 없다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래.
+
+필요 없는 것도 많지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래도 권해보는 건,
+아직 내가 완전히 썩지는 않았다는 뜻이겠지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃었다.
+
+웃음은 남았고,
+말은 조금 비었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;memory &quot;sake&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D4_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="D4_Look" tags="" position="350,725" size="100,100">&lt;&lt;set $lookedMask to true&gt;&gt;&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sitcup&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 40 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 잔 대신,
+한베의 얼굴을 보았다.
+
+정확히는 얼굴을 가린 가면과 끈,
+그 아래에 숨은 표정을 보려 했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+음?
+
+무슨 일인가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+아니다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+아닌 얼굴은 아닌데 말일세.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 장난스럽게 말했지만,
+
+손끝은 아주 잠깐
+가면 근처에서 멈췄다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;memory &quot;sake&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D4_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="D4_Night" tags="night" position="475,725" size="100,100">&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;
+&lt;&lt;if $skippedYesterday&gt;&gt;
+&lt;&lt;bg &quot;night&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 40 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;4일째&quot; &quot;밤&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+낡은 처마 밑에서
+술병 하나를 주웠다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+아직 조금 남아 있다.
+
+누군가 마시다 두고 간 것 같았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 병을 제자리에 두었다.
+
+주인이 찾으러 올 것 같아서.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[날이 밝는다|D5_Morning]]
+&lt;&lt;/choices&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;bg &quot;templeNight&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 22 &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;emma&quot; 44 &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 62 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;caption &quot;4일째&quot; &quot;밤&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+밤.
+
+절 안쪽에서 등불이 흔들렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+에마가 한베의 팔을 붙들고 있었다.
+
+소매 아래로, 낮에 생긴 상처가 보였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;e&gt;&gt;
+치료하겠습니다.
+&lt;&lt;/e&gt;&gt;
+&lt;&lt;h&gt;&gt;
+필요 없네.
+
+어차피 다시 붙을 몸이야.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;e&gt;&gt;
+붙는다고 해서,
+아프지 않은 것은 아니지 않습니까.
+&lt;&lt;/e&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대, 자네가 말 좀 해주게.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[에마의 편을 든다|D4_Emma]]
+[[한베의 편을 든다|D4_HanbeiSide]]
+[[아무 말도 하지 않는다|D4_Quiet]]
+&lt;&lt;/choices&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="D4_Emma" tags="" position="600,725" size="100,100">&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;w&gt;&gt;
+치료를 받아라.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……자네까지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 투덜거리며 팔을 내밀었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;e&gt;&gt;
+고맙습니다, 늑대 님.
+&lt;&lt;/e&gt;&gt;
+&lt;&lt;h&gt;&gt;
+아프면 아프다고 하라던 건 나였지.
+
+할 말이 없군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;include &quot;D4_Night_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="D4_HanbeiSide" tags="" position="725,725" size="100,100">&lt;&lt;w&gt;&gt;
+본인이 필요 없다면.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;e&gt;&gt;
+……그렇습니까.
+&lt;&lt;/e&gt;&gt;
+&lt;&lt;n&gt;&gt;
+에마는 약상자를 닫았다.
+
+그러나 붕대 하나를 한베의 곁에 두고 갔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;emma&quot; &quot;hide&quot;&gt;&gt;
+&lt;&lt;h&gt;&gt;
+편들어줘서 고맙네.
+
+……근데 저 붕대는 좀 쓸까.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;include &quot;D4_Night_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="D4_Quiet" tags="" position="850,725" size="100,100">&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;e&gt;&gt;
+두 분 다 똑같으시군요.
+&lt;&lt;/e&gt;&gt;
+&lt;&lt;n&gt;&gt;
+에마는 대답을 기다리지 않고 붕대를 감았다.
+
+한베는 순순히 팔을 내주었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;include &quot;D4_Night_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="D4_Night_End" tags="" position="975,725" size="100,100">&lt;&lt;stage &quot;emma&quot; &quot;hide&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+등불이 꺼지고,
+절은 다시 조용해졌다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대의 입 안에는
+낮의 술 냄새가 아직 조금 남아 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[날이 밝는다|D5_Morning]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="D5_Morning" tags="" position="1100,725" size="100,100">/* 5일째 — 한베: 얼굴을 본 날. 원문 hanbei.twee Hanbei_05_Mask_* / 밤: 잇신 */
+&lt;&lt;set $day to 5&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 50 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;5일째&quot; &quot;낮&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+아침이 왔다.
+
+절 안쪽에서 불상 깎는 소리가 낮게 울렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+마루 끝, 어제와 같은 자리에
+한베가 앉아 있는 것이 보였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 어디로 향하나?
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[한베에게 간다|D5_Mask]]
+[[절 안쪽에 머문다|D5_StayTemple]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="D5_StayTemple" tags="" position="1225,725" size="100,100">&lt;&lt;set $skippedYesterday to true&gt;&gt;&lt;&lt;set $hanbeiSkips += 1&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 40 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 불상 깎는 소리 곁에 머물렀다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+나무 부스러기가 쌓였다.
+
+마루 끝의 사람은,
+해가 질 때까지 같은 자리에 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D5_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="D5_Mask" tags="" position="100,850" size="100,100">&lt;&lt;set $hanbeiVisits += 1&gt;&gt;&lt;&lt;set $color to true&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 34 &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 오늘도 웃고 있었다.
+
+검을 들지 않았는데도,
+그는 늑대가 온 것을 보고
+대련을 기다리는 사람처럼 자세를 고쳤다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;if $lookedMask&gt;&gt;
+&lt;&lt;n&gt;&gt;
+어제 술잔 너머로 보던 것을,
+늑대는 오늘도 보고 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $skippedYesterday to false&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 52 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;h&gt;&gt;
+무슨 일인가?
+
+갑자기 조용해지고.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 대답하지 않았다.
+
+그 시선은 한베의 눈가에,
+그리고 그 아래를 가린 가면에 머물러 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+자네의 얼굴이 보고 싶다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……농담도.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃으려 했다.
+
+그러나 웃음은 끝까지 이어지지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+이런 얼굴,
+별로 보고 싶지 않을 텐데.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 54 &quot;reach&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 손을 뻗었다.
+
+검을 잡을 때보다 느리게.
+상처를 더듬을 때보다 조심스럽게.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[손을 멈춘다|D5_Stop]]
+[[가면을 더듬는다|D5_Touch]]
+[[물러난다|D5_Back]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="D5_Stop" tags="" position="225,850" size="100,100">&lt;&lt;set $hanbeiDist to Math.max($hanbeiDist, 2)&gt;&gt;&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 54 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대의 손이 멈췄다.
+
+한베는 아무 말도 하지 않았다.
+그 침묵은 거절이 아니라,
+허락하지 않아도 된다는 말에 가까웠다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+싫다면 하지 않는다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네는 가끔,
+
+이상한 데서 예의가 있군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 다시 웃었다.
+
+이번에는 조금 작게.
+그러나 비어 있지는 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;memory &quot;mask&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D5_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="D5_Touch" tags="" position="350,850" size="100,100">&lt;&lt;set $hanbeiDist to Math.max($hanbeiDist, 3)&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 54 &quot;reach&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대의 손끝이 가면에 닿았다.
+
+끈은 낡아 있었다.
+몇 번이고 묶고, 풀고, 다시 묶은 흔적이 손끝에 걸렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그만둘까.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+아니.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 60 &quot;sit&quot;&gt;&gt;&lt;&lt;tint &quot;warm&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 더 가까이 다가갔다.
+
+가면 너머로 숨이 닿을 만큼.
+그러나 그것을 넘지는 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 조심스레 뺨을 대고,
+가면 너머에 남아 있는 온기를 느꼈다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+이건 또,
+
+무슨 대련인가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+모른다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그렇군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃지 않았다.
+
+웃지 않았으나,
+그 얼굴은 도망가지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;note&gt;&gt;
+거리가 조금 줄었다.
+&lt;&lt;/note&gt;&gt;
+&lt;&lt;memory &quot;mask&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D5_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="D5_Back" tags="" position="475,850" size="100,100">&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 52 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 38 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 손을 거두었다.
+
+한베는 그 손을 보다가,
+다시 평소처럼 어깨를 으쓱였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래.
+
+그 편이 낫지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+괜찮네.
+
+죽지 않는 얼굴이라 해도,
+보기에 좋은 건 아니니 말이야.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃었다.
+
+늑대는 그 웃음이,
+조금 전보다 멀어진 것을 알았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D5_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="D5_Night" tags="night" position="600,850" size="100,100">&lt;&lt;bg &quot;night&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 34 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;5일째&quot; &quot;밤&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+지붕 위에 먼저 온 사람이 있었다.
+
+달 아래에서,
+노인이 술을 마시고 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;isshin&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;i&gt;&gt;
+오, 늑대 아니냐.
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;if $memories.includes(&quot;mask&quot;)&gt;&gt;
+&lt;&lt;i&gt;&gt;
+그 녀석 얼굴 봤냐?
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;i&gt;&gt;
+요즘 그 죽지 않는 녀석이랑
+어울린다지.
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;i&gt;&gt;
+크하하!
+
+대답 안 해도 된다. 얼굴에 다 쓰여 있어.
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;i&gt;&gt;
+한잔하겠냐?
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[받는다|D5_Isshin_Drink]]
+[[사양한다|D5_Isshin_Decline]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="D5_Isshin_Drink" tags="" position="725,850" size="100,100">&lt;&lt;stage &quot;wolf&quot; 50 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;i&gt;&gt;
+좋다.
+
+죽을 놈도, 안 죽는 놈도,
+술맛은 똑같지.
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;include &quot;D5_Isshin_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="D5_Isshin_Decline" tags="" position="850,850" size="100,100">&lt;&lt;i&gt;&gt;
+그래.
+
+오늘 마실 술은 이미 마시고 온 얼굴이로군.
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;include &quot;D5_Isshin_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="D5_Isshin_End" tags="" position="975,850" size="100,100">&lt;&lt;i&gt;&gt;
+늑대.
+
+놓치기 싫은 건, 쥐고 있는 동안에 쥐어라.
+검이든, 사람이든.
+&lt;&lt;/i&gt;&gt;
+&lt;&lt;n&gt;&gt;
+잇신은 그 말을 하고
+다시 술을 마셨다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+달은 어제보다 조금 더 차 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[날이 밝는다|D6_Morning]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="D6_Morning" tags="" position="1100,850" size="100,100">/* 6일째 — 한베: 끝을 부러워한 날. 원문 hanbei.twee Hanbei_07(새벽) → Hanbei_06(저녁) → Hanbei_08_MortalBlade */
+&lt;&lt;set $day to 6&gt;&gt;
+&lt;&lt;bg &quot;trainingDawn&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 24 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;6일째&quot; &quot;새벽&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+새벽에 눈이 떠졌다.
+
+훈련장 쪽이 조용하다.
+조용한데, 비어 있지는 않은 것 같았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[훈련장으로 간다|D6_Dawn]]
+[[다시 눈을 감는다|D6_Sleep]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="D6_Sleep" tags="" position="1225,850" size="100,100">&lt;&lt;set $skippedYesterday to true&gt;&gt;&lt;&lt;set $hanbeiSkips += 1&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 50 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 다시 눈을 감았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+꿈에서 누군가 물었다.
+
+넌 왜 아직 싸우는 거냐고.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+깨어났을 때는 이미 저녁이었다.
+
+대답은 꿈에 두고 왔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D6_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="D6_Dawn" tags="" position="100,975" size="100,100">&lt;&lt;set $hanbeiVisits += 1&gt;&gt;&lt;&lt;set $skippedYesterday to false&gt;&gt;
+&lt;&lt;bg &quot;trainingDawn&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 72 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+새벽이다.
+
+훈련장에는 아무도 없었다.
+검을 맞댈 소리도, 쓰러지는 소리도 없었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 59 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 마른 땅 위에 앉아 있었다.
+
+늑대도 그 옆에 앉았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+오늘은 대련하지 않을 걸세.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그런가.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그런 날도 있어야지.
+
+매번 베이고 있으면,
+아무리 나라도 좀 바쁘다네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃었다.
+
+그러나 오늘의 웃음은,
+무언가를 감추기 위한 것이라기보다
+무언가를 더 미루지 않기 위한 것처럼 보였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+무슨 일인가.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+넌 왜 아직 싸우는 거냐.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+새벽빛이 무너진 처마 끝에 걸렸다.
+
+훈련장의 흙은 차갑고,
+손은 아직 검을 기억하고 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[임무다.|D6_Duty]]
+[[모르겠다.|D6_DontKnow]]
+[[쿠로 님 때문이다.|D6_Kuro]]
+[[대답하지 않는다|D6_NoAnswer]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="D6_Duty" tags="" position="225,975" size="100,100">&lt;&lt;set $shura += 1&gt;&gt;
+&lt;&lt;w&gt;&gt;
+임무다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 잠시 늑대를 보았다.
+
+그 말은 틀리지 않았다.
+그렇기에, 더 멀게 들렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그렇군.
+
+자네다운 답이네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;include &quot;D6_Dawn_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="D6_DontKnow" tags="" position="350,975" size="100,100">&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;w&gt;&gt;
+모르겠다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 눈을 조금 크게 떴다.
+
+그것은 대답이 되지 못하는 말이었다.
+그러나 처음으로,
+늑대의 말은 명령도 임무도 아니었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하.
+
+모른다, 라.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그거야말로 제법 긴 대답이군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃었다.
+
+이번에는 빈 웃음이 아니었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;include &quot;D6_Dawn_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="D6_Kuro" tags="" position="475,975" size="100,100">&lt;&lt;w&gt;&gt;
+쿠로 님 때문이다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 고개를 끄덕였다.
+
+주군. 맹세.
+살아야 할 이유가 아니라,
+죽지 않아야 할 이유.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+좋은 답이네.
+
+적어도, 혼자만의 답은 아니지 않은가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;include &quot;D6_Dawn_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="D6_NoAnswer" tags="" position="600,975" size="100,100">&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+뭐, 그래.
+
+그런 질문은
+대답하지 않는 쪽이 더 정직할 때도 있지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;include &quot;D6_Dawn_End&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="D6_Dawn_End" tags="" position="725,975" size="100,100">&lt;&lt;n&gt;&gt;
+검은 뽑히지 않았다.
+
+그것만으로도,
+이 새벽은 평소와 달랐다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[저녁이 된다|D6_Evening]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="D6_Evening" tags="" position="850,975" size="100,100">&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 52 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+황폐한 절의 저녁은 느리게 내려앉았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 검을 들고 있지 않았다.
+
+그는 손바닥을 내려다보고 있었다.
+몇 번이고 베이고, 몇 번이고 아물었던 손이었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대.
+
+자네는 죽는다는 것이 어떤 일인지 아는가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+안다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그렇겠지.
+
+자네는 나보다 훨씬 조용히 죽는 법을 배웠을 테니.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃으려 했다.
+
+그러나 오늘의 웃음은,
+목에 걸린 칼끝처럼 쉽게 나오지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+나는 말일세.
+
+가끔은,
+끝이라는 것이 부럽네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[듣는다|D6_Listen]]
+[[죽고 싶은 건가|D6_AskDeath]]
+[[침묵한다|D6_Silence]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="D6_Listen" tags="" position="975,975" size="100,100">&lt;&lt;n&gt;&gt;
+늑대는 아무 말도 하지 않고 들었다.
+
+검을 빼지 않는 침묵이었다.
+물러서지 않는 침묵이었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하하.
+
+듣고만 있는 것도 꽤 어렵지 않은가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+말하라.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그렇군.
+
+그 말이면 충분하네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 고개를 숙였다.
+
+잠시 동안 그는 죽지 않는 무사가 아니라,
+아주 오래 지친 사람처럼 보였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;include &quot;D6_Blade&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="D6_AskDeath" tags="" position="1100,975" size="100,100">&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 한베를 보았다.
+
+묻는 말은 짧았다.
+그러나 칼집에서 빠지는 소리처럼,
+되돌릴 수 없는 울림이 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+죽고 싶은 건가.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+모르겠네.
+
+죽고 싶은 것인지,
+그저 끝나고 싶은 것인지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 늑대의 눈을 피하지 않았다.
+
+둘 사이에는,
+죽음보다 오래 남은 것들이 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;include &quot;D6_Blade&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="D6_Silence" tags="" position="1225,975" size="100,100">&lt;&lt;n&gt;&gt;
+늑대는 대답하지 않았다.
+
+한베도 더 묻지 않았다.
+두 사람 사이로, 절의 바람만이 지나갔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래.
+
+말로 되는 일이 아니지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래도 이상하군.
+
+자네가 아무 말도 하지 않으니,
+조금은 가벼워졌네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;include &quot;D6_Blade&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="81" name="D6_Blade" tags="" position="100,1100" size="100,100">&lt;&lt;h&gt;&gt;
+불사를 벨 수 있는 검이 있다고 들었다네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+어디에서 들었는지는 기억 안 나지만……
+
+한참을 찾아다닌 적이 있었지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그 말은 웃기 위해 꺼낸 것이 아니었다.
+
+오래 묵은 이야기를,
+이제야 손에 쥐어본 사람처럼 말했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+벨 생각이었나.
+
+스스로를.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그때야 뭐……
+
+적어도 그럴 수 있는 선택이라도 갖고 싶었다네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대.
+
+만약, 자네가 그 검을 얻게 된다면.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;h&gt;&gt;
+부탁하고 싶은 게 있네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+죽지 않는 무사는,
+
+처음으로 죽을 수 있는 사람처럼 앉아 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래 주겠는가?
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;memory &quot;envy&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[베고 싶지 않다.|D6_NoCut]]
+[[……그러한가.|D6_Accept]]
+[[검자루에 손을 얹는다|D6_Hilt]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="82" name="D6_NoCut" tags="" position="225,1100" size="100,100">&lt;&lt;set $saidNoCut to true&gt;&gt;&lt;&lt;set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)&gt;&gt;
+&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 66 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 52 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;w&gt;&gt;
+베고 싶지 않다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+사실은,
+
+매번 베고 싶지 않았다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+검과 검이 부딪치던 수많은 날들.
+
+쓰러지고, 일어나고,
+다시 웃던 얼굴.
+
+그 모든 순간에,
+늑대의 손은 검을 쥐고 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……늑대.
+
+미안하네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+미안할 것은 아무것도……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;if $hanbeiDist gte 3&gt;&gt;
+&lt;&lt;set $sawFace to true&gt;&gt;
+&lt;&lt;stage &quot;hanbei&quot; 66 &quot;unmask&quot;&gt;&gt;&lt;&lt;tint &quot;warm&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베가 천천히 손을 올렸다.
+
+낡은 끈이 풀렸다.
+그는 아주 조심스럽게, 가면을 벗었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+보지 말아야 할 것을 보았다고도,
+보고 싶던 것을 보았다고도 생각하지 않았다.
+
+다만, 한베가 숨기고 있던 얼굴이
+이제 숨지 않는다는 것을 알았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+이런 얼굴이라네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+한베.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그뿐이었다.
+
+하지만 그 이름은,
+검을 맞댈 때 부르던 이름과 같지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 61 &quot;sit&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+갈라지고 튼 입술의 감촉을 느끼며
+늑대는 조용히 눈을 감았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+남자의 몸속에서 꿈틀거리는 벌레에 대해서.
+벌레가 가진 지독하게 이기적인 욕망에 대해서.
+
+자신과 그 벌레가 그다지 다르지 않을 수 있다고,
+생각했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베의 손이 가면의 끈에 닿았다가,
+
+다시 내려왔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+아직은……
+
+이 얼굴로 하지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D6_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="83" name="D6_Accept" tags="" position="350,1100" size="100,100">&lt;&lt;set $promised to true&gt;&gt;
+&lt;&lt;w&gt;&gt;
+……그러한가.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+고맙네.
+
+정말로.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그 말은 너무 가볍게 나와서,
+오래 남았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 한 번도 가져본 적 없는 검의 무게를,
+그날 처음으로 손에 느꼈다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D6_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="D6_Hilt" tags="" position="475,1100" size="100,100">&lt;&lt;set $shura += 1&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 52 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대의 손이 검자루에 얹혔다.
+
+생각보다 먼저.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……하하.
+
+손이 먼저 대답하는군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃었다.
+
+늑대는 손을 떼지 못했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[밤이 온다|D6_Night]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="D6_Night" tags="night" position="600,1100" size="100,100">&lt;&lt;bg &quot;templeNight&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 48 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;6일째&quot; &quot;밤&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+잠들지 못한다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+칼집 안쪽에서,
+검이 아주 작게 떨렸다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[검을 쥔다|D6_Night_Grip]]
+[[검을 멀리 내려놓는다|D6_Night_Down]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="D6_Night_Grip" tags="" position="725,1100" size="100,100">&lt;&lt;set $shura += 1&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 48 &quot;guard&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 검을 쥐었다.
+
+떨림은 멎었다.
+손이 떨림을 대신 가져갔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[마지막 날이 밝는다|D7_Morning]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="D6_Night_Down" tags="" position="850,1100" size="100,100">&lt;&lt;n&gt;&gt;
+늑대는 검을 멀리 밀어두었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그래도 손은,
+그 모양을 오래 기억했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;if $sawFace&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그리고 입술은,
+다른 것을 기억했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[마지막 날이 밝는다|D7_Morning]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="D7_Morning" tags="" position="975,1100" size="100,100">/* 7일째 — 한베: 돌아가라던 날 → 마지막 선택. 원문 hanbei.twee Hanbei_08_PushAway, Hanbei_09_FinalChoice */
+&lt;&lt;set $day to 7&gt;&gt;
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;caption &quot;7일째&quot; &quot;낮&quot;&gt;&gt;
+&lt;&lt;if $hanbeiVisits lt 4&gt;&gt;
+&lt;&lt;n&gt;&gt;
+마지막 날이 밝았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[훈련장 쪽을 바라본다|E_Distant]]
+&lt;&lt;/choices&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 훈련장에 없었다.
+
+검을 세워두던 자리에는,
+마른 흙만 평평하게 남아 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+한베.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+대답은 절 뒤편에서 왔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[절 뒤편으로 간다|D7_PushAway]]
+&lt;&lt;/choices&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="D7_PushAway" tags="" position="1100,1100" size="100,100">&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 62 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+낡은 처마 아래,
+한베는 등을 돌린 채 앉아 있었다.
+
+검은 그의 곁에 없었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+돌아가게.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+어째서지.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;if $saidNoCut&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네는 베고 싶지 않다고 했지.
+
+그래서 더 그렇네.
+싫으면서도, 끝내 내 부탁을 들어줄 것 같아서.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네가 내 부탁을
+거절하지 못할 것 같아서.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 웃지 않았다.
+
+그 침묵은,
+검보다 먼저 늑대를 밀어냈다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네는 이미 충분히 많은 것을 베었네.
+
+내 끝까지 자네 손에 얹는 건,
+내가 할 일이 아니야.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[나는 가지 않는다.|D7_Stay]]
+[[돌아선다|D7_Turn]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="D7_Stay" tags="" position="1225,1100" size="100,100">&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 62 &quot;sit&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;w&gt;&gt;
+나는 가지 않는다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+검을 들러 온 것이 아니다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 54 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 한베의 곁에 앉았다.
+
+한베가 밀어낸 만큼의 거리를,
+검이 아니라 무릎으로 좁혔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;if $hanbeiDist gte 3&gt;&gt;
+&lt;&lt;set $hanbeiDist to 4&gt;&gt;
+&lt;&lt;n&gt;&gt;
+등과 등이 닿았다.
+
+뒤를 보지 않아도,
+거기 누가 있는지 알았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;note&gt;&gt;
+거리가 조금 줄었다.
+&lt;&lt;/note&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;w&gt;&gt;
+오늘은 그냥 왔다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 오래 대답하지 않았다.
+
+그 오래 걸리는 침묵 속에서,
+처음으로 아무것도 끝나지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그 말,
+
+아직도 좀 무섭군.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그런가.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래.
+
+무서운데. 나쁘지는 않네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;memory &quot;away&quot;&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[해가 기운다|D7_Final]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="D7_Turn" tags="" position="100,1225" size="100,100">&lt;&lt;set $leftHim to true&gt;&gt;
+&lt;&lt;bg &quot;temple&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 62 &quot;sit&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 돌아섰다.
+
+등 뒤에서는 아무 소리도 나지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그러나 해가 기울 무렵,
+발은 다시 같은 곳으로 향했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+[[해가 기운다|D7_Final]]
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="D7_Final" tags="" position="225,1225" size="100,100">&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 44 &quot;stand&quot; &quot;r&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 64 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+해는 기울고 있었다.
+
+한베는 평소와 같은 자리에 앉아 있었다.
+그러나 가면은 조금 느슨하게 묶여 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 그 앞에 섰다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+왔는가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+왔다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+오늘은 묻지 않겠네.
+
+대련하러 왔느냐고.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 대답하지 않았다.
+
+한베는 작게 웃었다.
+그 웃음은 예전보다 조용했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;if $saidNoCut&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네는 베고 싶지 않다고 했지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그렇다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;h&gt;&gt;
+자네는 아직,
+
+내 부탁에 제대로 대답하지 않았지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그래도 언젠가,
+그 검을 얻게 될지도 모르네.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+……
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그때 자네는,
+
+무엇을 하겠는가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;choices&gt;&gt;
+&lt;&lt;if $hanbeiDist gte 4 and $hanbeiCrack gte 2&gt;&gt;
+[[베지 않는다|E_True]]
+&lt;&lt;else&gt;&gt;
+[[베지 않는다|E_Empty][$emptyKind to &quot;nocut&quot;]]
+&lt;&lt;/if&gt;&gt;
+[[그 약속을 받아들인다|E_Someday]]
+[[아무 말도 하지 않는다|E_Empty][$emptyKind to &quot;silence&quot;]]
+&lt;&lt;if $hanbeiDist lte 2 or $shura gte 2&gt;&gt;
+[[검을 확인한다|E_Hilt]]
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;if $shura gte 3&gt;&gt;
+[[검을 뽑는다|E_Shura]]
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;/choices&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="E_True" tags="" position="350,1225" size="100,100">/* True End: 선택한다. 거리 4 + 균열 2 이상 + 베지 않는다 */
+&lt;&lt;bg &quot;trainingDawn&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;
+&lt;&lt;if $sawFace&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 56 &quot;unmask&quot; &quot;r&quot;&gt;&gt;&lt;&lt;else&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 56 &quot;sit&quot; &quot;r&quot;&gt;&gt;&lt;&lt;/if&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 46 &quot;sit&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대의 손은 검으로 가지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;w&gt;&gt;
+베지 않는다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;w&gt;&gt;
+대신, 내일도 온다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 그 대답을 바로 웃어넘기지 않았다.
+
+그저 아주 천천히,
+기다려도 되는 사람처럼 숨을 내쉬었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……하.
+
+그건 대련보다 어려운 약속인데.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+안다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+그럼, 내일도 오게.
+
+모레도.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;tint &quot;dawn&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+새벽이 왔다.
+
+두 사람은 등을 맞대고 앉아 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+회색이던 훈련장에,
+처음으로 색이 번졌다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+늑대.
+
+오늘은 대련할까?
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+……그래.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;h&gt;&gt;
+하하!
+
+베지는 말고.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;ending &quot;true&quot;&gt;&gt;
+&lt;&lt;include &quot;E_After&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="E_Empty" tags="" position="475,1225" size="100,100">/* End: 남아 있다. 침묵, 또는 베지 않겠다고 했지만 아직 곁에 앉지 못함 */
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 72 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 30 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;if $emptyKind is &quot;nocut&quot;&gt;&gt;
+&lt;&lt;w&gt;&gt;
+베지 않는다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그 말은 진심이었다.
+
+다만 그 말 다음에 무엇을 해야 하는지,
+늑대는 아직 몰랐다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 아무 말도 하지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 그 침묵을 재촉하지 않았다.
+
+오래 기다리는 일에는 익숙한 사람처럼,
+그는 곁의 빈자리를 그대로 두었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그 뒤로도 늑대는 매일 훈련장에 갔다.
+
+대답은 하지 못했다.
+한베도 다시 묻지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베의 곁에는 언제나
+한 사람 몫의 자리가 비어 있었다.
+
+늑대는 아직, 그 자리에 앉지 못한다.
+
+아직은.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;ending &quot;empty&quot;&gt;&gt;
+&lt;&lt;include &quot;E_After&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="95" name="E_Someday" tags="" position="600,1225" size="100,100">/* End: 남아 있다. 원작 결말을 미룬 약속 */
+&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 64 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 48 &quot;sit&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 약속을 받아들였다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그 순간 한베의 웃음은 조금 가벼워졌다.
+
+가벼워졌기 때문에,
+오히려 더 무겁게 남았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+고맙네.
+
+그날까지는, 대련 상대가 되어주게.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그러겠다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 또 하나의 끝을
+자신의 손에 얹었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;tint &quot;dim&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+언젠가 끝날 대련이,
+두 사람 사이에 놓였다.
+
+그날이 오기 전까지,
+훈련장의 검 소리는 매일 이어질 것이다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;ending &quot;someday&quot;&gt;&gt;
+&lt;&lt;include &quot;E_After&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="E_Hilt" tags="" position="725,1225" size="100,100">/* Bad End: 선택당한다. 늑대가 다시 베는 손이 된다 */
+&lt;&lt;bg &quot;templeEve&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 64 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 44 &quot;guard&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 검을 확인했다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+칼자루는 손에 잘 맞았다.
+
+너무 잘 맞아서,
+그 사실이 조금 늦게 불편해졌다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 죽지 않는다.
+
+그 생각이 잠시 너무 쉽게 지나갔다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……그래.
+
+역시 자네 손이 제일 잘 맞겠지.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;tint &quot;dim&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그날부터 늑대는 한베를 베러 갔다.
+
+매일.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 매일 일어났다.
+
+둘 다 더는 웃지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 다시,
+베는 손이 되었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;ending &quot;hilt&quot;&gt;&gt;
+&lt;&lt;include &quot;E_After&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="E_Shura" tags="" position="850,1225" size="100,100">/* Shura End: 베어낸다. 그러나 기억은 남는다 */
+&lt;&lt;bg &quot;templeNight&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 64 &quot;sit&quot; &quot;l&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 44 &quot;guard&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+늑대는 검을 뽑았다.
+
+한베가 아니라,
+그 사이에 놓인 모든 것을 향해.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;h&gt;&gt;
+……그게
+
+자네가 고른 건가.
+&lt;&lt;/h&gt;&gt;
+&lt;&lt;w&gt;&gt;
+그렇다.
+&lt;&lt;/w&gt;&gt;
+&lt;&lt;tint &quot;shura&quot;&gt;&gt;&lt;&lt;fx &quot;shake&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+술잔도. 부적도.
+아프냐고 묻던 목소리도.
+
+늑대는 하나씩 베어냈다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;hanbei&quot; 64 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 끝내 일어섰다.
+
+죽지 못하는 몸으로,
+베어지는 것들을 끝까지 지켜보았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;hanbei&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;wolf&quot; 44 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그날 밤, 절에는 아무도 남지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그러나 검을 쥔 손에는,
+
+그날 마신 술의 온기가
+아직 조금 남아 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;ending &quot;shura&quot;&gt;&gt;
+&lt;&lt;include &quot;E_After&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="E_Distant" tags="" position="975,1225" size="100,100">/* End: 멀어지는 날들. 한베를 찾아간 날이 4일 미만 */
+&lt;&lt;bg &quot;training&quot;&gt;&gt;&lt;&lt;tint &quot;none&quot;&gt;&gt;&lt;&lt;stage &quot;all&quot; &quot;hide&quot;&gt;&gt;&lt;&lt;stage &quot;hanbei&quot; 72 &quot;stand&quot; &quot;l&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+그 뒤로도 늑대는
+훈련장에 자주 가지 않았다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+검 소리는 매일 같은 시각에 시작해서,
+매일 조금씩 일찍 그쳤다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;stage &quot;wolf&quot; 18 &quot;stand&quot; &quot;r&quot;&gt;&gt;
+&lt;&lt;n&gt;&gt;
+어느 날 지나가다 본 훈련장에는,
+
+한 사람 몫의 발자국만 늘어 있었다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;n&gt;&gt;
+한베는 여전히 거기 있었다.
+
+늘 그 자리에 있는 사람.
+그게 더 아팠다.
+&lt;&lt;/n&gt;&gt;
+&lt;&lt;ending &quot;distant&quot;&gt;&gt;
+&lt;&lt;include &quot;E_After&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="99" name="E_After" tags="" position="1100,1225" size="100,100">&lt;&lt;choices&gt;&gt;
 &lt;&lt;link &quot;인연 기억 보기&quot;&gt;&gt;&lt;&lt;run setup.sw.openMemories()&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;link &quot;처음부터 다시&quot;&gt;&gt;&lt;&lt;run Engine.restart()&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/choices&gt;&gt;</tw-passagedata></tw-storydata>

@@ -69,6 +69,31 @@ body { font-family: 'SwBody', serif; }
 .sw-sprite.sw-face-left { transform: translateX(-50%) scaleX(-1); }
 
 #sw-fx { position: absolute; inset: 0; pointer-events: none; }
+
+/* 화면 색 번짐. 회색 세계에 색이 들어오는 순간에만 쓴다 */
+#sw-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2.4s ease, background 2.4s ease;
+}
+#sw-tint.sw-tint-warm {
+  opacity: 1;
+  background: radial-gradient(ellipse at 60% 62%, rgba(224, 138, 60, 0.28), rgba(224, 138, 60, 0) 55%);
+  mix-blend-mode: screen;
+}
+#sw-tint.sw-tint-dawn {
+  opacity: 1;
+  background: linear-gradient(to bottom, rgba(246, 194, 122, 0.10), rgba(224, 138, 60, 0.42) 58%, rgba(120, 60, 30, 0.25));
+  mix-blend-mode: overlay;
+}
+#sw-tint.sw-tint-shura {
+  opacity: 1;
+  background: linear-gradient(to bottom, rgba(120, 10, 10, 0.25), rgba(158, 43, 37, 0.55));
+  mix-blend-mode: multiply;
+}
+#sw-tint.sw-tint-dim { opacity: 1; background: rgba(0, 0, 0, 0.45); }
 #sw-fx.sw-flash { animation: sw-flash 0.35s ease-out; }
 #sw-stage.sw-shake { animation: sw-shake 0.35s steps(4); }
 
@@ -163,9 +188,14 @@ body[data-tags~="title"] #sw-stage::after {
 .sw-caption::after { right: auto; bottom: 22%; }
 .sw-caption-main { font-family: 'SwPixel', monospace; font-size: 2rem; letter-spacing: 0.2em; }
 .sw-caption-sub { font-family: 'SwPixel', monospace; color: var(--sw-dim); letter-spacing: 0.4em; }
+.sw-ending { background: rgba(0, 0, 0, 0.72); }
+.sw-ending .sw-caption-main { font-family: 'SwBody', serif; font-size: 2.2rem; letter-spacing: 0.3em; }
+.sw-ending-true .sw-caption-sub { color: var(--sw-accent); }
+.sw-ending-shura .sw-caption-sub { color: #c0473f; }
+.sw-ending-note { margin-top: 18px; font-family: 'SwPixel', monospace; font-size: 0.8rem; color: var(--sw-dim); }
 
 /* 선택지 */
-.sw-choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.sw-choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 2; }
 
 .sw-choices a {
   display: block;
@@ -206,6 +236,7 @@ body[data-tags~="title"] #passages { top: 0; bottom: 0; width: 100%; height: 100
 .sw-title-sub { font-family: 'SwTitle', serif; color: var(--sw-narr); letter-spacing: 0.4em; }
 .sw-title-copy { margin-top: 28px; color: var(--sw-dim); }
 .sw-title-menu { margin-top: 36px; }
+.sw-title-record { margin-top: 22px; font-family: 'SwPixel', monospace; font-size: 0.8rem; color: var(--sw-dim); letter-spacing: 0.1em; }
 .sw-title-menu a {
   font-family: 'SwPixel', monospace;
   color: var(--sw-text);
@@ -251,6 +282,7 @@ body[data-tags~="title"] #sw-mem-btn { display: none; }
   box-sizing: border-box;
 }
 .sw-mem-head { font-family: 'SwPixel', monospace; letter-spacing: 0.1em; margin-bottom: 16px; }
+.sw-mem-head-2 { margin-top: 22px; }
 .sw-mem-inner ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .sw-mem-inner li { border: 1px solid var(--sw-line); padding: 10px 12px; }
 .sw-mem-inner li.sw-locked { color: var(--sw-dim); }

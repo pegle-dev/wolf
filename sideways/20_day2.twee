@@ -188,6 +188,7 @@
 
 
 :: D2_Q1_Continue
+<<set $shura += 1>>
 <<stage "wolf" 56 "guard">>
 <<h>>
 싫네.
@@ -334,6 +335,7 @@
 
 
 :: D2_Weapon
+<<set $shura += 1>>
 <<bg "training">><<stage "hanbei" 70 "stand" "l">><<stage "wolf" 56 "stand" "r">>
 <<w>>
 불사는 무기다.
@@ -453,46 +455,5 @@
 혼자가 아닌 밤도 있다.
 <</n>>
 <<choices>>
-[[날이 밝는다|D2_End]]
-<</choices>>
-
-
-:: D2_End
-<<set $day to 3>>
-<<bg "training">><<stage "wolf" "dist" "stand" "r">><<stage "hanbei" 76 "sit" "l">>
-<<caption "3일째" "낮">>
-<<n>>
-한베는 오늘,
-검을 뽑지 않고 앉아 있었다.
-<</n>>
-<<if $skippedYesterday and $hanbeiSkips gte 2>>
-<<h>>
-이틀 연속이면,
-나도 좀 서운하다네.
-<</h>>
-<<elseif $skippedYesterday>>
-<<h>>
-어제는 안 오더군.
-
-……이번엔 기다렸다는 말 맞네.
-<</h>>
-<<elseif $hanbeiApologized>>
-<<h>>
-왔나.
-
-진짜로 검을 두고 올 줄은 몰랐는데.
-<</h>>
-<<else>>
-<<h>>
-왔나.
-
-오늘은 대련 안 하네.
-<</h>>
-<</if>>
-<<note>>
-— 2일차 끝 · 3일차는 아직 만들어지지 않았다 —
-<</note>>
-<<choices>>
-<<link "인연 기억 보기">><<run setup.sw.openMemories()>><</link>>
-<<link "처음부터 다시">><<run Engine.restart()>><</link>>
+[[날이 밝는다|D3_Morning]]
 <</choices>>

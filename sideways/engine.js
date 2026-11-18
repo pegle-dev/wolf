@@ -11,6 +11,9 @@
              <<stage "hanbei" 76 "shoulder" "l">>  x(%) 또는 "dist", 자세, 방향(l/r)
              <<stage "wolf" "hide">>
              <<fx "shake">>                     shake | flash | arrow(화살이 화면을 가로지름)
+             <<tint "dawn">>                    none | warm | dawn | shura | dim (화면 색 번짐)
+             <<stage "all" "hide">>             모두 퇴장. 등장인물: hanbei wolf emma isshin genichiro
+   결말      <<ending "true">>                  결말 카드 + 기록 (id는 sw.endingDefs)
              <<memory "just">>                  인연 기억 카드 획득
    ========================================================= */
 (function () {
@@ -18,19 +21,39 @@
 
   var sw = (setup.sw = setup.sw || {});
 
-  sw.names = { h: '한베', w: '늑대' };
+  sw.names = { h: '한베', w: '늑대', e: '에마', i: '잇신', g: '겐이치로' };
   sw.distX = [24, 40, 54, 60, 64];   /* 거리 단계별 늑대 위치 (한베는 76) */
 
   sw.memoryDefs = [
     { id: 'just', title: '그냥 온 날', text: '늑대는 검을 뽑지 않고 한베를 찾아갔다.' },
     { id: 'spar', title: '첫 대련', text: '익숙한 소리, 익숙한 자세, 익숙한 거리.' },
     { id: 'hurt', title: '아프냐고 물은 날', text: '한베가 먼저 검을 멈추고 물었다. 아프냐고.' },
-    { id: 'sit', title: '대련하지 않은 날' },
-    { id: 'sake', title: '잔을 나눈 날' },
-    { id: 'mask', title: '얼굴을 본 날' },
-    { id: 'envy', title: '끝을 부러워한 날' },
-    { id: 'away', title: '돌아가라던 날' }
+    { id: 'sit', title: '대련하지 않은 날', text: '검을 뽑지 않고 나란히 앉았다. 바람 소리만 들렸다.' },
+    { id: 'sake', title: '잔을 나눈 날', text: '취하는 법을 잊었다는 사람과 술잔 사이에 앉았다.' },
+    { id: 'mask', title: '얼굴을 본 날', text: '자네의 얼굴이 보고 싶다고, 늑대가 먼저 말했다.' },
+    { id: 'envy', title: '끝을 부러워한 날', text: '죽지 않는 무사가, 끝이라는 것이 부럽다고 했다.' },
+    { id: 'away', title: '돌아가라던 날', text: '밀어낸 만큼의 거리를, 검이 아니라 무릎으로 좁혔다.' }
   ];
+
+  /* 결말: 등급은 docs/Wolf_Sideways_Hanbei.md §4 */
+  sw.endingDefs = [
+    { id: 'true', grade: 'True End', title: '새벽의 대련' },
+    { id: 'empty', grade: 'End', title: '빈자리' },
+    { id: 'someday', grade: 'End', title: '언젠가의 끝' },
+    { id: 'distant', grade: 'End', title: '멀어지는 날들' },
+    { id: 'hilt', grade: 'Bad End', title: '잘 맞는 칼자루' },
+    { id: 'shura', grade: 'Shura End', title: '베어낸다' }
+  ];
+
+  sw.seenEndings = function () {
+    try { return recall('swEndings', []) || []; } catch (e) { return []; }
+  };
+  sw.recordEnding = function (id) {
+    try {
+      var seen = sw.seenEndings().slice();
+      if (seen.indexOf(id) === -1) { seen.push(id); memorize('swEndings', seen); }
+    } catch (e) { /* 저장소를 못 쓰는 환경 */ }
+  };
 
   /* ---------- SugarCube 설정 ---------- */
   Config.history.controls = false;
@@ -42,8 +65,7 @@
   stage.innerHTML =
     '<img id="sw-bg" alt="">' +
     '<canvas id="sw-particles"></canvas>' +
-    '<img id="sw-sprite-wolf" class="sw-sprite" alt="" hidden>' +
-    '<img id="sw-sprite-hanbei" class="sw-sprite" alt="" hidden>' +
+    '<div id="sw-tint"></div>' +
     '<div id="sw-fx"></div>';
   document.body.insertBefore(stage, document.body.firstChild);
 
@@ -61,10 +83,21 @@
   toast.id = 'sw-toast';
   document.body.appendChild(toast);
 
-  var spriteState = {
-    hanbei: { x: 76, pose: 'shoulder', facing: 'l', hidden: true },
-    wolf: { x: 24, pose: 'stand', facing: 'r', hidden: true }
-  };
+  /* 등장인물은 처음 무대에 오를 때 만든다 (hanbei, wolf, emma, isshin, genichiro) */
+  var spriteState = {};
+  function actor(who) {
+    if (!spriteState[who]) {
+      spriteState[who] = { x: 50, pose: who === 'wolf' || who === 'hanbei' ? 'stand' : 'stand', facing: 'r', hidden: true };
+      var el = document.createElement('img');
+      el.id = 'sw-sprite-' + who;
+      el.className = 'sw-sprite';
+      el.alt = '';
+      el.hidden = true;
+      stage.insertBefore(el, document.getElementById('sw-tint'));
+      sw.layout();
+    }
+    return spriteState[who];
+  }
   var currentBg = 'dark';
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var idleFrame = 0;
@@ -89,7 +122,7 @@
     });
 
     var feet = view.top + A.ground(currentBg) * s;
-    ['wolf', 'hanbei'].forEach(function (who) {
+    Object.keys(spriteState).forEach(function (who) {
       var el = document.getElementById('sw-sprite-' + who);
       el.style.width = A.SPRITE_W * view.ss + 'px';
       el.style.height = A.SPRITE_H * view.ss + 'px';
@@ -104,7 +137,7 @@
     el.hidden = s.hidden;
     if (s.hidden) { return; }
     var frame = reducedMotion ? 0 : (idleFrame + (who === 'wolf' ? 1 : 0)) % 2;
-    el.src = sw.art.sprite(who, s.pose, frame);
+    el.src = sw.art.sprite(who, s.pose, frame, !!State.variables.color);
     el.style.left = s.x + '%';
     el.classList.toggle('sw-face-left', s.facing === 'l');
   }
@@ -125,8 +158,7 @@
   if (!reducedMotion) {
     setInterval(function () {
       idleFrame = (idleFrame + 1) % 2;
-      renderSprite('wolf');
-      renderSprite('hanbei');
+      Object.keys(spriteState).forEach(renderSprite);
     }, 700);
   }
 
@@ -213,8 +245,11 @@
   window.addEventListener('resize', sw.layout);
 
   sw.setSprite = function (who, x, pose, facing) {
-    var s = spriteState[who];
-    if (!s) { return; }
+    if (who === 'all') {
+      Object.keys(spriteState).forEach(function (k) { spriteState[k].hidden = true; renderSprite(k); });
+      return;
+    }
+    var s = actor(who);
     if (x === 'hide') { s.hidden = true; renderSprite(who); return; }
     s.hidden = false;
     if (x === 'dist') { x = sw.distX[Math.min(State.variables.hanbeiDist || 0, sw.distX.length - 1)]; }
@@ -222,6 +257,12 @@
     if (pose) { s.pose = pose; }
     if (facing) { s.facing = facing; }
     renderSprite(who);
+  };
+
+  /* 화면 전체 색 번짐: none | warm(따뜻한 빛) | dawn(새벽, 색이 번진다) | shura(붉음) | dim */
+  sw.setTint = function (name) {
+    var el = document.getElementById('sw-tint');
+    el.className = name && name !== 'none' ? 'sw-tint-' + name : '';
   };
 
   sw.fx = function (kind) {
@@ -265,6 +306,13 @@
         (has ? '「' + def.title + '」' : '???') + '</div>' +
         (has && def.text ? '<div class="sw-mem-text">' + def.text + '</div>' : '') + '</li>';
     });
+    var seen = sw.seenEndings();
+    html += '</ul><div class="sw-mem-head sw-mem-head-2">결말 ' + seen.length + '/' + sw.endingDefs.length + '</div><ul>';
+    sw.endingDefs.forEach(function (def) {
+      var has = seen.indexOf(def.id) !== -1;
+      html += '<li class="' + (has ? 'sw-has' : 'sw-locked') + '"><div class="sw-mem-title">' +
+        (has ? '[' + def.grade + '] ' + def.title : '???') + '</div></li>';
+    });
     html += '</ul><button type="button" class="sw-mem-close">닫는다</button></div>';
     memPanel.innerHTML = html;
     memPanel.hidden = false;
@@ -287,6 +335,7 @@
       case 'bg': sw.setBg(args[0]); break;
       case 'stage': sw.setSprite(args[0], args[1], args[2], args[3]); break;
       case 'fx': sw.fx(args[0]); break;
+      case 'tint': sw.setTint(args[0]); break;
       case 'memory': sw.showToast(args[0]); break;
     }
   }
@@ -385,6 +434,9 @@
   addBeat('n', 'n');
   addBeat('h', 'h');
   addBeat('w', 'w');
+  addBeat('e', 'e');
+  addBeat('i', 'i');
+  addBeat('g', 'g');
   addBeat('note', 'n', 'sw-note');
 
   Macro.add('caption', {
@@ -394,6 +446,23 @@
       el.innerHTML = '<div class="sw-caption-main"></div><div class="sw-caption-sub"></div>';
       el.firstChild.textContent = this.args[0] || '';
       el.lastChild.textContent = this.args[1] || '';
+      this.output.appendChild(el);
+    }
+  });
+
+  /* <<ending "true">>: 결말 카드. 렌더 시점에 기록한다 */
+  Macro.add('ending', {
+    handler: function () {
+      var id = this.args[0], def = null;
+      sw.endingDefs.forEach(function (d) { if (d.id === id) { def = d; } });
+      if (!def) { return this.error('unknown ending: ' + id); }
+      sw.recordEnding(id);
+      State.variables.lastEnding = id;
+      var el = document.createElement('div');
+      el.className = 'sw-item sw-beat sw-caption sw-ending sw-ending-' + id;
+      el.innerHTML = '<div class="sw-caption-sub"></div><div class="sw-caption-main"></div><div class="sw-ending-note">기록장에 새로운 결말이 남았다.</div>';
+      el.children[0].textContent = def.grade;
+      el.children[1].textContent = def.title;
       this.output.appendChild(el);
     }
   });
@@ -426,6 +495,7 @@
   addCue('bg');
   addCue('stage');
   addCue('fx');
+  addCue('tint');
   addCue('memory', function () {
     var list = State.variables.memories;
     if (list.indexOf(this.args[0]) === -1) { list.push(this.args[0]); }

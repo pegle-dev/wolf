@@ -1,0 +1,375 @@
+:: D4_Morning
+/* 4일째 — 한베: 잔을 나눈 날. 원문 hanbei.twee Hanbei_04_Sake_* / 밤: 에마 편들기. 이날부터 색이 돌아온다 */
+<<set $day to 4>>
+<<bg "training">><<tint "none">><<stage "all" "hide">><<stage "wolf" 30 "stand" "r">>
+<<caption "4일째" "낮">>
+<<n>>
+훈련장은 비어 있었다.
+
+눕혀둔 검도,
+앉아 있던 사람도 없었다.
+<</n>>
+<<n>>
+대신 절 쪽에서,
+병이 흔들리는 소리가 났다.
+<</n>>
+<<n>>
+늑대는 어디로 향하나?
+<</n>>
+<<choices>>
+[[절로 돌아가 본다|D4_Sake]]
+[[훈련장에 남는다|D4_Alone]]
+<</choices>>
+
+
+:: D4_Alone
+<<set $skippedYesterday to true>><<set $hanbeiSkips += 1>>
+<<bg "training">><<stage "all" "hide">><<stage "wolf" 50 "guard" "r">>
+<<n>>
+늑대는 혼자 검을 휘둘렀다.
+<</n>>
+<<fx "shake">>
+<<n>>
+받아주는 검이 없으니,
+베는 소리만 허공에 남았다.
+<</n>>
+<<stage "wolf" 50 "stand" "l">>
+<<n>>
+해가 기울 무렵,
+늑대는 이 공터가 이렇게 넓었는지 처음 알았다.
+<</n>>
+<<choices>>
+[[밤이 온다|D4_Night]]
+<</choices>>
+
+
+:: D4_Sake
+<<set $hanbeiVisits += 1>><<set $color to true>>
+<<bg "templeEve">><<stage "all" "hide">><<stage "wolf" 28 "stand" "r">><<stage "hanbei" 66 "sit" "l">>
+<<n>>
+황폐한 절이다.
+
+한베는 마루 끝, 평소와 같은 자리에 앉아 있었다.
+다만 오늘은 곁에 작은 술병이 놓여 있었다.
+<</n>>
+<<if $skippedYesterday>>
+<<h>>
+왔는가, 늑대.
+
+……어제 일은 묻지 않겠네. 오늘 왔으니.
+<</h>>
+<<else>>
+<<h>>
+왔는가, 늑대.
+<</h>>
+<</if>>
+<<set $skippedYesterday to false>>
+<<h>>
+오늘은 검 대신 이쪽일세.
+
+뭐, 베이는 맛은 없겠지만 말이네.
+<</h>>
+<<stage "hanbei" 66 "sitcup">><<tint "warm">>
+<<n>>
+한베는 술병을 기울여 잔을 채웠다.
+
+잔 안에서,
+등불 같은 것이 흔들렸다.
+<</n>>
+<<note>>
+처음으로, 색이 보였다.
+<</note>>
+<<w>>
+술인가.
+<</w>>
+<<h>>
+그렇다네.
+
+좋은 술인지는 모르겠네만.
+<</h>>
+<<h>>
+자네는 술을 마시면 어떠한가?
+<</h>>
+<<w>>
+모른다.
+<</w>>
+<<h>>
+하하. 자네답군.
+<</h>>
+<<n>>
+한베는 웃었다.
+
+평소와 같은 웃음이었다.
+그러나 그 웃음 뒤에, 잠깐 빈틈 같은 것이 있었다.
+<</n>>
+<<h>>
+난 도통 모르겠더군.
+
+취하는 법을 잊어버려서.
+<</h>>
+<<n>>
+한베는 대수롭지 않다는 듯 말했다.
+
+죽지 않는 자의 농담은,
+가끔 너무 오래 살아남은 말처럼 들렸다.
+<</n>>
+<<choices>>
+[[잔을 받는다|D4_Accept]]
+[[거절한다|D4_Refuse]]
+[[한베의 얼굴을 본다|D4_Look]]
+<</choices>>
+
+
+:: D4_Accept
+<<set $hanbeiSake to true>><<set $hanbeiDist to Math.max($hanbeiDist, 2)>>
+<<bg "templeEve">><<stage "hanbei" 66 "sitcup" "l">>
+<<stage "wolf" 53 "sitcup" "r">>
+<<n>>
+늑대는 잔을 받았다.
+
+손끝에 닿은 잔은 차가웠다.
+그 안의 술은, 오래된 절의 저녁처럼 흐렸다.
+<</n>>
+<<h>>
+오.
+
+받는가.
+<</h>>
+<<w>>
+받았다.
+<</w>>
+<<h>>
+그렇군.
+
+그럼 됐네.
+<</h>>
+<<n>>
+늑대는 술을 마셨다.
+
+목이 뜨거웠다.
+숨이 한 번 늦게 들어왔다.
+
+살아 있는 것처럼.
+<</n>>
+<<h>>
+너도 그런 얼굴을 할 줄 아는구나.
+<</h>>
+<<h>>
+……아니, 자네 말일세.
+
+말이 헛나왔군.
+<</h>>
+<<n>>
+한베는 말을 고쳤다.
+
+고친 말보다,
+헛나온 말이 더 오래 남았다.
+<</n>>
+<<memory "sake">>
+<<choices>>
+[[밤이 온다|D4_Night]]
+<</choices>>
+
+
+:: D4_Refuse
+<<bg "templeEve">><<stage "hanbei" 66 "sitcup" "l">><<stage "wolf" 28 "stand" "r">>
+<<n>>
+늑대는 잔을 받지 않았다.
+
+한베는 잠시 잔을 든 채 있다가,
+별일 아니라는 듯 제 몫의 술을 기울였다.
+<</n>>
+<<h>>
+그럴 줄 알았네.
+
+자네는 참, 빈틈이 없군.
+<</h>>
+<<w>>
+필요 없다.
+<</w>>
+<<h>>
+그래.
+
+필요 없는 것도 많지.
+<</h>>
+<<h>>
+그래도 권해보는 건,
+아직 내가 완전히 썩지는 않았다는 뜻이겠지.
+<</h>>
+<<n>>
+한베는 웃었다.
+
+웃음은 남았고,
+말은 조금 비었다.
+<</n>>
+<<memory "sake">>
+<<choices>>
+[[밤이 온다|D4_Night]]
+<</choices>>
+
+
+:: D4_Look
+<<set $lookedMask to true>><<set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)>>
+<<bg "templeEve">><<stage "hanbei" 66 "sitcup" "l">><<stage "wolf" 40 "stand" "r">>
+<<n>>
+늑대는 잔 대신,
+한베의 얼굴을 보았다.
+
+정확히는 얼굴을 가린 가면과 끈,
+그 아래에 숨은 표정을 보려 했다.
+<</n>>
+<<h>>
+음?
+
+무슨 일인가.
+<</h>>
+<<w>>
+아니다.
+<</w>>
+<<h>>
+아닌 얼굴은 아닌데 말일세.
+<</h>>
+<<n>>
+한베는 장난스럽게 말했지만,
+
+손끝은 아주 잠깐
+가면 근처에서 멈췄다.
+<</n>>
+<<memory "sake">>
+<<choices>>
+[[밤이 온다|D4_Night]]
+<</choices>>
+
+
+:: D4_Night [night]
+<<tint "none">><<stage "all" "hide">>
+<<if $skippedYesterday>>
+<<bg "night">><<stage "wolf" 40 "stand" "r">>
+<<caption "4일째" "밤">>
+<<n>>
+낡은 처마 밑에서
+술병 하나를 주웠다.
+<</n>>
+<<n>>
+아직 조금 남아 있다.
+
+누군가 마시다 두고 간 것 같았다.
+<</n>>
+<<n>>
+늑대는 병을 제자리에 두었다.
+
+주인이 찾으러 올 것 같아서.
+<</n>>
+<<choices>>
+[[날이 밝는다|D5_Morning]]
+<</choices>>
+<<else>>
+<<bg "templeNight">><<stage "wolf" 22 "stand" "r">><<stage "emma" 44 "stand" "r">><<stage "hanbei" 62 "sit" "l">>
+<<caption "4일째" "밤">>
+<<n>>
+밤.
+
+절 안쪽에서 등불이 흔들렸다.
+<</n>>
+<<n>>
+에마가 한베의 팔을 붙들고 있었다.
+
+소매 아래로, 낮에 생긴 상처가 보였다.
+<</n>>
+<<e>>
+치료하겠습니다.
+<</e>>
+<<h>>
+필요 없네.
+
+어차피 다시 붙을 몸이야.
+<</h>>
+<<e>>
+붙는다고 해서,
+아프지 않은 것은 아니지 않습니까.
+<</e>>
+<<h>>
+……
+<</h>>
+<<h>>
+늑대, 자네가 말 좀 해주게.
+<</h>>
+<<choices>>
+[[에마의 편을 든다|D4_Emma]]
+[[한베의 편을 든다|D4_HanbeiSide]]
+[[아무 말도 하지 않는다|D4_Quiet]]
+<</choices>>
+<</if>>
+
+
+:: D4_Emma
+<<set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)>>
+<<w>>
+치료를 받아라.
+<</w>>
+<<h>>
+……자네까지.
+<</h>>
+<<n>>
+한베는 투덜거리며 팔을 내밀었다.
+<</n>>
+<<e>>
+고맙습니다, 늑대 님.
+<</e>>
+<<h>>
+아프면 아프다고 하라던 건 나였지.
+
+할 말이 없군.
+<</h>>
+<<include "D4_Night_End">>
+
+
+:: D4_HanbeiSide
+<<w>>
+본인이 필요 없다면.
+<</w>>
+<<e>>
+……그렇습니까.
+<</e>>
+<<n>>
+에마는 약상자를 닫았다.
+
+그러나 붕대 하나를 한베의 곁에 두고 갔다.
+<</n>>
+<<stage "emma" "hide">>
+<<h>>
+편들어줘서 고맙네.
+
+……근데 저 붕대는 좀 쓸까.
+<</h>>
+<<include "D4_Night_End">>
+
+
+:: D4_Quiet
+<<w>>
+……
+<</w>>
+<<e>>
+두 분 다 똑같으시군요.
+<</e>>
+<<n>>
+에마는 대답을 기다리지 않고 붕대를 감았다.
+
+한베는 순순히 팔을 내주었다.
+<</n>>
+<<include "D4_Night_End">>
+
+
+:: D4_Night_End
+<<stage "emma" "hide">>
+<<n>>
+등불이 꺼지고,
+절은 다시 조용해졌다.
+<</n>>
+<<n>>
+늑대의 입 안에는
+낮의 술 냄새가 아직 조금 남아 있었다.
+<</n>>
+<<choices>>
+[[날이 밝는다|D5_Morning]]
+<</choices>>

@@ -1,0 +1,300 @@
+:: D5_Morning
+/* 5일째 — 한베: 얼굴을 본 날. 원문 hanbei.twee Hanbei_05_Mask_* / 밤: 잇신 */
+<<set $day to 5>>
+<<bg "temple">><<tint "none">><<stage "all" "hide">><<stage "wolf" 50 "stand" "r">>
+<<caption "5일째" "낮">>
+<<n>>
+아침이 왔다.
+
+절 안쪽에서 불상 깎는 소리가 낮게 울렸다.
+<</n>>
+<<n>>
+마루 끝, 어제와 같은 자리에
+한베가 앉아 있는 것이 보였다.
+<</n>>
+<<n>>
+늑대는 어디로 향하나?
+<</n>>
+<<choices>>
+[[한베에게 간다|D5_Mask]]
+[[절 안쪽에 머문다|D5_StayTemple]]
+<</choices>>
+
+
+:: D5_StayTemple
+<<set $skippedYesterday to true>><<set $hanbeiSkips += 1>>
+<<bg "temple">><<stage "all" "hide">><<stage "wolf" 40 "stand" "l">>
+<<n>>
+늑대는 불상 깎는 소리 곁에 머물렀다.
+<</n>>
+<<n>>
+나무 부스러기가 쌓였다.
+
+마루 끝의 사람은,
+해가 질 때까지 같은 자리에 있었다.
+<</n>>
+<<choices>>
+[[밤이 온다|D5_Night]]
+<</choices>>
+
+
+:: D5_Mask
+<<set $hanbeiVisits += 1>><<set $color to true>>
+<<bg "temple">><<stage "all" "hide">><<stage "wolf" 34 "stand" "r">><<stage "hanbei" 66 "sit" "l">>
+<<n>>
+한베는 오늘도 웃고 있었다.
+
+검을 들지 않았는데도,
+그는 늑대가 온 것을 보고
+대련을 기다리는 사람처럼 자세를 고쳤다.
+<</n>>
+<<if $lookedMask>>
+<<n>>
+어제 술잔 너머로 보던 것을,
+늑대는 오늘도 보고 있었다.
+<</n>>
+<</if>>
+<<set $skippedYesterday to false>>
+<<stage "wolf" 52 "sit" "r">>
+<<h>>
+무슨 일인가?
+
+갑자기 조용해지고.
+<</h>>
+<<n>>
+늑대는 대답하지 않았다.
+
+그 시선은 한베의 눈가에,
+그리고 그 아래를 가린 가면에 머물러 있었다.
+<</n>>
+<<w>>
+자네의 얼굴이 보고 싶다.
+<</w>>
+<<h>>
+……농담도.
+<</h>>
+<<n>>
+한베는 웃으려 했다.
+
+그러나 웃음은 끝까지 이어지지 않았다.
+<</n>>
+<<h>>
+이런 얼굴,
+별로 보고 싶지 않을 텐데.
+<</h>>
+<<stage "wolf" 54 "reach">>
+<<n>>
+늑대는 손을 뻗었다.
+
+검을 잡을 때보다 느리게.
+상처를 더듬을 때보다 조심스럽게.
+<</n>>
+<<choices>>
+[[손을 멈춘다|D5_Stop]]
+[[가면을 더듬는다|D5_Touch]]
+[[물러난다|D5_Back]]
+<</choices>>
+
+
+:: D5_Stop
+<<set $hanbeiDist to Math.max($hanbeiDist, 2)>><<set $hanbeiCrack to Math.min($hanbeiCrack + 1, 3)>>
+<<bg "temple">><<stage "hanbei" 66 "sit" "l">><<stage "wolf" 54 "sit" "r">>
+<<n>>
+늑대의 손이 멈췄다.
+
+한베는 아무 말도 하지 않았다.
+그 침묵은 거절이 아니라,
+허락하지 않아도 된다는 말에 가까웠다.
+<</n>>
+<<w>>
+싫다면 하지 않는다.
+<</w>>
+<<h>>
+자네는 가끔,
+
+이상한 데서 예의가 있군.
+<</h>>
+<<n>>
+한베는 다시 웃었다.
+
+이번에는 조금 작게.
+그러나 비어 있지는 않았다.
+<</n>>
+<<memory "mask">>
+<<choices>>
+[[밤이 온다|D5_Night]]
+<</choices>>
+
+
+:: D5_Touch
+<<set $hanbeiDist to Math.max($hanbeiDist, 3)>>
+<<bg "temple">><<stage "hanbei" 66 "sit" "l">><<stage "wolf" 54 "reach" "r">>
+<<n>>
+늑대의 손끝이 가면에 닿았다.
+
+끈은 낡아 있었다.
+몇 번이고 묶고, 풀고, 다시 묶은 흔적이 손끝에 걸렸다.
+<</n>>
+<<h>>
+늑대.
+<</h>>
+<<w>>
+그만둘까.
+<</w>>
+<<h>>
+……
+<</h>>
+<<h>>
+아니.
+<</h>>
+<<stage "wolf" 60 "sit">><<tint "warm">>
+<<n>>
+늑대는 더 가까이 다가갔다.
+
+가면 너머로 숨이 닿을 만큼.
+그러나 그것을 넘지는 않았다.
+<</n>>
+<<n>>
+늑대는 조심스레 뺨을 대고,
+가면 너머에 남아 있는 온기를 느꼈다.
+<</n>>
+<<h>>
+하.
+<</h>>
+<<h>>
+이건 또,
+
+무슨 대련인가.
+<</h>>
+<<w>>
+모른다.
+<</w>>
+<<h>>
+그렇군.
+<</h>>
+<<n>>
+한베는 웃지 않았다.
+
+웃지 않았으나,
+그 얼굴은 도망가지 않았다.
+<</n>>
+<<note>>
+거리가 조금 줄었다.
+<</note>>
+<<memory "mask">>
+<<choices>>
+[[밤이 온다|D5_Night]]
+<</choices>>
+
+
+:: D5_Back
+<<bg "temple">><<stage "hanbei" 66 "sit" "l">><<stage "wolf" 52 "sit" "r">>
+<<stage "wolf" 38 "stand" "r">>
+<<n>>
+늑대는 손을 거두었다.
+
+한베는 그 손을 보다가,
+다시 평소처럼 어깨를 으쓱였다.
+<</n>>
+<<h>>
+그래.
+
+그 편이 낫지.
+<</h>>
+<<w>>
+……
+<</w>>
+<<h>>
+괜찮네.
+
+죽지 않는 얼굴이라 해도,
+보기에 좋은 건 아니니 말이야.
+<</h>>
+<<n>>
+한베는 웃었다.
+
+늑대는 그 웃음이,
+조금 전보다 멀어진 것을 알았다.
+<</n>>
+<<choices>>
+[[밤이 온다|D5_Night]]
+<</choices>>
+
+
+:: D5_Night [night]
+<<bg "night">><<tint "none">><<stage "all" "hide">><<stage "wolf" 34 "stand" "r">>
+<<caption "5일째" "밤">>
+<<n>>
+지붕 위에 먼저 온 사람이 있었다.
+
+달 아래에서,
+노인이 술을 마시고 있었다.
+<</n>>
+<<stage "isshin" 66 "sit" "l">>
+<<i>>
+오, 늑대 아니냐.
+<</i>>
+<<if $memories.includes("mask")>>
+<<i>>
+그 녀석 얼굴 봤냐?
+<</i>>
+<<else>>
+<<i>>
+요즘 그 죽지 않는 녀석이랑
+어울린다지.
+<</i>>
+<</if>>
+<<w>>
+……
+<</w>>
+<<i>>
+크하하!
+
+대답 안 해도 된다. 얼굴에 다 쓰여 있어.
+<</i>>
+<<i>>
+한잔하겠냐?
+<</i>>
+<<choices>>
+[[받는다|D5_Isshin_Drink]]
+[[사양한다|D5_Isshin_Decline]]
+<</choices>>
+
+
+:: D5_Isshin_Drink
+<<stage "wolf" 50 "sit" "r">>
+<<i>>
+좋다.
+
+죽을 놈도, 안 죽는 놈도,
+술맛은 똑같지.
+<</i>>
+<<include "D5_Isshin_End">>
+
+
+:: D5_Isshin_Decline
+<<i>>
+그래.
+
+오늘 마실 술은 이미 마시고 온 얼굴이로군.
+<</i>>
+<<include "D5_Isshin_End">>
+
+
+:: D5_Isshin_End
+<<i>>
+늑대.
+
+놓치기 싫은 건, 쥐고 있는 동안에 쥐어라.
+검이든, 사람이든.
+<</i>>
+<<n>>
+잇신은 그 말을 하고
+다시 술을 마셨다.
+<</n>>
+<<n>>
+달은 어제보다 조금 더 차 있었다.
+<</n>>
+<<choices>>
+[[날이 밝는다|D6_Morning]]
+<</choices>>

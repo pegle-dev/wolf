@@ -1,0 +1,220 @@
+:: D7_Morning
+/* 7일째 — 한베: 돌아가라던 날 → 마지막 선택. 원문 hanbei.twee Hanbei_08_PushAway, Hanbei_09_FinalChoice */
+<<set $day to 7>>
+<<bg "training">><<tint "none">><<stage "all" "hide">><<stage "wolf" 30 "stand" "r">>
+<<caption "7일째" "낮">>
+<<if $hanbeiVisits lt 4>>
+<<n>>
+마지막 날이 밝았다.
+<</n>>
+<<choices>>
+[[훈련장 쪽을 바라본다|E_Distant]]
+<</choices>>
+<<else>>
+<<n>>
+한베는 훈련장에 없었다.
+
+검을 세워두던 자리에는,
+마른 흙만 평평하게 남아 있었다.
+<</n>>
+<<w>>
+한베.
+<</w>>
+<<n>>
+대답은 절 뒤편에서 왔다.
+<</n>>
+<<choices>>
+[[절 뒤편으로 간다|D7_PushAway]]
+<</choices>>
+<</if>>
+
+
+:: D7_PushAway
+<<bg "temple">><<stage "all" "hide">><<stage "wolf" 30 "stand" "r">><<stage "hanbei" 62 "sit" "r">>
+<<n>>
+낡은 처마 아래,
+한베는 등을 돌린 채 앉아 있었다.
+
+검은 그의 곁에 없었다.
+<</n>>
+<<h>>
+돌아가게.
+<</h>>
+<<w>>
+어째서지.
+<</w>>
+<<if $saidNoCut>>
+<<h>>
+자네는 베고 싶지 않다고 했지.
+
+그래서 더 그렇네.
+싫으면서도, 끝내 내 부탁을 들어줄 것 같아서.
+<</h>>
+<<else>>
+<<h>>
+자네가 내 부탁을
+거절하지 못할 것 같아서.
+<</h>>
+<</if>>
+<<n>>
+한베는 웃지 않았다.
+
+그 침묵은,
+검보다 먼저 늑대를 밀어냈다.
+<</n>>
+<<h>>
+자네는 이미 충분히 많은 것을 베었네.
+
+내 끝까지 자네 손에 얹는 건,
+내가 할 일이 아니야.
+<</h>>
+<<choices>>
+[[나는 가지 않는다.|D7_Stay]]
+[[돌아선다|D7_Turn]]
+<</choices>>
+
+
+:: D7_Stay
+<<bg "temple">><<stage "hanbei" 62 "sit" "r">><<stage "wolf" 30 "stand" "r">>
+<<w>>
+나는 가지 않는다.
+<</w>>
+<<h>>
+늑대.
+<</h>>
+<<w>>
+검을 들러 온 것이 아니다.
+<</w>>
+<<stage "wolf" 54 "sit" "l">>
+<<n>>
+늑대는 한베의 곁에 앉았다.
+
+한베가 밀어낸 만큼의 거리를,
+검이 아니라 무릎으로 좁혔다.
+<</n>>
+<<if $hanbeiDist gte 3>>
+<<set $hanbeiDist to 4>>
+<<n>>
+등과 등이 닿았다.
+
+뒤를 보지 않아도,
+거기 누가 있는지 알았다.
+<</n>>
+<<note>>
+거리가 조금 줄었다.
+<</note>>
+<</if>>
+<<w>>
+오늘은 그냥 왔다.
+<</w>>
+<<n>>
+한베는 오래 대답하지 않았다.
+
+그 오래 걸리는 침묵 속에서,
+처음으로 아무것도 끝나지 않았다.
+<</n>>
+<<h>>
+그 말,
+
+아직도 좀 무섭군.
+<</h>>
+<<w>>
+그런가.
+<</w>>
+<<h>>
+그래.
+
+무서운데. 나쁘지는 않네.
+<</h>>
+<<memory "away">>
+<<choices>>
+[[해가 기운다|D7_Final]]
+<</choices>>
+
+
+:: D7_Turn
+<<set $leftHim to true>>
+<<bg "temple">><<stage "hanbei" 62 "sit" "r">><<stage "wolf" 30 "stand" "l">>
+<<n>>
+늑대는 돌아섰다.
+
+등 뒤에서는 아무 소리도 나지 않았다.
+<</n>>
+<<n>>
+그러나 해가 기울 무렵,
+발은 다시 같은 곳으로 향했다.
+<</n>>
+<<choices>>
+[[해가 기운다|D7_Final]]
+<</choices>>
+
+
+:: D7_Final
+<<bg "templeEve">><<tint "none">><<stage "all" "hide">><<stage "wolf" 44 "stand" "r">><<stage "hanbei" 64 "sit" "l">>
+<<n>>
+해는 기울고 있었다.
+
+한베는 평소와 같은 자리에 앉아 있었다.
+그러나 가면은 조금 느슨하게 묶여 있었다.
+<</n>>
+<<n>>
+늑대는 그 앞에 섰다.
+<</n>>
+<<h>>
+왔는가.
+<</h>>
+<<w>>
+왔다.
+<</w>>
+<<h>>
+오늘은 묻지 않겠네.
+
+대련하러 왔느냐고.
+<</h>>
+<<n>>
+늑대는 대답하지 않았다.
+
+한베는 작게 웃었다.
+그 웃음은 예전보다 조용했다.
+<</n>>
+<<if $saidNoCut>>
+<<h>>
+자네는 베고 싶지 않다고 했지.
+<</h>>
+<<w>>
+그렇다.
+<</w>>
+<<else>>
+<<h>>
+자네는 아직,
+
+내 부탁에 제대로 대답하지 않았지.
+<</h>>
+<</if>>
+<<h>>
+그래도 언젠가,
+그 검을 얻게 될지도 모르네.
+<</h>>
+<<w>>
+……
+<</w>>
+<<h>>
+그때 자네는,
+
+무엇을 하겠는가.
+<</h>>
+<<choices>>
+<<if $hanbeiDist gte 4 and $hanbeiCrack gte 2>>
+[[베지 않는다|E_True]]
+<<else>>
+[[베지 않는다|E_Empty][$emptyKind to "nocut"]]
+<</if>>
+[[그 약속을 받아들인다|E_Someday]]
+[[아무 말도 하지 않는다|E_Empty][$emptyKind to "silence"]]
+<<if $hanbeiDist lte 2 or $shura gte 2>>
+[[검을 확인한다|E_Hilt]]
+<</if>>
+<<if $shura gte 3>>
+[[검을 뽑는다|E_Shura]]
+<</if>>
+<</choices>>

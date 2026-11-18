@@ -1,7 +1,7 @@
 /* =========================================================
    Wolf: Sideways — 코드로 그리는 픽셀 아트
    - 배경: 256x144 캔버스. 그라데이션은 평평한 띠로 칠하고, 띠 경계에만 디더링을 넣는다.
-   - 스프라이트: 32x44(+외곽선 1px). 숨쉬기 2프레임.
+   - 스프라이트: 32x44(+외곽선 1px). 숨쉬기 2프레임. 도트 데이터는 sprites.js.
    - 배경과 스프라이트는 같은 배율로 확대한다 (engine.js의 layout).
    - 결과는 dataURL로 캐시.
    ========================================================= */
@@ -55,6 +55,7 @@
 
   /* v: 0~9 연속값. 소수부가 0.5 근처일 때만 두 단계를 디더링으로 섞는다. */
   Painter.prototype.tone = function (x, y, v) {
+    if (this.mood && !this.noMood) { v = this.mood(v, x, y); }
     if (v < 0) { v = 0; }
     if (v > TOP) { v = TOP; }
     var lo = Math.floor(v);
@@ -161,7 +162,9 @@
     p.fill(x - 5, baseY - 25, 11, 3, 1.0);
     p.fill(x - 1, baseY - 27, 3, 2, 1.0);
     p.fill(x - 5, baseY - 19, 11, 7, 1.7);
+    p.noMood = true;
     p.fill(x - 2, baseY - 17, 5, 3, 6.0);
+    p.noMood = false;
     p.fill(x - 2, baseY - 12, 5, 7, 2.0);
     p.fill(x - 6, baseY - 5, 13, 5, 2.5);
   }
@@ -176,9 +179,21 @@
   var W = 256, H = 144;
 
   /* ---------- 배경: 훈련장 (흐린 낮) ---------- */
-  function bgTraining() {
+  var MOODS = {
+    dawn: function (v, x, y) { return v * 0.62 + (y < 88 ? Math.max(0, (y - 20) / 68) * 1.9 : 0.2); },
+    eve: function (v) { return v * 0.6 + 0.35; },
+    night: function (v) { return v * 0.32 + 0.25; }
+  };
+
+  function stars(p, seed, maxY) {
+    var r = rng(seed);
+    for (var i = 0; i < 60; i++) { p.dot(r() * p.w, r() * maxY, PAL[3 + Math.floor(r() * 3)]); }
+  }
+
+  function bgTraining(mood) {
     var p = new Painter(W, H), r = rng(11), i, x, y;
     var GY = 88;
+    p.mood = MOODS[mood] || null;
 
     p.fill(0, 0, W, GY, function (x, y) { return 6.8 - y * 0.017; });
 
@@ -268,11 +283,13 @@
   }
 
   /* ---------- 배경: 황폐한 절 ---------- */
-  function bgTemple() {
+  function bgTemple(mood) {
     var p = new Painter(W, H), r = rng(23), i, x;
     var cx = 128;
+    p.mood = MOODS[mood] || null;
 
     p.fill(0, 0, W, 104, function (x, y) { return 6.5 - y * 0.015; });
+    if (mood === 'night') { stars(p, 41, 40); }
 
     /* 삼나무 실루엣 */
     [12, 30, 52, 196, 220, 244].forEach(function (tx, k) {
@@ -401,172 +418,12 @@
     return p.url();
   }
 
-  /* ---------- 스프라이트 (오른쪽을 보는 기준, 32x44) ----------
-     f = 숨쉬기 프레임(0/1): 상체를 1px 내린다. 발 바닥은 y=41. */
-  var K = '#0d0d0d', G = '#262626', G2 = '#3a3a3a', L = '#b4b4b4', E = '#dadada', W2 = '#5a5a5a';
-
-  function hanbeiUpper(p, dy) {
-    var y = dy;
-    /* 투구 장식 */
-    p.line(11, y + 0, 13, y + 4, K);
-    p.line(20, y + 0, 18, y + 4, K);
-    p.rect(15, y + 2, 2, 3, G);
-    /* 투구와 목가리개 */
-    p.rect(12, y + 4, 8, 1, K);
-    p.rect(11, y + 5, 10, 4, K);
-    p.rect(9, y + 9, 13, 1, G);
-    p.rect(8, y + 10, 8, 3, G);
-    /* 얼굴(면갑) */
-    p.rect(14, y + 9, 7, 5, K);
-    p.rect(15, y + 12, 6, 2, G);
-    p.dot(19, y + 10, E);
-    /* 목 */
-    p.rect(12, y + 14, 8, 2, G);
-    /* 몸통 */
-    p.rect(11, y + 16, 10, 9, K);
-    p.rect(12, y + 18, 8, 1, G2);
-    p.rect(12, y + 21, 8, 1, G2);
-    /* 뒤쪽 어깨 갑옷과 팔 */
-    p.rect(7, y + 15, 5, 8, G);
-    p.rect(7, y + 17, 5, 1, K);
-    p.rect(7, y + 20, 5, 1, K);
-    p.rect(8, y + 23, 3, 4, K);
-    /* 앞쪽 어깨 갑옷 */
-    p.rect(19, y + 15, 6, 8, G);
-    p.rect(19, y + 17, 6, 1, K);
-    p.rect(19, y + 20, 6, 1, K);
-    /* 허리 */
-    p.rect(11, y + 25, 10, 1, G2);
-    p.rect(9, y + 26, 14, 6, G);
-    [12, 15, 18, 21].forEach(function (gx) { p.rect(gx, y + 26, 1, 6, K); });
-  }
-
-  function drawHanbei(p, pose, f) {
-    if (pose === 'sit') {
-      hanbeiUpper(p, 9 + f);
-      p.rect(8, 35, 18, 4, K);
-      p.rect(9, 37, 6, 2, G);
-      p.rect(19, 37, 6, 2, G);
-      p.rect(7, 39, 20, 2, K);
-      p.rect(21, 33, 3, 4, K);
-      p.line(2, 41, 18, 41, L);
-      p.rect(0, 41, 3, 1, G2);
-      return;
-    }
-
-    if (pose === 'shoulder') {          /* 칼날은 몸 뒤로 지나가게 먼저 그린다 */
-      p.line(24, 21 + f, 1, 9 + f, L);
-      p.line(24, 22 + f, 1, 10 + f, L);
-    }
-
-    /* 다리 */
-    p.rect(11, 32, 4, 8, K);
-    p.rect(17, 32, 4, 8, K);
-    p.rect(11, 35, 4, 3, G);
-    p.rect(17, 35, 4, 3, G);
-    p.rect(10, 40, 5, 2, K);
-    p.rect(17, 40, 6, 2, K);
-
-    hanbeiUpper(p, f);
-
-    if (pose === 'shoulder') {          /* 검을 어깨에 걸침: 앞에는 칼자루와 손 */
-      p.rect(23, 20 + f, 3, 4, G2);
-      p.rect(21, 22 + f, 3, 3, K);
-    } else if (pose === 'draw') {       /* 검을 앞으로 겨눔 */
-      p.rect(21, 22 + f, 5, 3, K);
-      p.rect(25, 21 + f, 2, 4, G2);
-      p.line(27, 21 + f, 31, 12 + f, L);
-      p.line(27, 20 + f, 30, 13 + f, L);
-    } else if (pose === 'rest') {       /* 검을 바닥에 내려놓음 */
-      p.rect(21, 23 + f, 3, 6, K);
-      p.line(13, 42, 31, 42, L);
-      p.rect(9, 42, 4, 1, G2);
-    } else {                            /* 기본: 검을 세워 짚음 */
-      p.rect(21, 23 + f, 3, 4, K);
-      p.rect(24, 22, 2, 5, G2);
-      p.rect(23, 27, 4, 1, G);
-      p.line(24, 28, 24, 41, L);
-      p.line(25, 28, 25, 41, L);
-    }
-  }
-
-  function wolfUpper(p, dy, f) {
-    var y = dy;
-    /* 상투와 뒤로 묶은 머리 */
-    p.rect(14, y + 1, 4, 2, K);
-    p.dot(15, y + 0, K);
-    p.rect(11, y + 3, 2, 3, K);
-    p.rect(10, y + 5, 2, 3, K);
-    /* 머리 */
-    p.rect(13, y + 3, 6, 8, K);
-    p.rect(12, y + 4, 1, 5, K);
-    p.dot(17, y + 6, E);
-    /* 목도리와 끝자락 (바람에 흔들림) */
-    p.rect(12, y + 11, 8, 3, G);
-    for (var k = 0; k < 3; k++) {
-      p.line(12, y + 12 + k, 4 + k, y + 17 + k + f, G);
-      p.line(11, y + 12 + k, 3 + k, y + 17 + k + f, G);
-    }
-    /* 몸통 */
-    p.rect(13, y + 14, 7, 11, K);
-    p.line(16, y + 14, 18, y + 17, G);
-    /* 허리띠 */
-    p.rect(13, y + 25, 7, 2, G);
-    /* 허리의 칼집 */
-    p.line(5, y + 28, 19, y + 24, G2);
-  }
-
-  function prosthetic(p, x, y, horizontal) {
-    if (horizontal) {
-      p.rect(x, y, 6, 3, G2);
-      p.dot(x + 2, y + 1, W2);
-      p.dot(x + 4, y + 1, W2);
-    } else {
-      p.rect(x, y, 3, 9, G2);
-      p.dot(x + 1, y + 3, W2);
-      p.dot(x + 1, y + 6, W2);
-      p.rect(x, y + 9, 3, 2, K);
-    }
-  }
-
-  function drawWolf(p, pose, f) {
-    if (pose === 'sit') {
-      wolfUpper(p, 9 + f, f);
-      prosthetic(p, 16, 26 + f, false);
-      p.rect(10, 36, 15, 3, K);
-      p.rect(9, 39, 17, 2, K);
-      p.rect(24, 39, 3, 2, K);
-      return;
-    }
-
-    /* 하카마와 다리 */
-    p.rect(12, 27, 9, 5, K);
-    p.rect(11, 31, 11, 3, K);
-    p.rect(13, 34, 3, 6, K);
-    p.rect(18, 34, 3, 6, K);
-    p.rect(13, 37, 3, 2, G);
-    p.rect(18, 37, 3, 2, G);
-    p.rect(12, 40, 4, 2, K);
-    p.rect(18, 40, 5, 2, K);
-
-    wolfUpper(p, f, f);
-
-    if (pose === 'guard') {             /* 칼을 뽑아 겨눔 */
-      p.rect(18, 18 + f, 5, 3, K);
-      prosthetic(p, 17, 20 + f, true);
-      p.rect(23, 18 + f, 2, 3, G2);
-      p.line(25, 18 + f, 31, 9 + f, L);
-      p.line(25, 17 + f, 30, 9 + f, L);
-    } else {
-      p.line(19, 24 + f, 23, 22 + f, K);  /* 칼자루 */
-      prosthetic(p, 16, 15 + f, false);
-    }
-  }
-
-  var SPRITES = { hanbei: drawHanbei, wolf: drawWolf };
   var BGS = {
     training: { draw: bgTraining, ground: 106, particles: 'leaves' },
+    trainingDawn: { draw: function () { return bgTraining('dawn'); }, ground: 106, particles: 'dust' },
     temple: { draw: bgTemple, ground: 101, particles: 'dust' },
+    templeEve: { draw: function () { return bgTemple('eve'); }, ground: 101, particles: 'leaves' },
+    templeNight: { draw: function () { return bgTemple('night'); }, ground: 101, particles: 'dust' },
     night: { draw: bgNight, ground: 101, particles: 'ash' },
     dark: { draw: bgDark, ground: 108, particles: 'ash' }
   };
@@ -577,16 +434,17 @@
     H: H,
     SPRITE_W: 34,
     SPRITE_H: 46,
-    SPRITE_FOOT: 43,   /* 스프라이트 이미지에서 발바닥 외곽선이 놓이는 행 */
+    SPRITE_FOOT: 45,   /* 스프라이트 이미지에서 발바닥 아래 경계가 놓이는 행 */
     PAL: PAL,
-    sprite: function (who, pose, frame) {
-      var key = 's:' + who + ':' + pose + ':' + (frame || 0);
+    /* 캐릭터 도트는 sprites.js. colorOn이면 늑대의 목도리 등에 색이 돌아온다 */
+    sprite: function (who, pose, frame, colorOn) {
+      var key = 's:' + who + ':' + pose + ':' + (frame || 0) + ':' + (colorOn ? 1 : 0);
       if (!cache[key]) {
         var p = new Painter(34, 46);
         p.ox = 1;
         p.oy = 1;
-        SPRITES[who](p, pose, frame || 0);
-        p.outline('#737373');
+        sw.spriteData.draw(p, who, pose, frame || 0, colorOn);
+        p.outline('#5e5e5e');
         cache[key] = p.url();
       }
       return cache[key];
