@@ -14,6 +14,12 @@
 <<set $itemOldBottleStopper = false>>
 <<set $itemTeaShard = false>>
 <<set $itemBlackFeather = false>>
+<<set $hasSword = false>>
+<<set $hasProsthetic = false>>
+<<set $swordFound = false>>
+<<set $prostheticFound = false>>
+<<set $centipedeCutFromScarecrow = false>>
+<<set $triedToRemoveCentipedeBarehanded = false>>
 <<set $itemOldBottleStopperUsed = false>>
 <<set $itemTeaShardUsed = false>>
 <<set $itemBlackFeatherUsed = false>>
@@ -112,7 +118,13 @@
 <div class="choice-prompt">$day번째 밤.
 남은 행동: $actionsLeft
 
-갈대가 달빛 아래 흔들린다.</div>
+갈대가 달빛 아래 흔들린다.
+
+<<if $hasSword>>
+손에 남은 것: 녹슨 칼
+<<else>>
+손에 남은 것: 없음
+<</if>></div>
 
 <div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box purgatory-choice-box">
@@ -376,6 +388,10 @@
 갈대 사이에는
 낡은 마개 하나가 놓여 있었다.
 
+<<elseif $centipedeCutFromScarecrow>>
+지네가 지나가던 갑옷 틈은 비어 있었다.
+허수아비는 전보다 가볍게 흔들렸다.
+
 <</if>>이번에는 허수아비가 먼저 웃지 않았다.
 
 갑옷 틈새로
@@ -393,8 +409,13 @@
 
 늑대의 손은 비어 있었다.
 
+<<if $hasSword>>
+녹슨 칼의 무게가
+손 안쪽에 남아 있었다.
+<<else>>
 칼이 없다는 것을,
-그는 그제야 떠올렸다.</div>
+그는 그제야 떠올렸다.
+<</if>></div>
 <div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box purgatory-choice-box">
 <<link "허수아비의 웃음을 듣는다">>
@@ -422,6 +443,22 @@
     <<set $attachment += 1>>
     <<set $itemOldBottleStopperUsed = true>>
     <<goto "Purgatory_Hanbei_ItemReaction_01">>
+  <</link>>
+<</if>>
+<<if not $hasSword and not $triedToRemoveCentipedeBarehanded>>
+  <<link "맨손으로 지네를 떼어내려 한다">>
+    <<set $triedToRemoveCentipedeBarehanded = true>>
+    <<set $isolation -= 1>>
+    <<if $isolation < 0>><<set $isolation = 0>><</if>>
+    <<goto "Purgatory_Scarecrow_Centipede_Barehanded">>
+  <</link>>
+<</if>>
+<<if $hasSword and not $centipedeCutFromScarecrow>>
+  <<link "지네를 벤다">>
+    <<set $centipedeCutFromScarecrow = true>>
+    <<set $echoHanbei += 1>>
+    <<set $shura += 1>>
+    <<goto "Purgatory_Scarecrow_Centipede_Cut">>
   <</link>>
 <</if>>
 </div>
@@ -813,6 +850,82 @@
 </div>
 </div>
 
+:: Purgatory_Scarecrow_Centipede_Barehanded {"position":"3535,335","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 손을 뻗었다.
+
+의수는 없었다.
+칼도 없었다.
+
+그래도 손은 허수아비의 갑옷 틈으로 들어갔다.
+
+짚은 젖어 있었고,
+지네는 그 안쪽에서 천천히 몸을 뒤틀었다.
+
+허수아비가 웃었다.
+
+"그걸 맨손으로 잡겠다고?
+죽지 못하는 쪽이 나였던 것 같은데."
+
+농담처럼 들렸다.
+
+그러나 지네가 움직일 때마다
+허수아비의 몸은 아주 조금씩 무너졌다.
+
+늑대는 손을 거두었다.
+
+아직은,
+벨 것이 필요했다.
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box purgatory-choice-box">
+      <<link "갈대밭으로 돌아간다">>
+        <<goto "Purgatory_ActionReturnRouter">>
+      <</link>>
+    </div>
+  </div>
+</div>
+
+:: Purgatory_Scarecrow_Centipede_Cut {"position":"3660,335","size":"100,100"}
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 칼을 뽑았다.
+
+녹슨 칼은 무거웠다.
+그러나 손은 그 무게를 알고 있었다.
+
+허수아비의 갑옷 틈에서
+거대한 지네가 몸을 비틀었다.
+
+베었다.
+
+갈대밭은 조용했다.
+
+지네는 짚 사이로 떨어졌고,
+한동안 꿈틀거리다가
+달빛 아래에서 마른 껍질처럼 굳었다.
+
+허수아비는 웃지 않았다.
+
+"......고맙다고 해야 하나?"
+
+바람이 불었다.
+
+갑옷 입은 허수아비는
+전보다 조금 가볍게 흔들렸다.
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box purgatory-choice-box">
+      <<link "갈대밭으로 돌아간다">>
+        <<goto "Purgatory_ActionReturnRouter">>
+      <</link>>
+    </div>
+  </div>
+</div>
+
 :: Purgatory_NightChoice {"position":"2975,75","size":"100,100"}
 <<set $timeOfDay = "night">>
 <div class="choice-screen night-choice-screen">
@@ -967,7 +1080,9 @@
 </div>
 
 :: Purgatory_WanderReedfieldRouter {"position":"3100,125","size":"100,100"}
-<<if $shura >= 3>>
+<<if not $hasSword and $nightScoutCount >= 1>>
+  <<goto "Purgatory_Wander_FindSword_01">>
+<<elseif $shura >= 3>>
   <<goto "Purgatory_Wander_Shura_01">>
 <<elseif $fatherVoice >= 3 and not $itemBlackFeather>>
   <<goto "Purgatory_Wander_Item_BlackFeather">>
@@ -978,6 +1093,44 @@
 <<else>>
   <<goto "Purgatory_Wander_Default_01">>
 <</if>>
+
+:: Purgatory_Wander_FindSword_01 {"position":"3225,75","size":"100,100"}
+<<set $hasSword = true>>
+<<set $swordFound = true>>
+<div class="narration-screen purgatory-event-screen">
+  <div class="narration narration-block purgatory-event-text">
+늑대는 갈대밭을 헤매다 멈춰 섰다.
+
+달빛은 아직 가늘었다.
+그러나 갈대 사이에 박힌 것은
+그 얇은 빛만으로도 알아볼 수 있었다.
+
+칼이었다.
+
+녹이 슬었고,
+흙이 묻어 있었고,
+손잡이에는 오래된 천이 감겨 있었다.
+
+늑대는 그것을 자신의 것이라 생각하지 않았다.
+
+그러나 손이 먼저 움직였다.
+
+칼을 뽑자,
+갈대밭 어딘가에서
+무언가가 아주 작게 숨을 삼켰다.
+
+기억의 물건을 얻었다.
+[녹슨 칼]
+  </div>
+
+  <div class="global-choice-layer purgatory-choice-layer">
+    <div class="global-choice-box purgatory-choice-box">
+      <<link "칼을 들고 갈대밭으로 돌아간다">>
+        <<goto "Purgatory_ActionReturnRouter">>
+      <</link>>
+    </div>
+  </div>
+</div>
 
 :: Purgatory_Wander_Default_01 {"position":"3225,125","size":"100,100"}
 <div class="narration-screen purgatory-event-screen">
@@ -1429,6 +1582,24 @@
 <<if $hanbeiKeptBlade>>
 허수아비는 마지막까지 술을 따르지 않았다.
 그 대신 늑대의 손을 보고 있었다.
+<</if>>
+
+<<if $centipedeCutFromScarecrow>>
+갑옷 틈에는 더 이상 지네가 없었다.
+
+허수아비는 여전히 서 있었지만,
+그 흔들림은 전보다 가벼웠다.
+
+칼자국은 남았다.
+그러나 그것은 베기 위해 남은 자국만은 아니었다.
+<</if>>
+
+<<if $triedToRemoveCentipedeBarehanded and not $centipedeCutFromScarecrow>>
+늑대의 손에는
+젖은 짚의 감각이 남아 있었다.
+
+끝내 떼어내지 못한 것이
+허수아비의 몸속에서 아직 움직이고 있었다.
 <</if>></div>
 <div class="global-choice-layer purgatory-choice-layer">
 <div class="global-choice-box purgatory-choice-box">
